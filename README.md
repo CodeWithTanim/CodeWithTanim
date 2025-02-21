@@ -25,15 +25,15 @@ sh-2.0$ /bin/bash -i
     <a href="https://t.me/CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/Telegram-%232CA5E0?style=for-the-badge&logoColor=white&logo=telegram"
             alt="Telegram"></a>
-    <a href="https://www.linkedin.com/in/CodeWIthTanim" target="_blank"><img
+    <a href="https://www.linkedin.com/in/CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/LinkedIn-%230077B5?style=for-the-badge&logo=linkedin" alt="LinkedIn"></a>
-    <a href="https://facebook.com/CodeWIthTanim" target="_blank"><img
+    <a href="https://facebook.com/CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/Facebook-%231877F2?style=for-the-badge&logoColor=white&logo=facebook"
             alt="Facebook"></a>
-    <a href="https://instagram.com/CodeWIthTanim" target="_blank"><img
+    <a href="https://instagram.com/CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/Instagram-%23E4405F?style=for-the-badge&logoColor=white&logo=instagram"
             alt="Instagram"></a>
-    <a href="https://youtube.com/@CodeWIthTanim" target="_blank"><img
+    <a href="https://youtube.com/@CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/YouTube-white?style=for-the-badge&logoColor=red&logo=YouTube"
             alt="GPG Key"></a>
 </p>
@@ -63,32 +63,28 @@ sh-2.0$ /bin/bash -i
         <th>Description</th>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWIthTanim/TERMUX-SETUP-PRO">TERMUX-PRO-SETUP</a></td>
+        <td><a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO">TERMUX-PRO-SETUP</a></td>
         <td>An automated setup tool for Termux.</td>
     </tr>
-    <!-- <tr>
-        <td><a href="https://github.com/modded-ubuntu/modded-ubuntu">modded-ubuntu</a></td>
-        <td>Run Ubuntu GUI on termux based on Proot-Distro.</td>
-    </tr> -->
-    <!-- <tr>
-        <td><a href="https://github.com/hax0rtahm1d/Reverse-Engineering">Reverse-Engineering</a></td>
-        <td>Some tools reverse engineered by me (mostly python).</td>
-    </tr> -->
     <tr>
-        <td><a href="https://github.com/CodeWIthTanim/TOXIC-ENC">TOXIC-ENC</a></td>
-        <td>Encode any py code.</td>
+        <td><a href="https://github.com/CodeWithTanim/ENC">ENC</a></td>
+        <td>Encrypt any Python Scripts.</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWIthTanim/Password-Generator">Password Generator</a></td>
+        <td><a href="https://github.com/CodeWithTanim/Password-Generator">Password Generator</a></td>
         <td>It works for making strong password.</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWIthTanim/Cosmetics-Product-Management-System">Cosmetics Products Management System</a></td>
+        <td><a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System">Cosmetics Products Management System</a></td>
         <td>A product management website.</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWIthTanim/Unclickable-Love">Unclickable Love</a></td>
+        <td><a href="https://github.com/CodeWithTanim/Unclickable-Love">Unclickable Love</a></td>
         <td>A funny website made with unclickable button.</td>
+    </tr>
+        <tr>
+        <td><a href="https://github.com/CodeWithTanim/Tik-Tak-Toe">Tik-Tak-Toe</a></td>
+        <td>This is a Tik-Tak-Toe Game.</td>
     </tr>
 </table>
 
@@ -96,7 +92,7 @@ sh-2.0$ /bin/bash -i
 
 <!-- Languages -->
 ### `~# head language`
-<a href="#"><img align="right" height=150 src="https://github-readme-stats.vercel.app/api/top-langs/?username=CodeWIthTanim&layout=compact&theme=react&hide=html,css&hide_border=true&card_width=380&hide_title=true&langs_count=6"></a>
+<a href="#"><img align="right" height=150 src="https://github-readme-stats.vercel.app/api/top-langs/?username=CodeWithTanim&layout=compact&theme=react&hide=html,css&hide_border=true&card_width=380&hide_title=true&langs_count=6"></a>
 
 ```python
 class Languages:
@@ -142,14 +138,14 @@ class Languages:
 
 <!-- GitHub Trophy -->
 ### `~# ./Trophy`
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=CodeWIthTanim" alt="CodeWIthTanim" /></a> </p>
+<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=CodeWithTanim" alt="CodeWithTanim" /></a> </p>
 
 <!-- GitHub Stats -->
 ### `~# ./Stats`
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=CodeWIthTanim&show_icons=true&locale=en" alt="CodeWIthTanim" /></p>
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=CodeWithTanim&show_icons=true&locale=en" alt="CodeWithTanim" /></p>
 
 <!-- GitHub Contribution -->
 ### `~# ./Contribution`
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=CodeWIthTanim" alt="CodeWIthTanim" /></p>
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=CodeWithTanim" alt="CodeWithTanim" /></p>
 <!-- end -->
 
