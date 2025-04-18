@@ -36,6 +36,9 @@ sh-2.0$ /bin/bash -i
     <a href="https://youtube.com/@CodeWithTanim" target="_blank"><img
             src="https://img.shields.io/badge/YouTube-white?style=for-the-badge&logoColor=red&logo=YouTube"
             alt="GPG Key"></a>
+    <a href="https://exploitinject.ct.ws/" target="_blank"><img
+            src="https://img.shields.io/badge/Website-Green?style=for-the-badge&logoColor=red&logo=Earth"
+            alt="GPG Key"></a>
 </p>
 <hr />
 
