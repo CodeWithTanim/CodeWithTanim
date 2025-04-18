@@ -16,7 +16,7 @@ A Passionate <b>Developer</b> from <i><b>BANGLADESH</b></i>
 sh-2.0$ /bin/bash -i
 ~#
 ~# ls
-<a href="#-AboutMe">AboutMe</a> <a href="#-projects">Projects</a> <a href="#-head-language">language</a> <a href="#-sysinfo">sysinfo*</a> <a href="#-Trophy">Trophy</a> <a href="#-Stats">Stats</a> <a href="#-Contribution">Contribution</a>
+<a href="#-AboutMe">AboutMe</a> <a href="#-projects">Projects</a> <a href="#-head-language">language</a> <a href="#-sysinfo">sysinfo*</a> <a href="#-Trophy">Trophy</a> <a href="#-Stats">Stats</a> <a href="#Streak">Streak</a> <a href="#-Contribution">Contribution</a>
 </pre>
 
 <!-- Social Badges-->
@@ -152,10 +152,10 @@ class Languages:
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=CodeWithTanim&show_icons=true&locale=en" alt="CodeWithTanim" /></p>
 
 <!-- GitHub Contribution -->
-### `~# ./Contribution`
+### `~# ./Streak`
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=CodeWithTanim" alt="CodeWithTanim" /></p>
 
-### Snake Eating My Contributions 🐍
+### `~# ./Contribution`
 <br clear="both">
 
 <img src="https://raw.githubusercontent.com/CodeWithTanim/CodeWithTanim/output/snake.svg" alt="Snake animation" />
