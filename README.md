@@ -61,30 +61,37 @@ sh-2.0$ /bin/bash -i
     <tr>
         <th>Repository Name</th>
         <th>Description</th>
+        <th>Date</th>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO">TERMUX-PRO-SETUP</a></td>
         <td>An automated setup tool for Termux.</td>
+        <td>Oct 19, 2023</td>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/ENC">ENC</a></td>
         <td>Encrypt any Python Scripts.</td>
+        <td>Jan 30, 2025</td>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/Password-Generator">Password Generator</a></td>
         <td>It works for making strong password.</td>
+        <td>Oct 20, 2024</td>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System">Cosmetics Products Management System</a></td>
         <td>A product management website.</td>
+        <td>Oct 2024</td>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/Unclickable-Love">Unclickable Love</a></td>
         <td>A funny website made with unclickable button.</td>
+        <td>Feb 20, 2024</td>
     </tr>
         <tr>
         <td><a href="https://github.com/CodeWithTanim/Tik-Tak-Toe">Tik-Tak-Toe</a></td>
         <td>This is a Tik-Tak-Toe Game.</td>
+        <td>Feb 23, 2025</td>
     </tr>
 </table>
 
@@ -149,6 +156,8 @@ class Languages:
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=CodeWithTanim" alt="CodeWithTanim" /></p>
 
 ### Snake Eating My Contributions 🐍
-<img src="https://raw.githubusercontent.com/CodeWithTanim/output/snake.svg" alt="Snake animation" />
+<br clear="both">
+
+<img src="https://raw.githubusercontent.com/CodeWithTanim/CodeWithTanim/output/snake.svg" alt="Snake animation" />
 <!-- end -->
 
