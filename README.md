@@ -96,6 +96,12 @@ sh-2.0$ /bin/bash -i
         <td>This is a Tik-Tak-Toe Game.</td>
         <td>Feb 23, 2025</td>
     </tr>
+        </tr>
+        <tr>
+        <td><a href="https://github.com/CodeWithTanim/Online-Quiz-App">Online-Quiz-App</a></td>
+        <td>A simple and interactive online quiz app.</td>
+        <td>Mar 29, 2025</td>
+    </tr>
 </table>
 
 <br/>
