@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio of MD Samiur Rahman Tanim - Computer Science student, developer, and content creator specializing in web development, programming, and software engineering.">
+    <meta name="keywords" content="portfolio, developer, web development, programming, computer science, Python, JavaScript, React, Node.js, Bangladesh developer">
+    <meta name="author" content="MD Samiur Rahman Tanim">
+    <meta property="og:title" content="MD SAMIUR RAHMAN TANIM | Portfolio">
+    <meta property="og:description" content="Portfolio of a passionate Computer Science student and developer showcasing skills, projects, and contact information.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://codewithtanim.github.io">
+    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@CodeWithTanim">
+    <link rel="canonical" href="https://codewithtanim.github.io">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>MD SAMIUR RAHMAN TANIM | Computer Science Student & Developer Portfolio</title>
+    <style>
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            scroll-padding-top: 70px;
+            position: relative;
+            background: #0f0f1a;
+            overflow-x: hidden;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            display: block;
+            background: transparent;
+        }
+
+        a {
+            color: #00d8ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00aacc;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #121223;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #00d8ff;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        main {
+            margin-top: 80px;
+            flex-grow: 1;
+            max-width: 1200px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 50px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+            scroll-margin-top: 80px;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00d8ff;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #00d8ff;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: auto;
+                /* Flexible height on mobile */
+                padding: 15px;
+            }
+
+            main {
+                margin-top: 100px;
+                /* More space on mobile */
+            }
+        }
+
+        /* Hero / About */
+        #about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            padding-top: 80px
+        }
+
+        #about img {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid #00d8ff;
+            box-shadow: 0 0 15px #00d8ff88;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        #about .info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        #about .info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #00d8ff;
+        }
+
+        #about .info p {
+            font-size: 1.1rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* Skills */
+        #skills ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        #skills li {
+            background: #222236;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 0 8px #00d8ff55;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        #skills li:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #00d8ffcc;
+        }
+
+        /* Projects */
+        #projects .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: #121223;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px #00d8ff66;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px #00d8ffcc;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 2px solid #00d8ff;
+        }
+
+        .project-card .content {
+            padding: 15px 20px;
+            flex-grow: 1;
+        }
+
+        .project-card h3 {
+            margin-bottom: 8px;
+            color: #00d8ff;
+        }
+
+        .project-card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .project-card a {
+            margin-top: 10px;
+            display: inline-block;
+            font-weight: 700;
+            background: #00d8ff;
+            color: #0f0f1a;
+            padding: 8px 14px;
+            border-radius: 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-card a:hover {
+            background: #0088aa;
+            color: #fff;
+        }
+
+        /* YouTube Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00d8ff66;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px #00d8ffcc;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-info,
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info {
+            background: #121223;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00d8ff88;
+        }
+
+        .contact-info h3 {
+            color: #00d8ff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #00d8ff55;
+            padding-bottom: 0.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-details p {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-details a {
+            color: #00d8ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #00aacc;
+            text-decoration: underline;
+        }
+
+        /* Social Media Grid */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 216, 255, 0.6);
+        }
+
+        .social-btn i {
+            color: white;
+        }
+
+        /* Social Media Brand Colors */
+        .facebook {
+            background: #3b5998;
+        }
+
+        .twitter {
+            background: #000000;
+        }
+
+        .linkedin {
+            background: #0077b5;
+        }
+
+        .github {
+            background: #333;
+        }
+
+        .instagram {
+            background: #e1306c;
+        }
+
+        .discord {
+            background: #5865f2;
+        }
+
+        .youtube {
+            background: #ff0000;
+        }
+
+        /* Contact Form */
+        .contact-form form {
+            background: #121223;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00d8ff88;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00d8ff;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            border: none;
+            background: #222236;
+            color: #eee;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            background-color: #2a2a44;
+            outline: none;
+            box-shadow: 0 0 8px #00d8ff55;
+        }
+
+        .contact-form button {
+            background: #00d8ff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: #0f0f1a;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .contact-form button:hover {
+            background: #0088aa;
+            color: white;
+            box-shadow: 0 0 15px #00d8ff88;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 10px;
+            background: #121223;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #222236;
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 1024px) {
+            main {
+                margin-top: 70px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            header h1 {
+                margin-bottom: 1rem;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            #about {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #about img {
+                margin: 0 auto 20px;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .contact-info,
+            .contact-form {
+                width: 100%;
+            }
+
+            section {
+                scroll-margin-top: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            #about .info h2 {
+                font-size: 1.8rem;
+            }
+
+            #about .info p {
+                font-size: 1rem;
+            }
+
+            #skills li {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .project-card .content {
+                padding: 12px 15px;
+            }
+
+            .project-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .project-card p {
+                font-size: 0.85rem;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .contact-form button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .social-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            #projects .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="starfield"></canvas>
+
+    <header>
+        <h1>MD SAMIUR RAHMAN TANIM</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#youtube-videos">YouTube</a>
+            <a href="#courses">Courses</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="animate">
+            <img src="https://i.ibb.co/1GsW1n6m/tanim.jpg" alt="MD Samiur Rahman Tanim Profile Picture" />
+            <div class="info">
+                <h1>Hello, I'm MD SAMIUR RAHMAN TANIM</h1>
+                <p>
+                    A passionate Computer Science student and developer currently pursuing B.Tech.
+                    Skilled in web development, programming, and software engineering.
+                    I love crafting elegant and efficient code, and creating useful projects.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="animate">
+            <h2>Technical Skills</h2>
+            <ul>
+                <li>C Programming</li>
+                <li>Python Development</li>
+                <li>JavaScript</li>
+                <li>Java</li>
+                <li>MySQL Database</li>
+                <li>React Framework</li>
+                <li>Node.js</li>
+                <li>HTML & CSS</li>
+                <li>Git Version Control</li>
+                <li>Cyber Security</li>
+            </ul>
+        </section>
+
+        <section id="projects" class="animate">
+            <h2>Featured Projects</h2>
+            <div class="project-list">
+                <div class="project-card">
+                    <img src="https://i.ibb.co/fzdmccq4/cpms.jpg" alt="Cosmetics Product Management System" />
+                    <div class="content">
+                        <h3>Cosmetics Product Management</h3>
+                        <p>PHP & MySQL inventory management system for cosmetics products with admin dashboard and reporting features.</p>
+                        <a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System"
+                            target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://i.ibb.co/jvL0t7JF/Online-Quiz-App.jpg" alt="Online Quiz Application" />
+                    <div class="content">
+                        <h3>Online Quiz App</h3>
+                        <p>A responsive quiz platform with Firebase authentication, real-time scoring system, and multiple question types.</p>
+                        <a href="https://github.com/CodeWithTanim/Online-Quiz-App" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://i.ibb.co/20FRqKN4/termux-setup-command.jpg" alt="Termux Setup Pro Tool" />
+                    <div class="content">
+                        <h3>TERMUX-SETUP-PRO</h3>
+                        <p>Automation script to setup Termux environment with developer tools, packages, and configurations quickly.</p>
+                        <a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://i.ibb.co/xKzSNf1v/enc.jpg" alt="TOXIC-ENC Encryption Tool" />
+                    <div class="content">
+                        <h3>TOXIC-ENC (ENC)</h3>
+                        <p>Python security tool to encrypt Termux scripts with AES-256 encryption for code protection.</p>
+                        <a href="https://github.com/CodeWithTanim/ENC" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://i.ibb.co/fYnSLvhp/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" />
+                    <div class="content">
+                        <h3>Tic-Tac-Toe Game</h3>
+                        <p>Terminal-based Tic-Tac-Toe game written in Python with AI opponent and score tracking.</p>
+                        <a href="https://github.com/CodeWithTanim/Tic-Tak-Toe" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Videos Section -->
+        <section id="youtube-videos" class="animate">
+            <h2>Programming Tutorial Videos</h2>
+            <div class="video-grid">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/A3yCRuOFBAg?si=9N1lIaRvbhv2K1Fj" 
+                        title="Python Programming Tutorial by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/rqD_XEzpGO8?si=4lTKG48yp8FQffOj" 
+                        title="Web Development Guide by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/MseArBB8AT4?si=Rccooewgn_9eFr76" 
+                        title="JavaScript Tutorial for Beginners by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/NYdC12iRbfA?si=qmCFBDRMwjNDB92i" 
+                        title="Termux Setup Tutorial by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="animate">
+            <h2>Programming Courses</h2>
+            <div class="video-grid">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/f9plA379QPs?si=3Df2V9YDN60XuAUA"
+                        title="Intellectual Property Course by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/3RwZ73pBTMI?si=qVto-7MoJRmCiimB"
+                        title="Be Termux Pro User Course by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/GWsMvg3MtH0?si=w110_FuoPHA78gsF"
+                        title="100 Days of Python Challenge by MD Samiur Rahman Tanim"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="animate">
+            <h2>Contact Information</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-envelope"></i> <a
+                                href="mailto:exploitinject+admin@gmail.com">exploitinject+admin@gmail.com</a></p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+8801326157012">+880 1326 157012 (BD)</a> | <a
+                                href="tel:+919864262629">+91 9864 262629 (IN)</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Guwahati, Assam, India | Pabna, Rajshahi, Bangladesh
+                        </p>
+                    </div>
+
+                    <h3>Social Media Profiles</h3>
+                    <div class="social-grid">
+                        <a href="https://www.facebook.com/CodeWithTanim/" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/CodeWithTanim/" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/CodeWithTanim" target="_blank" rel="noopener noreferrer" class="social-btn github">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/CodeWithTanim" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.x.com/CodeWithTanim" target="_blank" rel="noopener noreferrer" class="social-btn twitter">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://discord.gg/5Ed5WzMbjb" target="_blank" rel="noopener noreferrer" class="social-btn discord">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@CodeWithTanim" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form action="https://formspree.io/f/xwpojjwk" method="POST">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required />
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email" required />
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> MD SAMIUR RAHMAN TANIM | Computer Science Student & Developer | All rights reserved.
+    </footer>
+
+    <script>
+        // Animate sections on scroll
+        const sections = document.querySelectorAll('section.animate');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        sections.forEach(section => observer.observe(section));
+
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const numStars = 150;
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function createStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    radius: Math.random() * 1.2 + 0.2,
+                    alpha: Math.random(),
+                    alphaChange: 0.005 * (Math.random() > 0.5 ? 1 : -1),
+                    speed: randomRange(0.02, 0.1)
+                });
+            }
+        }
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.x -= star.speed;
+                if (star.x < 0) star.x = canvas.width;
+                star.alpha += star.alphaChange;
+                if (star.alpha <= 0.2 || star.alpha >= 1) star.alphaChange = -star.alphaChange;
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 216, 255, ${star.alpha})`;
+                ctx.shadowColor = `rgba(0, 216, 255, ${star.alpha})`;
+                ctx.shadowBlur = 8;
+                ctx.fill();
+            });
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            createStars();
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Initialize
+        resize();
+        createStars();
+        update();
+    </script>
+</body>
+
+</html>
