@@ -161,11 +161,20 @@
 
         /* Hero / About */
         #about {
+            padding-top: 80px;
+            margin-bottom: 60px;
+        }
+
+        .about-content {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
             align-items: center;
-            padding-top: 80px
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 280px;
         }
 
         #about img {
@@ -176,6 +185,68 @@
             border: 4px solid #00d8ff;
             box-shadow: 0 0 15px #00d8ff88;
             animation: float 4s ease-in-out infinite;
+        }
+
+        .intro-line {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Download Button */
+        .resume-download {
+            margin-top: 1.5rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #00d8ff;
+            color: #0f0f1a;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00d8ff88;
+        }
+
+        .download-btn:hover {
+            background: #0088aa;
+            color: white;
+            box-shadow: 0 0 15px #00d8ffcc;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #about img {
+                margin: 0 auto;
+            }
+
+            .intro-line,
+            .description {
+                text-align: center;
+            }
+
+            .resume-download {
+                display: flex;
+                justify-content: center;
+            }
         }
 
         @keyframes float {
@@ -643,7 +714,7 @@
                     <p class="description">Skilled in web development, programming, and software engineering. I love
                         crafting elegant and efficient code, and creating useful projects.</p>
                     <div class="resume-download">
-                        <a href="" download class="download-btn">
+                        <a href="resume.pdf" download class="download-btn">
                             <i class="fas fa-download"></i> Download CV
                         </a>
                     </div>
