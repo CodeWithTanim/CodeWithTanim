@@ -102,6 +102,13 @@ sh-2.0$ /bin/bash -i
         <td>A simple and interactive online quiz app.</td>
         <td>Mar 29, 2025</td>
     </tr>
+    </tr>
+        </tr>
+        <tr>
+        <td><a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard">Real-Time-Stock-Market-Dashboard</a></td>
+        <td>Interactive real-time stock market dashboard using Python.</td>
+        <td>June 15, 2025</td>
+    </tr>
 </table>
 
 <br/>
