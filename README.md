@@ -109,6 +109,13 @@ sh-2.0$ /bin/bash -i
         <td>Interactive real-time stock market dashboard using Python.</td>
         <td>June 15, 2025</td>
     </tr>
+    </tr>
+        </tr>
+        <tr>
+        <td><a href="https://github.com/CodeWithTanim/automated-resume-parser">Automated-Resume-Parser</a></td>
+        <td>Automated resume parser using Python to extract structured data from resumes..</td>
+        <td>June 16, 2025</td>
+    </tr>
 </table>
 
 <br/>
