@@ -16,7 +16,7 @@ A Passionate <b>Developer</b> from <i><b>BANGLADESH</b></i>
 sh-2.0$ /bin/bash -i
 ~#
 ~# ls
-<a href="#-AboutMe">AboutMe</a> <a href="#-projects">Projects</a> <a href="#-head-language">language</a> <a href="#-sysinfo">sysinfo*</a> <a href="#-Trophy">Trophy</a> <a href="#-Stats">Stats</a> <a href="#-Streak">Streak</a> <a href="#-Contribution">Contribution</a>
+<a href="#-AboutMe">AboutMe</a> <a href="#-projects">Projects</a> <a href="#-internship">Internship</a> <a href="#-head-language">language</a> <a href="#-sysinfo">sysinfo*</a> <a href="#-Trophy">Trophy</a> <a href="#-Stats">Stats</a> <a href="#-Streak">Streak</a> <a href="#-Contribution">Contribution</a>
 </pre>
 
 <!-- Social Badges-->
@@ -119,6 +119,35 @@ sh-2.0$ /bin/bash -i
 </table>
 
 <br/>
+<hr />
+
+### `~# Internship`
+<br>
+<table border="1">
+    <tr>
+        <th>Domain Name</th>
+        <th>Company</th>
+        <th>Starting Date</th>
+        <th>End Date</th>
+        <th>Internship Projects</th>
+    </tr>
+    <tr>
+        <td>Python Developer</td>
+        <td><a href="https://codectechnologies.in/">Codec Technologies India</a></td>
+        <td>June 10, 2025</td>
+        <td>July 10, 2025</td>
+        <td><a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard">Real-Time-Stock-Market-Dashboard</a> & <a href="https://github.com/CodeWithTanim/automated-resume-parser">Automated-Resume-Parser</a></td>
+    </tr>
+    <tr>
+        <td>Cyber Security</td>
+        <td><a href="https://codectechnologies.in/">Codec Technologies India</a></td>
+        <td>July 01, 2025</td>
+        <td>August 31, 2025</td>
+        <td>Not Started ;)</td>
+    </tr>
+</table>
+<br/>
+<hr/>
 
 <!-- Languages -->
 ### `~# head language`
@@ -136,6 +165,7 @@ class Languages:
 ```
 
 <br/>
+<hr />
 
 <!-- System Info -->
 ### `~# ./sysinfo`
@@ -165,14 +195,17 @@ class Languages:
     <td>13 GB</td>
   </tr>
 </table>
+<hr />
 
 <!-- GitHub Trophy -->
 ### `~# ./Trophy`
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=CodeWithTanim" alt="CodeWithTanim" /></a> </p>
+<hr />
 
 <!-- GitHub Stats -->
 ### `~# ./Stats`
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=CodeWithTanim&show_icons=true&locale=en" alt="CodeWithTanim" /></p>
+<hr />
 
 <!-- GitHub Contribution -->
 ### `~# ./Streak`
