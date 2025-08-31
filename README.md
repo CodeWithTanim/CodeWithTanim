@@ -116,6 +116,21 @@ sh-2.0$ /bin/bash -i
         <td>Automated resume parser using Python to extract structured data from resumes..</td>
         <td>June 16, 2025</td>
     </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation">Cryptography-Algorithms-Implementation</a></td>
+        <td>Implementation of classical and modern cryptography algorithms with Python.</td>
+        <td>August 31, 2025</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms">Password-Cracking-and-Hashing-Algorithms</a></td>
+        <td>Demonstrates password cracking techniques and secure hashing algorithm implementations.</td>
+        <td>August 31, 2025</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation">Custom-Ransomware-Simulation</a></td>
+        <td>Educational ransomware simulation showing encryption & decryption in a safe environment.</td>
+        <td>August 31, 2025</td>
+    </tr>
 </table>
 
 <br/>
@@ -143,7 +158,7 @@ sh-2.0$ /bin/bash -i
         <td><a href="https://codectechnologies.in/">Codec Technologies India</a></td>
         <td>July 01, 2025</td>
         <td>August 31, 2025</td>
-        <td>Not Started ;)</td>
+        <td><a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation">Cryptography-Algorithms-Implementation</a>, <a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms">Password-Cracking-and-Hashing-Algorithms</a> & <a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation">Custom-Ransomware-Simulation</a></td>
     </tr>
 </table>
 <br/>
