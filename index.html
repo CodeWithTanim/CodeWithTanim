@@ -4,24 +4,43 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Portfolio of MD Samiur Rahman Tanim - Computer Science student, developer, and content creator specializing in web development, programming, and software engineering.">
-    <meta name="keywords"
-        content="portfolio, developer, web development, programming, computer science, Python, JavaScript, React, Node.js, Bangladesh developer">
-    <meta name="author" content="MD Samiur Rahman Tanim">
-    <meta property="og:title" content="MD SAMIUR RAHMAN TANIM | Portfolio">
-    <meta property="og:description"
-        content="Portfolio of a passionate Computer Science student and developer showcasing skills, projects, and contact information.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://codewithtanim.github.io">
-    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:creator" content="@CodeWithTanim">
-    <link rel="canonical" href="https://codewithtanim.github.io">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>MD SAMIUR RAHMAN TANIM | Computer Science Student & Developer Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png">
 
+    <!-- SEO Meta Tags -->
+    <title>MD Samiur Rahman Tanim | Computer Science Student, Web Developer & Programmer Portfolio</title>
+    <meta name="description"
+        content="Portfolio of MD Samiur Rahman Tanim – Computer Science student, web developer & programmer showcasing projects, skills, and contact info." />
+    <meta name="keywords"
+        content="portfolio, web developer, programmer, computer science, Python, JavaScript, React, Node.js, Bangladesh developer, software engineering" />
+    <meta name="author" content="MD Samiur Rahman Tanim" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="MD Samiur Rahman Tanim | Portfolio" />
+    <meta property="og:description"
+        content="Portfolio of a passionate Computer Science student and developer showcasing skills, projects, and contact information." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codewithtanim.github.io" />
+    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+    <meta property="og:site_name" content="MD Samiur Rahman Tanim Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@CodeWithTanim" />
+    <meta name="twitter:title" content="MD Samiur Rahman Tanim | Portfolio" />
+    <meta name="twitter:description"
+        content="Portfolio of a Computer Science student & developer showcasing skills, projects, and contact info." />
+    <meta name="twitter:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://codewithtanim.github.io" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <!-- Styles & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        as="style" />
     <style>
         /* Reset & base */
         * {
@@ -161,6 +180,25 @@
 
         /* Hero / About */
         #about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            padding-top: 80px
+        }
+
+        #about img {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid #00d8ff;
+            box-shadow: 0 0 15px #00d8ff88;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* About Section */
+        #about {
             padding-top: 80px;
             margin-bottom: 60px;
         }
@@ -227,6 +265,49 @@
             transform: translateY(-2px);
         }
 
+        /* Certificates Section */
+        #certificates {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .certificate-container {
+            background: #121223;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 15px #00d8ff88;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .certificate-container p {
+            color: #ccc;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .certificate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #00d8ff;
+            color: #0f0f1a;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00d8ff88;
+            font-size: 1.1rem;
+        }
+
+        .certificate-btn:hover {
+            background: #0088aa;
+            color: white;
+            box-shadow: 0 0 20px #00d8ffcc;
+            transform: translateY(-3px);
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .about-content {
@@ -246,6 +327,11 @@
             .resume-download {
                 display: flex;
                 justify-content: center;
+            }
+
+            .certificate-container {
+                padding: 20px;
+                margin: 20px 10px;
             }
         }
 
@@ -686,6 +772,25 @@
             }
         }
     </style>
+    <!-- Structured Data (JSON-LD for Google) -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MD Samiur Rahman Tanim",
+    "url": "https://codewithtanim.github.io",
+    "image": "https://i.ibb.co/1GsW1n6m/tanim.jpg",
+    "sameAs": [
+      "https://www.facebook.com/CodeWithTanim/",
+      "https://www.linkedin.com/in/CodeWithTanim/",
+      "https://github.com/CodeWithTanim",
+      "https://twitter.com/CodeWithTanim",
+      "https://www.instagram.com/CodeWithTanim",
+      "https://www.youtube.com/@CodeWithTanim"
+    ],
+    "jobTitle": "Computer Science Student & Developer"
+  }
+  </script>
 </head>
 
 <body>
@@ -699,6 +804,7 @@
             <a href="#projects">Projects</a>
             <a href="#youtube-videos">YouTube</a>
             <a href="#courses">Courses</a>
+            <a href="#certificates">Certificates</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -706,7 +812,7 @@
     <main>
         <section id="about" class="animate">
             <div class="about-content">
-                <img src="https://i.ibb.co/1GsW1n6m/tanim.jpg" alt="MD Samiur Rahman Tanim Profile Picture" />
+                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD Samiur Rahman Tanim Profile Picture" />
                 <div class="about-text">
                     <h1>Hello, I'm MD SAMIUR RAHMAN TANIM</h1>
                     <p class="intro-line">A passionate Computer Science student and developer currently pursuing B.Tech.
@@ -714,8 +820,8 @@
                     <p class="description">Skilled in web development, programming, and software engineering. I love
                         crafting elegant and efficient code, and creating useful projects.</p>
                     <div class="resume-download">
-                        <a href="resume.pdf" download class="download-btn">
-                            <i class="fas fa-download"></i> Download CV
+                        <a href="path_to_your_resume.pdf" download class="download-btn">
+                            <i class="fas fa-download"></i> Download Resume
                         </a>
                     </div>
                 </div>
@@ -742,7 +848,7 @@
             <h2>Featured Projects</h2>
             <div class="project-list">
                 <div class="project-card">
-                    <img src="https://i.ibb.co/fzdmccq4/cpms.jpg" alt="Cosmetics Product Management System" />
+                    <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management System" />
                     <div class="content">
                         <h3>Cosmetics Product Management</h3>
                         <p>PHP & MySQL inventory management system for cosmetics products with admin dashboard and
@@ -753,7 +859,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://i.ibb.co/jvL0t7JF/Online-Quiz-App.jpg" alt="Online Quiz Application" />
+                    <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" />
                     <div class="content">
                         <h3>Online Quiz App</h3>
                         <p>A responsive quiz platform with Firebase authentication, real-time scoring system, and
@@ -764,7 +870,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://i.ibb.co/20FRqKN4/termux-setup-command.jpg" alt="Termux Setup Pro Tool" />
+                    <img src="Images/Projects/termux-setup-command.jpg" alt="Termux Setup Pro Tool" />
                     <div class="content">
                         <h3>TERMUX-SETUP-PRO</h3>
                         <p>Automation script to setup Termux environment with developer tools, packages, and
@@ -775,7 +881,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://i.ibb.co/xKzSNf1v/enc.jpg" alt="TOXIC-ENC Encryption Tool" />
+                    <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC Encryption Tool" />
                     <div class="content">
                         <h3>TOXIC-ENC (ENC)</h3>
                         <p>Python security tool to encrypt Termux scripts with AES-256 encryption for code protection.
@@ -786,7 +892,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://i.ibb.co/fYnSLvhp/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" />
+                    <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" />
                     <div class="content">
                         <h3>Tic-Tac-Toe Game</h3>
                         <p>Terminal-based Tic-Tac-Toe game written in Python with AI opponent and score tracking.</p>
@@ -795,7 +901,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://i.ibb.co/Mk4vcGsd/Automated-Resume-Parser.jpg" alt="automated-resume-parser" />
+                    <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="automated-resume-parser" />
                     <div class="content">
                         <h3>automated-resume-parser</h3>
                         <p>Python-based tool that extracts key information from PDF resumes including name, contact
@@ -805,7 +911,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://i.ibb.co/W4kmgT9C/Lucid-Realism-A-modern-sleek-and-professional-logo-design-for-3.jpg"
+                    <img src="Images/Projects/Real-Time-Stock-Market-Dashboard.jpg"
                         alt="Real-Time Stock Market Dashboard" />
                     <div class="content">
                         <h3>Real-Time Stock Market Dashboard</h3>
@@ -816,7 +922,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://i.ibb.co/rK3NDw4K/Cryptography-Algorithms-Implementation.jpg" alt="Cryptography Algorithms Implementation" />
+                    <img src="Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg" alt="Cryptography Algorithms Implementation" />
                     <div class="content">
                         <h3>Cryptography Algorithms Implementation</h3>
                         <p>Implementation of classical and modern cryptography algorithms with Python.</p>
@@ -825,7 +931,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://i.ibb.co/HD0WRBHP/Password-Cracking-and-Hashing-Algorithms.jpg"
+                    <img src="Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg"
                         alt="Password Cracking and Hashing Algorithms" />
                     <div class="content">
                         <h3>Password Cracking & Hashing Algorithms</h3>
@@ -835,7 +941,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://i.ibb.co/nq6hv6hN/Custom-Ransomware-Simulation.jpg" alt="Custom Ransomware Simulation" />
+                    <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation" />
                     <div class="content">
                         <h3>Custom Ransomware Simulation (Educational)</h3>
                         <p>Educational ransomware simulation showing encryption & decryption in a safe, controlled
@@ -850,7 +956,7 @@
 
         <!-- YouTube Videos Section -->
         <section id="youtube-videos" class="animate">
-            <h2>Tutorial Videos</h2>
+            <h2>Programming Tutorial Videos</h2>
             <div class="video-grid">
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/A3yCRuOFBAg?si=9N1lIaRvbhv2K1Fj"
@@ -881,7 +987,7 @@
 
         <!-- Courses Section -->
         <section id="courses" class="animate">
-            <h2>My Courses</h2>
+            <h2>Programming Courses</h2>
             <div class="video-grid">
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/f9plA379QPs?si=3Df2V9YDN60XuAUA"
@@ -901,6 +1007,18 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section id="certificates" class="animate">
+            <h2>My Certificates</h2>
+            <div class="certificate-container">
+                <p>Explore my professional achievements and certifications in various domains of computer science and
+                    programming.</p>
+                <a href="certificates.html" class="certificate-btn">
+                    <i class="fas fa-certificate"></i> View All Certificates
+                </a>
             </div>
         </section>
 
@@ -970,7 +1088,8 @@
     </main>
 
     <footer>
-        &copy; 2004–2025 MD SAMIUR RAHMAN TANIM | All rights reserved.
+        &copy; <span id="year"></span> MD SAMIUR RAHMAN TANIM | Computer Science Student & Developer | All rights
+        reserved.
     </footer>
 
     <script>

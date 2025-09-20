@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <meta name="description"
+        content="Explore the certificates and professional achievements of MD Samiur Rahman Tanim, a Computer Science student and developer showcasing expertise in programming, web development, and software engineering." />
+    <meta name="keywords"
+        content="MD Samiur Rahman Tanim certificates, programming certifications, web development certificates, achievements, computer science portfolio, developer skills" />
+    <meta name="author" content="MD Samiur Rahman Tanim" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="MD SAMIUR RAHMAN TANIM | Certificates" />
+    <meta property="og:description"
+        content="Certificates and achievements of MD Samiur Rahman Tanim in computer science, programming, and web development." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codewithtanim.github.io/certificates" />
+    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@CodeWithTanim" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://codewithtanim.github.io/certificates" />
+
+    <!-- Preload for Performance -->
+    <link rel="preload" as="image" href="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+
+    <!-- Theme & Favicon -->
+    <meta name="theme-color" content="#0f0f1a" />
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Title -->
+    <title>MD SAMIUR RAHMAN TANIM | Certificates & Achievements</title>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MD Samiur Rahman Tanim",
+    "url": "https://codewithtanim.github.io",
+    "image": "https://i.ibb.co/1GsW1n6m/tanim.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/CodeWithTanim",
+      "https://github.com/CodeWithTanim",
+      "https://twitter.com/CodeWithTanim",
+      "https://www.youtube.com/@CodeWithTanim"
+    ],
+    "knowsAbout": ["Web Development", "Programming", "Cloud Computing", "Software Engineering"],
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Professional Certificates",
+      "description": "Certificates and achievements in programming, computer science, and web development by MD Samiur Rahman Tanim.",
+      "url": "https://codewithtanim.github.io/certificates"
+    }
+  }
+    </script>
+    <!-- Styles -->
+    <style>
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            scroll-padding-top: 70px;
+            position: relative;
+            background: #0f0f1a;
+            overflow-x: hidden;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            display: block;
+            background: transparent;
+        }
+
+        a {
+            color: #00d8ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00aacc;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #121223;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #00d8ff;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        main {
+            margin-top: 80px;
+            flex-grow: 1;
+            max-width: 1200px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 50px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        /* Only animate hero section, not certificate sections */
+        section.animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        section.animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00d8ff;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #00d8ff;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: auto;
+                padding: 15px;
+            }
+
+            main {
+                margin-top: 100px;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00d8ff;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Back to Portfolio Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #121223;
+            color: #00d8ff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00d8ff55;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: #00d8ff;
+            color: #0f0f1a;
+            box-shadow: 0 0 15px #00d8ffcc;
+            transform: translateY(-2px);
+        }
+
+        /* Certificates Grid */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .certificate-card {
+            background: #121223;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px #00d8ff66;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px #00d8ffcc;
+        }
+
+        .certificate-img {
+            width: 100%;
+            height: 280px;
+            /* was 200px */
+            object-fit: contain;
+            /* instead of cover, shows full certificate */
+            border-bottom: 2px solid #00d8ff;
+            background: #0f0f1a;
+            /* optional: adds background if image doesn't fill */
+        }
+
+        .certificate-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .certificate-card h3 {
+            margin-bottom: 10px;
+            color: #00d8ff;
+            font-size: 1.3rem;
+        }
+
+        .certificate-card p {
+            color: #aaa;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .certificate-card .date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .certificate-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #00d8ff;
+            color: #0f0f1a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .certificate-link:hover {
+            background: #0088aa;
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 10px;
+            background: #121223;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #222236;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            main {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            header h1 {
+                margin-bottom: 1rem;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            section {
+                scroll-margin-top: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="starfield"></canvas>
+
+    <header>
+        <h1>CodeWithTanim</h1>
+        <nav>
+            <a href="index.html#about">About</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="index.html#youtube-videos">YouTube</a>
+            <a href="index.html#courses">Courses</a>
+            <a href="index.html#certificates">Certificates</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero animate">
+            <h1>My Certificates</h1>
+            <!-- <p>Professional achievements and certifications in computer science and programming</p> -->
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </section>
+
+        <!-- Removed animate class from certificate sections -->
+        <section id="coursera-certificates">
+            <h2>Coursera Certifications</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Programming-with-JavaScript.png"
+                        alt="Programming with JavaScript Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Programming with JavaScript</h3>
+                        <p>Programming with JavaScript – Gained skills in core JavaScript concepts, including variables,
+                            functions, objects, and event-driven programming for web development.</p>
+                        <div class="date">Issued: December 16, 2023</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/MYNSX43JV3YT"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Programming-for-Everybody-Getting-Started-wih-Python.png"
+                        alt="Programming for Everybody (Getting Started with Python) Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Programming for Everybody (Getting Started with Python)</h3>
+                        <p>Programming for Everybody (Getting Started with Python) – Introduced to Python programming
+                            basics, including syntax, variables, loops, and simple problem-solving.</p>
+                        <div class="date">Issued: January 17, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/S355YLDRVJZQ"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Qualitative-Research-Design.png"
+                        alt="Qualitative Research Design Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Qualitative Research Design</h3>
+                        <p>Qualitative Research Design – Explored methodologies for planning, conducting, and analyzing
+                            qualitative research to generate meaningful insights.</p>
+                        <div class="date">Issued: April 10, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/MRRNFVMTWNKE"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Build-a-Professional-Resum-using-Canva.png"
+                        alt="Build a Professional Resume using Canva Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Build a Professional Resume using Canva</h3>
+                        <p>Build a Professional Resume using Canva – Learned to design and structure impactful resumes
+                            using Canva's tools and templates for professional presentation.</p>
+                        <div class="date">Issued: April 12, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/4NJA2MMN2RA7"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/English-for-Career-Development.png"
+                        alt="English for Career Development Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>English for Career Development</h3>
+                        <p>English for Career Development – Improved professional English skills for job searching,
+                            networking, résumé writing, and workplace communication.</p>
+                        <div class="date">Issued: April 12, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/F558VJA5SQQC"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Ethics-Technolog-and-Engineering.png"
+                        alt="Ethics, Technology and Engineering Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Ethics, Technology and Engineering</h3>
+                        <p>Ethics, Technology and Engineering – Studied ethical principles and their application to
+                            technological development, engineering practices, and professional responsibility.</p>
+                        <div class="date">Issued: May 1, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/EAZH4MZ8XRXB"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Foundations-of-Cybersecurity.png" alt="Foundations of Cybersecurity"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Foundations of Cybersecurity</h3>
+                        <p>Foundations of Cybersecurity – Gained a foundational understanding of cybersecurity
+                            principles, threats, risk management, and security best practices.</p>
+                        <div class="date">Issued: May 22, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/EUK9VEJUCZ32"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Foundations-of-Cybersecurity.png"
+                        alt="Foundations of Cybersecurity Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Foundations of Cybersecurity</h3>
+                        <p>Foundations of Cybersecurity – Gained knowledge of core cybersecurity concepts, including
+                            threats, vulnerabilities, risk management, and security best practices.</p>
+                        <div class="date">Issued: May 22, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/EUK9VEJUCZ32"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Play-It-Safe-Manage-Security-Risks.png"
+                        alt="Play It Safe: Manage Security Risks Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Play It Safe: Manage Security Risks</h3>
+                        <p>Play It Safe: Manage Security Risks – Learned to identify, assess, and mitigate security
+                            risks using frameworks and strategies for effective risk management.</p>
+                        <div class="date">Issued: May 22, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/3EUACNSRHBDR"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Introduction-to-Python-for-Cybersecurity.png"
+                        alt="Introduction to Python for Cybersecurity Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Introduction to Python for Cybersecurity</h3>
+                        <p>Introduction to Python for Cybersecurity – Learned to apply Python programming for automating
+                            security tasks, analyzing data, and building simple cybersecurity tools.</p>
+                        <div class="date">Issued: May 22, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/45NHQ4ZQX3VR"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Communication-skills-for-engineering-scholars.png"
+                        alt="Communication skills for engineering scholars Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Communication skills for engineering scholars</h3>
+                        <p>Communication Skills for Engineering Scholars – Developed effective academic and professional
+                            communication skills tailored for engineering and technical contexts.</p>
+                        <div class="date">Issued: October 26, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/LMFO9KPICWW9"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Foundations-of-Digital-Marketing-and-E-commerce.png"
+                        alt="Foundations of Digital Marketing and E-commerce Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Foundations of Digital Marketing and E-commerce</h3>
+                        <p>Foundations of Digital Marketing and E-commerce – Gained fundamental knowledge of online
+                            marketing strategies, customer engagement, and e-commerce business models.</p>
+                        <div class="date">Issued: October 27, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/3TXO600PGX3Q"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/International-Leadership-and-Organizational.png"
+                        alt="International Leadership and Organizational Behavior Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>International Leadership and Organizational Behavior</h3>
+                        <p>International Leadership and Organizational Behavior – Explored leadership theories,
+                            cross-cultural management, and strategies for effective organizational behavior in a global
+                            context.</p>
+                        <div class="date">Issued: November 3, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/NZL6T9WFPYOW"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Introduction-to-Python-Programming.png"
+                        alt="Introduction to Python Programming Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Introduction to Python Programming</h3>
+                        <p>Introduction to Python Programming – Learned the fundamentals of Python syntax, data types,
+                            control structures, and problem-solving through coding.</p>
+                        <div class="date">Issued: November 11, 2024</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/S69AQPBSHTJM"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Introduction-to-Hardware-an-Operating-Systems.png"
+                        alt="Introduction to Hardware and Operating Systems Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Introduction to Hardware and Operating Systems</h3>
+                        <p>Introduction to Hardware and Operating Systems – Learned the fundamentals of computer
+                            hardware components, system architecture, and core operating system functions.</p>
+                        <div class="date">Issued: March 18, 2025</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/YU3I61UTQ94J"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Social-Impact-Strateg-Tools-for-Entrepreneurs.png"
+                        alt="Social Impact Strategy: Tools for Entrepreneurs and Innovators Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Social Impact Strategy: Tools for Entrepreneurs and Innovators</h3>
+                        <p>Social Impact Strategy: Tools for Entrepreneurs and Innovators – Explored frameworks and
+                            practical tools for designing, launching, and scaling social impact initiatives.</p>
+                        <div class="date">Issued: May 8, 2025</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/QZDYMILN53DW"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Coursera/Operating-Systems-Fundamentals.png"
+                        alt="Operating Systems Fundamentals Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Operating Systems Fundamentals</h3>
+                        <p>Operating Systems Fundamentals – Gained understanding of operating system concepts including
+                            processes, memory management, file systems, and system architecture.</p>
+                        <div class="date">Issued: May 8, 2025</div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/ON6PS23T947H"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="certificate-card">
+                    <img src=""
+                        alt=" Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3></h3>
+                        <p></p>
+                        <div class="date">Issued: </div>
+                        <a href="" class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+        <section id="udemy-certificates">
+            <h2>Udemy Certifications</h2>
+            <div class="certificates-grid">
+
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Udemy/Project-Management-with-ChatGPT-Complete-Guide.jpg"
+                        alt="Project Management with ChatGPT: Complete Guide Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Project Management with ChatGPT: Complete Guide</h3>
+                        <p>Project Management with ChatGPT: Complete Guide – Learned to apply ChatGPT for project
+                            planning, task automation, documentation, and workflow optimization.</p>
+                        <div class="date">Issued: May 30, 2024</div>
+                        <a href="https://www.udemy.com/certificate/UC-829fb715-f90f-4502-b433-5736b207eb88/"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Udemy/Ultimate-Adobe-Photoshop-CC-Masterclass-Basics-To-Advanced.jpg"
+                        alt="Ultimate Adobe Photoshop CC Masterclass Basics To Advanced Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Ultimate Adobe Photoshop CC Masterclass Basics To Advanced</h3>
+                        <p>Ultimate Adobe Photoshop CC Masterclass Basics To Advanced – Mastered Photoshop fundamentals
+                            to advanced techniques for professional image editing and graphic design.</p>
+                        <div class="date">Issued: May 26, 2024</div>
+                        <a href="https://www.udemy.com/certificate/UC-b2ef72db-7b55-41b8-9f40-2afd27f060c8/"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Udemy/T-Shirt-Design-Masterclass-In-Photoshop-Sell-Your-T-Shirt.jpg"
+                        alt="T-Shirt Design Masterclass In Photoshop | Sell Your T-Shirt Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>T-Shirt Design Masterclass In Photoshop | Sell Your T-Shirt</h3>
+                        <p>T-Shirt Design Masterclass in Photoshop | Sell Your T-Shirt – Learned to create custom
+                            T-shirt designs in Photoshop and prepare them for online sales and print-on-demand
+                            platforms.</p>
+                        <div class="date">Issued: May 26, 2024</div>
+                        <a href="https://www.udemy.com/certificate/UC-6e7efeda-89bf-48d8-84b0-4dc963205819/"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Udemy/Essential-Photoshop-Course-for-Beginne-To-Advanced.jpg"
+                        alt="Essential Photoshop Course for Beginner To Advanced Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>Essential Photoshop Course for Beginner To Advanced</h3>
+                        <p>Essential Photoshop Course for Beginner to Advanced – Gained comprehensive knowledge of
+                            Photoshop tools and workflows, from basic editing to advanced graphic design techniques.</p>
+                        <div class="date">Issued: May 26, 2024</div>
+                        <a href="https://www.udemy.com/certificate/UC-697e03ac-79b2-4ab2-9447-9ce9c3448189/"
+                            class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="certificate-card">
+                    <img src=""
+                        alt=" Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3></h3>
+                        <p></p>
+                        <div class="date">Issued: </div>
+                        <a href="" class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+
+        <section id="internship-certificates">
+            <h2>Internship Certifications</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Internship/Python_Dev_Intern.png" alt="1-Month Python developer Internship Certification"
+                        class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>1-Month Python developer Internship</h3>
+                        <p>1-Month Python Developer Internship – Gained hands-on experience in Python development by
+                            working on real-world coding tasks, debugging, and project implementation.</p>
+                        <div class="date">Issued: July 10, 2025</div>
+                        <!-- <a href="" class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a> -->
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <img src="Images/Certificates/Internship/Cyber_Security_Intern.png"
+                        alt="2-Month Cyber Security Internship Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3>2-Month Cyber Security Internship</h3>
+                        <p>2-Month Cyber Security Internship – Acquired practical experience in identifying
+                            vulnerabilities, managing risks, and applying cybersecurity tools in real-world scenarios.
+                        </p>
+                        <div class="date">Issued: August 31, 2025</div>
+                        <!-- <a href="" class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a> -->
+                    </div>
+                </div>
+                <!-- <div class="certificate-card">
+                    <img src=""
+                        alt=" Certification" class="certificate-img">
+                    <div class="certificate-content">
+                        <h3></h3>
+                        <p></p>
+                        <div class="date">Issued: </div>
+                        <a href="" class="certificate-link">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> MD SAMIUR RAHMAN TANIM | Computer Science Student & Developer | All rights
+        reserved.
+    </footer>
+
+    <script>
+        // Animate only sections with animate class on scroll
+        const sections = document.querySelectorAll('section.animate');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        sections.forEach(section => observer.observe(section));
+
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const numStars = 150;
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function createStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    radius: Math.random() * 1.2 + 0.2,
+                    alpha: Math.random(),
+                    alphaChange: 0.005 * (Math.random() > 0.5 ? 1 : -1),
+                    speed: randomRange(0.02, 0.1)
+                });
+            }
+        }
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.x -= star.speed;
+                if (star.x < 0) star.x = canvas.width;
+                star.alpha += star.alphaChange;
+                if (star.alpha <= 0.2 || star.alpha >= 1) star.alphaChange = -star.alphaChange;
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 216, 255, ${star.alpha})`;
+                ctx.shadowColor = `rgba(0, 216, 255, ${star.alpha})`;
+                ctx.shadowBlur = 8;
+                ctx.fill();
+            });
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            createStars();
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Initialize
+        resize();
+        createStars();
+        update();
+    </script>
+</body>
+
+</html>
