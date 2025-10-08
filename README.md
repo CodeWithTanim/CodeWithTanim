@@ -131,6 +131,11 @@ sh-2.0$ /bin/bash -i
         <td>Educational ransomware simulation showing encryption & decryption in a safe environment.</td>
         <td>August 31, 2025</td>
     </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/TaskFlow">TaskFlow</a></td>
+        <td>TaskFlow - A Modern Task Manager.</td>
+        <td>Oct 09, 2025</td>
+    </tr>
 </table>
 
 <br/>
