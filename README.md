@@ -200,7 +200,7 @@ class Languages:
     <td>Laptop</td>
     <td>Windows 11 Home</td>
     <td>AMD RYZEN 5</td>
-    <td>8 GB</td>
+    <td>24 GB</td>
   </tr>
   <tr>
     <td>Desktop</td>
@@ -236,4 +236,5 @@ class Languages:
 
 <img src="https://raw.githubusercontent.com/CodeWithTanim/CodeWithTanim/output/snake.svg" alt="Snake animation" />
 <!-- end -->
+
 
