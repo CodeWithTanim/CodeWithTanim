@@ -59,19 +59,18 @@
             flex-direction: column;
             scroll-padding-top: 70px;
             position: relative;
-            background: #0f0f1a;
+            background: transparent;
             overflow-x: hidden;
         }
 
-        #starfield {
+        #particles-js {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100vw;
             height: 100vh;
+            top: 0;
+            left: 0;
             z-index: -1;
-            display: block;
-            background: transparent;
+            background-color: black;
         }
 
         a {
@@ -794,7 +793,7 @@
 </head>
 
 <body>
-    <canvas id="starfield"></canvas>
+    <div id="particles-js"></div>
 
     <header>
         <h1>CodeWithTanim</h1>
@@ -922,7 +921,8 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/Cryptography-Algorithms-Implementation.jpeg" alt="Cryptography Algorithms Implementation" />
+                    <img src="Images/Projects/Cryptography-Algorithms-Implementation.jpeg"
+                        alt="Cryptography Algorithms Implementation" />
                     <div class="content">
                         <h3>Cryptography Algorithms Implementation</h3>
                         <p>Implementation of classical and modern cryptography algorithms with Python.</p>
@@ -1018,7 +1018,8 @@
                 </div>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/DxN5U0VabSM?si=-RpLRF37WtZhb44e"
-                        title="Master MS Word in 2 Hours | Full Beginner to Advanced Course |  @CodeWithTanim ​" frameborder="0"
+                        title="Master MS Word in 2 Hours | Full Beginner to Advanced Course |  @CodeWithTanim ​"
+                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
@@ -1107,6 +1108,7 @@
         reserved.
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // Animate sections on scroll
         const sections = document.querySelectorAll('section.animate');
@@ -1120,65 +1122,76 @@
         }, { threshold: 0.2 });
         sections.forEach(section => observer.observe(section));
 
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-
-        let stars = [];
-        const numStars = 150;
-
-        function randomRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        function createStars() {
-            stars = [];
-            for (let i = 0; i < numStars; i++) {
-                stars.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    radius: Math.random() * 1.2 + 0.2,
-                    alpha: Math.random(),
-                    alphaChange: 0.005 * (Math.random() > 0.5 ? 1 : -1),
-                    speed: randomRange(0.02, 0.1)
-                });
-            }
-        }
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function update() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => {
-                star.x -= star.speed;
-                if (star.x < 0) star.x = canvas.width;
-                star.alpha += star.alphaChange;
-                if (star.alpha <= 0.2 || star.alpha >= 1) star.alphaChange = -star.alphaChange;
-
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 216, 255, ${star.alpha})`;
-                ctx.shadowColor = `rgba(0, 216, 255, ${star.alpha})`;
-                ctx.shadowBlur = 8;
-                ctx.fill();
-            });
-            requestAnimationFrame(update);
-        }
-
-        window.addEventListener('resize', () => {
-            resize();
-            createStars();
-        });
-
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Initialize
-        resize();
-        createStars();
-        update();
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#FFFFFF"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 5,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ff0a0a",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 200
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
     </script>
 </body>
 

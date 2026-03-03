@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,7 +8,7 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://i.ibb.co/JWWB9Q1V/Code-With-Tanim.png">
-  
+
   <!-- For better compatibility across devices -->
   <link rel="apple-touch-icon" href="https://i.ibb.co/JWWB9Q1V/Code-With-Tanim.png">
   <link rel="shortcut icon" href="https://i.ibb.co/JWWB9Q1V/Code-With-Tanim.png">
@@ -16,43 +17,138 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#94a3b8;
-      --accent:#ffb020;
-      --accent-2:#16a34a;
-      --glass: rgba(255,255,255,0.04);
-      --radius:14px;
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #ffb020;
+      --accent-2: #16a34a;
+      --glass: rgba(255, 255, 255, 0.04);
+      --radius: 14px;
     }
-    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
-    html,body{height:100%;margin:0;background:
-      radial-gradient(1200px 400px at 10% 10%, rgba(255,176,32,0.06), transparent 10%),
-      linear-gradient(180deg, #071026 0%, #021026 100%);
-      color:#e6eef8;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-    .container{max-width:1100px;margin:36px auto;padding:28px;}
-    .grid{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start;}
-    @media (max-width:920px){ .grid{grid-template-columns:1fr; } .right-panel{order:-1;} }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: transparent;
+      color: #e6eef8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background-color: black;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 36px auto;
+      padding: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width:920px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .right-panel {
+        order: -1;
+      }
+    }
 
     /* Card */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-           border-radius:var(--radius); padding:22px; box-shadow:0 10px 30px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.03);}
-
-    header h1{margin:0;font-size:22px;letter-spacing:-0.2px;}
-    header p{margin:6px 0 18px;color:var(--muted);font-size:13px;}
-
-    form{display:grid;gap:12px;}
-    .row{display:flex;gap:12px;}
-    .row .field{flex:1;}
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;}
-    input[type="text"], input[type="email"], input[type="tel"], textarea, select{
-      width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);
-      background:transparent;color:inherit;font-size:14px;outline:none;
-      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.01);
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.03);
     }
-    textarea{min-height:110px;resize:vertical;padding-top:10px;}
-    .muted{font-size:12px;color:var(--muted);margin-top:6px;}
-    .small{font-size:13px;color:var(--muted);}
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    header p {
+      margin: 6px 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .row .field {
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: transparent;
+      color: inherit;
+      font-size: 14px;
+      outline: none;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.01);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      padding-top: 10px;
+    }
+
+    .muted {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
     /* Fix for dropdown options */
     select option {
@@ -61,64 +157,261 @@
     }
 
     /* payment pills */
-    .payments{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
-    .payments label{
-      padding:8px 12px;border-radius:999px;background:var(--glass);cursor:pointer;border:1px solid rgba(255,255,255,0.03);
-      font-weight:600;font-size:13px;color:#fff;
+    .payments {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
     }
-    .payments input{display:none;}
-    .payments input:checked + label{background:linear-gradient(90deg,var(--accent), #ff7f50); color:#08111a; box-shadow:0 6px 18px rgba(255,176,32,0.12);}
 
-    .actions{display:flex;gap:12px;align-items:center;margin-top:8px;}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;
-      border:none;background:var(--accent);color:#08111a;font-size:15px;box-shadow:0 8px 20px rgba(255,176,32,0.12);
+    .payments label {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--glass);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 13px;
+      color: #fff;
     }
-    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(255,176,32,0.12);font-weight:600;}
-    .note{font-size:13px;color:var(--muted);}
+
+    .payments input {
+      display: none;
+    }
+
+    .payments input:checked+label {
+      background: linear-gradient(90deg, var(--accent), #ff7f50);
+      color: #08111a;
+      box-shadow: 0 6px 18px rgba(255, 176, 32, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: #08111a;
+      font-size: 15px;
+      box-shadow: 0 8px 20px rgba(255, 176, 32, 0.12);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(255, 176, 32, 0.12);
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
     /* right panel */
-    .right-panel .hero{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:20px;border-radius:12px;display:flex;gap:12px;align-items:center;
+    .right-panel .hero {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
-    .avatar{width:86px;height:86px;border-radius:12px;background:linear-gradient(180deg,#0b1220,#061426);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:34px;color:var(--accent);}
-    .avatar-img{width:86px;height:86px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,176,32,0.2);}
-    .course-title{font-weight:800;font-size:16px;}
-    .price{font-weight:800;color:var(--accent);font-size:18px;}
-    .features{margin-top:12px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);font-size:14px;color:var(--muted);}
+
+    .avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #0b1220, #061426);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 34px;
+      color: var(--accent);
+    }
+
+    .avatar-img {
+      width: 86px;
+      height: 86px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 176, 32, 0.2);
+    }
+
+    .course-title {
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .price {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .features {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 14px;
+      color: var(--muted);
+    }
 
     /* success modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:50;visibility:hidden;opacity:0;transition:all .18s;}
-    .modal{width:100%;max-width:520px;background:linear-gradient(180deg,#071028,#061027);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 60px rgba(2,6,23,0.8);color:#eaf4ff;}
-    .modal.show{transform:translateY(0);}
-    .modal h3{margin:0 0 8px;}
-    .contact-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
-    .contact-item{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:600;}
-    .contact-actions{display:flex;gap:8px;align-items:center;}
-    .chip{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);font-weight:700;font-size:13px;}
-    .copy{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer;}
-    .close-x{background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer;}
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      visibility: hidden;
+      opacity: 0;
+      transition: all .18s;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      background: linear-gradient(180deg, #071028, #061027);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 30px 60px rgba(2, 6, 23, 0.8);
+      color: #eaf4ff;
+    }
+
+    .modal.show {
+      transform: translateY(0);
+    }
+
+    .modal h3 {
+      margin: 0 0 8px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      font-weight: 600;
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .copy {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .close-x {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+    }
 
     /* loading indicator */
-    .loading{display:none;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
-    .spinner{border:2px solid rgba(255,255,255,0.1);border-top:2px solid var(--accent);border-radius:50%;width:16px;height:16px;animation:spin 1s linear infinite;}
-    @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    .loading {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-top: 2px solid var(--accent);
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
     /* small helper */
-    .error{color:#ff7474;font-size:13px;margin-top:6px;}
-    .field-optional{font-size:12px;color:var(--muted);margin-left:6px;}
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;}
+    .error {
+      color: #ff7474;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .field-optional {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+
+    footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
+  <div id="particles-js"></div>
   <div class="container">
     <div class="grid">
       <!-- LEFT: Form -->
       <div class="card">
         <header>
-          <h1>Enroll — Python A–Z with Projects <span style="font-size:13px;font-weight:600;color:var(--muted)"> (Bengali)</span></h1>
-          <p>Fill this form and we will connect you for the next procedure. After submit you'll see the WhatsApp / Telegram contact to message directly.</p>
+          <h1>Enroll — Python A–Z with Projects <span style="font-size:13px;font-weight:600;color:var(--muted)">
+              (Bengali)</span></h1>
+          <p>Fill this form and we will connect you for the next procedure. After submit you'll see the WhatsApp /
+            Telegram contact to message directly.</p>
         </header>
 
         <form id="enrollForm" action="https://formspree.io/f/xwvvyvan" method="POST" autocomplete="on" novalidate>
@@ -179,19 +472,22 @@
 
           <div>
             <label for="why">Why do you want to learn Python? <span class="field-optional">*</span></label>
-            <textarea id="why" name="why" placeholder="Describe your goals, career plan, or project ideas..." required></textarea>
+            <textarea id="why" name="why" placeholder="Describe your goals, career plan, or project ideas..."
+              required></textarea>
             <div class="error" id="err-why"></div>
           </div>
 
           <div>
             <label for="extra">Anything else we should know? <span class="field-optional">(optional)</span></label>
-            <textarea id="extra" name="extra" placeholder="Your current experience, preferred time, notes..."></textarea>
+            <textarea id="extra" name="extra"
+              placeholder="Your current experience, preferred time, notes..."></textarea>
           </div>
 
           <div class="actions">
             <button type="submit" class="btn" id="submitBtn">Submit & Get Contact</button>
             <button type="button" class="btn secondary" id="resetBtn">Reset</button>
-            <div style="margin-left:auto;" class="note">Secure — your data stays on your device unless you choose to submit to a server.</div>
+            <div style="margin-left:auto;" class="note">Secure — your data stays on your device unless you choose to
+              submit to a server.</div>
           </div>
 
           <div class="loading" id="loadingIndicator">
@@ -199,7 +495,8 @@
             <span class="small">Submitting to Formspree...</span>
           </div>
 
-          <div class="muted" style="margin-top:6px;">By submitting you agree to be contacted for course enrollment and updates.</div>
+          <div class="muted" style="margin-top:6px;">By submitting you agree to be contacted for course enrollment and
+            updates.</div>
         </form>
 
         <footer>
@@ -276,10 +573,10 @@
     const loadingIndicator = document.getElementById('loadingIndicator');
 
     // simple validators
-    function setError(id, msg){ document.getElementById(id).textContent = msg; }
-    function clearErrors(){ ['err-name','err-mobile','err-email','err-who','err-payment','err-why'].forEach(id=>setError(id,'')); }
+    function setError(id, msg) { document.getElementById(id).textContent = msg; }
+    function clearErrors() { ['err-name', 'err-mobile', 'err-email', 'err-who', 'err-payment', 'err-why'].forEach(id => setError(id, '')); }
 
-    function validate(formData){
+    function validate(formData) {
       clearErrors();
       let ok = true;
       const name = formData.get('name')?.trim();
@@ -289,42 +586,42 @@
       const payment = formData.get('payment')?.trim();
       const why = formData.get('why')?.trim();
 
-      if(!name){ setError('err-name','Please enter your full name.'); ok=false; }
-      if(!mobile || mobile.length < 8){ setError('err-mobile','Please enter a valid phone number.'); ok=false; }
-      if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setError('err-email','Please enter a valid email.'); ok=false; }
-      if(!who){ setError('err-who','Please select who you are.'); ok=false; }
-      if(!payment){ setError('err-payment','Please choose a payment method.'); ok=false; }
-      if(!why || why.length < 10){ setError('err-why','Tell us at least 10 characters about your goal.'); ok=false; }
+      if (!name) { setError('err-name', 'Please enter your full name.'); ok = false; }
+      if (!mobile || mobile.length < 8) { setError('err-mobile', 'Please enter a valid phone number.'); ok = false; }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('err-email', 'Please enter a valid email.'); ok = false; }
+      if (!who) { setError('err-who', 'Please select who you are.'); ok = false; }
+      if (!payment) { setError('err-payment', 'Please choose a payment method.'); ok = false; }
+      if (!why || why.length < 10) { setError('err-why', 'Tell us at least 10 characters about your goal.'); ok = false; }
       return ok;
     }
 
-    function buildWhatsAppLink(number, message='Hello'){
+    function buildWhatsAppLink(number, message = 'Hello') {
       // WhatsApp Click-to-chat link
       // strip spaces
-      const phonesafe = number.replace(/[^+\d]/g,'');
-      return `https://wa.me/${phonesafe.replace('+','')}` + `?text=${encodeURIComponent(message)}`;
+      const phonesafe = number.replace(/[^+\d]/g, '');
+      return `https://wa.me/${phonesafe.replace('+', '')}` + `?text=${encodeURIComponent(message)}`;
     }
 
-    function buildTelegramLink(username){
+    function buildTelegramLink(username) {
       return `https://t.me/${username}`;
     }
 
     // copy helper
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); alert('Copied to clipboard'); }
-      catch(e){ prompt('Copy this text', text); }
+    async function copyText(text) {
+      try { await navigator.clipboard.writeText(text); alert('Copied to clipboard'); }
+      catch (e) { prompt('Copy this text', text); }
     }
 
-    function openModalWithContacts(dataObj){
+    function openModalWithContacts(dataObj) {
       // Compose message to send
       const message =
-`Hello ${dataObj.name}, I completed the enrollment form. 
+        `Hello ${dataObj.name}, I completed the enrollment form. 
 Name: ${dataObj.name}
 Mobile: ${dataObj.mobile}
 Email: ${dataObj.email || 'N/A'}
 Interested: ${dataObj.who}
 Payment: ${dataObj.payment}
-Why: ${dataObj.why.substring(0,120)}...`;
+Why: ${dataObj.why.substring(0, 120)}...`;
 
       contactsContainer.innerHTML = `
         <div class="contact-item">
@@ -363,15 +660,15 @@ Why: ${dataObj.why.substring(0,120)}...`;
       // show modal
       modalBackdrop.style.visibility = 'visible';
       modalBackdrop.style.opacity = '1';
-      modalBackdrop.setAttribute('aria-hidden','false');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
     }
 
     // Save JSON locally
     document.getElementById('saveLocal').addEventListener('click', () => {
       const items = JSON.parse(localStorage.getItem('enrollments') || '[]');
-      const latest = items[items.length-1];
-      if(!latest){ alert('No saved form found.'); return; }
-      const blob = new Blob([JSON.stringify(latest, null, 2)], {type:'application/json'});
+      const latest = items[items.length - 1];
+      if (!latest) { alert('No saved form found.'); return; }
+      const blob = new Blob([JSON.stringify(latest, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `enrollment_${Date.now()}.json`; a.click();
       URL.revokeObjectURL(url);
@@ -380,12 +677,12 @@ Why: ${dataObj.why.substring(0,120)}...`;
     // Download CSV
     document.getElementById('downloadCsv').addEventListener('click', () => {
       const items = JSON.parse(localStorage.getItem('enrollments') || '[]');
-      if(!items.length){ alert('No saved form found.'); return; }
+      if (!items.length) { alert('No saved form found.'); return; }
       // build CSV
       const headers = Object.keys(items[0]);
-      const rows = items.map(r => headers.map(h => `"${(r[h] || '').toString().replace(/"/g,'""')}"`).join(','));
+      const rows = items.map(r => headers.map(h => `"${(r[h] || '').toString().replace(/"/g, '""')}"`).join(','));
       const csv = headers.join(',') + '\n' + rows.join('\n');
-      const blob = new Blob([csv], {type:'text/csv'});
+      const blob = new Blob([csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `enrollments_${Date.now()}.csv`; a.click();
       URL.revokeObjectURL(url);
@@ -395,10 +692,10 @@ Why: ${dataObj.why.substring(0,120)}...`;
     modalClose.addEventListener('click', () => {
       modalBackdrop.style.visibility = 'hidden';
       modalBackdrop.style.opacity = '0';
-      modalBackdrop.setAttribute('aria-hidden','true');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
     });
     modalBackdrop.addEventListener('click', (e) => {
-      if(e.target === modalBackdrop) modalClose.click();
+      if (e.target === modalBackdrop) modalClose.click();
     });
 
     // reset
@@ -408,7 +705,7 @@ Why: ${dataObj.why.substring(0,120)}...`;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      if(!validate(data)) return;
+      if (!validate(data)) return;
 
       // Show loading indicator
       submitBtn.disabled = true;
@@ -444,21 +741,21 @@ Why: ${dataObj.why.substring(0,120)}...`;
         if (response.ok) {
           // Formspree submission successful
           console.log('Form submitted successfully to Formspree');
-          
+
           // Open modal with contact info
           openModalWithContacts(saved);
         } else {
           // Formspree submission failed
           console.error('Formspree submission failed');
           alert('There was an issue submitting the form. Please try again or contact us directly.');
-          
+
           // Still open the modal as a fallback
           openModalWithContacts(saved);
         }
       } catch (error) {
         console.error('Error submitting form:', error);
         alert('Network error. Please check your connection and try again.');
-        
+
         // Still open the modal as a fallback
         openModalWithContacts(saved);
       } finally {
@@ -468,5 +765,78 @@ Why: ${dataObj.why.substring(0,120)}...`;
       }
     });
   </script>
+
+  <!-- Particles js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#FFFFFF"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 5,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ff0a0a",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "repulse": {
+            "distance": 200
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
 </body>
+
 </html>
