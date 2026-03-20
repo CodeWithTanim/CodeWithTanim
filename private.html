@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>Private Repositories | CodeWithTanim | Premium Source Code & Projects</title>
+    <meta name="description"
+        content="Exclusive private repositories and premium source code by MD Samiur Rahman Tanim. Contact for purchase and collaboration." />
+    <meta name="keywords"
+        content="private repository, premium code, source code for sale, CodeWithTanim, web development, SaaS, HYIP, automation" />
+    <meta name="author" content="MD Samiur Rahman Tanim" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <!-- Styles & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Base styles matching index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: black;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: black;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 18, 35, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+        }
+
+        header h1 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #00d8ff;
+            text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+        }
+
+        nav a {
+            font-weight: 600;
+            color: #00d8ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: rgba(0, 216, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+        }
+
+        main {
+            margin-top: 100px;
+            flex-grow: 1;
+            max-width: 1200px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 80px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #00d8ff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Project Grid */
+        .private-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .private-card {
+            background: rgba(18, 18, 35, 0.8);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .private-card::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #00d8ff;
+            color: #000;
+            padding: 5px 40px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            transform: rotate(45deg);
+        }
+
+        .private-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d8ff;
+            box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+            background: rgba(18, 18, 35, 0.95);
+        }
+
+        .private-card i {
+            font-size: 2.5rem;
+            color: #00d8ff;
+            margin-bottom: 20px;
+        }
+
+        .private-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .private-card p {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            background: #00d8ff;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-contact:hover {
+            background: #0088aa;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 216, 255, 0.5);
+            color: #fff;
+        }
+
+        /* Contact Details Section */
+        .contact-details-box {
+            margin-top: 80px;
+            background: rgba(18, 18, 35, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px dashed rgba(0, 216, 255, 0.3);
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contact-details-box h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .contact-info-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #00d8ff;
+        }
+
+        .info-item span {
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .info-item a {
+            color: #00d8ff;
+            text-decoration: none;
+        }
+
+        .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #0a0a14;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1a2e;
+        }
+
+        @media (max-width: 768px) {
+            h2 { font-size: 2rem; }
+            .private-grid { grid-template-columns: 1fr; }
+            .contact-info-grid { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <header>
+        <h1>CodeWithTanim</h1>
+        <nav>
+            <a href="index.html">Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Private Repositories</h2>
+            <p>Exclusive source code and premium software solutions built for business, automation, and scale. These projects are hosted privately for security and client exclusivity.</p>
+        </section>
+
+        <section class="private-grid">
+            <!-- InvestFlow -->
+            <div class="private-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>InvestFlow</h3>
+                <p>A sophisticated HYIP Investment Platform built with modern security standards. Features automated deposits, withdrawal requests, and a comprehensive admin dashboard.</p>
+                <a href="index.html#contact" class="btn-contact">Inquire for Details</a>
+            </div>
+
+            <!-- TaskFlow -->
+            <div class="private-card">
+                <i class="fas fa-tasks"></i>
+                <h3>TaskFlow</h3>
+                <p>Advanced Task Management SaaS for teams. Includes real-time collaboration, task tracking, and insightful analytics to boost productivity.</p>
+                <a href="index.html#contact" class="btn-contact">Get Access</a>
+            </div>
+
+            <!-- FormFarm -->
+            <div class="private-card">
+                <i class="fas fa-wpforms"></i>
+                <h3>FormFarm</h3>
+                <p>A professional Formspree clone with enhanced features. Manage form submissions, notifications, and spam protection seamlessly without a backend.</p>
+                <a href="index.html#contact" class="btn-contact">Buy Source Code</a>
+            </div>
+
+            <!-- E-Commerce Pro -->
+            <div class="private-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>E-Commerce Pro</h3>
+                <p>Full-featured e-commerce solution with integrated payment gateways, inventory management, and a sleek user interface designed for high conversion.</p>
+                <a href="index.html#contact" class="btn-contact">Request Demo</a>
+            </div>
+        </section>
+
+        <section class="contact-details-box">
+            <h2>Interested in My Work?</h2>
+            <p>If you're looking to purchase source code, hire me for a custom project, or collaborate, feel free to reach out directly.</p>
+            
+            <div class="contact-info-grid">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                    <a href="mailto:codewithtanim@gmail.com">codewithtanim@gmail.com</a>
+                </div>
+                <div class="info-item">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                    <a href="https://t.me/CodeWithTanim_Support" target="_blank">@CodeWithTanim</a>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Website</span>
+                    <a href="http://codewithtanim.me" target="_blank">CodeWithTanim.me</a>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <a href="index.html#contact" class="btn-contact" style="font-size: 1.1rem; padding: 15px 40px;">Use My Contact Form</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MD Samiur Rahman Tanim | CodeWithTanim. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Particles.js scripts matching index.html -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00d8ff" },
+                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#00d8ff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+
+</html>
