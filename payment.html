@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Required | CodeWithTanim</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Official Payment Page for CodeWithTanim. Secure and professional billing portal.">
+    <meta name="author" content="CodeWithTanim">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        :root {
+            --primary: #00d8ff;
+            --primary-accent: #0088aa;
+            --secondary: #5865f2;
+            --bg-dark: #050510;
+            --card-bg: rgba(10, 10, 25, 0.8);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+            --warning: #ff3e3e;
+            --gold: #ffcc00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        /* --- Background Effects --- */
+        .bg-container {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background: radial-gradient(circle at center, #101025 0%, #050510 100%);
+        }
+
+        /* Grid Pattern */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 216, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 216, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+            z-index: -1;
+        }
+
+        .bg-blobs {
+            position: absolute;
+            inset: 0;
+            filter: blur(100px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: move 25s infinite alternate;
+        }
+        .blob-1 { width: 500px; height: 500px; background: var(--primary); top: -200px; right: -100px; }
+        .blob-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -150px; left: -100px; animation-delay: -5s; }
+
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(150px, 100px) scale(1.2); }
+        }
+
+        /* --- Main Card --- */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 3.5rem 2.5rem;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Border Beam Animation */
+        .glass-card::after, .glass-card::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-image: conic-gradient(from var(--angle), transparent 70%, var(--primary), var(--secondary), var(--primary));
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: -1;
+            padding: 3px;
+            border-radius: 32px;
+            animation: rotate 4s linear infinite;
+        }
+
+        .glass-card::before {
+            filter: blur(1.5rem);
+            opacity: 0.5;
+        }
+
+        @keyframes rotate {
+            from { --angle: 0deg; }
+            to { --angle: 360deg; }
+        }
+
+        /* --- Content Styling --- */
+        .alert-icon {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--warning), #ff8080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(255, 62, 62, 0.4));
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(to right, #fff, var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .message-box {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .message-text {
+            color: var(--text-dim);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .highlight-warn {
+            display: block;
+            margin-top: 0.75rem;
+            color: var(--warning);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 62, 62, 0.2);
+            background: rgba(255, 62, 62, 0.05);
+            padding: 0.5rem;
+            border-radius: 8px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* --- Awesome Button --- */
+        .cta-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .btn-awesome {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-awesome::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 216, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-awesome:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 216, 255, 0.4);
+        }
+
+        .btn-awesome:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-awesome i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-awesome:hover i {
+            transform: translate(5px, -2px);
+        }
+
+        /* --- Footer --- */
+        .footer-tag {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-tag b { color: var(--primary-accent); }
+
+        /* Grainy Overlay */
+        .grain {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 480px) {
+            .glass-card { padding: 2.5rem 1.5rem; }
+            h1 { font-size: 1.8rem; }
+            .message-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-container">
+        <div class="bg-grid"></div>
+        <div class="bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+        </div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="card-container" id="tiltCard">
+        <main class="glass-card">
+            <div class="alert-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            
+            <h1>Payment Required</h1>
+            
+            <div class="message-box">
+                <p class="message-text">
+                    If you are not clear the payment under next 3-5 working days.
+                    <span class="highlight-warn">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        You will unable to open your website.
+                    </span>
+                </p>
+            </div>
+
+            <div class="cta-wrapper">
+                <a href="https://payment.codewithtanim.works/payment-link/252208132069369940323296583" class="btn-awesome">
+                    <span>Pay Amount Securely</span>
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+            <div class="footer-tag">
+                <i class="fas fa-lock"></i>
+                <span>SECURED BY <b>CODEWITHTANIM</b></span>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const card = document.getElementById('tiltCard');
+        const sensitivity = 20; // Lower is more sensitive
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / sensitivity;
+            const y = (window.innerHeight / 2 - e.pageY) / sensitivity;
+            
+            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+
+        // Soft reset when mouse leaves or for mobile
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
+</body>
+</html>
