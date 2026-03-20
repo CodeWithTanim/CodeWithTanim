@@ -137,7 +137,7 @@ sh-2.0$ /bin/bash -i
         <td>Oct 09, 2025</td>
     </tr>
     <tr>
-        <td><a href="#">InvestFlow – HYIP Investment Platform</a></td>
+        <td><a href="https://codewithtanim.is-a.dev/private.html">InvestFlow – HYIP Investment Platform</a></td>
         <td>InvestFlow – HYIP Investment Platform.</td>
         <td>Jan 23, 2026</td>
     </tr>
