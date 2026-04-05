@@ -398,6 +398,108 @@
       font-size: 13px;
       text-align: center;
     }
+
+    /* Modern Modal Enhancements */
+    .modal {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+
+    .modal-backdrop.visible .modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: #fff;
+      font-size: 28px;
+      box-shadow: 0 8px 16px rgba(22, 163, 74, 0.2);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-header h3 {
+      font-size: 24px;
+      color: #fff;
+      margin: 0 0 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .contact-item {
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.01);
+      transition: all 0.2s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.08);
+      transform: translateX(4px);
+    }
+
+    .msg-template {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .copy-mini {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-mini:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .btn-payment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(90deg, #ffb020, #ff8c00);
+      color: #08111a;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(255, 176, 32, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 20px;
+    }
+
+    .btn-payment:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(255, 176, 32, 0.3);
+      filter: brightness(1.1);
+    }
   </style>
 </head>
 
@@ -538,32 +640,30 @@
     </div>
   </div>
 
-  <!-- Modal (hidden by default) -->
+  <!-- Modal (Redesigned) -->
   <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <h3>Thanks for applying — next step</h3>
-          <div class="small" style="color:var(--muted)">Contact me on WhatsApp or Telegram to complete enrollment.</div>
-        </div>
+      <div style="text-align:right;">
         <button class="close-x" id="modalClose" title="Close">✕</button>
       </div>
 
-      <div class="contact-list" id="contactsContainer">
-        <!-- injected -->
+      <div class="modal-header">
+        <div class="success-icon">✓</div>
+        <h3>Information Received!</h3>
+        <div class="small" style="color:var(--muted)">Connect with us to finalize your enrollment.</div>
       </div>
 
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
-        <button id="saveLocal" class="copy">Save copy (JSON)</button>
-        <button id="downloadCsv" class="copy">Download CSV</button>
+      <div id="contactsContainer">
+        <!-- Injected via JavaScript -->
       </div>
     </div>
   </div>
 
   <script>
     /***************** EDIT THESE with your real contacts *****************/
-    const WHATSAPP_NUMBER = "+8801XXXXXXXXX"; // put full international format e.g. +8801XXXXXXXXX
-    const TELEGRAM_USERNAME = "CodeWithTanim"; // without @
+    const WHATSAPP_NUMBER = "+8801575120682"; // put full international format e.g. +8801XXXXXXXXX
+    const TELEGRAM_USERNAME = "@CodeWithTanim_Support"; // without @
+    const PAYMENT_LINK = "https://payment.codewithtanim.works/payment-link/088879420470996375296084850";
     /************************************************************************/
 
     const form = document.getElementById('enrollForm');
@@ -614,87 +714,70 @@
     }
 
     function openModalWithContacts(dataObj) {
+      // Clean Telegram username (remove @ if present for the link)
+      const telegramId = TELEGRAM_USERNAME.startsWith('@') ? TELEGRAM_USERNAME.substring(1) : TELEGRAM_USERNAME;
+
       // Compose message to send
-      const message =
-        `Hello ${dataObj.name}, I completed the enrollment form. 
+      const message = `Hello, I completed the enrollment form.
 Name: ${dataObj.name}
 Mobile: ${dataObj.mobile}
-Email: ${dataObj.email || 'N/A'}
 Interested: ${dataObj.who}
 Payment: ${dataObj.payment}
-Why: ${dataObj.why.substring(0, 120)}...`;
+Address: ${dataObj.address || 'N/A'}`;
 
       contactsContainer.innerHTML = `
+        <a href="${PAYMENT_LINK}" target="_blank" class="btn-payment">
+          <span style="font-size:20px;">💳</span>
+          <span>Click here to Payment</span>
+        </a>
+
         <div class="contact-item">
-          <div style="display:flex;gap:12px;flex-direction:column;">
-            <div style="font-size:14px;">WhatsApp</div>
-            <div class="small muted" style="color:var(--muted)">${WHATSAPP_NUMBER}</div>
+          <div>
+            <div style="font-size:14px; font-weight:600;">WhatsApp</div>
+            <div class="small muted">${WHATSAPP_NUMBER}</div>
           </div>
-          <div class="contact-actions">
-            <a class="chip" href="${buildWhatsAppLink(WHATSAPP_NUMBER, message)}" target="_blank" rel="noopener">Open WhatsApp</a>
-            <button class="copy" onclick='(${() => copyText(WHATSAPP_NUMBER)})()'>Copy</button>
+          <div style="display:flex; gap:8px;">
+            <a class="chip" href="${buildWhatsAppLink(WHATSAPP_NUMBER, message)}" target="_blank" rel="noopener">Open</a>
+            <button class="copy-mini" onclick="(function(){ copyText('${WHATSAPP_NUMBER}'); })()">Copy</button>
           </div>
         </div>
 
         <div class="contact-item">
-          <div style="display:flex;gap:12px;flex-direction:column;">
-            <div style="font-size:14px;">Telegram</div>
-            <div class="small muted" style="color:var(--muted)">@${TELEGRAM_USERNAME}</div>
+          <div>
+            <div style="font-size:14px; font-weight:600;">Telegram</div>
+            <div class="small muted">@${telegramId}</div>
           </div>
-          <div class="contact-actions">
-            <a class="chip" href="${buildTelegramLink(TELEGRAM_USERNAME)}" target="_blank" rel="noopener">Open Telegram</a>
-            <button class="copy" onclick='(${() => copyText('@' + TELEGRAM_USERNAME)})()'>Copy</button>
+          <div style="display:flex; gap:8px;">
+            <a class="chip" href="${buildTelegramLink(telegramId)}" target="_blank" rel="noopener">Open</a>
+            <button class="copy-mini" onclick="(function(){ copyText('@${telegramId}'); })()">Copy</button>
           </div>
         </div>
 
-        <div style="margin-top:8px;color:var(--muted);font-size:13px">Pro tip: When you message, paste this short message to help us identify you faster.</div>
-
-        <div style="margin-top:8px;">
-          <textarea id="msgArea" style="width:100%;min-height:90px;border-radius:10px;padding:10px;margin-top:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:inherit;">${message}</textarea>
-          <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end;">
-            <button class="copy" onclick="(function(){ const t=document.getElementById('msgArea'); copyText(t.value); })()">Copy Message</button>
-            <a class="copy" id="openWaWithMsg" href="${buildWhatsAppLink(WHATSAPP_NUMBER, message)}" target="_blank">Open WhatsApp with Message</a>
+        <div class="msg-template">
+          <div class="small" style="color:var(--muted); margin-bottom:12px;">Copy this message to help us identify you faster:</div>
+          <textarea id="msgArea" style="width:100%; min-height:80px; border:none; background:transparent; color:inherit; font-size:13px; outline:none; resize:none;" readonly>${message}</textarea>
+          <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
+            <button class="copy-mini" onclick="(function(){ const t=document.getElementById('msgArea'); copyText(t.value); })()">Copy Message</button>
+            <a class="chip" href="${buildWhatsAppLink(WHATSAPP_NUMBER, message)}" target="_blank" style="background:var(--accent-2); color:#fff; box-shadow:none;">Send via WhatsApp</a>
           </div>
         </div>
       `;
 
-      // show modal
+      // Show modal
+      modalBackdrop.classList.add('visible');
       modalBackdrop.style.visibility = 'visible';
       modalBackdrop.style.opacity = '1';
       modalBackdrop.setAttribute('aria-hidden', 'false');
     }
 
-    // Save JSON locally
-    document.getElementById('saveLocal').addEventListener('click', () => {
-      const items = JSON.parse(localStorage.getItem('enrollments') || '[]');
-      const latest = items[items.length - 1];
-      if (!latest) { alert('No saved form found.'); return; }
-      const blob = new Blob([JSON.stringify(latest, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `enrollment_${Date.now()}.json`; a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // Download CSV
-    document.getElementById('downloadCsv').addEventListener('click', () => {
-      const items = JSON.parse(localStorage.getItem('enrollments') || '[]');
-      if (!items.length) { alert('No saved form found.'); return; }
-      // build CSV
-      const headers = Object.keys(items[0]);
-      const rows = items.map(r => headers.map(h => `"${(r[h] || '').toString().replace(/"/g, '""')}"`).join(','));
-      const csv = headers.join(',') + '\n' + rows.join('\n');
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `enrollments_${Date.now()}.csv`; a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // modal close / backdrop click
+    // Modal close / Backdrop click
     modalClose.addEventListener('click', () => {
+      modalBackdrop.classList.remove('visible');
       modalBackdrop.style.visibility = 'hidden';
       modalBackdrop.style.opacity = '0';
       modalBackdrop.setAttribute('aria-hidden', 'true');
     });
+
     modalBackdrop.addEventListener('click', (e) => {
       if (e.target === modalBackdrop) modalClose.click();
     });
@@ -740,24 +823,15 @@ Why: ${dataObj.why.substring(0, 120)}...`;
         });
 
         if (response.ok) {
-          // Formspree submission successful
           console.log('Form submitted successfully to Formspree');
-
-          // Open modal with contact info
-          openModalWithContacts(saved);
         } else {
-          // Formspree submission failed
           console.error('Formspree submission failed');
-          alert('There was an issue submitting the form. Please try again or contact us directly.');
-
-          // Still open the modal as a fallback
-          openModalWithContacts(saved);
         }
+        // Always open the modal with contact info
+        openModalWithContacts(saved);
       } catch (error) {
         console.error('Error submitting form:', error);
-        alert('Network error. Please check your connection and try again.');
-
-        // Still open the modal as a fallback
+        // Open the modal as a fallback (info might have been sent or can be sent manually)
         openModalWithContacts(saved);
       } finally {
         // Hide loading indicator
