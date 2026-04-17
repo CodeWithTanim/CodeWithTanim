@@ -137,15 +137,45 @@ sh-2.0$ /bin/bash -i
         <td>Oct 09, 2025</td>
     </tr>
     <tr>
+        <td><a href="https://github.com/CodeWithTanim/Data-Splitter">Data-Splitter</a></td>
+        <td>A powerful, user-friendly desktop application for splitting large TXT, XLSX, XML, CSV files into smaller, manageable parts with customizable options and batch processing capabilities.</td>
+        <td>Oct 18, 2025</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Ai-Image-Generator">Ai-Image-Generator</a></td>
+        <td>A powerful SaaS platform for AI-powered image generation built with modern web technologies.</td>
+        <td>Nov 27, 2025</td>
+    </tr>
+    <tr>
         <td><a href="https://codewithtanim.is-a.dev/private.html">InvestFlow – HYIP Investment Platform</a></td>
         <td>InvestFlow – HYIP Investment Platform.</td>
-        <td>Jan 23, 2026</td>
+        <td>Dec 2, 2025</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Nitro-Rush">Nitro-Rush</a></td>
+        <td>Nitro-Ruch is a High Speed Racing Game.</td>
+        <td> Mar 12, 2026</td>
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/FormFarm">FormFarm</a></td>
         <td>FormFarm | Professional Formspree Clone (SaaS).</td>
         <td>Mar 09, 2026</td>
     </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/EduTrack">EduTrack</a></td>
+        <td>EduTrack - Modern Homework Management).</td>
+        <td>18 Apr, 2026</td>
+    </tr>
+    <tr>
+        <td><a href="https://codewithtanim.is-a.dev/ComingSoon.html">COMING SOON</a></td>
+        <td>COMING SOON.</td>
+        <td>COMING SOON</td>
+    </tr>
+    <!-- <tr>
+        <td><a href="#">TITLE</a></td>
+        <td>DESCRIPTION.</td>
+        <td>mmmddyyy</td>
+    </tr> -->
 </table>
 
 <br/>

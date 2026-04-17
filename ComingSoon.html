@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>Coming Soon | MD SAMIUR RAHMAN TANIM</title>
+    <meta name="description"
+        content="Something exciting is coming soon from MD SAMIUR RAHMAN TANIM. Stay tuned for new projects and updates." />
+    <meta name="keywords"
+        content="coming soon, portfolio, web developer, programmer, computer science, MD SAMIUR RAHMAN TANIM" />
+    <meta name="author" content="MD SAMIUR RAHMAN TANIM" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Coming Soon | MD SAMIUR RAHMAN TANIM" />
+    <meta property="og:description"
+        content="Something exciting is coming soon from MD SAMIUR RAHMAN TANIM. Stay tuned for new projects and updates." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codewithtanim.github.io/ComingSoon.html" />
+    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+    <meta property="og:site_name" content="MD SAMIUR RAHMAN TANIM Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@CodeWithTanim" />
+    <meta name="twitter:title" content="Coming Soon | MD SAMIUR RAHMAN TANIM" />
+    <meta name="twitter:description"
+        content="Something exciting is coming soon from MD SAMIUR RAHMAN TANIM. Stay tuned for new projects and updates." />
+    <meta name="twitter:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://codewithtanim.github.io/ComingSoon.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <!-- Styles & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        as="style" />
+    <style>
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: transparent;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: black;
+        }
+
+        .coming-soon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .coming-soon-text {
+            font-size: 6rem;
+            font-weight: 700;
+            color: #00d8ff;
+            text-shadow: 0 0 30px #00d8ff88;
+            animation: glow 2s ease-in-out infinite alternate;
+            letter-spacing: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-text {
+                font-size: 4rem;
+                letter-spacing: 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coming-soon-text {
+                font-size: 3rem;
+                letter-spacing: 2px;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px #00d8ff88;
+            }
+            to {
+                text-shadow: 0 0 30px #00d8ffcc, 0 0 40px #00d8ff88;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+
+    <div class="coming-soon-container">
+        <h1 class="coming-soon-text">COMING SOON</h1>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#FFFFFF"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 5,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ff0a0a",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 200
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+
+</html>
