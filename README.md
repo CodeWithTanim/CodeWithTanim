@@ -259,7 +259,7 @@ class Languages:
 
 <!-- GitHub Trophy -->
 ### `~# ./Trophy`
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=CodeWithTanim" alt="CodeWithTanim" /></a> </p>
+<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://trophy.benkou.dev/?username=CodeWithTanim&theme=darkhub" alt="CodeWithTanim" /></a> </p>
 <hr />
 
 <!-- GitHub Stats -->

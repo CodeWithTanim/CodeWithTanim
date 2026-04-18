@@ -38,9 +38,12 @@
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
 
     <!-- Styles & Fonts -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://i.ibb.co" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         as="style" />
+    <meta name="theme-color" content="#121223" />
     <style>
         /* Reset & base */
         * {
@@ -654,7 +657,7 @@
             padding: 20px 10px;
             background: #121223;
             font-size: 0.9rem;
-            color: #666;
+            color: #a0a0a0;
             border-top: 1px solid #222236;
         }
 
@@ -811,7 +814,7 @@
     <main>
         <section id="about" class="animate">
             <div class="about-content">
-                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD SAMIUR RAHMAN TANIM Profile Picture" />
+                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD SAMIUR RAHMAN TANIM Profile Picture" fetchpriority="high" width="180" height="180" />
                 <div class="about-text">
                     <h1>Hello, I'm MD SAMIUR RAHMAN TANIM</h1>
                     <p class="intro-line">A passionate Computer Science student and developer currently pursuing B.Tech.
@@ -847,7 +850,7 @@
             <h2>Featured Projects</h2>
             <div class="project-list">
                 <div class="project-card">
-                    <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management System" />
+                    <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management System" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Cosmetics Product Management</h3>
                         <p>PHP & MySQL inventory management system for cosmetics products with admin dashboard and
@@ -858,7 +861,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" />
+                    <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Online Quiz App</h3>
                         <p>A responsive quiz platform with Firebase authentication, real-time scoring system, and
@@ -869,7 +872,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="Images/Projects/termux-setup-command.jpg" alt="Termux Setup Pro Tool" />
+                    <img src="Images/Projects/termux-setup-command.jpg" alt="Termux Setup Pro Tool" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>TERMUX-SETUP-PRO</h3>
                         <p>Automation script to setup Termux environment with developer tools, packages, and
@@ -880,7 +883,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC Encryption Tool" />
+                    <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC Encryption Tool" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>TOXIC-ENC (ENC)</h3>
                         <p>Python security tool to encrypt Termux scripts with AES-256 encryption for code protection.
@@ -891,7 +894,7 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" />
+                    <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Tic-Tac-Toe Game</h3>
                         <p>Terminal-based Tic-Tac-Toe game written in Python with AI opponent and score tracking.</p>
@@ -900,7 +903,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="automated-resume-parser" />
+                    <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="automated-resume-parser" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>automated-resume-parser</h3>
                         <p>Python-based tool that extracts key information from PDF resumes including name, contact
@@ -911,7 +914,7 @@
                 </div>
                 <div class="project-card">
                     <img src="Images/Projects/Real-Time-Stock-Market-Dashboard.jpg"
-                        alt="Real-Time Stock Market Dashboard" />
+                        alt="Real-Time Stock Market Dashboard" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Real-Time Stock Market Dashboard</h3>
                         <p>Interactive dashboard built using Python, Streamlit, and Plotly to visualize live stock
@@ -922,7 +925,7 @@
                 </div>
                 <div class="project-card">
                     <img src="Images/Projects/Cryptography-Algorithms-Implementation.jpeg"
-                        alt="Cryptography Algorithms Implementation" />
+                        alt="Cryptography Algorithms Implementation" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Cryptography Algorithms Implementation</h3>
                         <p>Implementation of classical and modern cryptography algorithms with Python.</p>
@@ -932,7 +935,7 @@
                 </div>
                 <div class="project-card">
                     <img src="Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg"
-                        alt="Password Cracking and Hashing Algorithms" />
+                        alt="Password Cracking and Hashing Algorithms" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Password Cracking & Hashing Algorithms</h3>
                         <p>Demonstrates password cracking techniques and secure hashing algorithm implementations.</p>
@@ -941,7 +944,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation" />
+                    <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Custom Ransomware Simulation (Educational)</h3>
                         <p>Educational ransomware simulation showing encryption & decryption in a safe, controlled
@@ -951,7 +954,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/TaskFlow.jpg" alt="TaskFlow" />
+                    <img src="Images/Projects/TaskFlow.jpg" alt="TaskFlow" loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>TaskFlow</h3>
                         <p>TaskFlow - A Modern Task Manager.</p>
@@ -1055,31 +1058,31 @@
                     <h3>Social Media Profiles</h3>
                     <div class="social-grid">
                         <a href="https://www.facebook.com/CodeWithTanim/" target="_blank" rel="noopener noreferrer"
-                            class="social-btn facebook">
+                            class="social-btn facebook" aria-label="Facebook Profile">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/CodeWithTanim/" target="_blank" rel="noopener noreferrer"
-                            class="social-btn linkedin">
+                            class="social-btn linkedin" aria-label="LinkedIn Profile">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                         <a href="https://github.com/CodeWithTanim" target="_blank" rel="noopener noreferrer"
-                            class="social-btn github">
+                            class="social-btn github" aria-label="GitHub Profile">
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="https://www.instagram.com/CodeWithTanim" target="_blank" rel="noopener noreferrer"
-                            class="social-btn instagram">
+                            class="social-btn instagram" aria-label="Instagram Profile">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <a href="https://www.x.com/CodeWithTanim" target="_blank" rel="noopener noreferrer"
-                            class="social-btn twitter">
+                            class="social-btn twitter" aria-label="Twitter Profile">
                             <i class="fab fa-x-twitter"></i>
                         </a>
                         <a href="https://discord.gg/5Ed5WzMbjb" target="_blank" rel="noopener noreferrer"
-                            class="social-btn discord">
+                            class="social-btn discord" aria-label="Discord Server">
                             <i class="fab fa-discord"></i>
                         </a>
                         <a href="https://www.youtube.com/@CodeWithTanim" target="_blank" rel="noopener noreferrer"
-                            class="social-btn youtube">
+                            class="social-btn youtube" aria-label="YouTube Channel">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -1108,7 +1111,7 @@
         reserved.
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
     <script>
         // Animate sections on scroll
         const sections = document.querySelectorAll('section.animate');
@@ -1125,73 +1128,76 @@
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
+        // Wait for particles.js to load before initializing
+        window.onload = function() {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#FFFFFF"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true
+                    },
+                    "line_linked": {
                         "enable": true,
-                        "value_area": 800
+                        "distance": 150,
+                        "color": "#ff0a0a",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out"
                     }
                 },
-                "color": {
-                    "value": "#FFFFFF"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
+                "interactivity": {
+                    "detect_on": "window",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "repulse": {
+                            "distance": 200
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        }
                     }
                 },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false
-                },
-                "size": {
-                    "value": 5,
-                    "random": true
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ff0a0a",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 2,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out"
-                }
-            },
-            "interactivity": {
-                "detect_on": "window",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "repulse": {
-                        "distance": 200
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    }
-                }
-            },
-            "retina_detect": true
-        });
+                "retina_detect": true
+            });
+        };
     </script>
 </body>
 
