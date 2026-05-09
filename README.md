@@ -163,8 +163,13 @@ sh-2.0$ /bin/bash -i
     </tr>
     <tr>
         <td><a href="https://github.com/CodeWithTanim/EduTrack">EduTrack</a></td>
-        <td>EduTrack - Modern Homework Management).</td>
-        <td>18 Apr, 2026</td>
+        <td>EduTrack - Modern Homework Management.</td>
+        <td>Apr 18, 2026</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER">RED-EYE-LEAD-HUNTER</a></td>
+        <td>A high-performance, dark-themed Chrome Extension for automated lead extraction from Google Maps.</td>
+        <td>Apr 28, 2026</td>
     </tr>
     <tr>
         <td><a href="https://codewithtanim.is-a.dev/ComingSoon.html">COMING SOON</a></td>
