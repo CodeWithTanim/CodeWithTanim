@@ -384,6 +384,116 @@
             }
         }
 
+        /* Inquiry Form Section */
+        .inquiry-section {
+            margin-top: 80px;
+            padding: 60px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .form-container {
+            background: rgba(18, 18, 35, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00d8ff;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d8ff;
+            background: rgba(0, 216, 255, 0.05);
+            box-shadow: 0 0 10px rgba(0, 216, 255, 0.2);
+        }
+
+        .form-group select option {
+            background: #121223;
+            color: #fff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(45deg, #00d8ff, #0088aa);
+            color: #000;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 216, 255, 0.4);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
     </style>
 </head>
 
@@ -411,16 +521,7 @@
                 <h3>InvestFlow</h3>
                 <p>A sophisticated HYIP Investment Platform built with modern security standards. Features automated
                     deposits, withdrawal requests, and a comprehensive admin dashboard.</p>
-                <a href="index.html#contact" class="btn-contact">Inquire for Details</a>
-            </div>
-
-            <!-- TaskFlow -->
-            <div class="private-card">
-                <i class="fas fa-tasks"></i>
-                <h3>TaskFlow</h3>
-                <p>Advanced Task Management SaaS for teams. Includes real-time collaboration, task tracking, and
-                    insightful analytics to boost productivity.</p>
-                <a href="index.html#contact" class="btn-contact">Get Access</a>
+                <a href="#inquiry-form" class="btn-contact">Inquire for Details</a>
             </div>
 
             <!-- FormFarm -->
@@ -429,7 +530,7 @@
                 <h3>FormFarm</h3>
                 <p>A professional Formspree clone with enhanced features. Manage form submissions, notifications, and
                     spam protection seamlessly without a backend.</p>
-                <a href="index.html#contact" class="btn-contact">Buy Source Code</a>
+                <a href="#inquiry-form" class="btn-contact">Buy Source Code</a>
             </div>
 
             <!-- E-Commerce Pro -->
@@ -438,7 +539,7 @@
                 <h3>E-Commerce Pro</h3>
                 <p>Full-featured e-commerce solution with integrated payment gateways, inventory management, and a sleek
                     user interface designed for high conversion.</p>
-                <a href="index.html#contact" class="btn-contact">Request Demo</a>
+                <a href="#inquiry-form" class="btn-contact">Request Demo</a>
             </div>
         </section>
 
@@ -466,8 +567,45 @@
             </div>
 
             <div style="margin-top: 40px;">
-                <a href="index.html#contact" class="btn-contact" style="font-size: 1.1rem; padding: 15px 40px;">Use My
-                    Contact Form</a>
+                <a href="#inquiry-form" class="btn-contact" style="font-size: 1.1rem; padding: 15px 40px;">Open Enquiry Form</a>
+            </div>
+        </section>
+
+        <!-- Enquiry Form Section -->
+        <section id="inquiry-form" class="inquiry-section">
+            <div class="form-container">
+                <h2>Repository Enquiry</h2>
+                <form action="https://form.codewithtanim.works/f/ce45d34331b8a76a" method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telegram"><i class="fab fa-telegram-plane"></i> Telegram Username</label>
+                            <input type="text" id="telegram" name="telegram" placeholder="@username (Optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest"><i class="fas fa-code"></i> Project of Interest</label>
+                            <select id="interest" name="interest" required>
+                                <option value="" disabled selected>Select a project</option>
+                                <option value="InvestFlow">InvestFlow (HYIP Platform)</option>
+                                <option value="FormFarm">FormFarm (SaaS Form Manager)</option>
+                                <option value="E-Commerce Pro">E-Commerce Pro</option>
+                                <option value="Custom Project">Custom Project / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message"><i class="fas fa-comment-alt"></i> Message / Requirements</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your requirements or any questions you have..." required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Enquiry</button>
+                </form>
             </div>
         </section>
     </main>
