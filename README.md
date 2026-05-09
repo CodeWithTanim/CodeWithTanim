@@ -172,6 +172,11 @@ sh-2.0$ /bin/bash -i
         <td>Apr 28, 2026</td>
     </tr>
     <tr>
+        <td><a href="https://github.com/CodeWithTanim/GHOST-HAND">GHOST HAND</a></td>
+        <td>A professional, modular, and secure Windows automation system controlled entirely via Telegram.</td>
+        <td>May 9, 2026</td>
+    </tr>
+    <tr>
         <td><a href="https://codewithtanim.is-a.dev/ComingSoon.html">COMING SOON</a></td>
         <td>COMING SOON.</td>
         <td>COMING SOON</td>

@@ -675,16 +675,27 @@
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                padding: 1rem;
+                padding: 0.8rem;
                 text-align: center;
+                height: auto;
             }
 
             header h1 {
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
+                font-size: 1.3rem;
             }
 
             nav {
                 justify-content: center;
+                gap: 0.8rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            main {
+                margin-top: 130px;
             }
 
             #about {
@@ -814,7 +825,8 @@
     <main>
         <section id="about" class="animate">
             <div class="about-content">
-                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD SAMIUR RAHMAN TANIM Profile Picture" fetchpriority="high" width="180" height="180" />
+                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD SAMIUR RAHMAN TANIM Profile Picture"
+                    fetchpriority="high" width="180" height="180" />
                 <div class="about-text">
                     <h1>Hello, I'm MD SAMIUR RAHMAN TANIM</h1>
                     <p class="intro-line">A passionate Computer Science student and developer currently pursuing B.Tech.
@@ -841,38 +853,17 @@
                 <li>React Framework</li>
                 <li>Node.js</li>
                 <li>HTML & CSS</li>
+                <li>PHP</li>
                 <li>Git Version Control</li>
                 <li>Cyber Security</li>
             </ul>
         </section>
 
         <section id="projects" class="animate">
-            <h2>Featured Projects</h2>
-            <div class="project-list">
+            <h2>Featured Projects</h2>            <div class="project-list">
                 <div class="project-card">
-                    <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management System" loading="lazy" decoding="async" width="300" height="160" />
-                    <div class="content">
-                        <h3>Cosmetics Product Management</h3>
-                        <p>PHP & MySQL inventory management system for cosmetics products with admin dashboard and
-                            reporting features.</p>
-                        <a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System" target="_blank"
-                            rel="noopener noreferrer">View on GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" loading="lazy" decoding="async" width="300" height="160" />
-                    <div class="content">
-                        <h3>Online Quiz App</h3>
-                        <p>A responsive quiz platform with Firebase authentication, real-time scoring system, and
-                            multiple question types.</p>
-                        <a href="https://github.com/CodeWithTanim/Online-Quiz-App" target="_blank"
-                            rel="noopener noreferrer">View on GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <img src="Images/Projects/termux-setup-command.jpg" alt="Termux Setup Pro Tool" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/termux-setup-command.jpg" alt="Termux Setup Pro Tool" loading="lazy"
+                        decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>TERMUX-SETUP-PRO</h3>
                         <p>Automation script to setup Termux environment with developer tools, packages, and
@@ -881,9 +872,40 @@
                             rel="noopener noreferrer">View on GitHub</a>
                     </div>
                 </div>
-
                 <div class="project-card">
-                    <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC Encryption Tool" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/unclickable-love.png" alt="Unclickable Love" loading="lazy"
+                        decoding="async" width="300" height="160" />
+                    <div class="content">
+                        <h3>Unclickable Love</h3>
+                        <p>A funny, interactive website featuring unclickable buttons and playful animations.</p>
+                        <a href="https://github.com/CodeWithTanim/Unclickable-Love" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management System" loading="lazy"
+                        decoding="async" width="300" height="160" />
+                    <div class="content">
+                        <h3>Cosmetics Product Management</h3>
+                        <p>PHP & MySQL inventory management system for cosmetics products with admin dashboard and
+                            reporting features.</p>
+                        <a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/password-gen.png" alt="Password Generator" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>Password Generator</h3>
+                        <p>A secure tool for generating strong, random passwords to enhance digital security.</p>
+                        <a href="https://github.com/CodeWithTanim/Password-Generator" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC Encryption Tool" loading="lazy" decoding="async"
+                        width="300" height="160" />
                     <div class="content">
                         <h3>TOXIC-ENC (ENC)</h3>
                         <p>Python security tool to encrypt Termux scripts with AES-256 encryption for code protection.
@@ -892,29 +914,31 @@
                             GitHub</a>
                     </div>
                 </div>
-
                 <div class="project-card">
-                    <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Python Game" loading="lazy"
+                        decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Tic-Tac-Toe Game</h3>
                         <p>Terminal-based Tic-Tac-Toe game written in Python with AI opponent and score tracking.</p>
-                        <a href="https://github.com/CodeWithTanim/Tic-Tak-Toe" target="_blank"
+                        <a href="https://github.com/CodeWithTanim/Tik-Tak-Toe" target="_blank"
                             rel="noopener noreferrer">View on GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="automated-resume-parser" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" loading="lazy"
+                        decoding="async" width="300" height="160" />
                     <div class="content">
-                        <h3>automated-resume-parser</h3>
-                        <p>Python-based tool that extracts key information from PDF resumes including name, contact
-                            info, education, and skills using NLP and Streamlit.</p>
-                        <a href="https://github.com/CodeWithTanim/automated-resume-parser" target="_blank"
+                        <h3>Online Quiz App</h3>
+                        <p>A responsive quiz platform with Firebase authentication, real-time scoring system, and
+                            multiple question types.</p>
+                        <a href="https://github.com/CodeWithTanim/Online-Quiz-App" target="_blank"
                             rel="noopener noreferrer">View on GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <img src="Images/Projects/Real-Time-Stock-Market-Dashboard.jpg"
-                        alt="Real-Time Stock Market Dashboard" loading="lazy" decoding="async" width="300" height="160" />
+                        alt="Real-Time Stock Market Dashboard" loading="lazy" decoding="async" width="300"
+                        height="160" />
                     <div class="content">
                         <h3>Real-Time Stock Market Dashboard</h3>
                         <p>Interactive dashboard built using Python, Streamlit, and Plotly to visualize live stock
@@ -924,8 +948,20 @@
                     </div>
                 </div>
                 <div class="project-card">
+                    <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="automated-resume-parser" loading="lazy"
+                        decoding="async" width="300" height="160" />
+                    <div class="content">
+                        <h3>automated-resume-parser</h3>
+                        <p>Python-based tool that extracts key information from PDF resumes including name, contact
+                            info, education, and skills using NLP and Streamlit.</p>
+                        <a href="https://github.com/CodeWithTanim/automated-resume-parser" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
                     <img src="Images/Projects/Cryptography-Algorithms-Implementation.jpeg"
-                        alt="Cryptography Algorithms Implementation" loading="lazy" decoding="async" width="300" height="160" />
+                        alt="Cryptography Algorithms Implementation" loading="lazy" decoding="async" width="300"
+                        height="160" />
                     <div class="content">
                         <h3>Cryptography Algorithms Implementation</h3>
                         <p>Implementation of classical and modern cryptography algorithms with Python.</p>
@@ -935,7 +971,8 @@
                 </div>
                 <div class="project-card">
                     <img src="Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg"
-                        alt="Password Cracking and Hashing Algorithms" loading="lazy" decoding="async" width="300" height="160" />
+                        alt="Password Cracking and Hashing Algorithms" loading="lazy" decoding="async" width="300"
+                        height="160" />
                     <div class="content">
                         <h3>Password Cracking & Hashing Algorithms</h3>
                         <p>Demonstrates password cracking techniques and secure hashing algorithm implementations.</p>
@@ -944,7 +981,8 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation"
+                        loading="lazy" decoding="async" width="300" height="160" />
                     <div class="content">
                         <h3>Custom Ransomware Simulation (Educational)</h3>
                         <p>Educational ransomware simulation showing encryption & decryption in a safe, controlled
@@ -954,7 +992,8 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="Images/Projects/TaskFlow.jpg" alt="TaskFlow" loading="lazy" decoding="async" width="300" height="160" />
+                    <img src="Images/Projects/TaskFlow.jpg" alt="TaskFlow" loading="lazy" decoding="async" width="300"
+                        height="160" />
                     <div class="content">
                         <h3>TaskFlow</h3>
                         <p>TaskFlow - A Modern Task Manager.</p>
@@ -962,7 +1001,88 @@
                             rel="noopener noreferrer">View on GitHub</a>
                     </div>
                 </div>
-
+                <div class="project-card">
+                    <img src="Images/Projects/data-splitter.png" alt="Data-Splitter" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>Data-Splitter</h3>
+                        <p>Desktop application for splitting large TXT, XLSX, XML, CSV files into smaller parts.</p>
+                        <a href="https://github.com/CodeWithTanim/Data-Splitter" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/ai-image-gen.png" alt="Ai-Image-Generator" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>Ai-Image-Generator</h3>
+                        <p>A powerful SaaS platform for AI-powered image generation built with modern web technologies.</p>
+                        <a href="https://github.com/CodeWithTanim/Ai-Image-Generator" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/investflow.png" alt="InvestFlow" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>InvestFlow</h3>
+                        <p>A robust HYIP Investment Platform with real-time tracking and secure transactions.</p>
+                        <a href="https://codewithtanim.is-a.dev/private.html" target="_blank"
+                            rel="noopener noreferrer">Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/formfarm.png" alt="FormFarm" loading="lazy" decoding="async" width="300"
+                        height="160" />
+                    <div class="content">
+                        <h3>FormFarm</h3>
+                        <p>Professional Formspree Clone (SaaS) for managing form submissions easily.</p>
+                        <a href="https://github.com/CodeWithTanim/FormFarm" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/nitro-rush.png" alt="Nitro-Rush" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>Nitro-Rush</h3>
+                        <p>High Speed Racing Game built with modern game development techniques.</p>
+                        <a href="https://github.com/CodeWithTanim/Nitro-Rush" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/edutrack.png" alt="EduTrack" loading="lazy" decoding="async" width="300"
+                        height="160" />
+                    <div class="content">
+                        <h3>EduTrack</h3>
+                        <p>Modern Homework Management system for students and educators.</p>
+                        <a href="https://github.com/CodeWithTanim/EduTrack" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/red-eye-lead-hunter.png" alt="RED-EYE-LEAD-HUNTER" loading="lazy"
+                        decoding="async" width="300" height="160" />
+                    <div class="content">
+                        <h3>RED-EYE-LEAD-HUNTER</h3>
+                        <p>A high-performance, dark-themed Chrome Extension for automated lead extraction from Google
+                            Maps.</p>
+                        <a href="https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="Images/Projects/ghost-hand.png" alt="GHOST HAND" loading="lazy" decoding="async"
+                        width="300" height="160" />
+                    <div class="content">
+                        <h3>GHOST HAND</h3>
+                        <p>A professional, modular, and secure Windows automation system controlled entirely via
+                            Telegram.</p>
+                        <a href="https://github.com/CodeWithTanim/GHOST-HAND" target="_blank"
+                            rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -991,6 +1111,20 @@
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/NYdC12iRbfA?si=qmCFBDRMwjNDB92i"
                         title="Termux Setup Tutorial by MD SAMIUR RAHMAN TANIM" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/cSxTb2xPA6o?si=57kZ2sEcxAApGz75"
+                        title="Host Your Own Website for Free using Domain & Hosting Tutorial by MD SAMIUR RAHMAN TANIM"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/KyCAwgT4FP0?si=7rzCObVn64npGDAD"
+                        title="Scraping Leads from Google Maps using RED-EYE-LEAD-HUNTER by MD SAMIUR RAHMAN TANIM"
+                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
@@ -1122,14 +1256,14 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.05 });
         sections.forEach(section => observer.observe(section));
 
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Wait for particles.js to load before initializing
-        window.onload = function() {
+        window.onload = function () {
             particlesJS("particles-js", {
                 "particles": {
                     "number": {
