@@ -177,6 +177,16 @@ sh-2.0$ /bin/bash -i
         <td>May 9, 2026</td>
     </tr>
     <tr>
+        <td><a href="https://github.com/CodeWithTanim/WhatsApp-Parallel">WhatsApp-Parallel</a></td>
+        <td>Run and manage multiple WhatsApp accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.</td>
+        <td>May 14, 2026</td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/CodeWithTanim/Telegram-Parallel">Telegram-Parallel</a></td>
+        <td>Run and manage multiple Telegram accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.</td>
+        <td>May 29, 2026</td>
+    </tr>
+    <tr>
         <td><a href="https://codewithtanim.is-a.dev/ComingSoon.html">COMING SOON</a></td>
         <td>COMING SOON.</td>
         <td>COMING SOON</td>
