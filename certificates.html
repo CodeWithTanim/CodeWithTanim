@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MD SAMIUR RAHMAN TANIM — Verified Credentials & Certificates</title>
+    <meta name="description"
+        content="Verified certifications and credentials of MD SAMIUR RAHMAN TANIM across Google Cybersecurity, Meta, Coursera, Udemy, and software engineering internships." />
+    <meta name="author" content="MD SAMIUR RAHMAN TANIM" />
+
+    <link rel="canonical" href="https://codewithtanim.github.io/certificates.html" />
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <meta name="theme-color" content="#f5f4f0" />
+
+    <style>
+        :root {
+            --paper: #f5f4f0;
+            --panel: #ffffff;
+            --ink: #111111;
+            --ink-soft: #55534d;
+            --hair-faint: #d3d0c7;
+            --signal: #e0361f;
+            --signal-tint: #fbe4e0;
+
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Archivo', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        a { color: var(--ink); text-decoration: none; }
+
+        .mono { font-family: var(--font-mono); }
+
+        /* ---------- Header ---------- */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--paper);
+            border-bottom: 2px solid var(--ink);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo span { color: var(--signal); }
+
+        .btn-back-nav {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 2px solid var(--ink);
+            background: transparent;
+            transition: all 0.15s ease;
+        }
+
+        .btn-back-nav:hover {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        /* ---------- Layout ---------- */
+        main {
+            max-width: 1280px;
+            width: 92%;
+            margin: 94px auto 60px auto;
+        }
+
+        .page-header-box {
+            border: 2px solid var(--ink);
+            background: var(--panel);
+            padding: 36px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .page-header-box h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .page-header-box p {
+            color: var(--ink-soft);
+            max-width: 600px;
+            font-size: 0.96rem;
+        }
+
+        .cert-total-badge {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--signal);
+            line-height: 1;
+        }
+
+        .category-heading {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-heading i { color: var(--signal); }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2px;
+            background: var(--ink);
+            border: 2px solid var(--ink);
+            margin-bottom: 40px;
+        }
+
+        .cert-card-box {
+            background: var(--panel);
+            display: flex;
+            flex-direction: column;
+            transition: background 0.15s ease;
+        }
+
+        .cert-card-box:hover {
+            background: var(--signal-tint);
+        }
+
+        .cert-cover-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .cert-details {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .cert-title {
+            font-family: var(--font-display);
+            font-size: 0.98rem;
+            text-transform: uppercase;
+            letter-spacing: -0.2px;
+            margin-bottom: 8px;
+        }
+
+        .cert-desc {
+            font-size: 0.86rem;
+            color: var(--ink-soft);
+            margin-bottom: 16px;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .cert-date {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--signal);
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .cert-verify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--ink);
+            border-top: 1px solid var(--hair-faint);
+            padding-top: 12px;
+        }
+
+        .cert-verify-link:hover { color: var(--signal); }
+
+        footer {
+            padding: 26px 5% 44px 5%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--ink-soft);
+            border-top: 2px solid var(--ink);
+        }
+
+        @media (max-width: 768px) {
+            .page-header-box { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="brand-logo">CODE<span>WITH</span>TANIM</a>
+        <a href="index.html" class="btn-back-nav"><i class="fas fa-arrow-left"></i> Back to Main Portfolio</a>
+    </header>
+
+    <main>
+
+        <div class="page-header-box">
+            <div>
+                <h1>Verified Credentials</h1>
+                <p>Official certifications and verified accomplishments across software development, computer science, and cybersecurity.</p>
+            </div>
+            <div class="cert-total-badge mono">23+ CERTIFICATIONS</div>
+        </div>
+
+        <!-- Coursera Section -->
+        <h2 class="category-heading"><i class="fas fa-graduation-cap"></i> Coursera Certifications</h2>
+        <div class="certs-grid">
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Programming-with-JavaScript.png" alt="Programming with JavaScript" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Programming with JavaScript</h3>
+                    <p class="cert-desc">Core JavaScript concepts, variables, functions, objects, and event-driven web development.</p>
+                    <div class="cert-date">Issued: Dec 16, 2023</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/MYNSX43JV3YT" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Programming-for-Everybody-Getting-Started-wih-Python.png" alt="Programming for Everybody" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Programming for Everybody (Python)</h3>
+                    <p class="cert-desc">Python programming basics, syntax, variables, loops, and problem-solving.</p>
+                    <div class="cert-date">Issued: Jan 17, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/S355YLDRVJZQ" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Qualitative-Research-Design.png" alt="Qualitative Research Design" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Qualitative Research Design</h3>
+                    <p class="cert-desc">Methodologies for planning, conducting, and analyzing qualitative research.</p>
+                    <div class="cert-date">Issued: Apr 10, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/MRRNFVMTWNKE" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Build-a-Professional-Resum-using-Canva.png" alt="Build a Professional Resume" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Build a Professional Resume using Canva</h3>
+                    <p class="cert-desc">Designing and structuring professional resumes using Canva's tools.</p>
+                    <div class="cert-date">Issued: Apr 12, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/4NJA2MMN2RA7" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/English-for-Career-Development.png" alt="English for Career Development" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">English for Career Development</h3>
+                    <p class="cert-desc">Professional English for job searching, networking, and workplace communication.</p>
+                    <div class="cert-date">Issued: Apr 12, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/F558VJA5SQQC" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Ethics-Technolog-and-Engineering.png" alt="Ethics, Technology and Engineering" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Ethics, Technology and Engineering</h3>
+                    <p class="cert-desc">Ethical principles and application to engineering practices and technology.</p>
+                    <div class="cert-date">Issued: May 1, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/EAZH4MZ8XRXB" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Foundations-of-Cybersecurity.png" alt="Foundations of Cybersecurity" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Foundations of Cybersecurity</h3>
+                    <p class="cert-desc">Google Cybersecurity Certificate covering principles, threats, and risk management.</p>
+                    <div class="cert-date">Issued: May 22, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/EUK9VEJUCZ32" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Play-It-Safe-Manage-Security-Risks.png" alt="Manage Security Risks" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Play It Safe: Manage Security Risks</h3>
+                    <p class="cert-desc">Assessing and mitigating security risks using industry risk management frameworks.</p>
+                    <div class="cert-date">Issued: May 22, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/3EUACNSRHBDR" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Introduction-to-Python-for-Cybersecurity.png" alt="Python for Cybersecurity" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Introduction to Python for Cybersecurity</h3>
+                    <p class="cert-desc">Applying Python for automating security tasks, log parsing, and tool building.</p>
+                    <div class="cert-date">Issued: May 22, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/45NHQ4ZQX3VR" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Communication-skills-for-engineering-scholars.png" alt="Communication skills for engineering scholars" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Communication Skills for Engineering Scholars</h3>
+                    <p class="cert-desc">Academic and professional communication skills tailored for engineering contexts.</p>
+                    <div class="cert-date">Issued: Oct 26, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/LMFO9KPICWW9" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Foundations-of-Digital-Marketing-and-E-commerce.png" alt="Foundations of Digital Marketing" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Foundations of Digital Marketing & E-commerce</h3>
+                    <p class="cert-desc">Online marketing strategies, customer engagement, and e-commerce models.</p>
+                    <div class="cert-date">Issued: Oct 27, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/3TXO600PGX3Q" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/International-Leadership-and-Organizational.png" alt="International Leadership" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">International Leadership & Organizational Behavior</h3>
+                    <p class="cert-desc">Leadership theories and cross-cultural management in a global context.</p>
+                    <div class="cert-date">Issued: Nov 3, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/NZL6T9WFPYOW" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Introduction-to-Python-Programming.png" alt="Introduction to Python Programming" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Introduction to Python Programming</h3>
+                    <p class="cert-desc">Python syntax, data types, control structures, and computational problem solving.</p>
+                    <div class="cert-date">Issued: Nov 11, 2024</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/S69AQPBSHTJM" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Introduction-to-Hardware-an-Operating-Systems.png" alt="Hardware and Operating Systems" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Introduction to Hardware and Operating Systems</h3>
+                    <p class="cert-desc">Computer hardware components, system architecture, and operating system functions.</p>
+                    <div class="cert-date">Issued: Mar 18, 2025</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/YU3I61UTQ94J" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Social-Impact-Strateg-Tools-for-Entrepreneurs.png" alt="Social Impact Strategy" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Social Impact Strategy</h3>
+                    <p class="cert-desc">Tools for designing, launching, and scaling social impact initiatives.</p>
+                    <div class="cert-date">Issued: May 8, 2025</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/QZDYMILN53DW" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Coursera/Operating-Systems-Fundamentals.png" alt="Operating Systems Fundamentals" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Operating Systems Fundamentals</h3>
+                    <p class="cert-desc">Operating system concepts including processes, memory management, and file systems.</p>
+                    <div class="cert-date">Issued: May 8, 2025</div>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/ON6PS23T947H" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Udemy Section -->
+        <h2 class="category-heading"><i class="fas fa-laptop-code"></i> Udemy Certifications</h2>
+        <div class="certs-grid">
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Udemy/Project-Management-with-ChatGPT-Complete-Guide.jpg" alt="Project Management with ChatGPT" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Project Management with ChatGPT</h3>
+                    <p class="cert-desc">Applying ChatGPT for project planning, task automation, and documentation.</p>
+                    <div class="cert-date">Issued: May 30, 2024</div>
+                    <a href="https://www.udemy.com/certificate/UC-829fb715-f90f-4502-b433-5736b207eb88/" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Udemy/Ultimate-Adobe-Photoshop-CC-Masterclass-Basics-To-Advanced.jpg" alt="Photoshop CC Masterclass" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Adobe Photoshop CC Masterclass</h3>
+                    <p class="cert-desc">Mastered Photoshop fundamentals to advanced graphic design techniques.</p>
+                    <div class="cert-date">Issued: May 26, 2024</div>
+                    <a href="https://www.udemy.com/certificate/UC-b2ef72db-7b55-41b8-9f40-2afd27f060c8/" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Udemy/T-Shirt-Design-Masterclass-In-Photoshop-Sell-Your-T-Shirt.jpg" alt="T-Shirt Design Masterclass" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">T-Shirt Design Masterclass</h3>
+                    <p class="cert-desc">Creating custom designs in Photoshop for print-on-demand platforms.</p>
+                    <div class="cert-date">Issued: May 26, 2024</div>
+                    <a href="https://www.udemy.com/certificate/UC-6e7efeda-89bf-48d8-84b0-4dc963205819/" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Udemy/Essential-Photoshop-Course-for-Beginne-To-Advanced.jpg" alt="Essential Photoshop Course" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">Essential Photoshop Course</h3>
+                    <p class="cert-desc">Photoshop tools and workflows from basic editing to advanced graphic design.</p>
+                    <div class="cert-date">Issued: May 26, 2024</div>
+                    <a href="https://www.udemy.com/certificate/UC-697e03ac-79b2-4ab2-9447-9ce9c3448189/" target="_blank" class="cert-verify-link">
+                        Verify Credential <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internship Section -->
+        <h2 class="category-heading"><i class="fas fa-briefcase"></i> Internship Certifications</h2>
+        <div class="certs-grid">
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Internship/Python_Dev_Intern.png" alt="Python Development Intern" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">1-Month Python Developer Internship</h3>
+                    <p class="cert-desc">Hands-on experience in Python development working on real-world coding tasks.</p>
+                    <div class="cert-date">Issued: July 10, 2025</div>
+                    <a href="Images/Certificates/Internship/Python_Dev_Intern.png" target="_blank" class="cert-verify-link">
+                        View Image <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-card-box">
+                <img src="Images/Certificates/Internship/Cyber_Security_Intern.png" alt="Cyber Security Intern" class="cert-cover-img" loading="lazy" />
+                <div class="cert-details">
+                    <h3 class="cert-title">2-Month Cyber Security Internship</h3>
+                    <p class="cert-desc">Practical experience in identifying vulnerabilities and risk management.</p>
+                    <div class="cert-date">Issued: August 31, 2025</div>
+                    <a href="Images/Certificates/Internship/Cyber_Security_Intern.png" target="_blank" class="cert-verify-link">
+                        View Image <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <span>&copy; <span id="year">2026</span> MD SAMIUR RAHMAN TANIM (CODEWITHTANIM)</span>
+        <span>CREDENTIALS ARCHIVE — 23+ VERIFIED</span>
+    </footer>
+
+</body>
+
+</html>

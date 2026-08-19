@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Verified Certificates & Credentials -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/certificates.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Private Repositories & Inquiries -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/private.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- CSE 4-Year Guideline & Roadmap -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/CSE-Guideline.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Python Course Masterclass -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/pythonCourse.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Resume PDF Document -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/CodeWithTanim_resume.pdf</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Coming Soon Active Staging -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/ComingSoon.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+
+  <!-- Payment & Action Portal -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/payment.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+  <!-- Tips & Guides -->
+  <url>
+    <loc>https://codewithtanim.is-a.dev/Tips/GmailStorage.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gmail Cleanup Pro | Free Up Storage in 10 Minutes</title>
+    <!-- Favicon -->
+    <link rel="icon" href="./Images/Tips/gmail.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        :root {
+            --bg: #f6f8fc;
+            --card-bg: #ffffff;
+            --text-primary: #1e1f2c;
+            --text-secondary: #4a4e6b;
+            --primary: #1a73e8;
+            --primary-dark: #0d5ec2;
+            --border: #e2e8f0;
+            --code-bg: #f1f3f7;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            --step-badge: #e8f0fe;
+            --progress-track: #e9ecef;
+        }
+
+        body.dark {
+            --bg: #0b1120;
+            --card-bg: #1e293b;
+            --text-primary: #eef2ff;
+            --text-secondary: #b9c3e2;
+            --border: #2d3a4e;
+            --code-bg: #0f172a;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            --step-badge: #2d3a5e;
+            --progress-track: #2d3748;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            transition: background 0.2s ease, color 0.2s;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+
+        /* Header area */
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #4285f4 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin: 8px 0;
+        }
+
+        .hero-message {
+            background: rgba(26, 115, 232, 0.08);
+            border-left: 4px solid var(--primary);
+            padding: 14px 20px;
+            border-radius: 20px;
+            max-width: 780px;
+            margin: 20px auto 0;
+            font-weight: 500;
+        }
+
+        .storage-alert {
+            background: #fef7e0;
+            color: #b45f06;
+            padding: 12px 20px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        body.dark .storage-alert {
+            background: #332a1a;
+            color: #f7b55a;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .toggle-mode {
+            background: var(--primary);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-filter {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .search-filter input {
+            width: 100%;
+            padding: 10px 18px;
+            border-radius: 48px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .progress-section {
+            background: var(--card-bg);
+            padding: 12px 20px;
+            border-radius: 60px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: var(--progress-track);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-radius: 10px;
+        }
+
+        /* step cards grid */
+        .steps-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 24px 28px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .step-num {
+            background: var(--step-badge);
+            color: var(--primary);
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .step-desc {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .search-command {
+            background: var(--code-bg);
+            border-radius: 18px;
+            padding: 12px 18px;
+            margin: 14px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+        }
+
+        .command-text {
+            font-family: monospace;
+            font-weight: 500;
+            word-break: break-all;
+            letter-spacing: -0.2px;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .inline-badge {
+            background: #eef2ff;
+            color: #1a73e8;
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        body.dark .inline-badge {
+            background: #28344e;
+            color: #90caf9;
+        }
+
+        .tip-note {
+            background: rgba(26, 115, 232, 0.08);
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            margin-top: 14px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 16px;
+            }
+
+            .step-card {
+                padding: 18px;
+            }
+
+            .step-title {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Hero message: compelling copy that drives action -->
+        <div class="hero">
+            <div style="display: flex; justify-content: center;">
+                <div class="storage-alert">
+                    ⚡ 15GB limit · Don't pay for more storage
+                </div>
+            </div>
+            <h1>📩 Gmail Cleanup Pro</h1>
+            <div class="hero-tagline">💸 Don't pay for more Gmail storage.</div>
+            <div class="hero-message">
+                🚀 Google counts on you hitting the limit without ever checking what actually takes up space.<br>
+                Most people assume it's email, but that's rarely the case. After a proper clean-up, <strong>your storage
+                    can drop dramatically in under ten minutes.</strong><br>
+                👇 <strong>And this is the method:</strong>
+            </div>
+        </div>
+
+        <!-- header with mode & search -->
+        <div class="header-actions">
+            <button class="toggle-mode" id="darkModeToggle" onclick="toggleDarkMode()">🌙 Dark mode</button>
+            <div class="search-filter">
+                <input type="text" id="stepSearch" placeholder="🔍 Search steps, commands, categories..."
+                    autocomplete="off">
+            </div>
+        </div>
+
+        <!-- Progress animation (motivational) -->
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>🧹 Cleanup momentum</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div style="font-size: 12px; margin-top: 6px; opacity: 0.7;">Follow steps & check storage after each — see
+                space free up!</div>
+        </div>
+
+        <!-- Steps container -->
+        <div class="steps-grid" id="stepsContainer">
+            <!-- STEP 1: Real space hogs -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <span class="step-num">1</span>
+                    <span class="step-title">Find the real space hogs in Gmail</span>
+                </div>
+                <div class="step-desc">
+                    First, check Gmail’s storage breakdown: <strong>Go to <a href="https://one.google.com/storage"
+                            target="_blank" style="color:var(--primary)">one.google.com/storage</a></strong> → Click on
+                    “Gmail” to see the main culprits.
+                </div>
+                <div class="search-command">
+                    <span class="command-text">has:attachment larger:10M</span>
+                    <button class="copy-btn" data-copy="has:attachment larger:10M">📋 Copy</button>
+                </div>
+                <div class="search-command">
+                    <span class="command-text">larger:5M</span>
+                    <button class="copy-btn" data-copy="larger:5M">📋 Copy</button>
+                </div>
+                <div class="tip-note">
+                    💡 <strong>Pro tip:</strong> Sort by size, select several, and delete what you don’t need. Try
+                    <code>larger:3M</code> for aggressive cleanup. Just deleting large attachments can instantly free up
+                    gigabytes.
+                </div>
+            </div>
+
+            <!-- STEP 2: Bulk delete categories -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <span class="step-num">2</span>
+                    <span class="step-title">Delete entire categories in bulk</span>
+                </div>
+                <div class="step-desc">Gmail automatically sorts emails — use this to clean up years of clutter in
+                    seconds.</div>
+                <div class="search-command"><span class="command-text">category:promotions</span><button
+                        class="copy-btn" data-copy="category:promotions">📋 Copy</button></div>
+                <div class="search-command"><span class="command-text">category:social</span><button class="copy-btn"
+                        data-copy="category:social">📋 Copy</button></div>
+                <div class="search-command"><span class="command-text">category:updates</span><button class="copy-btn"
+                        data-copy="category:updates">📋 Copy</button></div>
+                <div class="tip-note">✅ After search → check “Select all” → “Select all conversations that match this
+                    search” → Delete. These categories build up over years, most can be safely removed.</div>
+            </div>
+
+            <!-- STEP 3: Recurring spam senders -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <span class="step-num">3</span>
+                    <span class="step-title">Target recurring spam senders</span>
+                </div>
+                <div class="step-desc">A single newsletter or store can take up gigabytes over time.</div>
+                <div class="search-command"><span class="command-text">from:noreply@</span><button class="copy-btn"
+                        data-copy="from:noreply@">📋 Copy</button></div>
+                <div class="search-command"><span class="command-text">from:notifications@</span><button
+                        class="copy-btn" data-copy="from:notifications@">📋 Copy</button></div>
+                <div class="tip-note">📬 Select all → delete. While you're there, click "Unsubscribe" from 5–10 senders
+                    you always ignore. This cleans the past and prevents future clutter.</div>
+            </div>
+
+            <!-- STEP 4: Clean by age -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <span class="step-num">4</span>
+                    <span class="step-title">Clean up by age</span>
+                </div>
+                <div class="step-desc">Older emails are often safe to delete. Start conservatively and move forward.
+                </div>
+                <div class="search-command"><span class="command-text">older_than:3y</span><button class="copy-btn"
+                        data-copy="older_than:3y">📋 Copy</button></div>
+                <div class="search-command"><span class="command-text">older_than:2y larger:5M</span><button
+                        class="copy-btn" data-copy="older_than:2y larger:5M">📋 Copy</button></div>
+                <div class="tip-note">🗑️ Quickly review first page → if outdated, select all and delete. Combine with
+                    size for more impact: <code>older_than:5y</code> for total cleanup.</div>
+            </div>
+
+            <!-- STEP 5: Empty Trash & Spam -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <span class="step-num">5</span>
+                    <span class="step-title">Empty the Trash and Spam folders</span>
+                </div>
+                <div class="step-desc">Deleted emails still count toward storage for 30 days — free space immediately.
+                </div>
+                <div class="tip-note" style="background: var(--code-bg);">🗑️ <strong>Trash:</strong> Go to Trash folder
+                    → click “Empty Trash now”<br>⚠️ <strong>Spam:</strong> Go to Spam folder → “Delete all spam messages
+                    now”<br>⚡ This frees up space instantly without waiting.</div>
+            </div>
+
+            <!-- STEP 6: Clean Sent folder -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <span class="step-num">6</span>
+                    <span class="step-title">Clean up the “Sent” folder too</span>
+                </div>
+                <div class="step-desc">Sent emails with attachments also take up space — many people forget this folder.
+                </div>
+                <div class="search-command"><span class="command-text">has:attachment larger:5M</span><button
+                        class="copy-btn" data-copy="has:attachment larger:5M">📋 Copy</button></div>
+                <div class="tip-note">📤 In Gmail sidebar → click "Sent" → paste command → delete old client files,
+                    outdated presentations, and large videos sent only once. Can hold several gigabytes.</div>
+            </div>
+
+            <!-- STEP 7: Drive & Photos -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <span class="step-num">7</span>
+                    <span class="step-title">Check Google Drive and Photos too</span>
+                </div>
+                <div class="step-desc">Gmail shares the same 15 GB with Drive and Photos — often the real problem is not
+                    email.</div>
+                <div class="tip-note">
+                    🌐 Go to <a href="https://one.google.com/storage" target="_blank"
+                        style="color:var(--primary)">one.google.com/storage</a> → sort Drive files by “Storage used” →
+                    delete old backups, large videos, forgotten files.<br>
+                    📸 In Google Photos, remove screenshots, duplicates, and blurry pictures.
+                </div>
+            </div>
+
+            <!-- STEP 8: Prevention for future -->
+            <div class="step-card" data-step="8">
+                <div class="step-header">
+                    <span class="step-num">8</span>
+                    <span class="step-title">Set up prevention for the future</span>
+                </div>
+                <div class="step-desc">Avoid clutter before it starts: create filters that automatically archive or
+                    delete.</div>
+                <div class="search-command"><span class="command-text">has:attachment larger:5M
+                        category:promotions</span><button class="copy-btn"
+                        data-copy="has:attachment larger:5M category:promotions">📋 Copy</button></div>
+                <div class="tip-note">
+                    🧠 <strong>How to create filter:</strong> Click search dropdown → enter query → “Create filter” →
+                    choose “Skip Inbox”, “Delete it” or “Apply label”. Also unsubscribe from 10 newsletters you never
+                    read. Maintenance > one-time cleanup.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            🚀 Developed by CodeWithTanim · Clean smarter, not harder · <span id="storageReminder">Stop paying for
+                unused space</span>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle with localStorage
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('gmailCleanupTheme', isDark ? 'dark' : 'light');
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) toggleBtn.innerText = isDark ? '☀️ Light mode' : '🌙 Dark mode';
+        }
+
+        // apply saved theme
+        const savedTheme = localStorage.getItem('gmailCleanupTheme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) toggleBtn.innerText = '☀️ Light mode';
+        } else {
+            if (document.getElementById('darkModeToggle')) document.getElementById('darkModeToggle').innerText = '🌙 Dark mode';
+        }
+
+        // Copy functionality for all copy buttons (improved)
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const textToCopy = this.getAttribute('data-copy');
+                if (textToCopy) {
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const originalText = this.innerText;
+                        this.innerText = '✅ Copied!';
+                        setTimeout(() => {
+                            this.innerText = originalText;
+                        }, 1500);
+                    }).catch(() => {
+                        // fallback
+                        const textArea = document.createElement('textarea');
+                        textArea.value = textToCopy;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        const original = this.innerText;
+                        this.innerText = '✅ Copied!';
+                        setTimeout(() => { this.innerText = original; }, 1200);
+                    });
+                } else {
+                    // fallback: get text from sibling command-text
+                    const parent = this.parentElement;
+                    const commandSpan = parent.querySelector('.command-text');
+                    if (commandSpan) {
+                        let cmd = commandSpan.innerText;
+                        navigator.clipboard.writeText(cmd);
+                        const old = this.innerText;
+                        this.innerText = '📋 Copied!';
+                        setTimeout(() => this.innerText = old, 1000);
+                    }
+                }
+            });
+        });
+
+        // Search filter steps (dynamic)
+        const searchInput = document.getElementById('stepSearch');
+        const allSteps = document.querySelectorAll('.step-card');
+
+        function filterSteps() {
+            const query = searchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+            allSteps.forEach(card => {
+                const textContent = card.innerText.toLowerCase();
+                if (query === '' || textContent.includes(query)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            // optional: update progress? not needed but subtle
+            const progressFillEl = document.getElementById('progressFill');
+            if (visibleCount > 0 && query !== '') {
+                // just a nice UI feedback, doesn't break anything
+            }
+        }
+
+        searchInput.addEventListener('keyup', filterSteps);
+
+        // Progressive loading simulation (motivation + interactive feedback)
+        let progressPercent = 0;
+        const progressFill = document.getElementById('progressFill');
+        const progressPercentSpan = document.getElementById('progressPercent');
+
+        // Check if the user interacts with copy or clicks on commands? but let's simulate increment as they scroll / time + copy interactions
+        let userActivityCount = 0;
+        const maxProgressSteps = 12; // after 12 "actions" reaches 100%
+
+        function updateProgress(increment = true) {
+            if (progressPercent >= 100) return;
+            if (increment) {
+                // each copy or important interaction adds 8-10%
+                let add = Math.floor(Math.random() * 6) + 7;
+                progressPercent = Math.min(100, progressPercent + add);
+            } else {
+                // passive time-based (fallback)
+                if (progressPercent < 30) progressPercent = Math.min(100, progressPercent + 5);
+                else if (progressPercent < 80) progressPercent = Math.min(100, progressPercent + 3);
+                else progressPercent = Math.min(100, progressPercent + 1);
+            }
+            progressFill.style.width = progressPercent + '%';
+            if (progressPercentSpan) progressPercentSpan.innerText = Math.floor(progressPercent) + '%';
+            if (progressPercent >= 100) {
+                // celebrate text
+                const progressSection = document.querySelector('.progress-label span:first-child');
+                if (progressSection && !progressSection.innerText.includes('🎉')) {
+                    progressSection.innerHTML = '🎉 Storage freed up! 🎉';
+                }
+            }
+        }
+
+        // Increment progress on copy actions (user taking step)
+        const allCopyButtons = document.querySelectorAll('.copy-btn');
+        allCopyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (progressPercent < 100) updateProgress(true);
+            });
+        });
+
+        // Also increment when clicking on any step-card (engagement)
+        allSteps.forEach(step => {
+            step.addEventListener('click', (e) => {
+                // prevent interfering with copy button double trigger
+                if (e.target.classList && e.target.classList.contains('copy-btn')) return;
+                if (progressPercent < 100) updateProgress(true);
+            });
+        });
+
+        // Periodic small progress to simulate momentum
+        let interval = setInterval(() => {
+            if (progressPercent < 100) {
+                // if no user activity for a while, still gently increase to encourage
+                updateProgress(false);
+            } else {
+                clearInterval(interval);
+            }
+        }, 8000);
+
+        // initial start message: if user reads first steps, progress shows
+        setTimeout(() => {
+            if (progressPercent < 15) updateProgress(false);
+        }, 3000);
+
+        // dynamic footer note with quick reminder (extra call to action)
+        const reminderSpan = document.getElementById('storageReminder');
+        if (reminderSpan) {
+            const reminders = ["📉 Save $2.99/month", "🔥 Free 5GB+ now", "🧹 No subscription needed", "🚀 10-min cleanup"];
+            let idx = 0;
+            setInterval(() => {
+                idx = (idx + 1) % reminders.length;
+                reminderSpan.innerText = reminders[idx];
+            }, 5000);
+        }
+
+        // optional extra: add one more motivational banner in console but not intrusive
+        console.log("💡 Gmail Cleanup Pro — Don't pay for storage. Follow the steps, copy commands, free up gigabytes.");
+    </script>
+</body>
+
+</html>

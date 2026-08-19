@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MD SAMIUR RAHMAN TANIM — Software Engineer & Computer Science Scholar</title>
+    <meta name="description"
+        content="Official Portfolio of MD SAMIUR RAHMAN TANIM – Computer Science student, Full-Stack Software Developer, Python Engineer & Cyber Security Researcher." />
+    <meta name="keywords"
+        content="MD SAMIUR RAHMAN TANIM, CodeWithTanim, Software Engineer, Web Developer, Python, JavaScript, React, Computer Science, Portfolio" />
+    <meta name="author" content="MD SAMIUR RAHMAN TANIM" />
+
+    <meta property="og:title" content="MD SAMIUR RAHMAN TANIM — Software Engineer Portfolio" />
+    <meta property="og:description" content="Computer Science student & Developer showcasing software engineering projects, research, and interactive tools." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codewithtanim.github.io" />
+    <meta property="og:image" content="https://i.ibb.co/1GsW1n6m/tanim.jpg" />
+
+    <link rel="canonical" href="https://codewithtanim.github.io" />
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <!-- Type: Archivo Black (poster display) + Archivo (body/grotesk) + Roboto Mono (index/data) -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+    <meta name="theme-color" content="#f5f4f0" />
+
+    <style>
+        :root {
+            /* ---- Swiss / International Typographic token system ---- */
+            --paper: #f5f4f0;
+            --panel: #ffffff;
+            --ink: #111111;
+            --ink-soft: #55534d;
+            --hair: #111111;
+            --hair-faint: #d3d0c7;
+            --signal: #e0361f;
+            --signal-tint: #fbe4e0;
+
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Archivo', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        a { color: var(--ink); text-decoration: none; }
+
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+            outline: 3px solid var(--signal);
+            outline-offset: 2px;
+        }
+
+        .mono { font-family: var(--font-mono); }
+
+        /* ---------- Header ---------- */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--paper);
+            border-bottom: 2px solid var(--ink);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo span {
+            color: var(--signal);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+        .cta-btn-outline {
+            border: 2px solid var(--ink);
+            padding: 6px 14px;
+            color: var(--ink) !important;
+        }
+
+        .cta-btn-outline:hover {
+            background: var(--ink);
+            color: var(--paper) !important;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            font-size: 1.3rem;
+            background: none;
+            border: none;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        /* ---------- Layout ---------- */
+        main {
+            max-width: 1280px;
+            width: 92%;
+            margin: 64px auto 0 auto;
+        }
+
+        section {
+            padding: 70px 0;
+            border-bottom: 2px solid var(--ink);
+            scroll-margin-top: 80px;
+        }
+
+        section:last-of-type { border-bottom: none; }
+
+        .section-frame {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 30px;
+        }
+
+        .index-num {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--signal);
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 90px;
+            align-self: start;
+        }
+
+        .index-num .big {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            color: var(--hair-faint);
+            line-height: 1;
+            margin-bottom: 6px;
+            -webkit-text-stroke: 1px var(--ink);
+            color: transparent;
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            margin-bottom: 34px;
+        }
+
+        /* ---------- Hero ---------- */
+        #about { padding-top: 26px; }
+
+        .hero-flag {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .hero-flag .dot {
+            width: 8px; height: 8px;
+            background: var(--signal);
+            border-radius: 50%;
+        }
+
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+            line-height: 0.96;
+            letter-spacing: -1.2px;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero-name .accent { color: var(--signal); }
+
+        .hero-meta-grid {
+            display: grid;
+            grid-template-columns: 1.45fr 1fr;
+            gap: 44px;
+            align-items: stretch;
+        }
+
+        .hero-left-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-role {
+            font-size: 1.32rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .hero-desc {
+            color: var(--ink-soft);
+            max-width: 58ch;
+            margin-bottom: 34px;
+            font-size: 1.12rem;
+            line-height: 1.65;
+        }
+
+        .hero-btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .btn-solid, .btn-ghost {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            padding: 16px 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid var(--ink);
+            transition: all 0.15s ease;
+        }
+
+        .btn-solid {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .btn-solid:hover {
+            background: var(--signal);
+            border-color: var(--signal);
+            color: #fff;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .btn-ghost:hover {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .hero-highlights-bar {
+            display: flex;
+            gap: 20px;
+            border-top: 2px solid var(--ink);
+            padding-top: 16px;
+            font-size: 0.75rem;
+            color: var(--ink-soft);
+        }
+
+        .hero-highlights-bar div span {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--signal);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Hero portrait frame */
+        .hero-portrait-frame {
+            border: 2px solid var(--ink);
+            background: var(--panel);
+            padding: 6px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .hero-portrait-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            height: auto;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            filter: contrast(102%) saturate(95%);
+            transition: filter 0.3s ease;
+        }
+
+        .hero-portrait-frame:hover .hero-portrait-img {
+            filter: contrast(105%) saturate(105%);
+        }
+
+        .portrait-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--ink-soft);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding-top: 8px;
+            margin-top: 6px;
+            border-top: 1px solid var(--hair-faint);
+        }
+
+        .portrait-badge {
+            color: var(--signal);
+            font-weight: 700;
+        }
+
+        /* Colophon-style fact table */
+        .fact-table {
+            border-top: 2px solid var(--ink);
+        }
+
+        .fact-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--hair-faint);
+            font-size: 0.86rem;
+        }
+
+        .fact-row span:first-child {
+            font-family: var(--font-mono);
+            color: var(--ink-soft);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            padding-top: 2px;
+        }
+
+        .fact-row span:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* ---------- Skills as index list ---------- */
+        .skills-index {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 40px;
+        }
+
+        .skills-index div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--hair-faint);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .skills-index div .tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink-soft);
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        /* ---------- Projects ---------- */
+        .project-filter-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 34px;
+            flex-wrap: wrap;
+            border: 2px solid var(--ink);
+            width: fit-content;
+        }
+
+        .filter-chip {
+            background: var(--paper);
+            border: none;
+            border-right: 2px solid var(--ink);
+            color: var(--ink);
+            padding: 10px 18px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .filter-chip:last-child { border-right: none; }
+
+        .filter-chip:hover { background: var(--signal-tint); }
+
+        .filter-chip.active {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .projects-bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2px;
+            background: var(--ink);
+            border: 2px solid var(--ink);
+        }
+
+        .project-card-modern {
+            background: var(--panel);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.15s ease;
+        }
+
+        .project-card-modern:hover {
+            background: var(--signal-tint);
+        }
+
+        .project-img-box {
+            width: calc(100% + 48px);
+            margin: -24px -24px 16px -24px;
+            height: 185px;
+            border-bottom: 2px solid var(--ink);
+            overflow: hidden;
+            background: var(--paper);
+        }
+
+        .project-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: contrast(102%);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card-modern:hover .project-img-box img {
+            transform: scale(1.04);
+        }
+
+        .project-sheet-num {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--signal);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .project-h3 {
+            font-family: var(--font-display);
+            font-size: 1.02rem;
+            text-transform: uppercase;
+            letter-spacing: -0.2px;
+            margin-bottom: 10px;
+        }
+
+        .project-text {
+            font-size: 0.87rem;
+            color: var(--ink-soft);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            line-height: 1.55;
+        }
+
+        .project-footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--ink);
+            border-top: 1px solid var(--hair-faint);
+            padding-top: 14px;
+        }
+
+        .project-footer-link:hover { color: var(--signal); }
+
+        /* ---------- Media grid ---------- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2px;
+            background: var(--ink);
+            border: 2px solid var(--ink);
+        }
+
+        .video-card-box { background: var(--panel); }
+        .video-aspect { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-aspect iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* ---------- Certificate banner ---------- */
+        .cert-summary-box {
+            border: 2px solid var(--ink);
+            padding: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cert-count {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--signal);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .cert-summary-text { flex: 1; min-width: 260px; }
+        .cert-summary-text h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .cert-summary-text p { color: var(--ink-soft); font-size: 0.9rem; max-width: 520px; }
+
+        /* ---------- Contact ---------- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2px;
+            background: var(--ink);
+            border: 2px solid var(--ink);
+        }
+
+        .contact-info-card, .contact-form-card {
+            background: var(--panel);
+            padding: 34px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+        }
+
+        .contact-item i {
+            width: 22px;
+            color: var(--signal);
+            text-align: center;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 0;
+            margin-top: 26px;
+            border: 2px solid var(--ink);
+            width: fit-content;
+        }
+
+        .social-chip {
+            width: 42px; height: 42px;
+            border-right: 2px solid var(--ink);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+
+        .social-chip:last-child { border-right: none; }
+
+        .social-chip:hover { background: var(--signal); color: #fff; }
+
+        .field-group { margin-bottom: 22px; }
+
+        .field-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--ink);
+            padding: 10px 2px;
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .form-control::placeholder { color: #a8a59c; }
+        .form-control:focus { outline: none; border-color: var(--signal); }
+        textarea.form-control { resize: vertical; min-height: 90px; }
+
+        /* ---------- Footer ---------- */
+        footer {
+            padding: 26px 5% 44px 5%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--ink-soft);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 992px) {
+            .section-frame { grid-template-columns: 1fr; }
+            .index-num { position: static; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+            .index-num .big { margin-bottom: 0; font-size: 1.8rem; }
+            .hero-meta-grid { grid-template-columns: 1fr; }
+            .skills-index { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-nav-toggle { display: block; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="#" class="brand-logo">CODE<span>WITH</span>TANIM</a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Overview</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Tech Stack</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#youtube-videos">Tutorials</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="#contact" class="cta-btn-outline">Contact Me</a></li>
+        </ul>
+        <button class="mobile-nav-toggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section id="about">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">01</span>OVERVIEW</div>
+                <div>
+                    <div class="hero-meta-grid">
+                        <div class="hero-left-col">
+                            <div>
+                                <div class="hero-flag"><span class="dot"></span> Available for hire — B.Tech CSE, 2023–2027</div>
+                                <h1 class="hero-name">MD SAMIUR<br>RAHMAN <span class="accent">TANIM</span></h1>
+                                <div class="hero-role">Full-Stack Developer / Python Engineer / Cybersecurity</div>
+                                <p class="hero-desc">I design and ship software the way a spec sheet promises it: tested, documented, and working. B.Tech Computer Science candidate building automation tools, full-stack platforms, and security research under the CodeWithTanim brand.</p>
+                                <div class="hero-btn-group">
+                                    <a href="CodeWithTanim_resume.pdf" download class="btn-solid"><i class="fas fa-download"></i> Resume PDF</a>
+                                    <a href="#projects" class="btn-ghost"><i class="fas fa-arrow-right"></i> View Projects</a>
+                                </div>
+                            </div>
+                            <div class="hero-highlights-bar mono">
+                                <div><span>CORE FOCUS</span> Full-Stack Web & Python Automation</div>
+                                <div><span>PORTFOLIO MATRIX</span> 26+ Repositories & 03 Internships</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="hero-portrait-frame">
+                                <img src="Images/Personal/CodeWithTanim.jpg" alt="MD SAMIUR RAHMAN TANIM" class="hero-portrait-img" />
+                                <div class="portrait-label">
+                                    <span>MD SAMIUR RAHMAN TANIM</span>
+                                    <span class="portrait-badge">PORTFOLIO PHOTO</span>
+                                </div>
+                            </div>
+                            <div class="fact-table mono">
+                                <div class="fact-row"><span>Repositories</span><span>26+</span></div>
+                                <div class="fact-row"><span>Certifications</span><span>23+</span></div>
+                                <div class="fact-row"><span>Internships</span><span>03</span></div>
+                                <div class="fact-row"><span>Based in</span><span>IN / BD</span></div>
+                                <div class="fact-row"><span>Status</span><span>Open to work</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">02</span>HISTORY</div>
+                <div>
+                    <h2 class="section-heading">Experience (3 Internships)</h2>
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div style="border-left: 3px solid var(--ink); padding-left: 20px;">
+                            <h3 style="font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase;">2 Month Web Developer Intern</h3>
+                            <p class="mono" style="font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 6px;">
+                                <a href="https://codectechnologies.in/" target="_blank" style="color: inherit; text-decoration: underline;">Codec Technologies India</a> · July 01, 2026 – August 31, 2026
+                            </p>
+                            <p style="font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6;">
+                                Built full-stack web platforms including <a href="https://github.com/CodeWithTanim/Full-Stack-E-Commerce" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Full-Stack E-Commerce Store</a> & <a href="https://github.com/CodeWithTanim/Online-Learning-Management-System" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Online Learning Management System</a>.
+                            </p>
+                        </div>
+                        <div style="border-left: 3px solid var(--ink); padding-left: 20px;">
+                            <h3 style="font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase;">2-Month Cyber Security Intern</h3>
+                            <p class="mono" style="font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 6px;">
+                                <a href="https://codectechnologies.in/" target="_blank" style="color: inherit; text-decoration: underline;">Codec Technologies India</a> · July 01, 2025 – August 31, 2025
+                            </p>
+                            <p style="font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6;">
+                                Hands-on security labs and implementations of <a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Cryptography-Algorithms-Implementation</a>, <a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Password-Cracking-and-Hashing-Algorithms</a> & <a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Custom-Ransomware-Simulation</a>.
+                            </p>
+                        </div>
+                        <div style="border-left: 3px solid var(--ink); padding-left: 20px;">
+                            <h3 style="font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase;">1-Month Python Developer Intern</h3>
+                            <p class="mono" style="font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 6px;">
+                                <a href="https://codectechnologies.in/" target="_blank" style="color: inherit; text-decoration: underline;">Codec Technologies India</a> · June 10, 2025 – July 10, 2025
+                            </p>
+                            <p style="font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6;">
+                                Developed Python data & NLP applications including <a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Real-Time-Stock-Market-Dashboard</a> & <a href="https://github.com/CodeWithTanim/automated-resume-parser" target="_blank" style="color: var(--ink); font-weight: 700; text-decoration: underline;">Automated-Resume-Parser</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH STACK -->
+        <section id="skills">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">03</span>STACK</div>
+                <div>
+                    <h2 class="section-heading">Tech Stack & Technologies</h2>
+                    <div class="skills-index">
+                        <div>Python <span class="tag">Language</span></div>
+                        <div>JavaScript (ES6+) <span class="tag">Language</span></div>
+                        <div>TypeScript <span class="tag">Language</span></div>
+                        <div>HTML5 & CSS3 <span class="tag">Frontend</span></div>
+                        <div>React <span class="tag">Frontend</span></div>
+                        <div>Node.js <span class="tag">Backend</span></div>
+                        <div>PHP <span class="tag">Backend</span></div>
+                        <div>SQL (MySQL) <span class="tag">Database</span></div>
+                        <div>C Programming <span class="tag">Language</span></div>
+                        <div>Git & GitHub <span class="tag">Tooling</span></div>
+                        <div>Cyber Security <span class="tag">Security</span></div>
+                        <div>UI/UX & Graphic Design <span class="tag">Creative</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">04</span>WORK</div>
+                <div>
+                    <h2 class="section-heading">All Projects (26+)</h2>
+
+                    <div class="project-filter-bar">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="web">Web & SaaS</button>
+                        <button class="filter-chip" data-filter="python">Python & Automation</button>
+                        <button class="filter-chip" data-filter="security">Security</button>
+                        <button class="filter-chip" data-filter="desktop">Desktop</button>
+                    </div>
+
+                    <div class="projects-bento-grid">
+
+                        <div class="project-card-modern" data-cat="web python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/lms-platform.png" alt="Online LMS Platform" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>01/26</span><span>Vue 3 + Django</span></div>
+                            <h3 class="project-h3">Online LMS Platform</h3>
+                            <p class="project-text">Full-stack LMS built with Vue 3 TypeScript & Pinia on the frontend and Django REST Framework + PostgreSQL on the backend.</p>
+                            <a href="https://github.com/CodeWithTanim/Online-Learning-Management-System" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/ecommerce-store.png" alt="Full-Stack E-Commerce Store" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>02/26</span><span>Next.js / SaaS</span></div>
+                            <h3 class="project-h3">Full-Stack E-Commerce Store</h3>
+                            <p class="project-text">High-performance e-commerce storefront and admin back-office panel built on Next.js 16, Prisma, MySQL, and Stripe.</p>
+                            <a href="https://github.com/CodeWithTanim/Full-Stack-E-Commerce" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="desktop">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/telegram-parallel.png" alt="Telegram-Parallel" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>03/26</span><span>Electron App</span></div>
+                            <h3 class="project-h3">Telegram-Parallel</h3>
+                            <p class="project-text">Run and manage multiple Telegram accounts in one lightweight desktop application built with Electron.</p>
+                            <a href="https://github.com/CodeWithTanim/Telegram-Parallel" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="desktop">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/whatsapp-parallel.png" alt="WhatsApp-Parallel" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>04/26</span><span>Electron App</span></div>
+                            <h3 class="project-h3">WhatsApp-Parallel</h3>
+                            <p class="project-text">Desktop multi-account management application built with Electron, Vite, and Tailwind CSS.</p>
+                            <a href="https://github.com/CodeWithTanim/WhatsApp-Parallel" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="python security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/ghost-hand.png" alt="GHOST HAND" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>05/26</span><span>Python Remote</span></div>
+                            <h3 class="project-h3">GHOST HAND</h3>
+                            <p class="project-text">Modular Windows automation system controlled remotely via Telegram Bot API for administrative tasks.</p>
+                            <a href="https://github.com/CodeWithTanim/GHOST-HAND" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/red-eye-lead-hunter.png" alt="RED-EYE-LEAD-HUNTER" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>06/26</span><span>Chrome Extension</span></div>
+                            <h3 class="project-h3">RED-EYE-LEAD-HUNTER</h3>
+                            <p class="project-text">High-performance Chrome extension for automated B2B lead scraping and contact harvesting from Google Maps.</p>
+                            <a href="https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/edutrack.png" alt="EduTrack Homework Manager" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>07/26</span><span>EdTech</span></div>
+                            <h3 class="project-h3">EduTrack Homework Manager</h3>
+                            <p class="project-text">Homework and assignment management system for students and educational institutions.</p>
+                            <a href="https://github.com/CodeWithTanim/EduTrack" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/nitro-rush.png" alt="Nitro-Rush Game" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>08/26</span><span>Game / JS</span></div>
+                            <h3 class="project-h3">Nitro-Rush Game</h3>
+                            <p class="project-text">High-speed arcade racing game built with custom HTML5 Canvas physics engine.</p>
+                            <a href="https://github.com/CodeWithTanim/Nitro-Rush" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/formfarm.png" alt="FormFarm (Formspree Clone)" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>09/26</span><span>Web SaaS</span></div>
+                            <h3 class="project-h3">FormFarm (Formspree Clone)</h3>
+                            <p class="project-text">SaaS backend platform for managing form submissions easily across static websites.</p>
+                            <a href="https://github.com/CodeWithTanim/FormFarm" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/investflow.png" alt="InvestFlow Platform" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>10/26</span><span>FinTech / Web</span></div>
+                            <h3 class="project-h3">InvestFlow Platform</h3>
+                            <p class="project-text">Investment tracking platform with real-time portfolio management and secure transactions.</p>
+                            <a href="private.html" target="_blank" class="project-footer-link">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/ai-image-gen.png" alt="Ai-Image-Generator" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>11/26</span><span>SaaS / AI</span></div>
+                            <h3 class="project-h3">Ai-Image-Generator</h3>
+                            <p class="project-text">Modern SaaS platform leveraging generative AI APIs to produce high-resolution imagery based on prompts.</p>
+                            <a href="https://github.com/CodeWithTanim/Ai-Image-Generator" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="desktop python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/data-splitter.png" alt="Data-Splitter" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>12/26</span><span>Desktop Utility</span></div>
+                            <h3 class="project-h3">Data-Splitter</h3>
+                            <p class="project-text">Desktop tool for splitting large TXT, XLSX, XML, and CSV datasets into manageable parts.</p>
+                            <a href="https://github.com/CodeWithTanim/Data-Splitter" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/TaskFlow.jpg" alt="TaskFlow Task Manager" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>13/26</span><span>Productivity</span></div>
+                            <h3 class="project-h3">TaskFlow Task Manager</h3>
+                            <p class="project-text">Modern task management dashboard for productivity and workflow organization.</p>
+                            <a href="https://github.com/CodeWithTanim/TaskFlow" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Custom-Ransomware-Simulation.jpeg" alt="Custom Ransomware Simulation" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>14/26</span><span>Security Lab</span></div>
+                            <h3 class="project-h3">Custom Ransomware Simulation</h3>
+                            <p class="project-text">Educational cybersecurity demonstration showing file encryption and decryption logic.</p>
+                            <a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg" alt="Password Cracking & Hashing" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>15/26</span><span>Security Lab</span></div>
+                            <h3 class="project-h3">Password Cracking & Hashing</h3>
+                            <p class="project-text">Demonstrates password cracking techniques, rainbow tables, and secure hash functions.</p>
+                            <a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Cryptography-Algorithms-Implementation.jpeg" alt="Cryptography Algorithms" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>16/26</span><span>Security</span></div>
+                            <h3 class="project-h3">Cryptography Algorithms</h3>
+                            <p class="project-text">Implementation of classical and modern cryptographic algorithms in Python.</p>
+                            <a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Automated-Resume-Parser.jpg" alt="Automated Resume Parser" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>17/26</span><span>Python / NLP</span></div>
+                            <h3 class="project-h3">Automated Resume Parser</h3>
+                            <p class="project-text">NLP tool extracting skills, contact info, and education from PDF resumes into structured output.</p>
+                            <a href="https://github.com/CodeWithTanim/automated-resume-parser" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Real-Time-Stock-Market-Dashboard.jpg" alt="Stock Market Dashboard" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>18/26</span><span>Python / Streamlit</span></div>
+                            <h3 class="project-h3">Stock Market Dashboard</h3>
+                            <p class="project-text">Interactive dashboard using Python, Streamlit, and Plotly to visualize live stock prices and indicators.</p>
+                            <a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Online-Quiz-App.jpg" alt="Online Quiz Application" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>19/26</span><span>Web App</span></div>
+                            <h3 class="project-h3">Online Quiz Application</h3>
+                            <p class="project-text">Quiz platform with Firebase authentication, real-time scoring, and dynamic questions.</p>
+                            <a href="https://github.com/CodeWithTanim/Online-Quiz-App" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/Tik-Tak-Toe.jpg" alt="Tic-Tac-Toe Game" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>20/26</span><span>Python Game</span></div>
+                            <h3 class="project-h3">Tic-Tac-Toe Game</h3>
+                            <p class="project-text">Terminal and GUI Tic-Tac-Toe game written in Python with AI opponent.</p>
+                            <a href="https://github.com/CodeWithTanim/Tik-Tak-Toe" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="security python">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/enc.jpg" alt="TOXIC-ENC (ENC)" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>21/26</span><span>Security / Cryptography</span></div>
+                            <h3 class="project-h3">TOXIC-ENC (ENC)</h3>
+                            <p class="project-text">Python security tool to encrypt scripts with AES-256 encryption for source protection.</p>
+                            <a href="https://github.com/CodeWithTanim/ENC" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/password-gen.png" alt="Password Generator" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>22/26</span><span>Security Tool</span></div>
+                            <h3 class="project-h3">Password Generator</h3>
+                            <p class="project-text">Secure generator tool for producing strong, random passwords for digital protection.</p>
+                            <a href="https://github.com/CodeWithTanim/Password-Generator" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/cpms.jpg" alt="Cosmetics Product Management" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>23/26</span><span>PHP / MySQL</span></div>
+                            <h3 class="project-h3">Cosmetics Product Management</h3>
+                            <p class="project-text">PHP & MySQL inventory management system for cosmetics with admin dashboard and reporting tools.</p>
+                            <a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/unclickable-love.png" alt="Unclickable Love" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>24/26</span><span>Interactive Web</span></div>
+                            <h3 class="project-h3">Unclickable Love</h3>
+                            <p class="project-text">Interactive fun web project with evasive buttons and playful animations.</p>
+                            <a href="https://github.com/CodeWithTanim/Unclickable-Love" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="python security">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/termux-setup-command.jpg" alt="TERMUX-SETUP-PRO" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>25/26</span><span>CLI / Automation</span></div>
+                            <h3 class="project-h3">TERMUX-SETUP-PRO</h3>
+                            <p class="project-text">Automation script to configure a full-fledged Termux development environment with packages and developer tools.</p>
+                            <a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO" target="_blank" class="project-footer-link">View Repository <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="project-card-modern" data-cat="web">
+                            <div class="project-img-box">
+                                <img src="Images/Projects/coming-soon.png" alt="COMING SOON" loading="lazy" />
+                            </div>
+                            <div class="project-sheet-num"><span>26/26</span><span>Upcoming</span></div>
+                            <h3 class="project-h3">COMING SOON</h3>
+                            <p class="project-text">Exciting new software projects currently in active development.</p>
+                            <a href="ComingSoon.html" target="_blank" class="project-footer-link">Stay Tuned <i class="fas fa-rocket"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YOUTUBE TUTORIALS -->
+        <section id="youtube-videos">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">05</span>VIDEOS</div>
+                <div>
+                    <h2 class="section-heading">Programming Tutorial Videos</h2>
+                    <div class="media-grid">
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/A3yCRuOFBAg?si=9N1lIaRvbhv2K1Fj" title="Python Programming Tutorial" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/rqD_XEzpGO8?si=4lTKG48yp8FQffOj" title="Web Development Guide" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/MseArBB8AT4?si=Rccooewgn_9eFr76" title="JavaScript Tutorial for Beginners" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/NYdC12iRbfA?si=qmCFBDRMwjNDB92i" title="Termux Setup Tutorial" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/cSxTb2xPA6o?si=57kZ2sEcxAApGz75" title="Free Domain & Hosting Guide" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/KyCAwgT4FP0?si=7rzCObVn64npGDAD" title="Scraping Leads from Google Maps" loading="lazy" allowfullscreen></iframe></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COURSES -->
+        <section id="courses">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">06</span>COURSES</div>
+                <div>
+                    <h2 class="section-heading">Full Masterclass Courses</h2>
+                    <div class="media-grid">
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/f9plA379QPs?si=3Df2V9YDN60XuAUA" title="Intellectual Property Course" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/3RwZ73pBTMI?si=qVto-7MoJRmCiimB" title="Be Termux Pro User Course" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/GWsMvg3MtH0?si=w110_FuoPHA78gsF" title="100 Days of Python" loading="lazy" allowfullscreen></iframe></div></div>
+                        <div class="video-card-box"><div class="video-aspect"><iframe src="https://www.youtube.com/embed/DxN5U0VabSM?si=-RpLRF37" title="Master MS Word in 2 Hours" loading="lazy" allowfullscreen></iframe></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATE BANNER -->
+        <section>
+            <div class="cert-summary-box">
+                <div class="cert-count">23+</div>
+                <div class="cert-summary-text">
+                    <h3>Verified Credentials & Achievements</h3>
+                    <p>Includes Google Cybersecurity, Meta Front-End JavaScript, Coursera, Udemy, and software engineering internships.</p>
+                </div>
+                <a href="certificates.html" class="btn-solid"><i class="fas fa-award"></i> View All Certificates</a>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="section-frame">
+                <div class="index-num"><span class="big">07</span>CONTACT</div>
+                <div>
+                    <h2 class="section-heading">Contact & Collaboration</h2>
+                    <div class="contact-grid">
+                        <div class="contact-info-card">
+                            <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:codewithtanim@gmail.com">codewithtanim@gmail.com</a></div>
+                            <div class="contact-item"><i class="fas fa-phone"></i> <span>+880 1326 157012 (BD) | +91 9864 262629 (IN)</span></div>
+                            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Guwahati, Assam, India | Rajshahi, Bangladesh</span></div>
+
+                            <div class="social-row">
+                                <a href="https://github.com/CodeWithTanim" target="_blank" class="social-chip" title="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/CodeWithTanim/" target="_blank" class="social-chip" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.facebook.com/CodeWithTanim/" target="_blank" class="social-chip" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.youtube.com/@CodeWithTanim" target="_blank" class="social-chip" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                <a href="https://discord.gg/5Ed5WzMbjb" target="_blank" class="social-chip" title="Discord"><i class="fab fa-discord"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="contact-form-card">
+                            <form action="https://form.codewithtanim.works/f/8b16bca0883010fd" method="POST">
+                                <div class="field-group"><label for="name">Name</label><input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required /></div>
+                                <div class="field-group"><label for="email">Email</label><input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required /></div>
+                                <div class="field-group"><label for="message">Message</label><textarea id="message" name="message" class="form-control" placeholder="Write your message..." required></textarea></div>
+                                <button type="submit" class="btn-solid" style="width: 100%; justify-content: center;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>&copy; <span id="year"></span> MD SAMIUR RAHMAN TANIM (CODEWITHTANIM)</span>
+        <span>ISSUE 2026 — 07 SECTIONS</span>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            const chips = document.querySelectorAll('.filter-chip');
+            const projects = document.querySelectorAll('.project-card-modern');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    const val = chip.getAttribute('data-filter');
+                    projects.forEach(p => {
+                        const cat = p.getAttribute('data-cat');
+                        p.style.display = (val === 'all' || (cat && cat.includes(val))) ? 'flex' : 'none';
+                    });
+                });
+            });
+
+            // 5-Minute In-Page Rate Limiter for Form Submissions
+            const forms = document.querySelectorAll('form');
+            const COOLDOWN_MS = 5 * 60 * 1000;
+
+            forms.forEach(form => {
+                let msgBox = form.querySelector('.form-rate-limit-msg');
+                if (!msgBox) {
+                    msgBox = document.createElement('div');
+                    msgBox.className = 'form-rate-limit-msg mono';
+                    msgBox.style.cssText = 'display: none; margin-top: 14px; font-size: 0.78rem; color: var(--signal, #e0361f); font-weight: 700; text-align: center; border: 2px solid var(--signal, #e0361f); padding: 10px 14px; background: var(--signal-tint, #fbe4e0);';
+                    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.parentNode.insertBefore(msgBox, submitBtn.nextSibling);
+                    } else {
+                        form.appendChild(msgBox);
+                    }
+                }
+
+                form.addEventListener('submit', (e) => {
+                    const actionUrl = form.getAttribute('action') || 'contact_form';
+                    const storageKey = `rate_limit_${actionUrl.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    const lastSubmit = localStorage.getItem(storageKey);
+                    const now = Date.now();
+
+                    if (lastSubmit && (now - parseInt(lastSubmit, 10)) < COOLDOWN_MS) {
+                        e.preventDefault();
+                        const remainingSec = Math.ceil((COOLDOWN_MS - (now - parseInt(lastSubmit, 10))) / 1000);
+                        const mins = Math.floor(remainingSec / 60);
+                        const secs = remainingSec % 60;
+
+                        msgBox.textContent = `You can send only 1 message every 5 minutes. Please wait ${mins}m ${secs}s before submitting again.`;
+                        msgBox.style.display = 'block';
+                        return false;
+                    }
+
+                    localStorage.setItem(storageKey, now.toString());
+                    msgBox.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

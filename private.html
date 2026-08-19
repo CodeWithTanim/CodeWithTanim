@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PRIVATE REPOSITORIES — MD SAMIUR RAHMAN TANIM</title>
+    <meta name="description"
+        content="Exclusive private repositories and premium source code by MD SAMIUR RAHMAN TANIM." />
+    <meta name="author" content="MD SAMIUR RAHMAN TANIM" />
+
+    <link rel="canonical" href="https://codewithtanim.github.io/private.html" />
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/tTnb0zFM/Code-With-Tanim.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <meta name="theme-color" content="#f5f4f0" />
+
+    <style>
+        :root {
+            --paper: #f5f4f0;
+            --panel: #ffffff;
+            --ink: #111111;
+            --ink-soft: #55534d;
+            --hair-faint: #d3d0c7;
+            --signal: #e0361f;
+            --signal-tint: #fbe4e0;
+
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Archivo', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        a { color: var(--ink); text-decoration: none; }
+
+        .mono { font-family: var(--font-mono); }
+
+        /* ---------- Header ---------- */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--paper);
+            border-bottom: 2px solid var(--ink);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo span { color: var(--signal); }
+
+        .btn-back-nav {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 2px solid var(--ink);
+            background: transparent;
+            transition: all 0.15s ease;
+        }
+
+        .btn-back-nav:hover {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        /* ---------- Layout ---------- */
+        main {
+            max-width: 1280px;
+            width: 92%;
+            margin: 94px auto 60px auto;
+        }
+
+        .page-header-box {
+            border: 2px solid var(--ink);
+            background: var(--panel);
+            padding: 36px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .page-header-box h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .page-header-box p {
+            color: var(--ink-soft);
+            max-width: 600px;
+            font-size: 0.96rem;
+        }
+
+        .category-heading {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        .private-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2px;
+            background: var(--ink);
+            border: 2px solid var(--ink);
+            margin-bottom: 50px;
+        }
+
+        .private-card {
+            background: var(--panel);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.15s ease;
+            position: relative;
+        }
+
+        .private-card:hover {
+            background: var(--signal-tint);
+        }
+
+        .card-badge {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--signal);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .private-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: -0.2px;
+            margin-bottom: 10px;
+        }
+
+        .private-card p {
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            margin-bottom: 24px;
+            flex-grow: 1;
+            line-height: 1.55;
+        }
+
+        .btn-solid {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 12px 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--ink);
+            color: var(--paper);
+            border: 2px solid var(--ink);
+            transition: all 0.15s ease;
+        }
+
+        .btn-solid:hover {
+            background: var(--signal);
+            border-color: var(--signal);
+            color: #fff;
+        }
+
+        /* Inquiry Form Section */
+        .inquiry-section {
+            border: 2px solid var(--ink);
+            background: var(--panel);
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        .inquiry-section h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .field-group { margin-bottom: 22px; }
+
+        .field-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--ink);
+            padding: 10px 2px;
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .form-control::placeholder { color: #a8a59c; }
+        .form-control:focus { outline: none; border-color: var(--signal); }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+
+        footer {
+            padding: 26px 5% 44px 5%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--ink-soft);
+            border-top: 2px solid var(--ink);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="brand-logo">CODE<span>WITH</span>TANIM</a>
+        <a href="index.html" class="btn-back-nav"><i class="fas fa-arrow-left"></i> Back to Main Portfolio</a>
+    </header>
+
+    <main>
+        <div class="page-header-box">
+            <div>
+                <h1>Private Repositories</h1>
+                <p>Exclusive source code, SaaS software platforms, and proprietary tools built for high-performance scale and security.</p>
+            </div>
+            <div class="mono" style="font-size: 0.8rem; font-weight: 700; color: var(--signal);">PROPRIETARY ARCHIVE</div>
+        </div>
+
+        <h2 class="category-heading">Available Private Systems</h2>
+        <div class="private-grid">
+
+            <div class="private-card">
+                <span class="card-badge">HYIP / FINTECH</span>
+                <h3>InvestFlow</h3>
+                <p>A sophisticated investment tracking and wealth management platform built with modern security standards, automated transactions, and dynamic reporting dashboards.</p>
+                <a href="#inquiry-form" class="btn-solid">Inquire for Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="private-card">
+                <span class="card-badge">WEB SAAS</span>
+                <h3>FormFarm</h3>
+                <p>A high-performance SaaS backend platform managing form submissions, email dispatch, webhooks, and spam filtering seamlessly across static web apps.</p>
+                <a href="#inquiry-form" class="btn-solid">Inquire for Source Code <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="private-card">
+                <span class="card-badge">FULL-STACK STORE</span>
+                <h3>E-Commerce Pro</h3>
+                <p>Enterprise full-stack e-commerce system built on Next.js 16, Prisma, MySQL, Stripe, with administrative back-office management.</p>
+                <a href="#inquiry-form" class="btn-solid">Request Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+
+        <!-- Enquiry Form Section -->
+        <section id="inquiry-form" class="inquiry-section">
+            <h2>Repository Inquiry & Custom Code</h2>
+            <form action="https://form.codewithtanim.works/f/ce45d34331b8a76a" method="POST">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                    <div class="field-group"><label for="name">Full Name</label><input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required></div>
+                    <div class="field-group"><label for="email">Email Address</label><input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required></div>
+                    <div class="field-group"><label for="telegram">Telegram Username</label><input type="text" id="telegram" name="telegram" class="form-control" placeholder="@username"></div>
+                </div>
+                <div class="field-group">
+                    <label for="interest">Project of Interest</label>
+                    <select id="interest" name="interest" class="form-control" style="background: var(--paper);" required>
+                        <option value="" disabled selected>Select a project</option>
+                        <option value="InvestFlow">InvestFlow (FinTech Platform)</option>
+                        <option value="FormFarm">FormFarm (SaaS Form Backend)</option>
+                        <option value="E-Commerce Pro">E-Commerce Pro (Next.js 16 Store)</option>
+                        <option value="Custom Project">Custom Software Engineering / Other</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="message">Requirements / Message</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project requirements or questions..." required></textarea>
+                </div>
+                <button type="submit" class="btn-solid" style="padding: 16px 36px;"><i class="fas fa-paper-plane"></i> Submit Inquiry</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; <span id="year">2026</span> MD SAMIUR RAHMAN TANIM (CODEWITHTANIM)</span>
+        <span>PRIVATE CODE ARCHIVE</span>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('form');
+            const COOLDOWN_MS = 5 * 60 * 1000;
+
+            forms.forEach(form => {
+                let msgBox = form.querySelector('.form-rate-limit-msg');
+                if (!msgBox) {
+                    msgBox = document.createElement('div');
+                    msgBox.className = 'form-rate-limit-msg mono';
+                    msgBox.style.cssText = 'display: none; margin-top: 14px; font-size: 0.78rem; color: var(--signal, #e0361f); font-weight: 700; text-align: center; border: 2px solid var(--signal, #e0361f); padding: 10px 14px; background: var(--signal-tint, #fbe4e0);';
+                    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.parentNode.insertBefore(msgBox, submitBtn.nextSibling);
+                    } else {
+                        form.appendChild(msgBox);
+                    }
+                }
+
+                form.addEventListener('submit', (e) => {
+                    const actionUrl = form.getAttribute('action') || 'private_inquiry_form';
+                    const storageKey = `rate_limit_${actionUrl.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    const lastSubmit = localStorage.getItem(storageKey);
+                    const now = Date.now();
+
+                    if (lastSubmit && (now - parseInt(lastSubmit, 10)) < COOLDOWN_MS) {
+                        e.preventDefault();
+                        const remainingSec = Math.ceil((COOLDOWN_MS - (now - parseInt(lastSubmit, 10))) / 1000);
+                        const mins = Math.floor(remainingSec / 60);
+                        const secs = remainingSec % 60;
+
+                        msgBox.textContent = `You can send only 1 message every 5 minutes. Please wait ${mins}m ${secs}s before submitting again.`;
+                        msgBox.style.display = 'block';
+                        return false;
+                    }
+
+                    localStorage.setItem(storageKey, now.toString());
+                    msgBox.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
