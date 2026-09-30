@@ -11,6 +11,9 @@ A Passionate <b>Developer</b> from <i><b>BANGLADESH</b></i>
     <a href="#"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FCodeWithTanim&title=Visitors&count_bg=%230073EB"></a>
 </p>
 
+![](https://komarev.com/ghpvc/?username=CodeWithTanim&color=green)
+
+
 <!-- Console? -->
 <pre>
 sh-2.0$ /bin/bash -i
@@ -253,11 +256,10 @@ sh-2.0$ /bin/bash -i
 ```python
 class Languages:
   def __init__(self):
-    self.python = "Python 🐍"
-    self.bash = "Bash 🔩"
-    self.c = "C"
-    self.java = "Java"
-    self.learning = "React"
+    self.python = "Python"
+    self.react = "React"
+    self.nextjs = "NextJS"
+    self.learning = "MongoDB"
     self.future = "..."
 ```
 
@@ -281,14 +283,14 @@ class Languages:
 <h4>🚀 Frameworks, Platforms & Libraries</h4>
 <p align="left">
   <img src="https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white" alt=".Net"/>
-  <img src="https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white" alt="Angular"/>
-  <img src="https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white" alt="Chart.js"/>
+  <!-- <img src="https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white" alt="Angular"/> -->
+  <!-- <img src="https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white" alt="Chart.js"/> -->
   <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django"/>
   <img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" alt="Flask"/>
   <img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel"/>
   <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="NPM"/>
   <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next JS"/>
-  <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS"/>
+  <!-- <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS"/> -->
   <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React"/>
 </p>
 
@@ -334,7 +336,7 @@ class Languages:
 <p align="left">
   <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-  <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions"/>
+  <!-- <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions"/> -->
   <img src="https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white" alt="GitLab"/>
 </p>
 
@@ -380,7 +382,7 @@ class Languages:
 <!-- GitHub Trophy -->
 ### `~# ./Trophy`
 <p align="left">
-  <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://trophy.benkou.dev/?username=CodeWithTanim&theme=radical" alt="GitHub Trophies" /></a>
+  <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://trophy.ryglcloud.net/?username=CodeWithTanim&theme=dark" alt="GitHub Trophies" /></a>
 </p>
 <hr />
 
@@ -405,9 +407,7 @@ class Languages:
 
 <br/>
 <hr />
-<p align="center">
-  <a href="https://visitcount.itsvg.in"><img src="https://komarev.com/ghpvc/?username=CodeWithTanim&icon=0&color=0" alt="Visitor Count" /></a>
-</p>
-<!-- end -->
 
+
+<!-- end -->
 
