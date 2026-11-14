@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { extractClientIp, lookupGeoLocation } from '@/lib/geoIp';
 import { logActivity } from '@/lib/activityLogger';
+import { sendTelegramNotification } from '@/lib/telegram';
 
 export async function POST(req: NextRequest) {
   try {
@@ -90,6 +91,15 @@ export async function POST(req: NextRequest) {
       ip,
       `${location.city}, ${location.country}`
     );
+
+    // 6. Send Telegram Bot Notification (non-blocking)
+    await sendTelegramNotification({
+      name,
+      email,
+      message,
+      ip,
+      location: `${location.city}, ${location.country}`,
+    }).catch(() => {});
 
     return NextResponse.json({
       success: true,
