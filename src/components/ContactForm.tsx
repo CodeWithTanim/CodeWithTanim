@@ -7,9 +7,6 @@ import { Mail, Phone, MapPin, Send, Copy, Check, MessageCircle, Loader2 } from '
 const COOLDOWN_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
 const MAX_ALLOWED_SUBMISSIONS = 2; // 2 times max in 5 minutes
 const STORAGE_KEY = 'cwt_contact_submissions_v2';
-const FORM_ENDPOINT =
-  process.env.NEXT_PUBLIC_FORM_ENDPOINT ||
-  'https://form-farm-azure.vercel.app/f/b27015215386ab43';
 
 export default function ContactForm() {
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -98,7 +95,7 @@ export default function ContactForm() {
     }
 
     try {
-      const response = await fetch(FORM_ENDPOINT, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,17 +108,25 @@ export default function ContactForm() {
         }),
       });
 
-      if (response.ok) {
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success !== false) {
         // Success: Record submission locally and reset form
         recentSubmissions.push(now);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(recentSubmissions));
 
         setSubmitStatus('success');
-        setStatusMessage('Thank you! Your message has been sent successfully. I will get back to you shortly.');
+        setStatusMessage(
+          data.message ||
+            'Thank you! Your message has been sent successfully. I will get back to you shortly.'
+        );
         setFormData({ name: '', email: '', message: '', _gotcha: '' });
       } else {
         setSubmitStatus('error');
-        setStatusMessage('Unable to deliver message right now. Please reach out to codewithtanim@gmail.com.');
+        setStatusMessage(
+          data.error ||
+            'Unable to deliver message right now. Please reach out to codewithtanim@gmail.com.'
+        );
       }
     } catch (err) {
       console.error('Contact submission error:', err);

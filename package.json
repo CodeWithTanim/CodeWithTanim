@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "better-auth": "^1.7.25",
+    "lucide-react": "^0.475.0",
+    "mongodb": "^7.9.0",
     "next": "^15.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "lucide-react": "^0.475.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.0",

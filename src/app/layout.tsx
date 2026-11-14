@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import VisitorTracker from '@/components/VisitorTracker';
 
 export const metadata: Metadata = {
   title: 'MD SAMIUR RAHMAN TANIM — Software Engineer & Computer Science Scholar',
@@ -67,6 +68,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <VisitorTracker />
         <Navbar />
         <main className="container">{children}</main>
         {/* Professional Multi-Column Footer */}
