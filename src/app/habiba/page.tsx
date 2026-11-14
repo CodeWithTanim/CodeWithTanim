@@ -22,6 +22,16 @@ import {
   Filter,
 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
+interface UserSession {
+  user: {
+    id: string;
+    email: string;
+    name?: string;
+  };
+}
+
 interface Submission {
   _id: string;
   name: string;
@@ -60,7 +70,28 @@ interface ActivityLogItem {
 }
 
 export default function HabibaAdminPage() {
-  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const [session, setSession] = useState<UserSession | null>(null);
+  const [sessionPending, setSessionPending] = useState(true);
+
+  // Check active session on client mount
+  const checkSession = useCallback(async () => {
+    try {
+      const res = await authClient.getSession();
+      if (res?.data) {
+        setSession(res.data as unknown as UserSession);
+      } else {
+        setSession(null);
+      }
+    } catch {
+      setSession(null);
+    } finally {
+      setSessionPending(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
   // Authentication Form States
   const [hasAdmin, setHasAdmin] = useState<boolean | null>(null);
@@ -147,6 +178,7 @@ export default function HabibaAdminPage() {
           setAuthError(result.error.message || 'Failed to initialize admin account.');
         } else {
           setHasAdmin(true);
+          await checkSession();
         }
       } else {
         // Normal Sign In
@@ -157,6 +189,8 @@ export default function HabibaAdminPage() {
 
         if (result.error) {
           setAuthError(result.error.message || 'Invalid email or password.');
+        } else {
+          await checkSession();
         }
       }
     } catch (err: unknown) {
