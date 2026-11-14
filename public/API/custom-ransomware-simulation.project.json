@@ -1,0 +1,140 @@
+{
+  "id": "custom-ransomware-simulation",
+  "name": "Custom Ransomware Simulation",
+  "slug": "custom-ransomware-simulation",
+  "tagline": "A sandboxed Python educational simulation demonstrating ransomware-like file encryption and decryption.",
+  "description": "Developed during an internship with Codec Technologies, this project demonstrates ransomware-like behavior in a controlled sandbox. It uses AES-256 file encryption and decryption concepts, key handling, and logging, with the README stating that testing is restricted to sample files in a sandbox to avoid affecting real system files.",
+  "category": [
+    "Cybersecurity",
+    "Malware Analysis Education",
+    "Python"
+  ],
+  "status": "internship-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Custom-Ransomware-Simulation",
+    "banner": "https://github.com/CodeWithTanim/Custom-Ransomware-Simulation/blob/main/docs/screenshots/Custom-Ransomware-Simulation.jpeg",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://www.linkedin.com/in/CodeWithTanim",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim",
+    "internshipOrganization": "http://codectechnologies.in/"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim",
+    "role": "Intern at Codec Technologies"
+  },
+  "problemStatement": "Explain ransomware-style encryption and decryption workflows in a controlled learning environment without risking real system files.",
+  "solution": "A Python sandbox simulation that demonstrates AES-256 file encryption and decryption, key generation and handling, logging, and unit tests using sample files.",
+  "features": [
+    {
+      "name": "Key generation",
+      "details": "Generates a random key and stores it in key.key, as documented in the README."
+    },
+    {
+      "name": "File encryption",
+      "details": "Encrypts sandbox test files using AES-256 via pyAesCrypt."
+    },
+    {
+      "name": "File decryption",
+      "details": "Decrypts files using the same key."
+    },
+    {
+      "name": "Sandbox environment",
+      "details": "Designed to operate on test files within the sandbox folder."
+    },
+    {
+      "name": "Logging",
+      "details": "Records simulation actions in simulation.log."
+    },
+    {
+      "name": "Unit tests",
+      "details": "Includes tests for encryption, decryption, and utility functions."
+    }
+  ],
+  "techStack": {
+    "language": [
+      "Python 3.8+"
+    ],
+    "encryptionLibrary": [
+      "pyAesCrypt"
+    ],
+    "logging": [
+      "Python logging"
+    ],
+    "testing": [
+      "Pytest"
+    ],
+    "packageManagement": [
+      "pip",
+      "requirements.txt"
+    ]
+  },
+  "projectStructure": [
+    "docs/project_overview.md",
+    "docs/encryption_demo.md",
+    "docs/screenshots/",
+    "src/main.py",
+    "src/encryptor.py",
+    "src/decryptor.py",
+    "src/utils.py",
+    "tests/test_encryptor.py",
+    "tests/test_decryptor.py",
+    "tests/test_utils.py",
+    "sandbox/sample_text.txt",
+    "sandbox/sample_files/sample1.txt",
+    "requirements.txt",
+    "README.md"
+  ],
+  "requirements": {
+    "python": "3.8 or higher",
+    "virtualEnvironment": "Recommended"
+  },
+  "installation": [
+    "git clone https://github.com/CodeWithTanim/Custom-Ransomware-Simulation.git",
+    "cd Custom-Ransomware-Simulation",
+    "python -m venv venv",
+    "Windows activation: venv\\Scripts\\activate",
+    "Linux/macOS activation: source venv/bin/activate",
+    "pip install -r requirements.txt"
+  ],
+  "runCommand": "python src/main.py",
+  "testing": {
+    "framework": "Pytest",
+    "testFiles": [
+      "tests/test_encryptor.py",
+      "tests/test_decryptor.py",
+      "tests/test_utils.py"
+    ],
+    "details": "The README states that test cases are included for safe verification. It does not provide a test count or recent test results."
+  },
+  "learningOutcomes": [
+    "Understood ransomware workflow concepts involving keys, encryption, and decryption",
+    "Implemented AES-256 encryption in Python using pyAesCrypt",
+    "Practiced logging and sandboxing",
+    "Gained experience with project structure and testing",
+    "Practiced professional GitHub documentation"
+  ],
+  "acknowledgments": [
+    "Codec Technologies for the internship opportunity",
+    "Python and pyAesCrypt community"
+  ],
+  "contribution": {
+    "policy": "Pull requests are welcome."
+  },
+  "safetyNotes": [
+    "The README describes this as an educational sandbox simulation.",
+    "Run only against disposable test files in an isolated sandbox, not personal or production files.",
+    "Keep encryption keys backed up securely and separate from encrypted test data."
+  ],
+  "dataNotes": {
+    "source": "Project 6 README provided by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "License type",
+      "Test count and latest test results"
+    ]
+  }
+}

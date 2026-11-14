@@ -1,0 +1,195 @@
+{
+  "id": "ghost-hand",
+  "name": "GHOST-HAND",
+  "slug": "ghost-hand",
+  "tagline": "A modular Telegram-controlled Windows administration and automation bot with system monitoring, file transfer, and guarded remote actions.",
+  "description": "GHOST-HAND is a Python-based remote administration tool designed to manage a Windows machine through a Telegram bot. It uses a modular handler architecture and Telegram Bot API long polling, with administrator ID allow-listing and confirmation guards for sensitive actions. The README describes features for system maintenance, resource monitoring, file transfers, power controls, screenshot capture, and RAM optimization.",
+  "category": [
+    "Windows Automation",
+    "Remote Administration",
+    "System Monitoring"
+  ],
+  "status": "source-code-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/GHOST-HAND",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://linkedin.com/in/codewithtanim",
+    "developerYouTube": "https://youtube.com/@CodeWithTanim",
+    "developerFacebook": "https://facebook.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "runGuide": "https://github.com/CodeWithTanim/GHOST-HAND/blob/main/RUN.md",
+    "license": "https://github.com/CodeWithTanim/GHOST-HAND/blob/main/LICENSE"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim",
+    "copyrightYear": 2026
+  },
+  "problemStatement": "Users may need to administer and monitor their own Windows machines remotely without opening inbound network ports or relying on traditional remote desktop software.",
+  "solution": "A Telegram bot that relays commands through Telegram's Bot API using long polling, with administrator ID checks and confirmation guards before sensitive system operations.",
+  "features": [
+    {
+      "name": "Power control",
+      "details": [
+        "Lock",
+        "Sleep",
+        "Hibernate",
+        "Restart",
+        "Shutdown"
+      ]
+    },
+    {
+      "name": "System maintenance",
+      "details": [
+        "Temporary-file cleanup",
+        "Prefetch cleanup",
+        "Recycle Bin cleanup"
+      ]
+    },
+    {
+      "name": "Resource monitoring",
+      "details": [
+        "CPU statistics",
+        "RAM statistics",
+        "Disk statistics",
+        "Battery statistics"
+      ]
+    },
+    {
+      "name": "Bidirectional file transfer",
+      "details": [
+        "Upload files from the PC to Telegram",
+        "Download Telegram documents to local storage"
+      ]
+    },
+    {
+      "name": "Access controls",
+      "details": [
+        "Administrator ID allow-listing",
+        "Decorator-based @admin_only checks",
+        "Confirmation guards for dangerous actions"
+      ]
+    },
+    {
+      "name": "Screenshot capture",
+      "details": "Captures screenshots of the controlled Windows machine."
+    },
+    {
+      "name": "RAM optimization",
+      "details": "Uses Python garbage collection and Windows API integrations for memory-related operations."
+    },
+    {
+      "name": "Audit logging",
+      "details": "Records bot actions in logs."
+    },
+    {
+      "name": "Background launch support",
+      "details": [
+        "Batch launch scripts",
+        "VBScript hidden launcher",
+        "Task Scheduler setup guidance"
+      ]
+    }
+  ],
+  "techStack": {
+    "language": [
+      "Python 3.12+"
+    ],
+    "architecture": [
+      "AsyncIO",
+      "Asynchronous event-driven handlers"
+    ],
+    "botFramework": [
+      "python-telegram-bot v21+"
+    ],
+    "systemMonitoring": [
+      "psutil"
+    ],
+    "windowsIntegration": [
+      "pywin32",
+      "winshell"
+    ],
+    "automation": [
+      "pyautogui"
+    ],
+    "configuration": [
+      "python-dotenv"
+    ],
+    "platform": [
+      "Windows"
+    ]
+  },
+  "projectStructure": [
+    "handlers/cleaner.py",
+    "handlers/files.py",
+    "handlers/power.py",
+    "handlers/security.py",
+    "handlers/system.py",
+    "utils/auth.py",
+    "utils/keyboard.py",
+    "utils/logger.py",
+    "logs/",
+    "downloads/",
+    "screenshots/",
+    "bot.py",
+    ".env",
+    ".env.example",
+    "README.md",
+    "RUN.md",
+    "requirements.txt",
+    "start_bot.bat",
+    "restart_bot.bat",
+    "start_hidden.vbs"
+  ],
+  "configuration": {
+    "environmentFile": ".env",
+    "variables": [
+      {
+        "name": "BOT_TOKEN",
+        "required": true,
+        "description": "Telegram bot token. Keep it secret."
+      },
+      {
+        "name": "ADMIN_IDS",
+        "required": true,
+        "description": "Telegram user IDs allowed to administer the bot."
+      }
+    ],
+    "note": "The README says to rename .env.example to .env and configure the bot token and administrator IDs."
+  },
+  "installation": [
+    "git clone https://github.com/CodeWithTanim/GHOST-HAND.git",
+    "Rename .env.example to .env and set BOT_TOKEN and ADMIN_IDS",
+    "pip install -r requirements.txt"
+  ],
+  "usage": [
+    "Launch the bot using start_bot.bat",
+    "Open the Telegram bot and send /start",
+    "Navigate using the inline keyboard",
+    "Consult RUN.md for detailed setup"
+  ],
+  "launchScripts": [
+    "start_bot.bat",
+    "restart_bot.bat",
+    "start_hidden.vbs"
+  ],
+  "license": {
+    "type": "MIT",
+    "details": "The README states that the project is distributed under the MIT License."
+  },
+  "disclaimer": "The README describes the tool as intended for educational, research, and personal administration purposes. Users are responsible for complying with privacy laws and protecting the Telegram bot token.",
+  "securityNotes": [
+    "Only configure administrator IDs for trusted users.",
+    "Keep BOT_TOKEN private and do not commit real credentials.",
+    "Use remote screenshot and file-transfer features only on machines you own or are explicitly authorized to administer.",
+    "The README mentions background and hidden launching; deployments should be transparent to the device owner and should not be used for covert access."
+  ],
+  "dataNotes": {
+    "source": "GHOST-HAND README supplied by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact release date",
+      "Test count and latest test results"
+    ]
+  }
+}

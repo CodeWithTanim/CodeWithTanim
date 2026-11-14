@@ -1,0 +1,100 @@
+Personal Info:
+Full Name: MD SAMIUR RAHMAN TANIM
+Phone: +8801326157012
+email: codewithtanim@gmail.com
+LinkedIn: https://www.linkedin.com/in/codewithtanim/
+GitHub: https://github.com/CodeWithTanim
+Father's Name: MD MAFIZUR RAHMAN
+Mother's Name: MST SABINA KHATUN
+Blood Group: AB+
+Gender: Male
+Religion: Islam
+Marital Status: Married
+Nationality: Bangladeshi
+Present Address: Guwahati - 781026, Assam, India
+Permanent Address: Pabna - 6682, Bangladesh
+
+
+Education — 
+Degree | college/university | graduation year | CGPA/percentage
+SSC/10 | Bogura Zilla School, Bogura | 2020 | GPA 5.00/5.00
+HSC/12 | Bogura Cantonment Public School & College, Bogura | 2022 | GPA 4.92/5.00
+B. Tech (CSE) | Assam down town University | 2027 | Pursuing
+
+
+Skills:
+- Python
+- HTML/CSS
+- JavaScript
+- ReactJS
+- NextJS
+- BetterAuth
+- MongoDB
+- MySQL
+- PHP
+- Digital Marketing
+
+
+Projects — Any 1-3 projects you've worked on (name + brief description)
+# Project Name	Description	Date
+1. TERMUX-PRO-SETUP	An automated setup tool for Termux.	Oct 19, 2023
+2. ENC	Encrypt any Python Scripts.	Jan 30, 2025
+3. Password Generator	It works for making strong password.	Oct 20, 2024
+4. Cosmetics Products Management System	A product management website.	Oct 2024
+5. Tik-Tak-Toe	This is a Tik-Tak-Toe Game.	Feb 23, 2025
+6. Online-Quiz-App	A simple and interactive online quiz app.	Mar 29, 2025
+7. Real-Time-Stock-Market-Dashboard	Interactive real-time stock market dashboard using Python.	June 15, 2025
+8. Automated-Resume-Parser	Automated resume parser using Python to extract structured data from resumes..	June 16, 2025
+9. Cryptography-Algorithms-Implementation	Implementation of classical and modern cryptography algorithms with Python.	August 31, 2025
+10. Password-Cracking-and-Hashing-Algorithms	Demonstrates password cracking techniques and secure hashing algorithm implementations.	August 31, 2025
+11. Custom-Ransomware-Simulation	Educational ransomware simulation showing encryption & decryption in a safe environment.	August 31, 2025
+12. TaskFlow	TaskFlow - A Modern Task Manager.	Oct 09, 2025
+13. Data-Splitter	A powerful, user-friendly desktop application for splitting large TXT, XLSX, XML, CSV files into smaller, manageable parts with customizable options and batch processing capabilities.	Oct 18, 2025
+14. Ai-Image-Generator	A powerful SaaS platform for AI-powered image generation built with modern web technologies.	Nov 27, 2025
+15. InvestFlow – HYIP Investment Platform	InvestFlow – HYIP Investment Platform.	Dec 2, 2025
+16. Nitro-Rush	Nitro-Ruch is a High Speed Racing Game.	Mar 12, 2026
+17. FormFarm	FormFarm | Professional Formspree Clone (SaaS).	Mar 09, 2026
+18. EduTrack	EduTrack - Modern Homework Management.	Apr 18, 2026
+19. RED-EYE-LEAD-HUNTER	A high-performance, dark-themed Chrome Extension for automated lead extraction from Google Maps.	Apr 28, 2026
+20. GHOST HAND	A professional, modular, and secure Windows automation system controlled entirely via Telegram.	May 9, 2026
+21. WhatsApp-Parallel	Run and manage multiple WhatsApp accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.	May 14, 2026
+22. Telegram-Parallel	Run and manage multiple Telegram accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.	May 29, 2026
+23. Full-Stack E-Commerce Store	A high-performance e-commerce storefront and admin back-office panel built on Next.js 16 (App Router), Prisma, and MySQL, featuring Stripe payments, custom COD workflows, and secure cookie sessions. Aug 7, 2026
+24. Online Learning Management System A full-stack, responsive, and secure Online Learning Management System (LMS) built with Vue 3 (Composition API, TypeScript, Pinia, Vue Router, Tailwind CSS) on the frontend and Python / Django REST Framework / PostgreSQL on the backend. Aug 19, 2026
+
+
+Internships/Experience — Any internships or part-time work (if none, just skip)
+- Internship on Python Developer in Codec Technologies - June 10, 2025 to July 10, 2025
+- Internship on Cyber Security in Codec Technologies - July 01, 2025 to August 31, 2025
+- Internship on Web Developer in Codec Technologies - July 01, 2026 to August 31, 2026
+
+
+Certifications/Achievements — Any courses, hackathons, awards
+# Coursera:
+- Operating Systems Fundamentals by Akamai Technologies, Inc. — Completed May 2025 from Coursera
+- Social Impact Strategy: Tools for Entrepreneurs and Innovators by University of Pennsylvania — Completed May 2025 from Coursera
+- Introduction to Hardware and Operating Systems by IBM — Completed March 2025 from Coursera
+- Introduction to Python Programming by University of Pennsylvania — Completed November 2024 from Coursera
+- International Leadership and Organizational Behavior by Università Bocconi — Completed November 2024 from Coursera
+- Foundations of Digital Marketing and E-commerce by Google — Completed October 2024 from Coursera
+- Communication Skills for Engineering Scholars by Politecnico di Milano — Completed October 2024 from Coursera
+- Play It Safe: Manage Security Risks by Google — Completed May 2024 from Coursera
+- Foundations of Cybersecurity by Google — Completed May 2024 from Coursera
+- Introduction to Python for Cybersecurity by Infosec — Completed May 2024 from Coursera
+- Ethics, Technology and Engineering by Eindhoven University of Technology • 4TU.Ethics — Completed May 2024 from Coursera
+- English for Career Development by University of Pennsylvania — Completed April 2024 from Coursera
+- Build a Professional Resume using Canva by Coursera — Completed April 2024 from Coursera
+- Qualitative Research Design by Emory University — Completed April 2024 from Coursera
+- Programming for Everybody (Getting Started with Python) by University of Michigan — Completed January 2024 from Coursera
+- Programming with JavaScript by Meta — Completed December 2023 from Coursera
+# Udemy:
+- Project Management with ChatGPT: Complete Guide by Udemy — Learned to apply ChatGPT for project planning, task automation, documentation, and workflow optimization. (Issued: May 30, 2024)
+- Ultimate Adobe Photoshop CC Masterclass Basics To Advanced by Udemy — Mastered Photoshop fundamentals to advanced techniques for professional image editing and graphic design. (Issued: May 26, 2024)
+- T-Shirt Design Masterclass in Photoshop | Sell Your T-Shirt by Udemy — Learned to create custom T-shirt designs in Photoshop and prepare them for online sales and print-on-demand platforms. (Issued: May 26, 2024)
+- Essential Photoshop Course for Beginner to Advanced by Udemy — Gained comprehensive knowledge of Photoshop tools and workflows, from basic editing to advanced graphic design techniques. (Issued: May 26, 2024)
+# HackerRank:
+- Java (Basic) Certificate - 26 Oct, 2024 by HackerRank - https://www.hackerrank.com/certificates/b73207f2402e
+- CSS (Basic) Certificate - 26 oct, 2024 by HackerRank - https://www.hackerrank.com/certificates/6873cd8b13a6
+- Problem Solving (Basic) Certificate - 05 Dec, 2025 by HackerRank - https://www.hackerrank.com/certificates/c9806df21bc8
+- Problem Solving (Intermediate) Certificate - 05 Dec, 2025 by HackerRank - https://www.hackerrank.com/certificates/27d319a8214d
+- Python (Basic) Certificate - 05 Dec, 2025 by HackerRank - https://www.hackerrank.com/certificates/1faf4b8bd96e

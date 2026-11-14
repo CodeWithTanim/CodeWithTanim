@@ -1,0 +1,164 @@
+{
+  "id": "cryptography-algorithms-implementation",
+  "name": "Cryptography Algorithms Implementation",
+  "slug": "cryptography-algorithms-implementation",
+  "tagline": "A Python internship project demonstrating AES, RSA, and hashing algorithms with examples and unit tests.",
+  "description": "Developed during an internship with Codec Technologies, this project provides hands-on implementations of core cryptography algorithms. It demonstrates symmetric encryption, asymmetric encryption, digital signatures, and hashing through a modular Python codebase, example scripts, documentation, and tests.",
+  "category": [
+    "Cybersecurity",
+    "Cryptography",
+    "Python"
+  ],
+  "status": "internship-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation",
+    "banner": "https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation/blob/main/docs/screenshots/Cryptography-Algorithms-Implementation.jpeg",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://www.linkedin.com/in/codewithtanim/",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim",
+    "internshipOrganization": "http://codectechnologies.in/"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim",
+    "role": "Intern at Codec Technologies"
+  },
+  "problemStatement": "Provide practical demonstrations of core cryptography algorithms in a clean, modular Python project with runnable examples and tests.",
+  "solution": "A Python project implementing AES encryption and decryption, RSA encryption and decryption with public/private key pairs and digital signatures, and hashing algorithms, supported by example scripts and Pytest unit tests.",
+  "features": [
+    {
+      "name": "AES symmetric encryption",
+      "details": "Encrypts and decrypts data using a secret key."
+    },
+    {
+      "name": "RSA asymmetric cryptography",
+      "details": "Uses public/private key-pair encryption and supports digital signatures."
+    },
+    {
+      "name": "Hashing algorithms",
+      "details": [
+        "MD5",
+        "SHA-256",
+        "SHA-512"
+      ]
+    },
+    {
+      "name": "Unit tests",
+      "details": "Uses Pytest to verify algorithm behavior."
+    },
+    {
+      "name": "Example scripts",
+      "details": "Includes separate demo scripts for AES, RSA, and hashing."
+    },
+    {
+      "name": "Modular project structure",
+      "details": "Separates symmetric, asymmetric, and hashing implementations."
+    }
+  ],
+  "techStack": {
+    "language": [
+      "Python 3.8+"
+    ],
+    "cryptographyLibrary": [
+      "PyCryptodome"
+    ],
+    "testing": [
+      "Pytest"
+    ],
+    "packageManagement": [
+      "pip",
+      "requirements.txt"
+    ]
+  },
+  "algorithms": [
+    {
+      "name": "AES",
+      "type": "Symmetric encryption",
+      "implementationFile": "src/symmetric/aes_encryption.py",
+      "exampleCommand": "python -m examples.demo_aes"
+    },
+    {
+      "name": "RSA",
+      "type": "Asymmetric encryption",
+      "implementationFile": "src/asymmetric/rsa_encryption.py",
+      "exampleCommand": "python -m examples.demo_rsa",
+      "capabilities": [
+        "Public/private key-pair encryption",
+        "Digital signatures"
+      ]
+    },
+    {
+      "name": "Hashing",
+      "type": "Hash functions",
+      "implementationFile": "src/hashing/hashing_algorithms.py",
+      "supportedAlgorithms": [
+        "MD5",
+        "SHA-256",
+        "SHA-512"
+      ],
+      "exampleCommand": "python -m examples.demo_hashing"
+    }
+  ],
+  "projectStructure": [
+    "src/symmetric/aes_encryption.py",
+    "src/asymmetric/rsa_encryption.py",
+    "src/hashing/hashing_algorithms.py",
+    "examples/demo_aes.py",
+    "examples/demo_rsa.py",
+    "examples/demo_hashing.py",
+    "tests/",
+    "requirements.txt",
+    "README.md"
+  ],
+  "requirements": {
+    "python": "3.8 or higher",
+    "virtualEnvironment": "Recommended"
+  },
+  "installation": [
+    "git clone https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation.git",
+    "cd Cryptography-Algorithms-Implementation",
+    "pip install -r requirements.txt"
+  ],
+  "exampleCommands": [
+    "python -m examples.demo_aes",
+    "python -m examples.demo_rsa",
+    "python -m examples.demo_hashing"
+  ],
+  "testing": {
+    "framework": "Pytest",
+    "details": "The README states that unit tests are included to verify algorithm correctness.",
+    "testDirectory": "tests/"
+  },
+  "learningOutcomes": [
+    "Understood symmetric versus asymmetric cryptography",
+    "Implemented AES and RSA in Python",
+    "Worked with hashing algorithms for secure storage",
+    "Practiced modular code organization using src/ and tests/",
+    "Improved debugging and testing skills with Pytest"
+  ],
+  "acknowledgments": [
+    "Codec Technologies for the internship opportunity",
+    "PyCryptodome developers",
+    "Python and open-source community"
+  ],
+  "contribution": {
+    "policy": "Pull requests are welcome.",
+    "suggestedExtensions": [
+      "DES",
+      "Blowfish",
+      "ECC"
+    ]
+  },
+  "dataNotes": {
+    "source": "Project 4 README provided by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "License type",
+      "Test count and latest test results"
+    ],
+    "securityClarification": "MD5 is included as a demonstrated hashing algorithm in the README, but it should not be treated as suitable for modern security-sensitive password storage."
+  }
+}

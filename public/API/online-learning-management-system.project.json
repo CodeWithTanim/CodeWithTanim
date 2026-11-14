@@ -1,0 +1,212 @@
+{
+  "id": "online-learning-management-system",
+  "name": "Online Learning Management System (LMS)",
+  "slug": "online-learning-management-system",
+  "tagline": "A full-stack learning platform with course discovery, interactive lessons, quizzes, PDF certificates, instructor tools, and admin moderation.",
+  "description": "Developed during an internship with Codec Technologies, this Online Learning Management System combines a public course catalog and student learning player with instructor course-building tools and an administrative moderation console. It supports course search and filtering, lesson progress, private notes, bookmarks, quizzes with server-side answer evaluation, QR-stamped PDF certificates, instructor analytics, course approval workflows, and user management.",
+  "category": [
+    "Education",
+    "E-learning",
+    "Learning Management System"
+  ],
+  "status": "internship-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Online-Learning-Management-System",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://www.linkedin.com/in/codewithtanim/",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim",
+    "internshipOrganization": "http://codectechnologies.in/"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim",
+    "role": "Intern at Codec Technologies"
+  },
+  "problemStatement": "Learners, instructors, and administrators need a unified platform for discovering courses, delivering lessons, assessing learning, issuing certificates, and governing course quality and user access.",
+  "solution": "A role-based LMS with separate public, student, instructor, and administrator experiences, backed by a Django REST API and Vue frontend.",
+  "features": {
+    "publicWebsite": [
+      "Dynamic hero banner sliders driven by backend settings",
+      "Course search and filters by category, difficulty, and free/paid pricing",
+      "Keyword search",
+      "Course overview with curriculum preview and learning outcomes",
+      "Instructor cards and ratings",
+      "Instant enrollment",
+      "Public certificate verification at /certificate/verify/:id",
+      "Instructor directory with profiles and authored courses"
+    ],
+    "student": [
+      "Dashboard for active, enrolled, and completed courses, active hours, and certificates",
+      "Lesson player supporting HTML text, YouTube/MP4 video, text-to-speech audio, and downloadable resources",
+      "Server-validated lesson completion tracking",
+      "Private per-lesson rich-text notes with create, edit, delete, and search",
+      "Lesson bookmarks",
+      "Timed quizzes with passing thresholds and instant score feedback",
+      "Quiz correct-answer indices hidden from API responses until server-side evaluation",
+      "QR-stamped PDF certificate generation after 100% course completion"
+    ],
+    "instructor": [
+      "Dashboard analytics for authored courses, draft status, enrollments, and average quiz scores",
+      "Course builder for metadata, section ordering, lessons, and quizzes",
+      "Create video, text, and audio lesson content",
+      "Submit draft courses for administrative approval",
+      "Monitor student course-completion percentages"
+    ],
+    "admin": [
+      "Platform analytics for user growth, active courses, revenue, and issued certificates",
+      "Review pending course drafts and approve or reject with mandatory feedback",
+      "Search and filter users by STUDENT, TEACHER, and ADMIN roles",
+      "Activate or deactivate user accounts",
+      "Manage hero slider banners and global website settings",
+      "Immutable administrative audit logs"
+    ]
+  },
+  "techStack": {
+    "frontend": [
+      "Vue 3 Composition API",
+      "TypeScript",
+      "Pinia",
+      "Vue Router",
+      "Tailwind CSS v4",
+      "Lucide Icons",
+      "Vite"
+    ],
+    "backend": [
+      "Python 3.10+",
+      "Django 5.0",
+      "Django REST Framework",
+      "SimpleJWT"
+    ],
+    "database": {
+      "production": "PostgreSQL 15",
+      "localDevelopment": "SQLite"
+    },
+    "pdfAndCertificates": [
+      "ReportLab",
+      "QRCode",
+      "Pillow"
+    ],
+    "devOps": [
+      "Docker",
+      "Docker Compose"
+    ]
+  },
+  "roles": [
+    "STUDENT",
+    "TEACHER",
+    "ADMIN"
+  ],
+  "certificate": {
+    "format": "PDF",
+    "qrStamped": true,
+    "generationLibrary": "ReportLab",
+    "qrLibrary": "QRCode",
+    "eligibility": "Generated when a student reaches 100% course completion",
+    "verificationRoute": "/certificate/verify/:id"
+  },
+  "api": {
+    "baseUrlLocal": "http://127.0.0.1:8000/api/v1/",
+    "details": "The README identifies the local API base URL but does not enumerate every endpoint."
+  },
+  "localDevelopment": {
+    "requirements": [
+      "Node.js v18+",
+      "npm v9+",
+      "Python v3.10+",
+      "Git"
+    ],
+    "optionalRequirements": [
+      "Docker",
+      "Docker Compose"
+    ],
+    "repository": "https://github.com/CodeWithTanim/Online-Learning-Management-System",
+    "setupSteps": [
+      "git clone https://github.com/CodeWithTanim/Online-Learning-Management-System.git",
+      "cd Online-Learning-Management-System",
+      "Create and activate a Python virtual environment",
+      "pip install -r backend/requirements.txt",
+      "Set USE_SQLITE=True and run python backend/manage.py migrate",
+      "Set USE_SQLITE=True and run python backend/manage.py seed_lms",
+      "Set USE_SQLITE=True and run python backend/manage.py runserver 0.0.0.0:8000",
+      "Open a separate terminal, enter frontend, run npm install",
+      "Run npm run dev in frontend",
+      "Open http://localhost:5173"
+    ],
+    "commands": {
+      "installBackend": "pip install -r backend/requirements.txt",
+      "migrate": "USE_SQLITE=True python backend/manage.py migrate",
+      "seed": "USE_SQLITE=True python backend/manage.py seed_lms",
+      "runBackend": "USE_SQLITE=True python backend/manage.py runserver 0.0.0.0:8000",
+      "installFrontend": "npm install",
+      "runFrontend": "npm run dev",
+      "runDocker": "docker-compose up --build"
+    },
+    "urls": {
+      "frontend": "http://localhost:5173",
+      "backendApi": "http://127.0.0.1:8000/api/v1/"
+    }
+  },
+  "testing": {
+    "backendCommand": "USE_SQLITE=True python backend/manage.py test apps.accounts",
+    "frontendBuildCommand": "cd frontend && npm run build",
+    "details": "The README provides backend test and frontend build commands but does not state test counts or recent results."
+  },
+  "projectStructure": [
+    "backend/apps/accounts/",
+    "backend/apps/analytics/",
+    "backend/apps/certificates/",
+    "backend/apps/courses/",
+    "backend/apps/lessons/",
+    "backend/apps/notes/",
+    "backend/apps/quizzes/",
+    "backend/apps/website/",
+    "backend/config/",
+    "backend/manage.py",
+    "backend/requirements.txt",
+    "backend/Dockerfile",
+    "frontend/src/components/",
+    "frontend/src/layouts/",
+    "frontend/src/router/",
+    "frontend/src/stores/",
+    "frontend/src/views/",
+    "frontend/package.json",
+    "frontend/vite.config.ts",
+    "frontend/Dockerfile",
+    "docker-compose.yml",
+    ".env.example",
+    "README.md"
+  ],
+  "learningOutcomes": [
+    "Built a modular Django REST API paired with Vue 3 Pinia stores and route guards",
+    "Developed dynamic PDF and QR certificate generation",
+    "Implemented server-side quiz answer masking and evaluation",
+    "Designed role-based access controls for student, instructor, and admin roles"
+  ],
+  "acknowledgments": [
+    "Codec Technologies for the internship opportunity",
+    "Django REST Framework and Vue.js development teams",
+    "Open-source community"
+  ],
+  "contribution": {
+    "policy": "Pull requests are welcome."
+  },
+  "securityNotes": [
+    "Default seeded account credentials are documented in the README but are intentionally excluded from this public-facing JSON.",
+    "Change seeded demo passwords before deploying to a publicly accessible or production environment.",
+    "The README describes server-side quiz answer masking and immutable administrative audit logs."
+  ],
+  "license": {
+    "type": "Not specified in the provided README"
+  },
+  "dataNotes": {
+    "source": "Project 9 README provided by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "License type",
+      "Test count and latest test results"
+    ]
+  }
+}

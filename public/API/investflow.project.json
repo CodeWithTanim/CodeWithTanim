@@ -1,0 +1,208 @@
+{
+  "id": "investflow",
+  "name": "InvestFlow",
+  "tagline": "Next-Gen HYIP Investment & Asset Management Platform",
+  "description": "A financial investment and asset management web platform designed for investment programs, financial tracking, multi-tier referrals, automated interest distribution, and compliance workflows.",
+  "category": [
+    "FinTech",
+    "Investment Management",
+    "Asset Management"
+  ],
+  "repository": "https://github.com/CodeWithTanim/InvestFlow",
+  "author": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "role": "Founder & Lead Full-Stack Architect",
+    "github": "https://github.com/CodeWithTanim"
+  },
+  "technology_stack": {
+    "backend": [
+      "PHP 7.4+",
+      "PHP 8.2 recommended"
+    ],
+    "database": [
+      "MySQL 5.7+",
+      "MariaDB 10.3+"
+    ],
+    "database_drivers": [
+      "PDO",
+      "MySQLi"
+    ],
+    "frontend": [
+      "HTML5",
+      "Vanilla CSS3",
+      "Vanilla ES6+ JavaScript"
+    ],
+    "email": [
+      "PHPMailer",
+      "SMTP with TLS/SSL"
+    ],
+    "authentication_security": [
+      "Google Authenticator-compatible TOTP 2FA",
+      "Session hardening",
+      "XSS/CSRF protections"
+    ],
+    "libraries_and_assets": [
+      "Font Awesome 6",
+      "Inter",
+      "Segoe UI",
+      "Google Fonts"
+    ]
+  },
+  "features": {
+    "user_portal": [
+      "Portfolio dashboard with balances, deposits, withdrawals, active investments, and referral earnings",
+      "Interactive growth charts and recent activity ledger",
+      "Investment plans with fixed or flexible durations and configurable interest schedules",
+      "Crowd investment pools with funding progress, investor counts, and deadlines",
+      "Interest accrual tracking and investment history",
+      "Deposits through automated gateways or manual transfers with receipt uploads",
+      "Withdrawal requests with payout addresses, fee calculation, and status tracking",
+      "Transaction statements for deposits, withdrawals, plan purchases, earnings, and bonuses",
+      "Multi-level referrals, personalized referral links, tracking, and commission logs",
+      "Profile management and avatar uploads",
+      "Two-factor authentication with QR enrollment and backup recovery codes",
+      "KYC document submission and approval status",
+      "Support ticket system",
+      "In-app notifications"
+    ],
+    "admin_portal": [
+      "Dashboard monitoring users, KYC verification, deposits, withdrawals, platform net worth, and active investments",
+      "Financial reports with CSV export and print options",
+      "User directory and bulk account operations",
+      "KYC review and approval/rejection workflow",
+      "Global announcements and targeted notifications",
+      "VIP rankings based on cumulative investment volumes",
+      "Investment plan and crowd pool management",
+      "Deposit verification and withdrawal processing",
+      "Payment gateway configuration",
+      "Branding, currency, registration, deposit, withdrawal, and pool settings",
+      "Welcome and signup bonus settings",
+      "Holiday scheduler for interest payouts",
+      "SMTP email and SMS API configuration",
+      "Tawk.to, Google Analytics, reCAPTCHA, and Facebook Comments integrations",
+      "Dynamic promotional banners",
+      "Multi-admin role-based access control and audit logs"
+    ],
+    "automation": [
+      "Scheduled interest/ROI accrual",
+      "Investment expiration and optional principal return",
+      "Monthly and annual referral milestone processing",
+      "Execution audit logs in the cron_logs table"
+    ]
+  },
+  "payment_methods": {
+    "cryptocurrency": [
+      "Binance Pay",
+      "Direct crypto wallets: BTC, USDT, ETH, TRX"
+    ],
+    "international": [
+      "Razorpay",
+      "Card gateways"
+    ],
+    "bangladesh_local": [
+      "bKash",
+      "SSLCommerz",
+      "Aamarpay",
+      "RupantorPay",
+      "Nagad",
+      "Rocket"
+    ],
+    "manual_custom": [
+      "Bank transfer",
+      "Custom mobile banking",
+      "QR code uploads with transaction ID and receipt verification"
+    ]
+  },
+  "system_requirements": {
+    "web_server": [
+      "Apache with mod_rewrite",
+      "Nginx"
+    ],
+    "php_extensions": [
+      "pdo_mysql",
+      "mysqli",
+      "curl",
+      "gd",
+      "mbstring",
+      "openssl",
+      "json"
+    ]
+  },
+  "security_architecture": [
+    "PDO prepared statements for critical queries",
+    "Output sanitization using htmlspecialchars()",
+    "Session timeout and user-agent consistency checks",
+    "Privilege separation between admin and user contexts",
+    "RFC 6238 TOTP-compatible two-factor authentication",
+    "File upload MIME-type validation, extension allowlisting, and unique file hashing"
+  ],
+  "installation": {
+    "local": {
+      "supported_environments": [
+        "XAMPP",
+        "Laragon"
+      ],
+      "database_name_example": "rp_trader",
+      "database_schema_file": "Install/database.sql",
+      "local_paths": [
+        "C:/xampp/htdocs/InvestFlow",
+        "C:/laragon/www/InvestFlow"
+      ],
+      "installer_lock": "Install/install.lock"
+    },
+    "production": {
+      "supported_environments": [
+        "cPanel",
+        "Hostinger",
+        "VPS"
+      ],
+      "steps": [
+        "Upload and extract project archive",
+        "Create a MySQL database and database user",
+        "Import Install/database.sql",
+        "Update database credentials in config/database.php and includes/database.php",
+        "Set write permissions on required upload directories",
+        "Ensure Install/install.lock exists"
+      ]
+    },
+    "cron": {
+      "purpose": [
+        "ROI calculations",
+        "Investment maturation",
+        "Referral bonus distribution"
+      ],
+      "recommended_schedule": "Every 5 minutes",
+      "command_template": "*/5 * * * * php -q /home/YOUR_USERNAME/public_html/ADMIN/cron.php >/dev/null 2>&1"
+    }
+  },
+  "directory_structure_highlights": [
+    "assets/images/",
+    "ADMIN/",
+    "ADMIN/cron/",
+    "config/",
+    "includes/",
+    "Install/",
+    "uploads/",
+    "USERS/",
+    "index.php",
+    "privacy-policy.php",
+    "terms-and-service.php"
+  ],
+  "license": {
+    "type": "Proprietary",
+    "copyright": "Copyright © 2026 MD SAMIUR RAHMAN TANIM. All rights reserved.",
+    "restrictions": [
+      "No redistribution, sublicensing, publishing, or selling without authorization",
+      "No unauthorized modification or derivative works without prior written consent"
+    ],
+    "inquiries": "https://github.com/CodeWithTanim"
+  },
+  "notes": [
+    "The README describes this as a HYIP investment platform. Investment-return claims and financial operations should be independently reviewed for legal and financial compliance before deployment.",
+    "Database credentials shown in the local setup instructions are examples only and are not included as deployable secrets."
+  ],
+  "source": {
+    "readme": "README.md",
+    "repository": "https://github.com/CodeWithTanim/InvestFlow"
+  }
+}

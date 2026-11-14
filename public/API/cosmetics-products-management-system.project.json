@@ -1,0 +1,151 @@
+{
+  "id": "cosmetics-products-management-system",
+  "name": "Cosmetics Products Management System",
+  "slug": "cosmetics-products-management-system",
+  "tagline": "PHP and MySQL-based online store for cosmetics and beauty products with inventory, order management, and PayPal payments.",
+  "description": "Cosmetics and Beauty Product Online Store is a web-based shopping and management system for a cosmetics business. Customers can browse products, filter by category or brand, search products, manage a shopping cart, place orders, and view or cancel pending orders. Administrators manage brands, categories, products, inventory, orders, users, system information, and date-wise sales reports. The README states that online payments use the PayPal API.",
+  "category": [
+    "E-commerce",
+    "Inventory Management",
+    "Retail"
+  ],
+  "status": "source-code-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System",
+    "projectReport": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System/blob/main/CPMS_Project_Report.pdf",
+    "screenshots": [
+      "https://github.com/MSRTanim/Cosmetics-Product-Management-System/blob/main/Templates%20of%20CPMS/1.png",
+      "https://github.com/MSRTanim/Cosmetics-Product-Management-System/blob/main/Templates%20of%20CPMS/2.png",
+      "https://github.com/MSRTanim/Cosmetics-Product-Management-System/blob/main/Templates%20of%20CPMS/3.png",
+      "https://github.com/MSRTanim/Cosmetics-Product-Management-System/blob/main/Templates%20of%20CPMS/4.png",
+      "https://github.com/MSRTanim/Cosmetics-Product-Management-System/blob/main/Templates%20of%20CPMS/5.png"
+    ],
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim"
+  },
+  "problemStatement": "A cosmetics business needs a web-based system for customers to browse and order products while staff manage products, inventory, orders, users, and sales information.",
+  "solution": "A PHP/OOP and MySQL web application with separate customer-facing and admin interfaces, product discovery and ordering tools, inventory controls, order management, and PayPal API payment support.",
+  "features": {
+    "admin": [
+      "Secure login and logout",
+      "Dashboard with summary information",
+      "Brand management: add, list, view, update, and delete brands",
+      "Category management: add, list, view, update, and delete categories",
+      "Product management: add, list, update, and delete products",
+      "Inventory management: add, list, update, and delete stock by product variant",
+      "Order management: list orders, view details, update status, mark as paid, and delete orders",
+      "Printable date-wise sales reports",
+      "User list management with CRUD operations",
+      "Manage account details and credentials",
+      "Manage system information"
+    ],
+    "client": [
+      "Secure login and registration",
+      "Read About Us content",
+      "Home page",
+      "Browse product list",
+      "Browse products by category",
+      "Filter products by brand",
+      "Search products",
+      "View product details",
+      "Shopping cart",
+      "Place orders",
+      "List orders and view order details",
+      "Cancel pending orders",
+      "Manage account details and credentials",
+      "Logout"
+    ]
+  },
+  "techStack": {
+    "language": [
+      "PHP 8.2.12",
+      "PHP OOP",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "database": [
+      "MySQL"
+    ],
+    "serverEnvironment": [
+      "XAMPP 8.2.12",
+      "Apache"
+    ],
+    "frontendLibrariesAndFrameworks": [
+      "Bootstrap",
+      "jQuery",
+      "AJAX"
+    ],
+    "adminTemplate": [
+      "AdminLTE"
+    ],
+    "paymentIntegration": [
+      "PayPal API"
+    ]
+  },
+  "database": {
+    "name": "cbpos_db",
+    "sqlFile": "database/cbpos_db.sql",
+    "managementTool": "phpMyAdmin"
+  },
+  "localDevelopment": {
+    "clientUrl": "http://localhost/cbpos/",
+    "adminUrl": "http://localhost/cbpos/admin",
+    "requirements": [
+      "XAMPP or WAMP",
+      "PHP environment",
+      "MySQL",
+      "GD Library enabled in php.ini"
+    ],
+    "setupSteps": [
+      "Install and start Apache and MySQL using XAMPP or WAMP",
+      "Enable or uncomment the GD Library in php.ini",
+      "Extract the source code",
+      "Place the project folder in XAMPP htdocs or WAMP www",
+      "Open phpMyAdmin",
+      "Create a database named cbpos_db",
+      "Import database/cbpos_db.sql",
+      "Open the client-side or admin-side local URL"
+    ]
+  },
+  "defaultAdminCredentials": {
+    "username": "admin",
+    "password": "admin123",
+    "warning": "These are the default credentials documented in the README. Change them before deployment and do not reuse them in a production environment."
+  },
+  "payment": {
+    "provider": "PayPal API",
+    "details": "The README states that online payment is supported through the PayPal API."
+  },
+  "reports": [
+    "Printable date-wise sales report"
+  ],
+  "securityNotes": [
+    "The README recommends scanning downloaded files with antivirus software before use.",
+    "Change the documented default admin password before deployment.",
+    "The README does not describe a live production deployment URL."
+  ],
+  "contribution": {
+    "contributorsPage": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System/graphs/contributors"
+  },
+  "license": {
+    "type": "Not specified in the provided README",
+    "details": "Review the repository for a LICENSE file and applicable usage terms."
+  },
+  "dataNotes": {
+    "source": "Project 2 README supplied by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "Confirmed license type",
+      "Automated test details",
+      "Specific API endpoints"
+    ]
+  }
+}

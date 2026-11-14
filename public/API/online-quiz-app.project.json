@@ -1,0 +1,161 @@
+{
+  "id": "online-quiz-app",
+  "name": "Online Quiz App",
+  "slug": "online-quiz-app",
+  "tagline": "A PHP-based online examination and quiz system with instant results, student progress tracking, and admin-managed quizzes.",
+  "description": "Online Quiz App is a web-based examination system built with PHP, MySQL, CSS, JavaScript, and Bootstrap. It provides separate student and admin sections. Students can register, log in, take quizzes on various topics, receive results, review their history, and view rankings. Administrators can manage students, quiz questions, quizzes, and user performance information.",
+  "category": [
+    "Education",
+    "E-learning",
+    "Quiz and Assessment"
+  ],
+  "status": "source-code-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Online-Quiz-App",
+    "projectReport": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Project%20Report/Project_Final_Report_Online_Quiz_App.pdf",
+    "banner": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/image/banner.png",
+    "screenshots": [
+      {
+        "name": "Student Home Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_Home_Page.png"
+      },
+      {
+        "name": "Student Login Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_Login_Page.png"
+      },
+      {
+        "name": "Student Quiz Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_Quiz_Page.png"
+      },
+      {
+        "name": "Student Exam Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_Exam_Page.png"
+      },
+      {
+        "name": "Student History Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_History_Page.png"
+      },
+      {
+        "name": "Student Ranking Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Student_Ranking_Page.png"
+      },
+      {
+        "name": "Admin Login Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Login_Page.png"
+      },
+      {
+        "name": "Admin Home Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Home_Page.png"
+      },
+      {
+        "name": "Admin Student Management Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Student_Management_Page.png"
+      },
+      {
+        "name": "Admin Add Quiz Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Add_Quiz_Page.png"
+      },
+      {
+        "name": "Admin Quiz Remove Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Quiz_Remove_Page.png"
+      },
+      {
+        "name": "Admin Ranking Page",
+        "url": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Screenshot/Admin_Ranking_Page.png"
+      }
+    ],
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim"
+  },
+  "problemStatement": "Organizations need a convenient way to conduct online examinations and assess student performance while reducing the time and staffing required for exams.",
+  "solution": "A web-based quiz and examination system with student authentication, online quiz participation, instant results, progress history, rankings, and administrative quiz and user management.",
+  "features": {
+    "student": [
+      "Register and log in",
+      "Take quizzes on various topics",
+      "Receive instant quiz results and feedback",
+      "Track progress over time",
+      "View quiz history",
+      "View rankings"
+    ],
+    "admin": [
+      "Admin login",
+      "Create, update, and delete quizzes",
+      "Manage quiz questions",
+      "View users or students",
+      "View user quiz results and progress",
+      "View rankings"
+    ]
+  },
+  "techStack": {
+    "backend": [
+      "PHP"
+    ],
+    "database": [
+      "MySQL"
+    ],
+    "frontend": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap"
+    ]
+  },
+  "database": {
+    "name": "exam",
+    "sqlFile": "exam.sql",
+    "managementTool": "phpMyAdmin"
+  },
+  "localDevelopment": {
+    "server": "XAMPP",
+    "requirements": [
+      "XAMPP installed on Windows",
+      "Apache and MySQL services running",
+      "Project files placed in C:\\xampp\\htdocs\\",
+      "Database imported using phpMyAdmin"
+    ],
+    "clientUrl": "http://localhost/Online-Quiz/",
+    "adminUrl": "http://localhost/Online-Quiz/admin.php",
+    "databaseUrl": "http://localhost/phpmyadmin/",
+    "databaseConnectionConfig": "config/db.php",
+    "setupSteps": [
+      "Extract the project archive",
+      "Copy the Online-Quiz project folder into C:\\xampp\\htdocs\\",
+      "Start Apache and MySQL in XAMPP",
+      "Open phpMyAdmin",
+      "Create a database named exam",
+      "Import exam.sql from the Online-Quiz folder",
+      "Open the client-side URL",
+      "Open admin.php for the admin panel"
+    ]
+  },
+  "securityNotes": [
+    "The README recommends scanning downloaded files with antivirus software before use.",
+    "Check config/db.php if database connection problems occur.",
+    "Do not expose real account passwords in public JSON or repository data.",
+    "The README contains default admin credentials; they are intentionally excluded from this public project JSON for security."
+  ],
+  "usageTerms": {
+    "statedPurpose": "The README describes the source code as free to download and use for educational purposes only.",
+    "licenseFile": "Not specified in the provided README"
+  },
+  "contribution": {
+    "contributorsPage": "https://github.com/CodeWithTanim/Online-Quiz-App/graphs/contributors"
+  },
+  "dataNotes": {
+    "source": "Project 3 README provided by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "Confirmed license file or license type",
+      "Specific API endpoints",
+      "Automated test details"
+    ]
+  }
+}

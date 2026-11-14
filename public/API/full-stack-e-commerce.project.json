@@ -1,0 +1,284 @@
+{
+  "id": "full-stack-e-commerce",
+  "name": "Premium Next.js Full-Stack E-Commerce Store",
+  "slug": "full-stack-e-commerce",
+  "tagline": "A full-stack e-commerce platform with product catalogs, customer accounts, Stripe and COD checkout, and an admin fulfillment dashboard.",
+  "description": "Developed as part of an internship with Codec Technologies, this e-commerce application combines a customer storefront with an administration panel for managing products, categories, inventory, customer accounts, and order fulfillment. The project uses Next.js App Router, Prisma ORM, and MySQL, with Stripe credit-card payments and Cash on Delivery workflows.",
+  "category": [
+    "E-commerce",
+    "Full-Stack Web Development",
+    "Online Store"
+  ],
+  "status": "internship-project",
+  "urls": {
+    "repository": "https://github.com/CodeWithTanim/Full-Stack-E-Commerce",
+    "banner": "public/storefront_banner.png",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://www.linkedin.com/in/codewithtanim/",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim",
+    "developerFacebook": "https://fb.com/CodeWithTanim",
+    "developerInstagram": "https://instagram.com/CodeWithTanim",
+    "internshipOrganization": "http://codectechnologies.in/"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim",
+    "role": "Intern at Codec Technologies"
+  },
+  "problemStatement": "An online retailer needs a complete storefront and administration system to manage product discovery, shopping carts, customer accounts, payments, stock, and order fulfillment.",
+  "solution": "A Next.js full-stack e-commerce application with dynamic product catalogs, category filtering, cart and checkout workflows, customer account management, inventory controls, and an admin order-fulfillment console.",
+  "features": {
+    "storefront": [
+      "Dynamic hero banner sliders loaded from database settings",
+      "Product catalog with descriptions, comparison pricing, stock, and category badges",
+      "Dynamic category filters",
+      "Shopping cart with variant selectors, quantity controls, and subtotal calculations",
+      "Customer authentication using HTTP-only cookies",
+      "Customer dashboard for profile configuration",
+      "Multiple-address book management",
+      "Checkout with address selection and payment method options",
+      "Automatic stock checks during order placement",
+      "Order history with status, pricing summaries, and itemized listings"
+    ],
+    "admin": [
+      "Dashboard showing sales volume, customer totals, category totals, and recent orders",
+      "Product and variant CRUD",
+      "Brand and base-price management",
+      "Inventory management",
+      "Root category and nested subcategory management",
+      "Order details including customer and shipping-address snapshots",
+      "Order fulfillment status transitions",
+      "Storefront title and logo settings",
+      "Dynamic hero slider banner management",
+      "Storefront visibility settings"
+    ]
+  },
+  "techStack": {
+    "framework": [
+      "Next.js 16",
+      "Next.js App Router",
+      "React"
+    ],
+    "language": [
+      "TypeScript"
+    ],
+    "orm": [
+      "Prisma ORM"
+    ],
+    "database": [
+      "MySQL"
+    ],
+    "payments": [
+      "Stripe",
+      "Cash on Delivery (COD)"
+    ],
+    "styling": [
+      "Tailwind CSS"
+    ],
+    "icons": [
+      "Lucide React"
+    ],
+    "media": [
+      "Cloudinary"
+    ],
+    "authentication": [
+      "HTTP-only cookies",
+      "SameSite=Lax cookie handling and rotation"
+    ],
+    "runtime": [
+      "Node.js"
+    ]
+  },
+  "paymentMethods": [
+    {
+      "name": "Stripe Credit Card",
+      "type": "Online payment",
+      "details": "The README describes Stripe credit-card payment integration."
+    },
+    {
+      "name": "Cash on Delivery",
+      "type": "Offline payment",
+      "details": "The README describes COD order workflows."
+    }
+  ],
+  "database": {
+    "engine": "MySQL",
+    "defaultDatabaseName": "ecommerce_db",
+    "orm": "Prisma",
+    "schemaFile": "prisma/schema.prisma",
+    "seedFile": "prisma/seed.ts",
+    "seedDescription": "The README says the seed script creates 20 product catalog entries, banners, and default test accounts."
+  },
+  "apiRoutes": [
+    {
+      "path": "/api/v1/addresses",
+      "description": "Address management routes."
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "description": "Admin category management."
+    },
+    {
+      "path": "/api/v1/admin/customers",
+      "description": "Admin customer management."
+    },
+    {
+      "path": "/api/v1/admin/orders",
+      "description": "Admin order management."
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "description": "Admin product management."
+    },
+    {
+      "path": "/api/v1/admin/settings",
+      "description": "Admin settings management."
+    },
+    {
+      "path": "/api/v1/auth/login",
+      "description": "User login."
+    },
+    {
+      "path": "/api/v1/auth/logout",
+      "description": "User logout."
+    },
+    {
+      "path": "/api/v1/auth/me",
+      "description": "Current authenticated user information."
+    },
+    {
+      "path": "/api/v1/auth/refresh",
+      "description": "Authentication refresh route."
+    },
+    {
+      "path": "/api/v1/auth/register",
+      "description": "User registration."
+    },
+    {
+      "path": "/api/v1/categories",
+      "description": "Category listing."
+    },
+    {
+      "path": "/api/v1/orders",
+      "description": "Customer order routes."
+    },
+    {
+      "path": "/api/v1/products",
+      "description": "Product listing."
+    },
+    {
+      "path": "/api/v1/products/[slug]",
+      "description": "Product details by slug."
+    },
+    {
+      "path": "/api/v1/settings",
+      "description": "Storefront settings."
+    },
+    {
+      "path": "/api/v1/upload",
+      "description": "Upload route."
+    }
+  ],
+  "localDevelopment": {
+    "requirements": [
+      "Node.js 18+ or 20+",
+      "MySQL server"
+    ],
+    "defaultUrl": "http://localhost:3000",
+    "environmentFile": ".env",
+    "environmentExample": ".env.example",
+    "environmentVariables": [
+      {
+        "name": "DATABASE_URL",
+        "required": true,
+        "example": "mysql://YOUR_USER:YOUR_PASSWORD@localhost:3306/ecommerce_db",
+        "description": "MySQL connection string. Replace placeholders with local or hosted database credentials."
+      }
+    ],
+    "setupSteps": [
+      "git clone https://github.com/CodeWithTanim/Full-Stack-E-Commerce.git",
+      "cd Full-Stack-E-Commerce",
+      "npm install",
+      "Duplicate .env.example to .env and configure DATABASE_URL",
+      "Create the ecommerce_db MySQL database",
+      "Run npx prisma db push",
+      "Run npx prisma db seed",
+      "Run npm run dev",
+      "Open http://localhost:3000"
+    ],
+    "commands": {
+      "install": "npm install",
+      "databaseCreateExample": "mysql -u root -p -e \"CREATE DATABASE ecommerce_db;\"",
+      "databaseSync": "npx prisma db push",
+      "seed": "npx prisma db seed",
+      "development": "npm run dev"
+    }
+  },
+  "projectStructure": [
+    "prisma/schema.prisma",
+    "prisma/seed.ts",
+    "public/uploads/",
+    "public/storefront_banner.png",
+    "src/app/about-us/",
+    "src/app/account/",
+    "src/app/admin/categories/",
+    "src/app/admin/customers/",
+    "src/app/admin/orders/",
+    "src/app/admin/products/",
+    "src/app/admin/settings/",
+    "src/app/api/v1/",
+    "src/app/cart/",
+    "src/app/checkout/",
+    "src/app/login/",
+    "src/app/orders/",
+    "src/app/payments/",
+    "src/app/products/",
+    "src/app/register/",
+    "src/components/",
+    "src/context/AuthContext.tsx",
+    "src/lib/",
+    "src/middleware.ts",
+    "package.json",
+    "README.md"
+  ],
+  "learningOutcomes": [
+    "Next.js App Router routing, layouts, and middleware role-based access controls",
+    "Stripe credit-card and Cash on Delivery payment workflows",
+    "Prisma ORM and MySQL relational data modeling",
+    "Nested catalog categories, variant stock management, and address mappings",
+    "HTTP-only SameSite=Lax cookie handling and session rotation",
+    "Order status progression and fulfillment workflows"
+  ],
+  "acknowledgments": [
+    "Codec Technologies for the internship opportunity",
+    "Next.js and Prisma developers",
+    "Open-source community"
+  ],
+  "contribution": {
+    "policy": "Pull requests are welcome.",
+    "suggestedImprovements": [
+      "Reviews moderation",
+      "Email receipts",
+      "Stock alerts"
+    ]
+  },
+  "license": {
+    "type": "Not explicitly confirmed in the README body",
+    "licenseFile": "LICENSE",
+    "note": "The README project structure excerpt does not list the LICENSE file, so verify the repository's LICENSE file before redistributing."
+  },
+  "securityNotes": [
+    "The README contains default test account credentials; they are intentionally omitted from this public-facing JSON.",
+    "Do not commit real database credentials or other secrets in .env.",
+    "Rotate or replace default seeded passwords before any public or production deployment."
+  ],
+  "dataNotes": {
+    "source": "Project 8 README provided by the user",
+    "missingInformation": [
+      "Live deployment URL",
+      "Exact project creation or release date",
+      "Verified license type",
+      "Automated test count and latest test results"
+    ]
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "id": "formfarm",
+  "name": "FormFarm",
+  "slug": "formfarm",
+  "tagline": "Professional form backend service for collecting and managing form submissions without maintaining a dedicated backend for each project.",
+  "description": "FormFarm is a developer-friendly form backend service and private alternative to platforms like Formspree. Developers can point an HTML form or AJAX request to a unique FormFarm endpoint to store submissions in MongoDB, parse payloads, send email notifications, filter spam, and view submission activity in a dashboard.",
+  "category": [
+    "Developer Tools",
+    "Backend as a Service",
+    "SaaS"
+  ],
+  "status": "deployed",
+  "urls": {
+    "live": "http://form.codewithtanim.works/",
+    "repository": "https://github.com/CodeWithTanim/FormFarm",
+    "developerGithub": "https://github.com/CodeWithTanim",
+    "developerLinkedIn": "https://www.linkedin.com/in/codewithtanim/",
+    "developerYouTube": "https://www.youtube.com/@CodeWithTanim"
+  },
+  "developer": {
+    "name": "MD SAMIUR RAHMAN TANIM",
+    "githubUsername": "CodeWithTanim"
+  },
+  "problemStatement": "Developers often need to create and maintain backend infrastructure just to receive HTML form submissions across their projects.",
+  "solution": "FormFarm provides unique public form endpoints, submission storage, a management dashboard, and email notifications so developers can collect form data without building a separate form-processing backend for every project.",
+  "features": [
+    {
+      "name": "User authentication and session security",
+      "details": [
+        "Registration, login, and logout",
+        "Password hashing with bcryptjs and cryptographically secure salts",
+        "Signed JWT session cookies using HttpOnly and SameSite=lax"
+      ]
+    },
+    {
+      "name": "Dashboard and activity stream",
+      "details": [
+        "Real-time counter of active form endpoints",
+        "Chronological stream of recent form submissions",
+        "Server-side data fetching designed for high concurrency"
+      ]
+    },
+    {
+      "name": "Cryptographic endpoint keys",
+      "details": [
+        "Generates 16-character hexadecimal keys using Node.js crypto.randomBytes(8)"
+      ]
+    },
+    {
+      "name": "Public form submission endpoint",
+      "details": [
+        "Accepts standard HTML form POST requests using application/x-www-form-urlencoded and multipart/form-data",
+        "Supports JSON payloads from fetch and AJAX",
+        "Supports CORS headers with Access-Control-Allow-Origin: *",
+        "Automatically parses submitted field names without requiring predefined schemas",
+        "Redirects browser form submissions to a confirmation page with HTTP 303",
+        "Non-POST visits redirect to an endpoint guide"
+      ]
+    },
+    {
+      "name": "Client telemetry and geolocation",
+      "details": [
+        "Resolves client IP using proxy and cloud headers",
+        "Tracks submitter country and city",
+        "Captures User-Agent information",
+        "Stores telemetry in MongoDB and displays it in the dashboard"
+      ]
+    },
+    {
+      "name": "Submission viewer and management",
+      "details": [
+        "Chronological submission indexing",
+        "Syntax-highlighted key-value payload inspection",
+        "Single-submission deletion and bulk deletion with confirmation safeguards"
+      ]
+    },
+    {
+      "name": "Email notifications",
+      "details": [
+        "Sends instant notifications to form owners",
+        "Includes responsive HTML email and plain-text fallback",
+        "Includes submitted payload and client IP, city, country, and User-Agent"
+      ]
+    },
+    {
+      "name": "Dark cyberpunk UI",
+      "details": [
+        "Custom Vanilla CSS design system",
+        "Orbitron and Inter Google Fonts, with Outfit used in test UI",
+        "HTML5 Canvas particle background with interactive connecting lines and mouse effects",
+        "Glassmorphism cards and neon-red hover effects"
+      ]
+    },
+    {
+      "name": "Developer testing suite",
+      "details": [
+        "Standalone test form supporting standard POST and AJAX modes",
+        "3D parallax test interface",
+        "13-stage automated end-to-end test runner"
+      ]
+    }
+  ],
+  "techStack": {
+    "framework": [
+      "Next.js 16",
+      "React 19",
+      "Next.js App Router",
+      "Turbopack"
+    ],
+    "language": [
+      "TypeScript 5+"
+    ],
+    "database": [
+      "MongoDB Atlas",
+      "MongoDB"
+    ],
+    "authentication": [
+      "bcryptjs",
+      "jsonwebtoken",
+      "JWT HttpOnly cookies"
+    ],
+    "email": [
+      "Nodemailer"
+    ],
+    "styling": [
+      "Vanilla CSS",
+      "CSS custom properties"
+    ],
+    "iconsAndFonts": [
+      "Bootstrap Icons",
+      "Orbitron",
+      "Inter",
+      "Outfit"
+    ],
+    "testing": [
+      "Node.js",
+      "scripts/verify-e2e.mjs"
+    ]
+  },
+  "apiRoutes": [
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/register",
+      "access": "public",
+      "description": "Creates a user account."
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/login",
+      "access": "public",
+      "description": "Authenticates a user and issues a JWT cookie."
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/logout",
+      "access": "authenticated",
+      "description": "Invalidates the session cookie."
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/auth/me",
+      "access": "authenticated",
+      "description": "Returns the current session payload."
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/forms",
+      "access": "authenticated",
+      "description": "Lists form endpoints owned by the current user."
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/forms",
+      "access": "authenticated",
+      "description": "Creates a form endpoint with a unique key."
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/forms/[id]",
+      "access": "authenticated",
+      "description": "Deletes a form and its associated submissions."
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/forms/[id]/submissions",
+      "access": "authenticated",
+      "description": "Lists submissions and telemetry for a form."
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/submissions/delete",
+      "access": "authenticated",
+      "description": "Deletes one or multiple submissions."
+    },
+    {
+      "method": "POST",
+      "endpoint": "/f/[form_key]",
+      "access": "public",
+      "description": "Accepts public form submissions; CORS is supported."
+    },
+    {
+      "method": "GET",
+      "endpoint": "/f/[form_key]",
+      "access": "public",
+      "description": "Redirects visitors to the endpoint guide."
+    }
+  ],
+  "integrationExamples": {
+    "htmlForm": {
+      "description": "Submit a standard HTML form without JavaScript.",
+      "endpointTemplate": "http://localhost:3000/f/YOUR_UNIQUE_KEY",
+      "method": "POST",
+      "contentTypes": [
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ]
+    },
+    "fetch": {
+      "description": "Submit JSON data using fetch or AJAX.",
+      "endpointTemplate": "http://localhost:3000/f/YOUR_UNIQUE_KEY",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      "examplePayload": {
+        "name": "Jane Doe",
+        "email": "jane@example.com",
+        "message": "Hello FormFarm!"
+      },
+      "exampleResponse": {
+        "success": true,
+        "message": "Submission successful"
+      }
+    }
+  },
+  "requirements": {
+    "node": "18.0.0 or higher",
+    "packageManagers": [
+      "npm",
+      "pnpm",
+      "yarn"
+    ],
+    "database": [
+      "MongoDB Atlas",
+      "Local MongoDB server"
+    ]
+  },
+  "environmentVariables": [
+    {
+      "name": "MONGODB_USER",
+      "required": true,
+      "description": "MongoDB Atlas username"
+    },
+    {
+      "name": "MONGODB_PASS",
+      "required": true,
+      "description": "MongoDB password"
+    },
+    {
+      "name": "MONGODB_ATLAS_DRIVER_CONNECTION",
+      "required": true,
+      "description": "MongoDB connection string"
+    },
+    {
+      "name": "MONGODB_DB_NAME",
+      "required": true,
+      "description": "MongoDB database name",
+      "example": "FormFarmDB"
+    },
+    {
+      "name": "JWT_SECRET",
+      "required": true,
+      "description": "Secret used to sign JWTs"
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "required": true,
+      "description": "Application base URL",
+      "example": "http://localhost:3000"
+    },
+    {
+      "name": "SMTP_HOST",
+      "required": false,
+      "description": "SMTP server hostname",
+      "example": "smtp.gmail.com"
+    },
+    {
+      "name": "SMTP_PORT",
+      "required": false,
+      "description": "SMTP server port",
+      "example": "587"
+    },
+    {
+      "name": "SMTP_USER",
+      "required": false,
+      "description": "SMTP username"
+    },
+    {
+      "name": "SMTP_PASS",
+      "required": false,
+      "description": "SMTP app password"
+    }
+  ],
+  "repositoryStructure": [
+    "public/",
+    "src/app/api/auth/",
+    "src/app/api/forms/",
+    "src/app/api/submissions/",
+    "src/app/dashboard/",
+    "src/app/f/[form_key]/",
+    "src/app/forms/",
+    "src/app/help/",
+    "src/app/login/",
+    "src/app/register/",
+    "src/app/thanks/",
+    "src/components/",
+    "src/lib/",
+    "test/",
+    "test-form.html",
+    "scripts/verify-e2e.mjs"
+  ],
+  "installation": [
+    "git clone https://github.com/CodeWithTanim/FormFarm.git",
+    "cd FormFarm",
+    "npm install",
+    "Create and configure the .env file using the documented environment variables",
+    "npm run dev"
+  ],
+  "productionCommands": [
+    "npm run build",
+    "npm start"
+  ],
+  "testing": {
+    "endToEndScript": "scripts/verify-e2e.mjs",
+    "documentedStages": 13,
+    "standaloneTestForm": "test-form.html",
+    "additionalTestInterface": "public/test/index.html"
+  },
+  "contribution": [
+    "Fork the repository",
+    "Create a feature branch",
+    "Commit changes",
+    "Push the branch",
+    "Open a pull request"
+  ],
+  "license": {
+    "type": "Custom permission required",
+    "details": "The README states that users must contact MD SAMIUR RAHMAN TANIM for explicit permission before using the project. Refer to the repository LICENSE file for details."
+  },
+  "dataNotes": {
+    "source": "Project 1 README provided by the user",
+    "missingInformation": [
+      "Creation date",
+      "Last updated date",
+      "Screenshots or image URLs beyond the Lighthouse image filename",
+      "Specific project version or release tag"
+    ]
+  }
+}
