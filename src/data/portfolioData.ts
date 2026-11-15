@@ -53,7 +53,10 @@ export const PROFILE = {
   ],
   locations: "Guwahati, Assam, India | Pabna, Rajshahi, Bangladesh",
   stats: [
-    { label: "Projects Completed", value: "10" },
+    {
+    label: "Projects Completed",
+    value: "39"
+  },
     { label: "Industry Internships", value: "03" },
     { label: "Verified Credentials", value: "28+" },
     { label: "Academic Standing", value: "4th Year (CSE)" },
@@ -129,192 +132,105 @@ export const TECH_STACK: TechSkill[] = [
 
 export const PROJECTS: Project[] = [
   {
-    "id": "lms-platform",
-    "sheetNum": "01/26",
-    "title": "Online LMS Platform",
+    "id": "telecloud",
+    "title": "TeleCloud Storage",
     "category": [
       "web",
       "python"
     ],
-    "categoryLabel": "Vue 3 + Django",
-    "tagline": "Full-stack LMS built with Vue 3 TypeScript & Pinia on frontend and Django REST Framework + PostgreSQL on backend.",
-    "description": "A comprehensive Online Learning Management System featuring interactive course catalogs, student enrollment workflows, lesson progress tracking, multimedia video lectures, and instructor administrative controls.",
-    "image": "/Images/Projects/lms-platform.png",
-    "repoUrl": "https://github.com/CodeWithTanim/Online-Learning-Management-System",
+    "categoryLabel": "Python / MTProto",
+    "tagline": "Personal cloud storage web app that uses a private Telegram channel through MTProto.",
+    "description": "A private cloud storage web platform that uses MTProto to interface directly with private Telegram channels as unlimited cloud backend storage.",
+    "image": "/Images/Projects/telecloud.png",
+    "repoUrl": "https://github.com/CodeWithTanim/TeleCloud",
     "liveUrl": null,
-    "tech": "Vue 3 • TypeScript • Django REST • PostgreSQL",
+    "tech": "Python \u2022 MTProto \u2022 FastAPI \u2022 JavaScript \u2022 Cloud Architecture",
     "challenges": [
-      "Structuring modular state management with Pinia across nested course module trees.",
-      "Building responsive HTML5 video and lesson players with persistent progress state sync."
+      "Chunking large file streams and handling Telegram API upload rate limits.",
+      "Building an authenticated file streaming proxy with memory-efficient pipelines."
     ],
     "improvements": [
-      "Integrate live video classrooms via WebRTC / Zoom.",
-      "Add automated quiz evaluations and downloadable PDF course completion certificates."
-    ]
+      "Add folder hierarchy organization and direct browser streaming playback.",
+      "Support client-side encrypted file compression before upload."
+    ],
+    "sheetNum": "01/39"
   },
   {
-    "id": "full-stack-e-commerce",
-    "sheetNum": "02/26",
-    "title": "Full-Stack E-Commerce Store",
+    "id": "care-circle",
+    "title": "Care Circle Platform",
     "category": [
       "web"
     ],
-    "categoryLabel": "Next.js 16 / SaaS",
-    "tagline": "High-performance storefront and admin back-office panel built on Next.js 16, Prisma, MySQL, and Stripe.",
-    "description": "Built during an internship at Codec Technologies, this e-commerce application combines a customer storefront with an admin fulfillment dashboard. Utilizes Next.js App Router, Prisma ORM, MySQL, and Stripe payments.",
-    "image": "/Images/Projects/ecommerce-store.png",
-    "repoUrl": "https://github.com/CodeWithTanim/Full-Stack-E-Commerce",
-    "liveUrl": null,
-    "tech": "Next.js 16 • React 19 • Prisma • MySQL • Stripe",
+    "categoryLabel": "Next.js / AI Care",
+    "tagline": "Elderly care platform with shared medication schedules and Gemini-powered assistant.",
+    "description": "An elderly caregiving platform offering shared family medication schedules, dose tracking, appointment logging, vitals monitoring, automated email reminders, and an integrated Gemini AI health companion.",
+    "image": "/Images/Projects/care-circle.png",
+    "repoUrl": "https://github.com/CodeWithTanim/care-circle",
+    "liveUrl": "https://care-circle-ochre.vercel.app/",
+    "liveLabel": "Live Demo",
+    "tech": "Next.js \u2022 React \u2022 TypeScript \u2022 Gemini AI \u2022 Tailwind CSS",
     "challenges": [
-      "Coordinating complex Prisma database transactions between cart items, inventory levels, and Stripe webhooks.",
-      "Managing SSR caching and revalidation states in Next.js App Router."
+      "Designing accessible high-contrast UI for seniors while managing complex multi-caregiver sync.",
+      "Integrating real-time conversational AI health assistance with context memory."
     ],
     "improvements": [
-      "Add multi-currency support and real-time shipment courier tracking API."
-    ]
+      "Integrate WhatsApp medication reminder webhooks and emergency SOS calling.",
+      "Add wearable vitals Bluetooth sync."
+    ],
+    "sheetNum": "02/39"
   },
   {
-    "id": "telegram-parallel",
-    "sheetNum": "03/26",
-    "title": "Telegram-Parallel",
-    "category": [
-      "desktop"
-    ],
-    "categoryLabel": "Electron App",
-    "tagline": "Run and manage multiple Telegram accounts in one lightweight desktop application built with Electron.",
-    "description": "Lightweight multi-account desktop utility built with Electron + Vite + Tailwind CSS. Allows switching between multiple active Telegram profiles seamlessly without logging out.",
-    "image": "/Images/Projects/telegram-parallel.png",
-    "repoUrl": "https://github.com/CodeWithTanim/Telegram-Parallel",
-    "liveUrl": null,
-    "tech": "Electron • Vite • Tailwind CSS • Node.js",
-    "challenges": [
-      "Isolating local session storage and webview partition contexts between multiple parallel accounts.",
-      "Optimizing memory consumption for background idling processes."
-    ],
-    "improvements": [
-      "Add global keyboard shortcuts for instantaneous account switching.",
-      "Include custom tray minimization and badge notification counters."
-    ]
-  },
-  {
-    "id": "whatsapp-parallel",
-    "sheetNum": "04/26",
-    "title": "WhatsApp-Parallel",
-    "category": [
-      "desktop"
-    ],
-    "categoryLabel": "Electron App",
-    "tagline": "Desktop multi-account management application built with Electron, Vite, and Tailwind CSS.",
-    "description": "Allows running multiple simultaneous WhatsApp Web sessions inside isolated electron webview containers with independent cookies and notifications.",
-    "image": "/Images/Projects/whatsapp-parallel.png",
-    "repoUrl": "https://github.com/CodeWithTanim/WhatsApp-Parallel",
-    "liveUrl": null,
-    "tech": "Electron • Vite • Tailwind CSS • Webviews",
-    "challenges": [
-      "Managing multiple separate browser sessions and session partitions without cross-account cookie leakage.",
-      "Ensuring smooth audio/video permissions inside Electron webview environments."
-    ],
-    "improvements": [
-      "Add auto-backup of chat exports and custom notification alert sounds."
-    ]
-  },
-  {
-    "id": "ghost-hand",
-    "sheetNum": "05/26",
-    "title": "GHOST HAND",
-    "category": [
-      "python",
-      "security"
-    ],
-    "categoryLabel": "Python Remote",
-    "tagline": "Modular Windows automation system controlled remotely via Telegram Bot API for administrative tasks.",
-    "description": "A professional, modular, and secure Windows automation system controlled entirely via Telegram. Perform remote file access, command execution, system monitoring, and diagnostic alerts from anywhere.",
-    "image": "/Images/Projects/ghost-hand.png",
-    "repoUrl": "https://github.com/CodeWithTanim/GHOST-HAND",
-    "liveUrl": null,
-    "tech": "Python • Telegram Bot API • Windows API • PyAutoGUI",
-    "challenges": [
-      "Ensuring authorized Telegram Chat ID verification and robust cryptographic command authentication.",
-      "Managing stealthy, non-blocking background workers on Windows hosts."
-    ],
-    "improvements": [
-      "Add encrypted file upload/download transfer protocols.",
-      "Implement end-to-end command logging to secure remote audit logs."
-    ]
-  },
-  {
-    "id": "red-eye-lead-hunter",
-    "sheetNum": "06/26",
-    "title": "RED-EYE-LEAD-HUNTER",
+    "id": "omnishield-ai",
+    "title": "OmniShield-AI Fraud Defense",
     "category": [
       "web",
       "security"
     ],
-    "categoryLabel": "Chrome Extension",
-    "tagline": "High-performance Chrome extension for automated B2B lead scraping and contact harvesting from Google Maps.",
-    "description": "A high-performance, dark-themed Chrome Extension (Manifest V3) for automated lead extraction from Google Maps. Scrapes business names, phone numbers, websites, emails, and ratings into downloadable CSV and XLSX tables.",
-    "image": "/Images/Projects/red-eye-lead-hunter.png",
-    "repoUrl": "https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER",
-    "liveUrl": null,
-    "tech": "JavaScript • Manifest V3 • Web Scraping • XLSX Engine",
+    "categoryLabel": "AI / Cyber Defense",
+    "tagline": "Fraud defense platform for citizens, retail shops, and factories with scam & UPI defense.",
+    "description": "Comprehensive fraud mitigation system protecting users against phishing scams, fraudulent UPI/payment links, fake procurement notices, and counterfeit invoices with explainable AI threat assessments.",
+    "image": "/Images/Projects/omnishield-ai.png",
+    "repoUrl": "https://github.com/CodeWithTanim/OmniShield-AI",
+    "liveUrl": "https://omnishield-ai-eight.vercel.app/",
+    "liveLabel": "Live Demo",
+    "tech": "Next.js \u2022 React \u2022 TypeScript \u2022 AI / NLP \u2022 Cyber Defense",
     "challenges": [
-      "Navigating Google Maps infinite scrolling DOM virtualization without trigger rate limits.",
-      "Parsing website homepages in background service workers to detect contact emails and social media handles."
+      "Optimizing real-time heuristic phishing detection with minimal false positives.",
+      "Parsing multimodal fraudulent transaction screenshots and suspicious URLs."
     ],
     "improvements": [
-      "Add direct CRM synchronization (HubSpot / Google Sheets API).",
-      "Integrate phone number carrier validation and WhatsApp link generation."
-    ]
+      "Expand SMS/WhatsApp spam scraping integrations and browser extension companion.",
+      "Integrate automated reporting to national cybercrime reporting portals."
+    ],
+    "sheetNum": "03/39"
   },
   {
-    "id": "edutrack",
-    "sheetNum": "07/26",
-    "title": "EduTrack Homework Manager",
+    "id": "ranginsutarbunon",
+    "title": "RanginSutarBunon Store",
     "category": [
       "web"
     ],
-    "categoryLabel": "EdTech",
-    "tagline": "Homework and assignment management system for students and educational institutions.",
-    "description": "A modern homework and assignment tracking web application designed to help students organize deadlines, syllabus milestones, and project submissions.",
-    "image": "/Images/Projects/edutrack.png",
-    "repoUrl": "https://github.com/CodeWithTanim/EduTrack",
-    "liveUrl": null,
-    "tech": "React • Node.js • Express • MongoDB",
+    "categoryLabel": "Next.js 16 / Store",
+    "tagline": "E-commerce site for handmade crochet products built with Next.js 16 & React 19.",
+    "description": "Custom-tailored e-commerce web platform for artisanal crochet products, featuring responsive product catalogs, categorized showcases, cart management, and MongoDB Atlas database persistence.",
+    "image": "/Images/Projects/rangin-sutar-bunon.png",
+    "repoUrl": "https://github.com/CodeWithTanim/RanginSutarBunon",
+    "liveUrl": "https://rangin-sutar-bunon.vercel.app/",
+    "liveLabel": "Live Demo",
+    "tech": "Next.js 16 \u2022 React 19 \u2022 TypeScript \u2022 Tailwind CSS v4 \u2022 MongoDB Atlas",
     "challenges": [
-      "Building intuitive calendar milestone views with real-time deadline countdown alerts.",
-      "Creating multi-class scheduling support with progress bars."
+      "Configuring next-generation Tailwind CSS v4 alongside React 19 server components.",
+      "Managing persistent shopping cart state across SSR and client transitions."
     ],
     "improvements": [
-      "Add mobile push notifications and Discord / Telegram webhook reminder bots."
-    ]
-  },
-  {
-    "id": "nitro-rush",
-    "sheetNum": "08/26",
-    "title": "Nitro-Rush Game",
-    "category": [
-      "web"
+      "Integrate mobile banking payment gateways (bKash/Nagad).",
+      "Add customer reviews and photo rating galleries."
     ],
-    "categoryLabel": "Game / JS",
-    "tagline": "High-speed arcade racing game built with custom HTML5 Canvas physics engine.",
-    "description": "A high-speed retro arcade racing game featuring custom pseudo-3D curve mathematics, collision detection, procedural obstacle generation, and sound synthesis.",
-    "image": "/Images/Projects/nitro-rush.png",
-    "repoUrl": "https://github.com/CodeWithTanim/Nitro-Rush",
-    "liveUrl": null,
-    "tech": "HTML5 Canvas • JavaScript • Web Audio API",
-    "challenges": [
-      "Implementing 60 FPS smooth rendering on Canvas without external game engines.",
-      "Fine-tuning car acceleration curves, drift friction, and lane collision bounds."
-    ],
-    "improvements": [
-      "Add multiplayer leaderboard sync via Firebase / WebSockets.",
-      "Add mobile on-screen touch virtual joystick controls."
-    ]
+    "sheetNum": "04/39"
   },
   {
     "id": "formfarm",
-    "sheetNum": "09/26",
+    "sheetNum": "05/39",
     "title": "FormFarm (Formspree Clone)",
     "category": [
       "web"
@@ -326,7 +242,7 @@ export const PROJECTS: Project[] = [
     "repoUrl": "https://github.com/CodeWithTanim/FormFarm",
     "liveUrl": "http://form.codewithtanim.works/",
     "liveLabel": "Live Service",
-    "tech": "TypeScript • Express • MongoDB Atlas • JWT",
+    "tech": "TypeScript \u2022 Express \u2022 MongoDB Atlas \u2022 JWT",
     "challenges": [
       "Building high-throughput spam filtering and honeypot trapping without slowing response times.",
       "Managing dynamic JSON payloads in MongoDB Atlas."
@@ -336,8 +252,222 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    "id": "studiospace",
+    "title": "StudioSpace Marketplace",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Marketplace / SaaS",
+    "tagline": "Marketplace for creative studios with listings, transparent pricing, and live availability.",
+    "description": "A digital marketplace connecting photographers, podcasters, and artists with bookable studio spaces. Features interactive space discovery, hourly rate transparent billing, and reservation management.",
+    "image": "/Images/Projects/studiospace.png",
+    "repoUrl": "https://github.com/CodeWithTanim/StudioSpace",
+    "liveUrl": "https://studiospace-tau.vercel.app/",
+    "liveLabel": "Live Demo",
+    "tech": "Next.js \u2022 React \u2022 TypeScript \u2022 Tailwind CSS \u2022 Booking Engine",
+    "challenges": [
+      "Synchronizing multi-tenant studio calendar availability and preventing double bookings.",
+      "Building dynamic pricing tiers based on equipment packages."
+    ],
+    "improvements": [
+      "Add 360-degree virtual studio walk-through tours.",
+      "Integrate automated digital key code door lock dispatch."
+    ],
+    "sheetNum": "06/39"
+  },
+  {
+    "id": "resource-share-platform",
+    "title": "Resource Share Platform",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Campus / Facility",
+    "tagline": "Institutional platform for sharing campus equipment, laboratories, and specialized facilities.",
+    "description": "A university resource-sharing portal designed for academic institutions to manage, schedule, and allocate research labs, specialized testing equipment, and shared department hardware without scheduling conflicts.",
+    "image": "/Images/Projects/resource-share-platform.png",
+    "repoUrl": "https://github.com/CodeWithTanim/resource-share-platform",
+    "liveUrl": "https://resource-share-platform-xi.vercel.app/",
+    "liveLabel": "Live Demo",
+    "tech": "Next.js \u2022 React \u2022 TypeScript \u2022 Tailwind CSS \u2022 PostgreSQL",
+    "challenges": [
+      "Implementing role-based permission tiers (students, lab technicians, faculty heads) across inventory.",
+      "Preventing overlapping reservation schedules with concurrency locks."
+    ],
+    "improvements": [
+      "Integrate student ID card barcode check-in.",
+      "Add equipment calibration maintenance alert logs."
+    ],
+    "sheetNum": "07/39"
+  },
+  {
+    "id": "telegram-parallel",
+    "sheetNum": "08/39",
+    "title": "Telegram-Parallel",
+    "category": [
+      "desktop"
+    ],
+    "categoryLabel": "Electron App",
+    "tagline": "Run and manage multiple Telegram accounts in one lightweight desktop application built with Electron.",
+    "description": "Lightweight multi-account desktop utility built with Electron + Vite + Tailwind CSS. Allows switching between multiple active Telegram profiles seamlessly without logging out.",
+    "image": "/Images/Projects/telegram-parallel.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Telegram-Parallel",
+    "liveUrl": null,
+    "tech": "Electron \u2022 Vite \u2022 Tailwind CSS \u2022 Node.js",
+    "challenges": [
+      "Isolating local session storage and webview partition contexts between multiple parallel accounts.",
+      "Optimizing memory consumption for background idling processes."
+    ],
+    "improvements": [
+      "Add global keyboard shortcuts for instantaneous account switching.",
+      "Include custom tray minimization and badge notification counters."
+    ]
+  },
+  {
+    "id": "thb-visa-agency",
+    "title": "THB VISA Agency Portal",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Corporate Web",
+    "tagline": "Rebuilt THB VISA SERVICES LTD. corporate website as a high-speed static platform.",
+    "description": "Complete re-architecture of the THB VISA SERVICES LTD. corporate website, migrating from legacy WordPress to a high-speed static platform with updated navigation and SEO improvements.",
+    "image": "/Images/Projects/thb-visa-agency.png",
+    "repoUrl": "https://github.com/CodeWithTanim/THB-VISA-Agency",
+    "liveUrl": "https://codewithtanim.github.io/THB-VISA-Agency/",
+    "liveLabel": "Live Preview",
+    "tech": "HTML5 \u2022 CSS3 \u2022 JavaScript \u2022 SEO Optimization \u2022 GitHub Pages",
+    "challenges": [
+      "Re-engineering legacy WordPress assets into clean, semantic static code with 100% responsiveness.",
+      "Preserving legacy URL structures for search engine rankings."
+    ],
+    "improvements": [
+      "Add multi-country visa assessment quiz.",
+      "Add WhatsApp consultation instant chat widget."
+    ],
+    "sheetNum": "09/39"
+  },
+  {
+    "id": "urban-dental-clinic",
+    "title": "Urban Dental Clinic",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Healthcare Web",
+    "tagline": "Clinic website where patients can browse dental services, learn about providers, and book appointments.",
+    "description": "A clean dental clinic website enabling patients to explore dental services, learn about dental specialists and clinic equipment, and book appointment consultations online.",
+    "image": "/Images/Projects/urban-dental-clinic.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Urban-Dental-Clinic",
+    "liveUrl": "https://codewithtanim.github.io/Urban-Dental-Clinic/",
+    "liveLabel": "Live Preview",
+    "tech": "HTML5 \u2022 CSS3 \u2022 JavaScript \u2022 Responsive Design",
+    "challenges": [
+      "Designing an intuitive medical service catalog tailored for mobile patients.",
+      "Structuring clean appointment booking intake workflows."
+    ],
+    "improvements": [
+      "Add SMS appointment reminder integration.",
+      "Integrate doctor schedule real-time calendar."
+    ],
+    "sheetNum": "10/39"
+  },
+  {
+    "id": "privacy-snap",
+    "title": "Privacy-Snap Metadata Scrubber",
+    "category": [
+      "web",
+      "security"
+    ],
+    "categoryLabel": "Client-Side Security",
+    "tagline": "Browser tool for inspecting and removing metadata from JPEG, PNG, and WebP images locally.",
+    "description": "Client-side privacy tool that inspects and scrubs EXIF metadata from JPEG, PNG, and WebP images locally in the browser, without uploads or image re-encoding.",
+    "image": "/Images/Projects/privacy-snap.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Privacy-Snap",
+    "liveUrl": "https://privacy-snap.vercel.app/",
+    "liveLabel": "Live App",
+    "tech": "Next.js \u2022 TypeScript \u2022 Client-Side Exif Parsing \u2022 Canvas API",
+    "challenges": [
+      "Parsing binary EXIF headers and raw metadata markers strictly in client-side JavaScript.",
+      "Ensuring lossless image quality preservation during stripped data re-assembly."
+    ],
+    "improvements": [
+      "Add batch drag-and-drop file processing.",
+      "Add support for video metadata inspection."
+    ],
+    "sheetNum": "11/39"
+  },
+  {
+    "id": "whatsapp-debt-notifier",
+    "title": "WhatsApp Debt Notifier",
+    "category": [
+      "python"
+    ],
+    "categoryLabel": "Python Automation",
+    "tagline": "Python script that reads contacts from Excel and sends personalized WhatsApp repayment reminders.",
+    "description": "Automated debt notification tool that reads debtor ledger lists from Excel, generates personalized reminder messages, and dispatches them via WhatsApp Web automation.",
+    "image": "/Images/Projects/whatsapp-debt-notifier.png",
+    "repoUrl": "https://github.com/CodeWithTanim/WhatsAppDebtNotifier",
+    "liveUrl": null,
+    "tech": "Python \u2022 pandas \u2022 OpenPyXL \u2022 Automation",
+    "challenges": [
+      "Managing throttle delays to prevent anti-spam rate limiting during bulk messaging.",
+      "Handling phone number internationalization and format normalization."
+    ],
+    "improvements": [
+      "Add scheduled cron execution for automated daily balance notifications.",
+      "Add delivery receipt tracking and ledger status updates."
+    ],
+    "sheetNum": "12/39"
+  },
+  {
+    "id": "bd-students-contest",
+    "title": "BD Students Contest Platform",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "PHP / Community",
+    "tagline": "Contest submission website for Bangladeshi students at Assam down town University.",
+    "description": "Community portal and contest entry submission platform built for Bangladeshi students at Assam down town University, designed and optimized for shared hosting environments.",
+    "image": "/Images/Projects/bd-students-contest.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Bangladesh_Students_Community_Contest",
+    "liveUrl": null,
+    "tech": "PHP \u2022 MySQL \u2022 Bootstrap 5 \u2022 Shared Hosting",
+    "challenges": [
+      "Optimizing database queries and upload handlers for restrictive shared hosting limits.",
+      "Securing candidate uploads against file execution vulnerabilities."
+    ],
+    "improvements": [
+      "Add online peer voting and live leaderboard ranking.",
+      "Automate digital certificate generation for all contestants."
+    ],
+    "sheetNum": "13/39"
+  },
+  {
+    "id": "bazar-dor",
+    "title": "Bazar-dor Price Tracker",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Bengali Localized App",
+    "tagline": "Bengali web app for viewing, comparing, and tracking daily commodity prices across Bangladesh.",
+    "description": "Bengali-localized consumer platform for viewing, comparing, and tracking daily grocery and commodity prices across major retail and wholesale markets in Bangladesh.",
+    "image": "/Images/Projects/bazar-dor.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Bazar-dor",
+    "liveUrl": "https://bazardor-lemon.vercel.app/",
+    "liveLabel": "Live App",
+    "tech": "Next.js \u2022 React \u2022 TypeScript \u2022 Bengali Localization",
+    "challenges": [
+      "Standardizing diverse regional price metrics into uniform unit pricing comparisons.",
+      "Designing high-readability typography for Bengali language strings."
+    ],
+    "improvements": [
+      "Add historical price trend charts and inflation index metrics.",
+      "Support crowdsourced user price reporting with verification."
+    ],
+    "sheetNum": "14/39"
+  },
+  {
     "id": "investflow",
-    "sheetNum": "10/26",
+    "sheetNum": "15/39",
     "title": "InvestFlow Platform",
     "category": [
       "web"
@@ -349,7 +479,7 @@ export const PROJECTS: Project[] = [
     "repoUrl": "https://github.com/CodeWithTanim/InvestFlow",
     "liveUrl": "/payment",
     "liveLabel": "Billing Portal",
-    "tech": "PHP • MySQL • Bootstrap • Chart.js",
+    "tech": "PHP \u2022 MySQL \u2022 Bootstrap \u2022 Chart.js",
     "challenges": [
       "Implementing secure ledger mathematics with double-entry accounting checks.",
       "Preventing SQL injection and transaction concurrency deadlocks."
@@ -359,8 +489,217 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    "id": "whatsapp-group-cleaner-bot",
+    "title": "WhatsApp Group Cleaner Bot",
+    "category": [
+      "desktop",
+      "python"
+    ],
+    "categoryLabel": "Node.js Automation",
+    "tagline": "Node.js bot for authorized WhatsApp group administration and bulk non-admin member cleanup.",
+    "description": "An automated administrative tool for WhatsApp community moderators that performs confirmed bulk removal of inactive non-admin members while strictly protecting administrators.",
+    "image": "/Images/Projects/whatsapp-group-cleaner.png",
+    "repoUrl": "https://github.com/CodeWithTanim/WhatsApp-Group-Cleaner-Bot",
+    "liveUrl": null,
+    "tech": "Node.js \u2022 WhatsApp API \u2022 JavaScript \u2022 CLI",
+    "challenges": [
+      "Implementing ironclad admin whitelist checks to prevent accidental admin kicking.",
+      "Managing protocol rate limiting during high-volume participant removal."
+    ],
+    "improvements": [
+      "Add GUI desktop wrapper with one-click group participant audits.",
+      "Add inactive duration filter settings."
+    ],
+    "sheetNum": "16/39"
+  },
+  {
+    "id": "lms-platform",
+    "sheetNum": "17/39",
+    "title": "Online LMS Platform",
+    "category": [
+      "web",
+      "python"
+    ],
+    "categoryLabel": "Vue 3 + Django",
+    "tagline": "Full-stack LMS built with Vue 3 TypeScript & Pinia on frontend and Django REST Framework + PostgreSQL on backend.",
+    "description": "A comprehensive Online Learning Management System featuring interactive course catalogs, student enrollment workflows, lesson progress tracking, multimedia video lectures, and instructor administrative controls.",
+    "image": "/Images/Projects/lms-platform.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Online-Learning-Management-System",
+    "liveUrl": null,
+    "tech": "Vue 3 \u2022 TypeScript \u2022 Django REST \u2022 PostgreSQL",
+    "challenges": [
+      "Structuring modular state management with Pinia across nested course module trees.",
+      "Building responsive HTML5 video and lesson players with persistent progress state sync."
+    ],
+    "improvements": [
+      "Integrate live video classrooms via WebRTC / Zoom.",
+      "Add automated quiz evaluations and downloadable PDF course completion certificates."
+    ]
+  },
+  {
+    "id": "full-stack-e-commerce",
+    "sheetNum": "18/39",
+    "title": "Full-Stack E-Commerce Store",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Next.js 16 / SaaS",
+    "tagline": "High-performance storefront and admin back-office panel built on Next.js 16, Prisma, MySQL, and Stripe.",
+    "description": "Built during an internship at Codec Technologies, this e-commerce application combines a customer storefront with an admin fulfillment dashboard. Utilizes Next.js App Router, Prisma ORM, MySQL, and Stripe payments.",
+    "image": "/Images/Projects/ecommerce-store.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Full-Stack-E-Commerce",
+    "liveUrl": null,
+    "tech": "Next.js 16 \u2022 React 19 \u2022 Prisma \u2022 MySQL \u2022 Stripe",
+    "challenges": [
+      "Coordinating complex Prisma database transactions between cart items, inventory levels, and Stripe webhooks.",
+      "Managing SSR caching and revalidation states in Next.js App Router."
+    ],
+    "improvements": [
+      "Add multi-currency support and real-time shipment courier tracking API."
+    ]
+  },
+  {
+    "id": "whatsapp-parallel",
+    "sheetNum": "19/39",
+    "title": "WhatsApp-Parallel",
+    "category": [
+      "desktop"
+    ],
+    "categoryLabel": "Electron App",
+    "tagline": "Desktop multi-account management application built with Electron, Vite, and Tailwind CSS.",
+    "description": "Allows running multiple simultaneous WhatsApp Web sessions inside isolated electron webview containers with independent cookies and notifications.",
+    "image": "/Images/Projects/whatsapp-parallel.png",
+    "repoUrl": "https://github.com/CodeWithTanim/WhatsApp-Parallel",
+    "liveUrl": null,
+    "tech": "Electron \u2022 Vite \u2022 Tailwind CSS \u2022 Webviews",
+    "challenges": [
+      "Managing multiple separate browser sessions and session partitions without cross-account cookie leakage.",
+      "Ensuring smooth audio/video permissions inside Electron webview environments."
+    ],
+    "improvements": [
+      "Add auto-backup of chat exports and custom notification alert sounds."
+    ]
+  },
+  {
+    "id": "ghost-hand",
+    "sheetNum": "20/39",
+    "title": "GHOST HAND",
+    "category": [
+      "python",
+      "security"
+    ],
+    "categoryLabel": "Python Remote",
+    "tagline": "Modular Windows automation system controlled remotely via Telegram Bot API for administrative tasks.",
+    "description": "A professional, modular, and secure Windows automation system controlled entirely via Telegram. Perform remote file access, command execution, system monitoring, and diagnostic alerts from anywhere.",
+    "image": "/Images/Projects/ghost-hand.png",
+    "repoUrl": "https://github.com/CodeWithTanim/GHOST-HAND",
+    "liveUrl": null,
+    "tech": "Python \u2022 Telegram Bot API \u2022 Windows API \u2022 PyAutoGUI",
+    "challenges": [
+      "Ensuring authorized Telegram Chat ID verification and robust cryptographic command authentication.",
+      "Managing stealthy, non-blocking background workers on Windows hosts."
+    ],
+    "improvements": [
+      "Add encrypted file upload/download transfer protocols.",
+      "Implement end-to-end command logging to secure remote audit logs."
+    ]
+  },
+  {
+    "id": "red-eye-lead-hunter",
+    "sheetNum": "21/39",
+    "title": "RED-EYE-LEAD-HUNTER",
+    "category": [
+      "web",
+      "security"
+    ],
+    "categoryLabel": "Chrome Extension",
+    "tagline": "High-performance Chrome extension for automated B2B lead scraping and contact harvesting from Google Maps.",
+    "description": "A high-performance, dark-themed Chrome Extension (Manifest V3) for automated lead extraction from Google Maps. Scrapes business names, phone numbers, websites, emails, and ratings into downloadable CSV and XLSX tables.",
+    "image": "/Images/Projects/red-eye-lead-hunter.png",
+    "repoUrl": "https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER",
+    "liveUrl": null,
+    "tech": "JavaScript \u2022 Manifest V3 \u2022 Web Scraping \u2022 XLSX Engine",
+    "challenges": [
+      "Navigating Google Maps infinite scrolling DOM virtualization without trigger rate limits.",
+      "Parsing website homepages in background service workers to detect contact emails and social media handles."
+    ],
+    "improvements": [
+      "Add direct CRM synchronization (HubSpot / Google Sheets API).",
+      "Integrate phone number carrier validation and WhatsApp link generation."
+    ]
+  },
+  {
+    "id": "edutrack",
+    "sheetNum": "22/39",
+    "title": "EduTrack Homework Manager",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "EdTech",
+    "tagline": "Homework and assignment management system for students and educational institutions.",
+    "description": "A modern homework and assignment tracking web application designed to help students organize deadlines, syllabus milestones, and project submissions.",
+    "image": "/Images/Projects/edutrack.png",
+    "repoUrl": "https://github.com/CodeWithTanim/EduTrack",
+    "liveUrl": null,
+    "tech": "React \u2022 Node.js \u2022 Express \u2022 MongoDB",
+    "challenges": [
+      "Building intuitive calendar milestone views with real-time deadline countdown alerts.",
+      "Creating multi-class scheduling support with progress bars."
+    ],
+    "improvements": [
+      "Add mobile push notifications and Discord / Telegram webhook reminder bots."
+    ]
+  },
+  {
+    "id": "nitro-rush",
+    "sheetNum": "23/39",
+    "title": "Nitro-Rush Game",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Game / JS",
+    "tagline": "High-speed arcade racing game built with custom HTML5 Canvas physics engine.",
+    "description": "A high-speed retro arcade racing game featuring custom pseudo-3D curve mathematics, collision detection, procedural obstacle generation, and sound synthesis.",
+    "image": "/Images/Projects/nitro-rush.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Nitro-Rush",
+    "liveUrl": null,
+    "tech": "HTML5 Canvas \u2022 JavaScript \u2022 Web Audio API",
+    "challenges": [
+      "Implementing 60 FPS smooth rendering on Canvas without external game engines.",
+      "Fine-tuning car acceleration curves, drift friction, and lane collision bounds."
+    ],
+    "improvements": [
+      "Add multiplayer leaderboard sync via Firebase / WebSockets.",
+      "Add mobile on-screen touch virtual joystick controls."
+    ]
+  },
+  {
+    "id": "investflow-hyip",
+    "title": "InvestFlow HYIP Platform",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "FinTech / HYIP",
+    "tagline": "High Yield Investment Program platform with multi-tier plan calculations.",
+    "description": "High Yield Investment Program management software with multi-tiered ROI calculations, referral commission structures, wallet balances, and administrative auditing.",
+    "image": "/Images/Projects/investflow.png",
+    "repoUrl": "https://codewithtanim.is-a.dev/private.html",
+    "liveUrl": "https://codewithtanim.is-a.dev/private.html",
+    "liveLabel": "Private Platform",
+    "tech": "PHP \u2022 MySQL \u2022 Bootstrap \u2022 JavaScript",
+    "challenges": [
+      "Calculating compounding hourly interest yields without database lock contention.",
+      "Implementing cryptographic signature checks on administrative ledger payouts."
+    ],
+    "improvements": [
+      "Add automated cold wallet cryptocurrency withdrawals.",
+      "Integrate multi-tier affiliate referral trees."
+    ],
+    "sheetNum": "24/39"
+  },
+  {
     "id": "ai-image-gen",
-    "sheetNum": "11/26",
+    "sheetNum": "25/39",
     "title": "Ai-Image-Generator",
     "category": [
       "web"
@@ -371,7 +710,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/ai-image-gen.png",
     "repoUrl": "https://github.com/CodeWithTanim/Ai-Image-Generator",
     "liveUrl": null,
-    "tech": "React • Next.js • HuggingFace / OpenAI API • Tailwind CSS",
+    "tech": "React \u2022 Next.js \u2022 HuggingFace / OpenAI API \u2022 Tailwind CSS",
     "challenges": [
       "Streaming image generation progress over asynchronous polling endpoints.",
       "Handling rate-limiting and fallback model routing across different open-source AI models."
@@ -382,7 +721,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "data-splitter",
-    "sheetNum": "12/26",
+    "sheetNum": "26/39",
     "title": "Data-Splitter",
     "category": [
       "desktop",
@@ -394,7 +733,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/data-splitter.png",
     "repoUrl": "https://github.com/CodeWithTanim/Data-Splitter",
     "liveUrl": null,
-    "tech": "Python • PyQt5 • Pandas • OpenPyXL",
+    "tech": "Python \u2022 PyQt5 \u2022 Pandas \u2022 OpenPyXL",
     "challenges": [
       "Chunking gigabyte-sized CSV/XLSX files without running into memory allocation limits.",
       "Preserving spreadsheet formulas and metadata across divided sub-sheets."
@@ -405,7 +744,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "taskflow",
-    "sheetNum": "13/26",
+    "sheetNum": "27/39",
     "title": "TaskFlow Task Manager",
     "category": [
       "web"
@@ -416,7 +755,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/TaskFlow.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/TaskFlow",
     "liveUrl": null,
-    "tech": "React • Tailwind CSS • HTML5 Drag & Drop",
+    "tech": "React \u2022 Tailwind CSS \u2022 HTML5 Drag & Drop",
     "challenges": [
       "Smooth touch and pointer drag-and-drop reordering without stuttering on mobile.",
       "Designing clean responsive layout across mobile and wide ultrawide monitors."
@@ -427,7 +766,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "custom-ransomware-simulation",
-    "sheetNum": "14/26",
+    "sheetNum": "28/39",
     "title": "Custom Ransomware Simulation",
     "category": [
       "security",
@@ -439,7 +778,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Custom-Ransomware-Simulation.jpeg",
     "repoUrl": "https://github.com/CodeWithTanim/Custom-Ransomware-Simulation",
     "liveUrl": null,
-    "tech": "Python 3.8+ • AES-256 • Cryptography • Sandbox",
+    "tech": "Python 3.8+ \u2022 AES-256 \u2022 Cryptography \u2022 Sandbox",
     "challenges": [
       "Ensuring strict sandbox isolation and kill-switch safeguards so operations never escape target folder.",
       "Implementing efficient AES-256 stream encryption."
@@ -450,7 +789,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "password-cracking-and-hashing-algorithms",
-    "sheetNum": "15/26",
+    "sheetNum": "29/39",
     "title": "Password Cracking & Hashing Algorithms",
     "category": [
       "security",
@@ -462,7 +801,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms",
     "liveUrl": null,
-    "tech": "Python 3.8+ • Hashlib • Bcrypt • Argon2",
+    "tech": "Python 3.8+ \u2022 Hashlib \u2022 Bcrypt \u2022 Argon2",
     "challenges": [
       "Demonstrating performance and memory hardness between MD5/SHA-256 vs. Bcrypt and Argon2.",
       "Implementing multi-threaded dictionary attacks in pure Python."
@@ -473,7 +812,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "cryptography-algorithms-implementation",
-    "sheetNum": "16/26",
+    "sheetNum": "30/39",
     "title": "Cryptography Algorithms Implementation",
     "category": [
       "security",
@@ -485,7 +824,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Cryptography-Algorithms-Implementation.jpeg",
     "repoUrl": "https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation",
     "liveUrl": null,
-    "tech": "Python 3.8+ • AES • RSA • PyCryptodome",
+    "tech": "Python 3.8+ \u2022 AES \u2022 RSA \u2022 PyCryptodome",
     "challenges": [
       "Implementing asymmetric key pair generation and padding schemes (PKCS#1 OAEP).",
       "Benchmarking algorithmic execution time against large datasets."
@@ -496,7 +835,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "automated-resume-parser",
-    "sheetNum": "17/26",
+    "sheetNum": "31/39",
     "title": "Automated Resume Parser",
     "category": [
       "python"
@@ -507,7 +846,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Automated-Resume-Parser.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/automated-resume-parser",
     "liveUrl": null,
-    "tech": "Python • spaCy • PyPDF2 • Regular Expressions • NLP",
+    "tech": "Python \u2022 spaCy \u2022 PyPDF2 \u2022 Regular Expressions \u2022 NLP",
     "challenges": [
       "Parsing multi-column resume layouts without losing text order.",
       "Training custom entity recognition for tech skill taxonomy extraction."
@@ -518,7 +857,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "real-time-stock-market-dashboard",
-    "sheetNum": "18/26",
+    "sheetNum": "32/39",
     "title": "Real-Time Stock Market Dashboard",
     "category": [
       "python"
@@ -529,7 +868,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Real-Time-Stock-Market-Dashboard.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/real-time-stock-market-dashboard",
     "liveUrl": null,
-    "tech": "Python • Streamlit • Plotly • Yahoo Finance API",
+    "tech": "Python \u2022 Streamlit \u2022 Plotly \u2022 Yahoo Finance API",
     "challenges": [
       "Handling financial time-series resamplings and live cache invalidation.",
       "Rendering interactive responsive financial charts."
@@ -540,7 +879,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "online-quiz-app",
-    "sheetNum": "19/26",
+    "sheetNum": "33/39",
     "title": "Online Quiz Application",
     "category": [
       "web"
@@ -552,7 +891,7 @@ export const PROJECTS: Project[] = [
     "repoUrl": "https://github.com/CodeWithTanim/Online-Quiz-App",
     "liveUrl": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Project%20Report/Project_Final_Report_Online_Quiz_App.pdf",
     "liveLabel": "Project Report PDF",
-    "tech": "PHP • MySQL • Bootstrap • JavaScript",
+    "tech": "PHP \u2022 MySQL \u2022 Bootstrap \u2022 JavaScript",
     "challenges": [
       "Tamper-resistant client-side countdown timer safeguards.",
       "Instant grading computation with concurrent test-takers."
@@ -563,7 +902,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "tik-tak-toe",
-    "sheetNum": "20/26",
+    "sheetNum": "34/39",
     "title": "Tic-Tac-Toe Game",
     "category": [
       "python"
@@ -574,7 +913,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/Tik-Tak-Toe.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/Tik-Tak-Toe",
     "liveUrl": null,
-    "tech": "Python • Tkinter • Minimax Algorithm",
+    "tech": "Python \u2022 Tkinter \u2022 Minimax Algorithm",
     "challenges": [
       "Implementing optimal Minimax tree recursion without noticeable move evaluation lag.",
       "Creating responsive grid graphics using Tkinter Canvas."
@@ -585,7 +924,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "enc",
-    "sheetNum": "21/26",
+    "sheetNum": "35/39",
     "title": "TOXIC-ENC (ENC)",
     "category": [
       "security",
@@ -597,7 +936,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/enc.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/ENC",
     "liveUrl": null,
-    "tech": "Python • AES-256 • AST Obfuscation • Base64",
+    "tech": "Python \u2022 AES-256 \u2022 AST Obfuscation \u2022 Base64",
     "challenges": [
       "Creating in-memory bytecode decryption without leaving unencrypted temporary files on disk.",
       "Preserving compatibility across multiple Python versions."
@@ -608,7 +947,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "password-gen",
-    "sheetNum": "22/26",
+    "sheetNum": "36/39",
     "title": "Password Generator",
     "category": [
       "security"
@@ -619,7 +958,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/password-gen.png",
     "repoUrl": "https://github.com/CodeWithTanim/Password-Generator",
     "liveUrl": null,
-    "tech": "Python • Secrets Module • Cryptographic Entropy",
+    "tech": "Python \u2022 Secrets Module \u2022 Cryptographic Entropy",
     "challenges": [
       "Ensuring high statistical randomness by using OS entropy pools rather than pseudorandom generators."
     ],
@@ -629,7 +968,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "cosmetics-products-management-system",
-    "sheetNum": "23/26",
+    "sheetNum": "37/39",
     "title": "Cosmetics Product Management",
     "category": [
       "web"
@@ -641,7 +980,7 @@ export const PROJECTS: Project[] = [
     "repoUrl": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System",
     "liveUrl": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System/blob/main/CPMS_Project_Report.pdf",
     "liveLabel": "Project Report PDF",
-    "tech": "PHP 8.2 • MySQL • Bootstrap 5 • Apache",
+    "tech": "PHP 8.2 \u2022 MySQL \u2022 Bootstrap 5 \u2022 Apache",
     "challenges": [
       "Handling complex inventory variants with atomic MySQL transactions.",
       "Implementing secure session management in vanilla PHP."
@@ -652,7 +991,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "unclickable-love",
-    "sheetNum": "24/26",
+    "sheetNum": "38/39",
     "title": "Unclickable Love",
     "category": [
       "web"
@@ -663,7 +1002,7 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/unclickable-love.png",
     "repoUrl": "https://github.com/CodeWithTanim/Unclickable-Love",
     "liveUrl": null,
-    "tech": "HTML5 • CSS3 Keyframes • Vanilla JavaScript",
+    "tech": "HTML5 \u2022 CSS3 Keyframes \u2022 Vanilla JavaScript",
     "challenges": [
       "Calculating real-time mouse vector proximity and clamping button coordinates within viewport boundaries."
     ],
@@ -673,7 +1012,7 @@ export const PROJECTS: Project[] = [
   },
   {
     "id": "termux-setup-pro",
-    "sheetNum": "25/26",
+    "sheetNum": "39/39",
     "title": "TERMUX-SETUP-PRO",
     "category": [
       "python",
@@ -685,34 +1024,12 @@ export const PROJECTS: Project[] = [
     "image": "/Images/Projects/termux-setup-command.jpg",
     "repoUrl": "https://github.com/CodeWithTanim/TERMUX-SETUP-PRO",
     "liveUrl": null,
-    "tech": "Bash • Shell Scripting • Linux / Termux",
+    "tech": "Bash \u2022 Shell Scripting \u2022 Linux / Termux",
     "challenges": [
       "Handling Android architecture variations (aarch64, arm, x86_64) across package mirrors."
     ],
     "improvements": [
       "Add automated backup of Termux home environments to cloud storage."
-    ]
-  },
-  {
-    "id": "coming-soon",
-    "sheetNum": "26/26",
-    "title": "COMING SOON",
-    "category": [
-      "web"
-    ],
-    "categoryLabel": "Upcoming",
-    "tagline": "Exciting new software projects currently in active development.",
-    "description": "Upcoming full-stack and AI engineering projects, micro-SaaS applications, and open-source contributions scheduled for release in 2026.",
-    "image": "/Images/Projects/coming-soon.png",
-    "repoUrl": "https://github.com/CodeWithTanim",
-    "liveUrl": "https://github.com/CodeWithTanim",
-    "liveLabel": "GitHub Profile",
-    "tech": "Next.js • AI Agents • Full-Stack",
-    "challenges": [
-      "Building multi-agent autonomous engineering pipelines with rigorous benchmarks."
-    ],
-    "improvements": [
-      "Public beta release announcements."
     ]
   }
 ];

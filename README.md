@@ -62,153 +62,290 @@ sh-2.0$ /bin/bash -i
 <hr />
 
 ### `~# Projects`
+
 <br>
+
 <table border="1">
     <tr>
+        <th>#</th>
         <th>Repository Name</th>
         <th>Description</th>
+        <th>Live Link</th>
         <th>Date</th>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO">TERMUX-PRO-SETUP</a></td>
-        <td>An automated setup tool for Termux.</td>
-        <td>Oct 19, 2023</td>
+        <td>1</td>
+        <td><a href="https://github.com/CodeWithTanim/TeleCloud">TeleCloud</a></td>
+        <td>Personal cloud storage web app that uses a private Telegram channel through MTProto.</td>
+        <td>-</td>
+        <td>Nov 15, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/ENC">ENC</a></td>
-        <td>Encrypt any Python Scripts.</td>
-        <td>Jan 30, 2025</td>
+        <td>2</td>
+        <td><a href="https://github.com/CodeWithTanim/care-circle">care-circle</a></td>
+        <td>Elderly care platform with shared medication schedules, dose tracking, appointments, vitals, email reminders, and a Gemini-powered assistant.</td>
+        <td><a href="https://care-circle-ochre.vercel.app/">Live Link</a></td>
+        <td>Nov 15, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/Password-Generator">Password Generator</a></td>
-        <td>It works for making strong password.</td>
-        <td>Oct 20, 2024</td>
+        <td>3</td>
+        <td><a href="https://github.com/CodeWithTanim/OmniShield-AI">OmniShield-AI</a></td>
+        <td>Fraud defense platform for citizens, retail shops, and factories. Covers scam detection, UPI and phishing defense, fake procurement alerts, and explanations for flagged threats.</td>
+        <td><a href="https://omnishield-ai-eight.vercel.app/">Live Link</a></td>
+        <td>Nov 15, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System">Cosmetics Products Management System</a></td>
-        <td>A product management website.</td>
-        <td>Oct 2024</td>
+        <td>4</td>
+        <td><a href="https://github.com/CodeWithTanim/RanginSutarBunon">RanginSutarBunon</a></td>
+        <td>E-commerce site for handmade crochet products, built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and MongoDB Atlas.</td>
+        <td><a href="https://rangin-sutar-bunon.vercel.app/">Live Link</a></td>
+        <td>Nov 10, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/Unclickable-Love">Unclickable Love</a></td>
-        <td>A funny website made with unclickable button.</td>
-        <td>Feb 20, 2024</td>
-    </tr>
-        <tr>
-        <td><a href="https://github.com/CodeWithTanim/Tik-Tak-Toe">Tik-Tak-Toe</a></td>
-        <td>This is a Tik-Tak-Toe Game.</td>
-        <td>Feb 23, 2025</td>
-    </tr>
-        </tr>
-        <tr>
-        <td><a href="https://github.com/CodeWithTanim/Online-Quiz-App">Online-Quiz-App</a></td>
-        <td>A simple and interactive online quiz app.</td>
-        <td>Mar 29, 2025</td>
-    </tr>
-    </tr>
-        </tr>
-        <tr>
-        <td><a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard">Real-Time-Stock-Market-Dashboard</a></td>
-        <td>Interactive real-time stock market dashboard using Python.</td>
-        <td>June 15, 2025</td>
-    </tr>
-    </tr>
-        </tr>
-        <tr>
-        <td><a href="https://github.com/CodeWithTanim/automated-resume-parser">Automated-Resume-Parser</a></td>
-        <td>Automated resume parser using Python to extract structured data from resumes..</td>
-        <td>June 16, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation">Cryptography-Algorithms-Implementation</a></td>
-        <td>Implementation of classical and modern cryptography algorithms with Python.</td>
-        <td>August 31, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms">Password-Cracking-and-Hashing-Algorithms</a></td>
-        <td>Demonstrates password cracking techniques and secure hashing algorithm implementations.</td>
-        <td>August 31, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation">Custom-Ransomware-Simulation</a></td>
-        <td>Educational ransomware simulation showing encryption & decryption in a safe environment.</td>
-        <td>August 31, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/TaskFlow">TaskFlow</a></td>
-        <td>TaskFlow - A Modern Task Manager.</td>
-        <td>Oct 09, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Data-Splitter">Data-Splitter</a></td>
-        <td>A powerful, user-friendly desktop application for splitting large TXT, XLSX, XML, CSV files into smaller, manageable parts with customizable options and batch processing capabilities.</td>
-        <td>Oct 18, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Ai-Image-Generator">Ai-Image-Generator</a></td>
-        <td>A powerful SaaS platform for AI-powered image generation built with modern web technologies.</td>
-        <td>Nov 27, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://codewithtanim.is-a.dev/private.html">InvestFlow – HYIP Investment Platform</a></td>
-        <td>InvestFlow – HYIP Investment Platform.</td>
-        <td>Dec 2, 2025</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/Nitro-Rush">Nitro-Rush</a></td>
-        <td>Nitro-Ruch is a High Speed Racing Game.</td>
-        <td> Mar 12, 2026</td>
-    </tr>
-    <tr>
+        <td>5</td>
         <td><a href="https://github.com/CodeWithTanim/FormFarm">FormFarm</a></td>
-        <td>FormFarm | Professional Formspree Clone (SaaS).</td>
-        <td>Mar 09, 2026</td>
+        <td>Formspree-style SaaS for handling form submissions.</td>
+        <td>-</td>
+        <td>Nov 8, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/EduTrack">EduTrack</a></td>
-        <td>EduTrack - Modern Homework Management.</td>
-        <td>Apr 18, 2026</td>
+        <td>6</td>
+        <td><a href="https://github.com/CodeWithTanim/StudioSpace">StudioSpace</a></td>
+        <td>Marketplace for creative studios with listings, transparent pricing, live availability, and reservation management.</td>
+        <td><a href="https://studiospace-tau.vercel.app/">Live Link</a></td>
+        <td>Nov 3, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER">RED-EYE-LEAD-HUNTER</a></td>
-        <td>A high-performance, dark-themed Chrome Extension for automated lead extraction from Google Maps.</td>
-        <td>Apr 28, 2026</td>
+        <td>7</td>
+        <td><a href="https://github.com/CodeWithTanim/resource-share-platform">resource-share-platform</a></td>
+        <td>Institutional platform for sharing campus equipment, laboratories, and specialized facilities.</td>
+        <td><a href="https://resource-share-platform-xi.vercel.app/">Live Link</a></td>
+        <td>Oct 29, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/GHOST-HAND">GHOST HAND</a></td>
-        <td>A professional, modular, and secure Windows automation system controlled entirely via Telegram.</td>
-        <td>May 9, 2026</td>
-    </tr>
-    <tr>
-        <td><a href="https://github.com/CodeWithTanim/WhatsApp-Parallel">WhatsApp-Parallel</a></td>
-        <td>Run and manage multiple WhatsApp accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.</td>
-        <td>May 14, 2026</td>
-    </tr>
-    <tr>
+        <td>8</td>
         <td><a href="https://github.com/CodeWithTanim/Telegram-Parallel">Telegram-Parallel</a></td>
-        <td>Run and manage multiple Telegram accounts in one lightweight desktop application. Built with Electron + Vite + Tailwind CSS for a seamless, modern messaging experience.</td>
-        <td>May 29, 2026</td>
+        <td>Desktop app for managing multiple Telegram accounts, built with Electron, Vite, and Tailwind CSS.</td>
+        <td>-</td>
+        <td>Oct 19, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://github.com/CodeWithTanim/Full-Stack-E-Commerce">Full-Stack E-Commerce Store</a></td>
-        <td>A high-performance e-commerce storefront and admin back-office panel built on Next.js 16 (App Router), Prisma, and MySQL, featuring Stripe payments, custom COD workflows, and secure cookie sessions..</td>
-        <td>Aug 7, 2026</td>
+        <td>9</td>
+        <td><a href="https://github.com/CodeWithTanim/THB-VISA-Agency">THB-VISA-Agency</a></td>
+        <td>Rebuilt the THB VISA SERVICES LTD. WordPress site as a static website with updated navigation and SEO improvements.</td>
+        <td><a href="https://codewithtanim.github.io/THB-VISA-Agency/">Live Link</a></td>
+        <td>Oct 16, 2026</td>
     </tr>
     <tr>
+        <td>10</td>
+        <td><a href="https://github.com/CodeWithTanim/Urban-Dental-Clinic">Urban-Dental-Clinic</a></td>
+        <td>Clinic website where patients can browse dental services, learn about providers, and book appointments.</td>
+        <td><a href="https://codewithtanim.github.io/Urban-Dental-Clinic/">Live Link</a></td>
+        <td>Oct 16, 2026</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td><a href="https://github.com/CodeWithTanim/Privacy-Snap">Privacy-Snap</a></td>
+        <td>Browser-based tool for inspecting and removing metadata from JPEG, PNG, and WebP images locally, without uploads or image re-encoding.</td>
+        <td><a href="https://privacy-snap.vercel.app/">Live Link</a></td>
+        <td>Oct 16, 2026</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td><a href="https://github.com/CodeWithTanim/WhatsAppDebtNotifier">WhatsAppDebtNotifier</a></td>
+        <td>Python script that reads contacts from Excel and sends personalized WhatsApp repayment reminders.</td>
+        <td>-</td>
+        <td>Oct 15, 2026</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td><a href="https://github.com/CodeWithTanim/Bangladesh_Students_Community_Contest">Bangladesh_Students_Community_Contest</a></td>
+        <td>Contest submission website for Bangladeshi students at Assam down town University, designed for Hostinger shared hosting.</td>
+        <td>-</td>
+        <td>Oct 14, 2026</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td><a href="https://github.com/CodeWithTanim/Bazar-dor">Bazar-dor</a></td>
+        <td>Bengali-localized web app for viewing, comparing, and tracking daily commodity prices across major markets in Bangladesh.</td>
+        <td><a href="https://bazardor-lemon.vercel.app/">Live Link</a></td>
+        <td>Oct 9, 2026</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td><a href="https://github.com/CodeWithTanim/InvestFlow">InvestFlow</a></td>
+        <td>High Yield Investment Program and financial asset management platform.</td>
+        <td>-</td>
+        <td>Oct 7, 2026</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td><a href="https://github.com/CodeWithTanim/WhatsApp-Group-Cleaner-Bot">WhatsApp-Group-Cleaner-Bot</a></td>
+        <td>Node.js bot for authorized WhatsApp group administration. Supports confirmed bulk removal of non-admin members, keeps admins in the group, and reports results.</td>
+        <td>-</td>
+        <td>Sep 25, 2026</td>
+    </tr>
+    <tr>
+        <td>17</td>
         <td><a href="https://github.com/CodeWithTanim/Online-Learning-Management-System">Online Learning Management System</a></td>
-        <td>A full-stack, responsive, and secure Online Learning Management System (LMS) built with Vue 3 (Composition API, TypeScript, Pinia, Vue Router, Tailwind CSS) on the frontend and Python / Django REST Framework / PostgreSQL on the backend..</td>
+        <td>Responsive LMS built with Vue 3, TypeScript, Pinia, Vue Router, Tailwind CSS, Django REST Framework, and PostgreSQL.</td>
+        <td>-</td>
         <td>Aug 19, 2026</td>
     </tr>
     <tr>
-        <td><a href="https://codewithtanim.is-a.dev/ComingSoon.html">COMING SOON</a></td>
-        <td>COMING SOON.</td>
-        <td>COMING SOON</td>
+        <td>18</td>
+        <td><a href="https://github.com/CodeWithTanim/Full-Stack-E-Commerce">Full-Stack E-Commerce Store</a></td>
+        <td>Storefront and admin panel built with Next.js 16, Prisma, and MySQL. Includes Stripe, cash-on-delivery workflows, and cookie-based sessions.</td>
+        <td>-</td>
+        <td>Aug 7, 2026</td>
     </tr>
-    <!-- <tr>
-        <td><a href="#">TITLE</a></td>
-        <td>DESCRIPTION.</td>
-        <td>mmmddyyy</td>
-    </tr> -->
+    <tr>
+        <td>19</td>
+        <td><a href="https://github.com/CodeWithTanim/WhatsApp-Parallel">WhatsApp-Parallel</a></td>
+        <td>Desktop app for managing multiple WhatsApp accounts, built with Electron, Vite, and Tailwind CSS.</td>
+        <td>-</td>
+        <td>May 14, 2026</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td><a href="https://github.com/CodeWithTanim/GHOST-HAND">GHOST HAND</a></td>
+        <td>Modular Windows automation system controlled through Telegram.</td>
+        <td>-</td>
+        <td>May 9, 2026</td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td><a href="https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER">RED-EYE-LEAD-HUNTER</a></td>
+        <td>Chrome extension for collecting business leads from Google Maps.</td>
+        <td>-</td>
+        <td>Apr 28, 2026</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td><a href="https://github.com/CodeWithTanim/EduTrack">EduTrack</a></td>
+        <td>Homework management application.</td>
+        <td>-</td>
+        <td>Apr 18, 2026</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td><a href="https://github.com/CodeWithTanim/Nitro-Rush">Nitro-Rush</a></td>
+        <td>High-speed racing game.</td>
+        <td>-</td>
+        <td>Mar 12, 2026</td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td><a href="https://codewithtanim.is-a.dev/private.html">InvestFlow – HYIP Investment Platform</a></td>
+        <td>High Yield Investment Program platform.</td>
+        <td>-</td>
+        <td>Dec 2, 2025</td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td><a href="https://github.com/CodeWithTanim/Ai-Image-Generator">Ai-Image-Generator</a></td>
+        <td>SaaS platform for AI-powered image generation.</td>
+        <td>-</td>
+        <td>Nov 27, 2025</td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td><a href="https://github.com/CodeWithTanim/Data-Splitter">Data-Splitter</a></td>
+        <td>Desktop application that splits large TXT, XLSX, XML, and CSV files into smaller parts, with configurable settings and batch processing.</td>
+        <td>-</td>
+        <td>Oct 18, 2025</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td><a href="https://github.com/CodeWithTanim/TaskFlow">TaskFlow</a></td>
+        <td>Task management application.</td>
+        <td>-</td>
+        <td>Oct 9, 2025</td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td><a href="https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation">Cryptography-Algorithms-Implementation</a></td>
+        <td>Python implementations of classical and modern cryptography algorithms.</td>
+        <td>-</td>
+        <td>Aug 31, 2025</td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td><a href="https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms">Password-Cracking-and-Hashing-Algorithms</a></td>
+        <td>Educational project on password security and hashing algorithms.</td>
+        <td>-</td>
+        <td>Aug 31, 2025</td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td><a href="https://github.com/CodeWithTanim/Custom-Ransomware-Simulation">Custom-Ransomware-Simulation</a></td>
+        <td>Educational simulation covering encryption and decryption.</td>
+        <td>-</td>
+        <td>Aug 31, 2025</td>
+    </tr>
+    <tr>
+        <td>31</td>
+        <td><a href="https://github.com/CodeWithTanim/automated-resume-parser">Automated-Resume-Parser</a></td>
+        <td>Extracts structured information from résumés using Python.</td>
+        <td>-</td>
+        <td>Jun 16, 2025</td>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td><a href="https://github.com/CodeWithTanim/real-time-stock-market-dashboard">Real-Time-Stock-Market-Dashboard</a></td>
+        <td>Interactive Python dashboard for real-time stock market data.</td>
+        <td>-</td>
+        <td>Jun 15, 2025</td>
+    </tr>
+    <tr>
+        <td>33</td>
+        <td><a href="https://github.com/CodeWithTanim/Online-Quiz-App">Online-Quiz-App</a></td>
+        <td>Interactive web app for taking quizzes.</td>
+        <td>-</td>
+        <td>Mar 29, 2025</td>
+    </tr>
+    <tr>
+        <td>34</td>
+        <td><a href="https://github.com/CodeWithTanim/Tik-Tak-Toe">Tik-Tak-Toe</a></td>
+        <td>A tic-tac-toe game.</td>
+        <td>-</td>
+        <td>Feb 23, 2025</td>
+    </tr>
+    <tr>
+        <td>35</td>
+        <td><a href="https://github.com/CodeWithTanim/ENC">ENC</a></td>
+        <td>Encrypts Python scripts.</td>
+        <td>-</td>
+        <td>Jan 30, 2025</td>
+    </tr>
+    <tr>
+        <td>36</td>
+        <td><a href="https://github.com/CodeWithTanim/Password-Generator">Password Generator</a></td>
+        <td>Generates strong passwords.</td>
+        <td>-</td>
+        <td>Oct 20, 2024</td>
+    </tr>
+    <tr>
+        <td>37</td>
+        <td><a href="https://github.com/CodeWithTanim/Cosmetics-Product-Management-System">Cosmetics Products Management System</a></td>
+        <td>Website for managing cosmetics products.</td>
+        <td>-</td>
+        <td>Oct 2024</td>
+    </tr>
+    <tr>
+        <td>38</td>
+        <td><a href="https://github.com/CodeWithTanim/Unclickable-Love">Unclickable Love</a></td>
+        <td>A playful website with an unclickable button.</td>
+        <td>-</td>
+        <td>Feb 20, 2024</td>
+    </tr>
+    <tr>
+        <td>39</td>
+        <td><a href="https://github.com/CodeWithTanim/TERMUX-SETUP-PRO">TERMUX-PRO-SETUP</a></td>
+        <td>Automates Termux setup.</td>
+        <td>-</td>
+        <td>Oct 19, 2023</td>
+    </tr>
 </table>
 
 <br/>
