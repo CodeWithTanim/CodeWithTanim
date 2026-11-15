@@ -73,7 +73,7 @@ export default function Courses() {
                 My Courses
               </h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', maxWidth: '640px', margin: 0 }}>
-                Specialized curriculum, hands-on programming bootcamps, and technical walkthrough courses designed and taught by MD Samiur Rahman Tanim.
+                Specialized curriculum, hands-on programming bootcamps, and technical walkthrough courses designed and taught by MD SAMIUR RAHMAN TANIM.
               </p>
             </div>
             <a
