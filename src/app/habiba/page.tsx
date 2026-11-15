@@ -33,6 +33,11 @@ import {
   UserCheck,
   ShieldCheck,
   Filter,
+  Bell,
+  CheckCheck,
+  Inbox,
+  Phone,
+  MessageCircle,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -115,6 +120,7 @@ export default function AdminPage() {
   const [submissionFilter, setSubmissionFilter] = useState<'all' | 'unread' | 'read'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   // Settings form states
   const [currentPass, setCurrentPass] = useState('');
@@ -193,6 +199,8 @@ export default function AdminPage() {
   useEffect(() => {
     if (session?.user) {
       fetchDashboardData();
+      const interval = setInterval(fetchDashboardData, 15000);
+      return () => clearInterval(interval);
     }
   }, [session, fetchDashboardData]);
 
@@ -250,6 +258,41 @@ export default function AdminPage() {
     } catch (err) {
       console.error('Error updating status:', err);
     }
+  };
+
+  const handleMarkAllRead = async () => {
+    try {
+      const res = await fetch('/api/admin/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'mark_all_read',
+          payload: {},
+        }),
+      });
+      if (res.ok) {
+        setSubmissions((prev) => prev.map((s) => ({ ...s, status: 'read' })));
+        if (selectedSubmission) {
+          setSelectedSubmission((prev) => (prev ? { ...prev, status: 'read' } : null));
+        }
+        setStats((prev) => ({
+          ...prev,
+          unreadSubmissions: 0,
+        }));
+      }
+    } catch (err) {
+      console.error('Error marking all as read:', err);
+    }
+  };
+
+  const handleOpenNotification = (sub: Submission) => {
+    if (sub.status === 'unread') {
+      handleUpdateStatus(sub._id, 'read');
+    }
+    setSelectedSubmission(sub);
+    const isCourse = isCourseSubmission(sub);
+    setActiveTab(isCourse ? 'course_forms' : 'contact_forms');
+    setShowNotifications(false);
   };
 
   const handleDeleteSubmission = async (id: string) => {
@@ -419,12 +462,13 @@ export default function AdminPage() {
 
   // Form split logic (Contact vs Course)
   const isCourseSubmission = (sub: Submission) => {
+    const msg = (sub.message || '').toLowerCase();
     return (
       sub.formType === 'course' ||
-      sub.message.includes('[COURSE ENROLLMENT') ||
-      sub.message.includes('Python A–Z') ||
-      sub.message.includes('Payment Method:') ||
-      sub.message.includes('Transaction ID:')
+      msg.includes('course enrollment') ||
+      msg.includes('python') ||
+      msg.includes('payment method:') ||
+      msg.includes('transaction id:')
     );
   };
 
@@ -1137,7 +1181,339 @@ export default function AdminPage() {
             </span>
           </div>
 
-          <div style={{ height: '18px', width: '1px', background: 'var(--border-faint)', margin: '0 0.25rem' }} />
+          <div style={{ height: '18px', width: '1px', background: 'var(--border-faint)', margin: '0 0.15rem' }} />
+
+          {/* TOP-LEFT NOTIFICATION BELL WITH BADGE & DROPDOWN */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: stats.unreadSubmissions > 0 ? 'var(--accent-signal)' : 'var(--text-main)',
+                border: stats.unreadSubmissions > 0 ? '1.5px solid var(--accent-signal)' : '1px solid var(--border-faint)',
+                background: stats.unreadSubmissions > 0 ? 'var(--accent-tint)' : 'var(--bg-primary)',
+                cursor: 'pointer',
+                position: 'relative',
+                transition: 'all 0.15s ease',
+              }}
+              title={`Notifications (${stats.unreadSubmissions} unread)`}
+            >
+              <Bell size={17} />
+              {stats.unreadSubmissions > 0 && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-6px',
+                    right: '-6px',
+                    minWidth: '18px',
+                    height: '18px',
+                    padding: '0 4px',
+                    borderRadius: '9px',
+                    background: 'var(--accent-signal)',
+                    color: '#ffffff',
+                    fontSize: '0.68rem',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 5px rgba(0,0,0,0.25)',
+                  }}
+                >
+                  {stats.unreadSubmissions > 99 ? '99+' : stats.unreadSubmissions}
+                </span>
+              )}
+            </button>
+
+            {/* Floating Dropdown Drawer */}
+            {showNotifications && (
+              <>
+                <div
+                  style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 290,
+                  }}
+                  onClick={() => setShowNotifications(false)}
+                />
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 10px)',
+                    left: 0,
+                    width: '380px',
+                    maxWidth: '92vw',
+                    background: 'var(--bg-panel)',
+                    border: '1.5px solid var(--border-strong)',
+                    borderRadius: '10px',
+                    boxShadow: 'var(--shadow-lg)',
+                    zIndex: 300,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  {/* Dropdown Header */}
+                  <div
+                    style={{
+                      padding: '0.85rem 1rem',
+                      background: 'var(--bg-subtle)',
+                      borderBottom: '1px solid var(--border-faint)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <Bell size={16} style={{ color: 'var(--accent-signal)' }} />
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: '0.82rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                        }}
+                      >
+                        Notifications
+                      </span>
+                      {stats.unreadSubmissions > 0 && (
+                        <span
+                          style={{
+                            background: 'var(--accent-signal)',
+                            color: '#ffffff',
+                            fontSize: '0.65rem',
+                            fontWeight: 700,
+                            padding: '1px 6px',
+                            borderRadius: '10px',
+                          }}
+                        >
+                          {stats.unreadSubmissions} new
+                        </span>
+                      )}
+                    </div>
+
+                    {stats.unreadSubmissions > 0 && (
+                      <button
+                        onClick={handleMarkAllRead}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--accent-signal)',
+                          fontSize: '0.74rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          padding: '2px 6px',
+                          borderRadius: '4px',
+                        }}
+                        title="Mark all notifications as read"
+                      >
+                        <CheckCheck size={14} />
+                        <span>Mark all read</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Dropdown List */}
+                  <div
+                    style={{
+                      maxHeight: '380px',
+                      overflowY: 'auto',
+                    }}
+                    className="admin-scroll"
+                  >
+                    {submissions.length === 0 ? (
+                      <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                        <Inbox size={28} style={{ opacity: 0.4, margin: '0 auto 0.5rem' }} />
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>No notifications yet</div>
+                        <div style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>
+                          Form submissions will appear here automatically.
+                        </div>
+                      </div>
+                    ) : (
+                      submissions.slice(0, 20).map((sub) => {
+                        const isCourse = isCourseSubmission(sub);
+                        const isUnread = sub.status === 'unread';
+                        return (
+                          <div
+                            key={sub._id}
+                            style={{
+                              padding: '0.85rem 1rem',
+                              borderBottom: '1px solid var(--border-faint)',
+                              background: isUnread ? 'var(--bg-subtle)' : 'transparent',
+                              cursor: 'pointer',
+                              transition: 'background 0.15s ease',
+                              display: 'flex',
+                              gap: '0.75rem',
+                              alignItems: 'flex-start',
+                            }}
+                            className="admin-table-row"
+                            onClick={() => handleOpenNotification(sub)}
+                          >
+                            <div style={{ paddingTop: '5px' }}>
+                              <span
+                                style={{
+                                  width: '8px',
+                                  height: '8px',
+                                  borderRadius: '50%',
+                                  background: isUnread ? 'var(--accent-signal)' : 'var(--border-faint)',
+                                  display: 'inline-block',
+                                }}
+                              />
+                            </div>
+
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '3px' }}>
+                                <span
+                                  style={{
+                                    fontSize: '0.82rem',
+                                    fontWeight: isUnread ? 700 : 500,
+                                    color: 'var(--text-main)',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                  }}
+                                >
+                                  {sub.name}
+                                </span>
+                                <span className="mono" style={{ fontSize: '0.68rem', color: 'var(--text-muted)', flexShrink: 0 }}>
+                                  {timeAgo(sub.createdAt)}
+                                </span>
+                              </div>
+
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '4px' }}>
+                                {isCourse ? (
+                                  <span
+                                    className="mono"
+                                    style={{
+                                      fontSize: '0.62rem',
+                                      padding: '1px 5px',
+                                      borderRadius: '3px',
+                                      background: '#8b5cf618',
+                                      color: '#8b5cf6',
+                                      border: '1px solid #8b5cf640',
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    COURSE ENROLLMENT
+                                  </span>
+                                ) : (
+                                  <span
+                                    className="mono"
+                                    style={{
+                                      fontSize: '0.62rem',
+                                      padding: '1px 5px',
+                                      borderRadius: '3px',
+                                      background: 'var(--accent-tint)',
+                                      color: 'var(--accent-signal)',
+                                      border: '1px solid var(--accent-signal)',
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    CONTACT INQUIRY
+                                  </span>
+                                )}
+                              </div>
+
+                              <p
+                                style={{
+                                  margin: 0,
+                                  fontSize: '0.78rem',
+                                  color: 'var(--text-muted)',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {sub.message.replace(/\n+/g, ' ')}
+                              </p>
+                            </div>
+
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleUpdateStatus(sub._id, isUnread ? 'read' : 'unread');
+                              }}
+                              style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: isUnread ? 'var(--accent-signal)' : 'var(--text-muted)',
+                                padding: '4px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '4px',
+                              }}
+                              title={isUnread ? 'Mark as read' : 'Mark as unread'}
+                            >
+                              <Check size={14} />
+                            </button>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+
+                  {/* Dropdown Footer */}
+                  <div
+                    style={{
+                      padding: '0.65rem 1rem',
+                      background: 'var(--bg-subtle)',
+                      borderTop: '1px solid var(--border-faint)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      fontSize: '0.75rem',
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setActiveTab('contact_forms');
+                        setShowNotifications(false);
+                      }}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'var(--text-muted)',
+                        cursor: 'pointer',
+                        fontWeight: 600,
+                        fontSize: '0.74rem',
+                      }}
+                    >
+                      View Contacts &rarr;
+                    </button>
+                    <button
+                      onClick={() => {
+                        setActiveTab('course_forms');
+                        setShowNotifications(false);
+                      }}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'var(--accent-signal)',
+                        cursor: 'pointer',
+                        fontWeight: 700,
+                        fontSize: '0.74rem',
+                      }}
+                    >
+                      View Course Enrollments &rarr;
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          <div style={{ height: '18px', width: '1px', background: 'var(--border-faint)', margin: '0 0.15rem' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem' }}>
             <span
@@ -2311,121 +2687,286 @@ export default function AdminPage() {
             )}
 
             {/* DETAIL DRAWER FOR SELECTED SUBMISSION */}
-            {selectedSubmission && (
-              <div
-                style={{
-                  position: 'fixed',
-                  right: 0,
-                  top: '60px',
-                  bottom: 0,
-                  width: '460px',
-                  maxWidth: '100vw',
-                  background: 'var(--bg-panel)',
-                  borderLeft: '2px solid var(--border-strong)',
-                  padding: '1.75rem',
-                  boxShadow: 'var(--shadow-lg)',
-                  zIndex: 250,
-                  overflowY: 'auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-                className="admin-scroll"
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
-                  <span style={{ fontSize: '1rem', fontWeight: 800 }}>
-                    {isCourseSubmission(selectedSubmission) ? 'Course Application' : 'Inquiry Details'}
-                  </span>
-                  <button
-                    onClick={() => setSelectedSubmission(null)}
-                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '4px' }}
-                  >
-                    ✕
-                  </button>
-                </div>
+            {selectedSubmission && (() => {
+              const isCourse = isCourseSubmission(selectedSubmission);
+              const courseData = isCourse ? parseCourseDetails(selectedSubmission.message) : null;
+              const isUnread = selectedSubmission.status === 'unread';
 
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
-                    <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: isCourseSubmission(selectedSubmission) ? '#8b5cf6' : 'var(--accent-signal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>
-                      {selectedSubmission.name.charAt(0).toUpperCase()}
+              return (
+                <div
+                  style={{
+                    position: 'fixed',
+                    right: 0,
+                    top: '60px',
+                    bottom: 0,
+                    width: '480px',
+                    maxWidth: '100vw',
+                    background: 'var(--bg-panel)',
+                    borderLeft: '2px solid var(--border-strong)',
+                    padding: '1.75rem',
+                    boxShadow: 'var(--shadow-lg)',
+                    zIndex: 250,
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                  className="admin-scroll"
+                >
+                  {/* Top Bar with Type, Status & Close */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: '0.72rem',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: isCourse ? '#8b5cf618' : 'var(--accent-tint)',
+                          color: isCourse ? '#8b5cf6' : 'var(--accent-signal)',
+                          border: `1px solid ${isCourse ? '#8b5cf640' : 'var(--accent-signal)'}`,
+                          fontWeight: 700,
+                        }}
+                      >
+                        {isCourse ? '🎓 COURSE ENROLLMENT' : '📬 CONTACT INQUIRY'}
+                      </span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: '0.7rem',
+                          padding: '3px 7px',
+                          borderRadius: '4px',
+                          background: isUnread ? 'var(--accent-tint)' : 'var(--bg-subtle)',
+                          color: isUnread ? 'var(--accent-signal)' : 'var(--text-muted)',
+                          fontWeight: 700,
+                        }}
+                      >
+                        {isUnread ? 'UNREAD' : 'READ'}
+                      </span>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedSubmission.name}</div>
-                      <div style={{ fontSize: '0.85rem', color: isCourseSubmission(selectedSubmission) ? '#8b5cf6' : 'var(--accent-signal)' }}>
-                        {selectedSubmission.email}
+
+                    <button
+                      onClick={() => setSelectedSubmission(null)}
+                      style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '4px' }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    {/* Applicant Identity Card */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: isCourse ? '#8b5cf6' : 'var(--accent-signal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                        {selectedSubmission.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div style={{ overflow: 'hidden' }}>
+                        <div style={{ fontSize: '1.1rem', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedSubmission.name}</div>
+                        <a
+                          href={`mailto:${selectedSubmission.email}`}
+                          style={{ fontSize: '0.85rem', color: isCourse ? '#8b5cf6' : 'var(--accent-signal)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}
+                        >
+                          <Mail size={13} />
+                          <span>{selectedSubmission.email}</span>
+                        </a>
                       </div>
                     </div>
-                  </div>
 
-                  <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.25rem' }}>
-                    <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>
-                      Submission Content
-                    </div>
-                    <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
-                      {selectedSubmission.message}
-                    </div>
-                  </div>
+                    {/* If Course Enrollment: Render Structured Application Fields */}
+                    {isCourse && courseData && (
+                      <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                        <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
+                          Application Details
+                        </div>
 
-                  <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Received:</span>
-                      <span style={{ fontWeight: 600 }}>{formatDate(selectedSubmission.createdAt)}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Client IP:</span>
-                      <span className="mono">{selectedSubmission.ip}</span>
-                    </div>
-                    {selectedSubmission.location && (
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Location:</span>
-                        <span>
-                          {selectedSubmission.location.city ? `${selectedSubmission.location.city}, ` : ''}
-                          {selectedSubmission.location.country || 'Unknown'}
-                        </span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Target Course:</span>
+                          <span style={{ fontWeight: 700 }}>{courseData.course}</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Phone / Contact:</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <a href={`tel:${courseData.phone}`} style={{ fontWeight: 600, color: 'var(--text-main)', textDecoration: 'none' }}>
+                              {courseData.phone}
+                            </a>
+                            <button
+                              onClick={() => copyToClipboard(courseData.phone, `phone-${selectedSubmission._id}`)}
+                              style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '2px', color: copiedId === `phone-${selectedSubmission._id}` ? '#10b981' : 'var(--text-muted)' }}
+                              title="Copy Phone"
+                            >
+                              {copiedId === `phone-${selectedSubmission._id}` ? <Check size={13} /> : <Copy size={13} />}
+                            </button>
+                          </div>
+                        </div>
+
+                        {courseData.whatsapp !== 'N/A' && (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>WhatsApp:</span>
+                            <a
+                              href={`https://wa.me/${courseData.whatsapp.replace(/[^0-9]/g, '')}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ fontWeight: 600, color: '#10b981', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
+                            >
+                              <MessageCircle size={13} />
+                              <span>{courseData.whatsapp}</span>
+                            </a>
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Payment Method:</span>
+                          <span className="mono" style={{ fontWeight: 700, color: 'var(--accent-signal)' }}>{courseData.payment}</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Transaction ID:</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span className="mono" style={{ fontWeight: 700, background: 'var(--bg-subtle)', padding: '2px 6px', borderRadius: '4px' }}>
+                              {courseData.txId}
+                            </span>
+                            <button
+                              onClick={() => copyToClipboard(courseData.txId, `tx-${selectedSubmission._id}`)}
+                              style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '2px', color: copiedId === `tx-${selectedSubmission._id}` ? '#10b981' : 'var(--text-muted)' }}
+                              title="Copy Transaction ID"
+                            >
+                              {copiedId === `tx-${selectedSubmission._id}` ? <Check size={13} /> : <Copy size={13} />}
+                            </button>
+                          </div>
+                        </div>
+
+                        {courseData.address !== 'N/A' && (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>Address:</span>
+                            <span>{courseData.address}</span>
+                          </div>
+                        )}
+
+                        {courseData.goal !== 'Not specified' && (
+                          <div style={{ fontSize: '0.85rem', borderTop: '1px solid var(--border-faint)', paddingTop: '0.5rem', marginTop: '0.25rem' }}>
+                            <span style={{ color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>Goal / Motivation:</span>
+                            <span style={{ fontStyle: 'italic' }}>{courseData.goal}</span>
+                          </div>
+                        )}
                       </div>
                     )}
+
+                    {/* Submission Content / Raw Message */}
+                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.25rem' }}>
+                      <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>
+                        {isCourse ? 'Full Application Text' : 'Message Content'}
+                      </div>
+                      <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                        {selectedSubmission.message}
+                      </div>
+                    </div>
+
+                    {/* Client Metadata */}
+                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Received:</span>
+                        <span style={{ fontWeight: 600 }}>{formatDate(selectedSubmission.createdAt)}</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Client IP:</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span className="mono">{selectedSubmission.ip}</span>
+                          <button
+                            onClick={() => copyToClipboard(selectedSubmission.ip, `ip-${selectedSubmission._id}`)}
+                            style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '2px', color: copiedId === `ip-${selectedSubmission._id}` ? '#10b981' : 'var(--text-muted)' }}
+                            title="Copy IP"
+                          >
+                            {copiedId === `ip-${selectedSubmission._id}` ? <Check size={13} /> : <Copy size={13} />}
+                          </button>
+                        </div>
+                      </div>
+                      {selectedSubmission.location && (
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Location:</span>
+                          <span>
+                            {selectedSubmission.location.city ? `${selectedSubmission.location.city}, ` : ''}
+                            {selectedSubmission.location.country || 'Unknown'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Drawer Footer Actions */}
+                  <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-faint)', paddingTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                    <div style={{ display: 'flex', gap: '0.65rem' }}>
+                      {/* Toggle Mark Read / Unread */}
+                      <button
+                        onClick={() => handleUpdateStatus(selectedSubmission._id, isUnread ? 'read' : 'unread')}
+                        style={{
+                          flex: 1,
+                          padding: '0.75rem',
+                          background: isUnread ? 'var(--bg-subtle)' : 'var(--bg-primary)',
+                          border: '1px solid var(--border-faint)',
+                          color: 'var(--text-main)',
+                          fontWeight: 700,
+                          fontSize: '0.82rem',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.4rem',
+                          borderRadius: '6px',
+                        }}
+                      >
+                        <Check size={15} style={{ color: isUnread ? 'var(--text-muted)' : '#10b981' }} />
+                        <span>{isUnread ? 'Mark as Read' : 'Mark as Unread'}</span>
+                      </button>
+
+                      {/* Reply via Email */}
+                      <a
+                        href={`mailto:${selectedSubmission.email}?subject=${encodeURIComponent(isCourse ? 'Regarding Your Python Masterclass Application - CodeWithTanim' : 'Re: Inquiry on CodeWithTanim')}`}
+                        style={{
+                          flex: 1,
+                          padding: '0.75rem',
+                          background: 'var(--text-main)',
+                          color: 'var(--bg-panel)',
+                          fontWeight: 700,
+                          fontSize: '0.82rem',
+                          textAlign: 'center',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.4rem',
+                          borderRadius: '6px',
+                        }}
+                      >
+                        <Send size={15} />
+                        <span>Reply Email</span>
+                      </a>
+                    </div>
+
+                    {/* Delete */}
+                    <button
+                      onClick={() => handleDeleteSubmission(selectedSubmission._id)}
+                      style={{
+                        width: '100%',
+                        padding: '0.65rem',
+                        background: 'var(--accent-tint)',
+                        color: 'var(--accent-signal)',
+                        border: '1px solid var(--accent-signal)',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: 700,
+                        fontSize: '0.8rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                      }}
+                    >
+                      <Trash2 size={14} />
+                      <span>Delete Submission</span>
+                    </button>
                   </div>
                 </div>
-
-                <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-faint)', paddingTop: '1rem', display: 'flex', gap: '0.75rem' }}>
-                  <a
-                    href={`mailto:${selectedSubmission.email}?subject=Re: Inquiry on CodeWithTanim`}
-                    style={{
-                      flex: 1,
-                      padding: '0.8rem',
-                      background: 'var(--text-main)',
-                      color: 'var(--bg-panel)',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                      textAlign: 'center',
-                      textDecoration: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.4rem',
-                      borderRadius: '6px',
-                    }}
-                  >
-                    <Send size={15} />
-                    <span>Reply via Email</span>
-                  </a>
-                  <button
-                    onClick={() => handleDeleteSubmission(selectedSubmission._id)}
-                    style={{
-                      padding: '0.8rem 1rem',
-                      background: 'var(--accent-tint)',
-                      color: 'var(--accent-signal)',
-                      border: '1px solid var(--accent-signal)',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
         </main>
       </div>

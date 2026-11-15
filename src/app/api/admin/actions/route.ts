@@ -38,6 +38,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    if (action === 'mark_all_read') {
+      await db.collection('contact_submissions').updateMany(
+        { status: 'unread' },
+        { $set: { status: 'read' } }
+      );
+      await logActivity(
+        'ALL_SUBMISSIONS_MARKED_READ',
+        `All unread submissions marked as read by ${session.user.email}`,
+        ip,
+        `${location.city}, ${location.country}`
+      );
+      return NextResponse.json({ success: true });
+    }
+
     if (action === 'delete_submission') {
       const { id } = payload;
       await db.collection('contact_submissions').deleteOne({ _id: new ObjectId(id) });
