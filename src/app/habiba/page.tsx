@@ -13,6 +13,7 @@ import {
   RefreshCw,
   LogOut,
   Eye,
+  EyeOff,
   Copy,
   Check,
   Search,
@@ -69,9 +70,10 @@ interface ActivityLogItem {
   timestamp: string;
 }
 
-export default function HabibaAdminPage() {
+export default function AdminPage() {
   const [session, setSession] = useState<UserSession | null>(null);
   const [sessionPending, setSessionPending] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Check active session on client mount
   const checkSession = useCallback(async () => {
@@ -347,19 +349,19 @@ export default function HabibaAdminPage() {
       <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
         <div
           style={{
-            maxWidth: '440px',
+            maxWidth: '420px',
             width: '100%',
             background: 'var(--panel)',
             border: '2px solid var(--ink)',
             padding: '2.5rem 2rem',
-            boxShadow: '8px 8px 0px var(--ink)',
+            boxShadow: '6px 6px 0px var(--ink)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.5rem' }}>
             <div
               style={{
-                width: '40px',
-                height: '40px',
+                width: '42px',
+                height: '42px',
                 background: 'var(--ink)',
                 color: 'var(--paper)',
                 display: 'flex',
@@ -367,13 +369,13 @@ export default function HabibaAdminPage() {
                 justifyContent: 'center',
               }}
             >
-              <Shield size={22} style={{ color: 'var(--signal)' }} />
+              <Lock size={20} style={{ color: 'var(--signal)' }} />
             </div>
             <div>
-              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-                HABIBA // ADMIN
+              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', letterSpacing: '0.5px', textTransform: 'uppercase', lineHeight: 1.1 }}>
+                ADMIN CONSOLE
               </h1>
-              <p className="mono" style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>
+              <p className="mono" style={{ fontSize: '0.75rem', color: 'var(--ink-soft)', marginTop: '0.25rem' }}>
                 {hasAdmin === false ? 'INITIAL SUPERADMIN SETUP' : 'RESTRICTED ACCESS PORTAL'}
               </p>
             </div>
@@ -405,14 +407,15 @@ export default function HabibaAdminPage() {
                   required
                   value={authName}
                   onChange={(e) => setAuthName(e.target.value)}
-                  placeholder="e.g. Samiur Rahman Tanim"
+                  placeholder="e.g. MD Samiur Rahman Tanim"
                   style={{
                     width: '100%',
-                    padding: '0.65rem 0.85rem',
+                    padding: '0.7rem 0.85rem',
                     border: '1px solid var(--ink)',
                     background: 'var(--paper)',
                     color: 'var(--ink)',
                     fontFamily: 'inherit',
+                    fontSize: '0.9rem',
                   }}
                 />
               </div>
@@ -430,11 +433,12 @@ export default function HabibaAdminPage() {
                 placeholder="codewithtanim@gmail.com"
                 style={{
                   width: '100%',
-                  padding: '0.65rem 0.85rem',
+                  padding: '0.7rem 0.85rem',
                   border: '1px solid var(--ink)',
                   background: 'var(--paper)',
                   color: 'var(--ink)',
                   fontFamily: 'inherit',
+                  fontSize: '0.9rem',
                 }}
               />
             </div>
@@ -443,21 +447,44 @@ export default function HabibaAdminPage() {
               <label className="mono" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                 Password
               </label>
-              <input
-                type="password"
-                required
-                value={authPassword}
-                onChange={(e) => setAuthPassword(e.target.value)}
-                placeholder="••••••••••••"
-                style={{
-                  width: '100%',
-                  padding: '0.65rem 0.85rem',
-                  border: '1px solid var(--ink)',
-                  background: 'var(--paper)',
-                  color: 'var(--ink)',
-                  fontFamily: 'inherit',
-                }}
-              />
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={authPassword}
+                  onChange={(e) => setAuthPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  style={{
+                    width: '100%',
+                    padding: '0.7rem 2.5rem 0.7rem 0.85rem',
+                    border: '1px solid var(--ink)',
+                    background: 'var(--paper)',
+                    color: 'var(--ink)',
+                    fontFamily: 'inherit',
+                    fontSize: '0.9rem',
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--ink-soft)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0.2rem',
+                  }}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
             </div>
 
             <button
@@ -478,12 +505,13 @@ export default function HabibaAdminPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '0.5rem',
+                transition: 'opacity 0.15s ease',
               }}
             >
               {authLoading ? (
                 <>
                   <RefreshCw className="animate-spin" size={16} />
-                  <span>Processing...</span>
+                  <span>Verifying Credentials...</span>
                 </>
               ) : hasAdmin === false ? (
                 <>
@@ -493,18 +521,30 @@ export default function HabibaAdminPage() {
               ) : (
                 <>
                   <Lock size={16} />
-                  <span>Sign In To Habiba</span>
+                  <span>Sign In to Admin</span>
                 </>
               )}
             </button>
           </form>
 
-          <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px dashed var(--hair-faint)', fontSize: '0.75rem', color: 'var(--ink-soft)' }} className="mono">
-            <span>DATABASE: </span>
-            <strong style={{ color: 'var(--ink)' }}>MongoDB Atlas (cwt-portfolio)</strong>
-            <br />
-            <span>AUTH ENGINE: </span>
-            <strong style={{ color: 'var(--ink)' }}>Better-Auth v1.x</strong>
+          <div
+            style={{
+              marginTop: '1.5rem',
+              paddingTop: '1rem',
+              borderTop: '1px solid var(--hair-faint)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+            className="mono"
+          >
+            <span style={{ fontSize: '0.7rem', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#16a34a', display: 'inline-block' }}></span>
+              SECURE ACCESS
+            </span>
+            <span style={{ fontSize: '0.7rem', color: 'var(--ink-soft)' }}>
+              CODEWITHTANIM CONTROL
+            </span>
           </div>
         </div>
       </div>
@@ -532,21 +572,20 @@ export default function HabibaAdminPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div
             style={{
-              width: '36px',
-              height: '36px',
-              background: 'var(--signal)',
-              color: 'var(--paper)',
+              width: '38px',
+              height: '38px',
+              background: 'var(--ink)',
+              color: 'var(--signal)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontWeight: 800,
             }}
           >
-            H
+            <Shield size={20} />
           </div>
           <div>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-              HABIBA // COMMAND CENTER
+              ADMIN // CONTROL CENTER
             </h1>
             <p className="mono" style={{ fontSize: '0.75rem', color: 'var(--ink-soft)' }}>
               LOGGED IN AS: <span style={{ color: 'var(--ink)', fontWeight: 600 }}>{session.user.email}</span>
