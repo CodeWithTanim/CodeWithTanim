@@ -71,7 +71,7 @@ interface ActivityLogItem {
 
 export default function AdminPage() {
   const [session, setSession] = useState<UserSession | null>(null);
-  const [sessionPending, setSessionPending] = useState(true);
+  const [sessionPending, setSessionPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   // Auth form states
@@ -320,64 +320,115 @@ export default function AdminPage() {
     );
   }
 
-  // 2. Modern, Clean, Minimalist Login Card
+  // 2. High-End, Modern Dark-Glass Login Portal
   if (!session?.user) {
     return (
       <div
         style={{
-          minHeight: '80vh',
+          minHeight: '82vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem 1rem',
+          padding: '2.5rem 1rem',
+          position: 'relative',
         }}
       >
+        <style dangerouslySetInnerHTML={{ __html: `
+          .portal-input:-webkit-autofill,
+          .portal-input:-webkit-autofill:hover,
+          .portal-input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #ffffff !important;
+            -webkit-box-shadow: 0 0 0px 1000px #131720 inset !important;
+            box-shadow: 0 0 0px 1000px #131720 inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+          }
+          .portal-input:focus {
+            border-color: #e0361f !important;
+            box-shadow: 0 0 0 3px rgba(224, 54, 31, 0.25) !important;
+          }
+          .portal-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 22px rgba(224, 54, 31, 0.45) !important;
+            filter: brightness(1.08);
+          }
+          .portal-btn:active {
+            transform: translateY(0);
+          }
+        `}} />
+
+        {/* Ambient Glow */}
         <div
           style={{
-            maxWidth: '380px',
+            position: 'absolute',
+            width: '420px',
+            height: '420px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(224, 54, 31, 0.14) 0%, rgba(99, 102, 241, 0.06) 45%, transparent 70%)',
+            filter: 'blur(50px)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+
+        {/* Portal Card */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            maxWidth: '410px',
             width: '100%',
-            background: 'var(--bg-panel)',
-            border: '1px solid var(--border-faint)',
-            borderRadius: '16px',
-            padding: '2rem',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)',
+            background: '#11141a',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '20px',
+            padding: '2.5rem 2.25rem',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
           }}
         >
           {/* Header */}
-          <div style={{ marginBottom: '1.75rem', textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
-                background: 'var(--bg-subtle)',
-                color: 'var(--text-main)',
+                width: '48px',
+                height: '48px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, rgba(224, 54, 31, 0.25), rgba(224, 54, 31, 0.08))',
+                border: '1px solid rgba(224, 54, 31, 0.35)',
+                color: '#ff4d36',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '0.85rem',
+                boxShadow: '0 8px 20px rgba(224, 54, 31, 0.25)',
               }}
             >
-              <Lock size={20} />
+              <Lock size={22} />
             </div>
-            <h1 style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '0.35rem' }}>
-              Admin Access
+            <h1
+              style={{
+                fontSize: '1.45rem',
+                fontWeight: 700,
+                color: '#ffffff',
+                letterSpacing: '-0.025em',
+                marginTop: '1rem',
+                marginBottom: '0.35rem',
+              }}
+            >
+              Admin Portal
             </h1>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Sign in to manage portfolio inquiries & logs
+            <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: 0 }}>
+              Sign in to access your management dashboard
             </p>
           </div>
 
           {authError && (
             <div
               style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.2)',
-                color: '#ef4444',
-                padding: '0.65rem 0.85rem',
-                borderRadius: '8px',
-                fontSize: '0.85rem',
-                marginBottom: '1.25rem',
+                background: 'rgba(239, 68, 68, 0.12)',
+                border: '1px solid rgba(239, 68, 68, 0.25)',
+                color: '#fca5a5',
+                padding: '0.75rem 1rem',
+                borderRadius: '10px',
+                fontSize: '0.84rem',
+                marginBottom: '1.5rem',
                 textAlign: 'center',
               }}
             >
@@ -385,68 +436,94 @@ export default function AdminPage() {
             </div>
           )}
 
-          <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
             <div>
               <label
                 style={{
                   display: 'block',
-                  fontSize: '0.8rem',
+                  fontSize: '0.82rem',
                   fontWeight: 500,
-                  color: 'var(--text-main)',
-                  marginBottom: '0.4rem',
+                  color: '#e2e8f0',
+                  marginBottom: '0.45rem',
                 }}
               >
-                Email
+                Email Address
               </label>
-              <input
-                type="email"
-                required
-                value={authEmail}
-                onChange={(e) => setAuthEmail(e.target.value)}
-                placeholder="codewithtanim@gmail.com"
-                style={{
-                  width: '100%',
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '8px',
-                  border: '1px solid var(--border-faint)',
-                  background: 'var(--bg-primary)',
-                  color: 'var(--text-main)',
-                  fontSize: '0.9rem',
-                  outline: 'none',
-                  transition: 'border-color 0.15s ease',
-                }}
-              />
+              <div style={{ position: 'relative' }}>
+                <Mail
+                  size={16}
+                  style={{
+                    position: 'absolute',
+                    left: '14px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#64748b',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <input
+                  type="email"
+                  required
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  placeholder="name@example.com"
+                  className="portal-input"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem 0.75rem 2.6rem',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    color: '#ffffff',
+                    fontSize: '0.92rem',
+                    outline: 'none',
+                    transition: 'all 0.15s ease',
+                  }}
+                />
+              </div>
             </div>
 
             <div>
               <label
                 style={{
                   display: 'block',
-                  fontSize: '0.8rem',
+                  fontSize: '0.82rem',
                   fontWeight: 500,
-                  color: 'var(--text-main)',
-                  marginBottom: '0.4rem',
+                  color: '#e2e8f0',
+                  marginBottom: '0.45rem',
                 }}
               >
                 Password
               </label>
               <div style={{ position: 'relative' }}>
+                <Lock
+                  size={16}
+                  style={{
+                    position: 'absolute',
+                    left: '14px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#64748b',
+                    pointerEvents: 'none',
+                  }}
+                />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
                   placeholder="••••••••••••"
+                  className="portal-input"
                   style={{
                     width: '100%',
-                    padding: '0.65rem 2.5rem 0.65rem 0.85rem',
-                    borderRadius: '8px',
-                    border: '1px solid var(--border-faint)',
-                    background: 'var(--bg-primary)',
-                    color: 'var(--text-main)',
-                    fontSize: '0.9rem',
+                    padding: '0.75rem 2.75rem 0.75rem 2.6rem',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    color: '#ffffff',
+                    fontSize: '0.92rem',
                     outline: 'none',
-                    transition: 'border-color 0.15s ease',
+                    transition: 'all 0.15s ease',
                   }}
                 />
                 <button
@@ -454,13 +531,14 @@ export default function AdminPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
                     position: 'absolute',
-                    right: '0.75rem',
+                    right: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: 'var(--text-muted)',
+                    color: '#94a3b8',
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '2px',
+                    padding: '4px',
+                    cursor: 'pointer',
                   }}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -471,22 +549,25 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={authLoading}
+              className="portal-btn"
               style={{
                 marginTop: '0.5rem',
                 width: '100%',
-                padding: '0.75rem',
-                borderRadius: '8px',
-                background: 'var(--text-main)',
-                color: 'var(--bg-panel)',
+                padding: '0.85rem',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, #e0361f 0%, #b92814 100%)',
+                color: '#ffffff',
                 fontWeight: 600,
-                fontSize: '0.9rem',
+                fontSize: '0.92rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '0.5rem',
-                opacity: authLoading ? 0.7 : 1,
+                opacity: authLoading ? 0.75 : 1,
                 cursor: authLoading ? 'not-allowed' : 'pointer',
-                transition: 'opacity 0.15s ease',
+                boxShadow: '0 4px 18px rgba(224, 54, 31, 0.35)',
+                transition: 'all 0.2s ease',
+                border: 'none',
               }}
             >
               {authLoading ? (
@@ -502,6 +583,23 @@ export default function AdminPage() {
               )}
             </button>
           </form>
+
+          {/* Footer Back Link */}
+          <div style={{ marginTop: '1.75rem', textAlign: 'center' }}>
+            <a
+              href="/"
+              style={{
+                fontSize: '0.82rem',
+                color: '#64748b',
+                textDecoration: 'none',
+                transition: 'color 0.15s ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#94a3b8')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+            >
+              ← Back to portfolio
+            </a>
+          </div>
         </div>
       </div>
     );
