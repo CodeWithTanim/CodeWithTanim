@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...(process.env.NEXT_EXPORT === 'true' ? { output: 'export' } : {}),
   reactStrictMode: true,
   serverExternalPackages: ['better-auth', '@better-auth/mongo-adapter', 'mongodb'],
   images: {
