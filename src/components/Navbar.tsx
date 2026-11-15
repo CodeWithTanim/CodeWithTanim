@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
-const SECTIONS = ['overview', 'about', 'experience', 'education', 'skills', 'projects', 'contact'];
+const SECTIONS = ['overview', 'about', 'experience', 'education', 'skills', 'projects', 'videos', 'contact'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -148,6 +148,15 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
+                  <a
+                    href={getSectionHref('videos')}
+                    className={`nav-link ${activeSection === 'videos' && isHome ? 'active' : ''}`}
+                    onClick={() => handleNavClick('videos')}
+                  >
+                    Videos
+                  </a>
+                </li>
+                <li>
                   <Link href="/certificates" className="nav-link">
                     Certificates
                   </Link>
@@ -249,7 +258,14 @@ export default function Navbar() {
               className={`mobile-nav-link ${activeSection === 'projects' && isHome ? 'active' : ''}`}
               onClick={() => handleNavClick('projects')}
             >
-              Projects (10)
+              Projects (26)
+            </a>
+            <a
+              href={getSectionHref('videos')}
+              className={`mobile-nav-link ${activeSection === 'videos' && isHome ? 'active' : ''}`}
+              onClick={() => handleNavClick('videos')}
+            >
+              Tutorial Videos (10)
             </a>
             <Link
               href="/certificates"

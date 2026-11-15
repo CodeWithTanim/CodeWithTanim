@@ -80,8 +80,12 @@ export default function Footer() {
             <ul className="footer-links">
               <li><a href="/#about">About</a></li>
               <li><a href="/#experience">Experience</a></li>
-              <li><a href="/#projects">Project</a></li>
-              <li><a href="/certificates">Certificate</a></li>
+              <li><a href="/#projects">Projects (26)</a></li>
+              <li><a href="/#videos">Tutorial Videos</a></li>
+              <li><a href="/certificates">Certificates (28+)</a></li>
+              <li><a href="/pythonCourse">Python Course</a></li>
+              <li><a href="/cse-guideline">CSE Roadmap</a></li>
+              <li><a href="/payment">Payment Notice</a></li>
               <li><a href="/#contact">Get in Touch</a></li>
             </ul>
           </div>

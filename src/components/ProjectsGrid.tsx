@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { PROJECTS } from '@/data/portfolioData';
 import { ExternalLink, Github } from 'lucide-react';
 
-type FilterType = 'all' | 'web' | 'python' | 'security';
+type FilterType = 'all' | 'web' | 'python' | 'security' | 'desktop';
 
 export default function ProjectsGrid() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
@@ -18,6 +18,7 @@ export default function ProjectsGrid() {
     { label: 'Web & Full-Stack', value: 'web', count: PROJECTS.filter(p => p.category.includes('web')).length },
     { label: 'Python & Automation', value: 'python', count: PROJECTS.filter(p => p.category.includes('python')).length },
     { label: 'Cybersecurity', value: 'security', count: PROJECTS.filter(p => p.category.includes('security')).length },
+    { label: 'Desktop & Utilities', value: 'desktop', count: PROJECTS.filter(p => p.category.includes('desktop')).length },
   ];
 
   return (

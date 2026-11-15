@@ -2,7 +2,7 @@ export interface Project {
   id: string;
   sheetNum: string;
   title: string;
-  category: ('web' | 'python' | 'security')[];
+  category: ('web' | 'python' | 'security' | 'desktop')[];
   categoryLabel: string;
   tagline: string;
   description: string;
@@ -129,252 +129,590 @@ export const TECH_STACK: TechSkill[] = [
 
 export const PROJECTS: Project[] = [
   {
-    id: "cosmetics-products-management-system",
-    sheetNum: "01/10",
-    title: "Cosmetics Products Management System",
-    category: ["web"],
-    categoryLabel: "PHP / Inventory & E-Commerce",
-    tagline: "PHP and MySQL-based online store for cosmetics and beauty products with inventory, order management, and PayPal payments.",
-    description: "Web-based shopping and management system for cosmetics businesses. Customers can browse products, filter by category/brand, search, manage a cart, and place orders. Includes an administrator dashboard managing brands, products, inventory, orders, and sales reports.",
-    image: "/Images/Projects/cpms.jpg",
-    repoUrl: "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System",
-    liveUrl: "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System/blob/main/CPMS_Project_Report.pdf",
-    liveLabel: "Project Report PDF",
-    tech: "MySQL • PHP 8.2 • Bootstrap • PayPal API",
-    apiJsonUrl: "/API/cosmetics-products-management-system.project.json",
-    challenges: [
-      "Handling complex inventory variants (shades, sizes, stock levels) with atomic MySQL transactions to prevent race conditions during high-volume cart checkout.",
-      "Implementing secure session management and role-based permissions in vanilla PHP without an enterprise framework.",
-      "Seamless integration with PayPal Sandbox and handling asynchronous IPN (Instant Payment Notification) verification webhooks."
+    "id": "lms-platform",
+    "sheetNum": "01/26",
+    "title": "Online LMS Platform",
+    "category": [
+      "web",
+      "python"
     ],
-    improvements: [
-      "Migrate backend to a modern REST API / GraphQL architecture using Node.js or Laravel.",
-      "Add real-time stock alert notifications via SMS and automated email receipts.",
-      "Implement an AI-powered product recommendation engine based on past customer purchasing habits."
+    "categoryLabel": "Vue 3 + Django",
+    "tagline": "Full-stack LMS built with Vue 3 TypeScript & Pinia on frontend and Django REST Framework + PostgreSQL on backend.",
+    "description": "A comprehensive Online Learning Management System featuring interactive course catalogs, student enrollment workflows, lesson progress tracking, multimedia video lectures, and instructor administrative controls.",
+    "image": "/Images/Projects/lms-platform.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Online-Learning-Management-System",
+    "liveUrl": null,
+    "tech": "Vue 3 • TypeScript • Django REST • PostgreSQL",
+    "challenges": [
+      "Structuring modular state management with Pinia across nested course module trees.",
+      "Building responsive HTML5 video and lesson players with persistent progress state sync."
+    ],
+    "improvements": [
+      "Integrate live video classrooms via WebRTC / Zoom.",
+      "Add automated quiz evaluations and downloadable PDF course completion certificates."
     ]
   },
   {
-    id: "cryptography-algorithms-implementation",
-    sheetNum: "02/10",
-    title: "Cryptography Algorithms Implementation",
-    category: ["security", "python"],
-    categoryLabel: "Cryptography / Security",
-    tagline: "A Python internship project demonstrating AES, RSA, and hashing algorithms with examples and unit tests.",
-    description: "Developed during an internship with Codec Technologies, this project provides hands-on implementations of core cryptography algorithms. It demonstrates symmetric encryption (AES), asymmetric encryption (RSA), digital signatures, and hashing through a modular Python codebase.",
-    image: "/Images/Projects/Cryptography-Algorithms-Implementation.jpeg",
-    repoUrl: "https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation",
-    liveUrl: null,
-    tech: "Python 3.8+ • AES • RSA • PyCryptodome",
-    apiJsonUrl: "/API/cryptography-algorithms-implementation.project.json",
-    challenges: [
-      "Accurately implementing asymmetric key pair generation and padding schemes (PKCS#1 OAEP) to avoid side-channel information leakage.",
-      "Benchmarking algorithmic execution time against large datasets without compromising entropy during key initialization.",
-      "Creating clear, self-contained unit tests that validate cryptographic guarantees across edge cases."
+    "id": "full-stack-e-commerce",
+    "sheetNum": "02/26",
+    "title": "Full-Stack E-Commerce Store",
+    "category": [
+      "web"
     ],
-    improvements: [
-      "Extend support for modern post-quantum cryptography algorithms (such as Kyber and Dilithium).",
-      "Build an interactive web GUI visualizer for educational demonstrations of ciphertext transformations.",
-      "Package the suite into a reusable PyPI package with automated CI/CD security audits."
+    "categoryLabel": "Next.js 16 / SaaS",
+    "tagline": "High-performance storefront and admin back-office panel built on Next.js 16, Prisma, MySQL, and Stripe.",
+    "description": "Built during an internship at Codec Technologies, this e-commerce application combines a customer storefront with an admin fulfillment dashboard. Utilizes Next.js App Router, Prisma ORM, MySQL, and Stripe payments.",
+    "image": "/Images/Projects/ecommerce-store.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Full-Stack-E-Commerce",
+    "liveUrl": null,
+    "tech": "Next.js 16 • React 19 • Prisma • MySQL • Stripe",
+    "challenges": [
+      "Coordinating complex Prisma database transactions between cart items, inventory levels, and Stripe webhooks.",
+      "Managing SSR caching and revalidation states in Next.js App Router."
+    ],
+    "improvements": [
+      "Add multi-currency support and real-time shipment courier tracking API."
     ]
   },
   {
-    id: "custom-ransomware-simulation",
-    sheetNum: "03/10",
-    title: "Custom Ransomware Simulation",
-    category: ["security", "python"],
-    categoryLabel: "Cybersecurity Sandbox",
-    tagline: "A sandboxed Python educational simulation demonstrating ransomware-like file encryption and decryption.",
-    description: "Educational cybersecurity demonstration showing reversible AES-256 file encryption and decryption concepts, key handling, and logging in a strictly isolated sandbox environment for defensive research.",
-    image: "/Images/Projects/Custom-Ransomware-Simulation.jpeg",
-    repoUrl: "https://github.com/CodeWithTanim/Custom-Ransomware-Simulation",
-    liveUrl: null,
-    liveLabel: "Live Demo",
-    tech: "Python 3.8+ • AES-256 • Cryptography • Sandbox",
-    apiJsonUrl: "/API/custom-ransomware-simulation.project.json",
-    challenges: [
-      "Ensuring strict sandbox isolation and kill-switch safeguards so cryptographic operations cannot escape the simulated directory.",
-      "Implementing efficient AES-256 CTR stream encryption for large file payloads with deterministic key derivation.",
-      "Designing an educational visual dashboard that demonstrates defensive detection mechanisms and entropy tracking."
+    "id": "telegram-parallel",
+    "sheetNum": "03/26",
+    "title": "Telegram-Parallel",
+    "category": [
+      "desktop"
     ],
-    improvements: [
-      "Integrate detection heuristic models based on Windows Event Logs and Sysmon traces.",
-      "Add YARA rule generation capabilities based on simulated memory signatures.",
-      "Provide an automated decrypter sandbox to test incident response recovery playbooks."
+    "categoryLabel": "Electron App",
+    "tagline": "Run and manage multiple Telegram accounts in one lightweight desktop application built with Electron.",
+    "description": "Lightweight multi-account desktop utility built with Electron + Vite + Tailwind CSS. Allows switching between multiple active Telegram profiles seamlessly without logging out.",
+    "image": "/Images/Projects/telegram-parallel.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Telegram-Parallel",
+    "liveUrl": null,
+    "tech": "Electron • Vite • Tailwind CSS • Node.js",
+    "challenges": [
+      "Isolating local session storage and webview partition contexts between multiple parallel accounts.",
+      "Optimizing memory consumption for background idling processes."
+    ],
+    "improvements": [
+      "Add global keyboard shortcuts for instantaneous account switching.",
+      "Include custom tray minimization and badge notification counters."
     ]
   },
   {
-    id: "formfarm",
-    sheetNum: "04/10",
-    title: "FormFarm",
-    category: ["web"],
-    categoryLabel: "SaaS Backend Service",
-    tagline: "Professional form backend service for collecting and managing form submissions without maintaining a dedicated backend for each project.",
-    description: "A developer-friendly form backend service and private alternative to Formspree. Developers can point any HTML form or AJAX request to a unique endpoint to store submissions in MongoDB, send notifications, filter spam, and view submission metrics in a dashboard.",
-    image: "/Images/Projects/formfarm.png",
-    repoUrl: "https://github.com/CodeWithTanim/FormFarm",
-    liveUrl: "http://form.codewithtanim.works/",
-    liveLabel: "Live Service",
-    tech: "TypeScript • Node.js • Express • MongoDB Atlas",
-    apiJsonUrl: "/API/formfarm.project.json",
-    challenges: [
-      "Implementing reliable spam protection, rate limiting (anti-abuse token buckets), and bot filtration without degrading legitimate user submission speeds.",
-      "Managing flexible JSON schema ingestion across arbitrary HTML forms while storing structured queryable records in MongoDB Atlas.",
-      "Handling asynchronous email notifications via transactional SMTP without blocking HTTP response times."
+    "id": "whatsapp-parallel",
+    "sheetNum": "04/26",
+    "title": "WhatsApp-Parallel",
+    "category": [
+      "desktop"
     ],
-    improvements: [
-      "Add custom webhook triggers and Zapier/Make integrations for instant third-party workflow automation.",
-      "Provide multi-tenant organization workspaces with role-based team access controls.",
-      "Implement end-to-end PGP form payload encryption before persistent database storage."
+    "categoryLabel": "Electron App",
+    "tagline": "Desktop multi-account management application built with Electron, Vite, and Tailwind CSS.",
+    "description": "Allows running multiple simultaneous WhatsApp Web sessions inside isolated electron webview containers with independent cookies and notifications.",
+    "image": "/Images/Projects/whatsapp-parallel.png",
+    "repoUrl": "https://github.com/CodeWithTanim/WhatsApp-Parallel",
+    "liveUrl": null,
+    "tech": "Electron • Vite • Tailwind CSS • Webviews",
+    "challenges": [
+      "Managing multiple separate browser sessions and session partitions without cross-account cookie leakage.",
+      "Ensuring smooth audio/video permissions inside Electron webview environments."
+    ],
+    "improvements": [
+      "Add auto-backup of chat exports and custom notification alert sounds."
     ]
   },
   {
-    id: "full-stack-e-commerce",
-    sheetNum: "05/10",
-    title: "Premium Next.js Full-Stack E-Commerce Store",
-    category: ["web"],
-    categoryLabel: "Next.js 16 / Full-Stack",
-    tagline: "A full-stack e-commerce platform with product catalogs, customer accounts, Stripe and COD checkout, and an admin fulfillment dashboard.",
-    description: "Built as part of an internship at Codec Technologies, this e-commerce application combines a customer storefront with an admin fulfillment dashboard. Utilizes Next.js App Router, Prisma ORM, MySQL, and Stripe payments.",
-    image: "/Images/Projects/ecommerce-store.png",
-    repoUrl: "https://github.com/CodeWithTanim/Full-Stack-E-Commerce",
-    liveUrl: null,
-    liveLabel: "Live Demo",
-    tech: "Next.js 16 • React 19 • Prisma • MySQL • Stripe",
-    apiJsonUrl: "/API/full-stack-e-commerce.project.json",
-    challenges: [
-      "Coordinating complex Prisma database transactions between cart items, multi-variant inventory quantities, and Stripe webhook checkout sessions.",
-      "Managing SSR (Server-Side Rendering) caching and revalidation states in Next.js App Router for dynamic stock levels.",
-      "Enforcing secure HTTP-only cookie-based authentication with SameSite protections across storefront and admin portals."
+    "id": "ghost-hand",
+    "sheetNum": "05/26",
+    "title": "GHOST HAND",
+    "category": [
+      "python",
+      "security"
     ],
-    improvements: [
-      "Implement a customer review and rating moderation system with verified purchase badges.",
-      "Add automated order tracking notifications via WhatsApp and email transactional services.",
-      "Introduce multi-currency and multi-language localization support for international customers."
+    "categoryLabel": "Python Remote",
+    "tagline": "Modular Windows automation system controlled remotely via Telegram Bot API for administrative tasks.",
+    "description": "A professional, modular, and secure Windows automation system controlled entirely via Telegram. Perform remote file access, command execution, system monitoring, and diagnostic alerts from anywhere.",
+    "image": "/Images/Projects/ghost-hand.png",
+    "repoUrl": "https://github.com/CodeWithTanim/GHOST-HAND",
+    "liveUrl": null,
+    "tech": "Python • Telegram Bot API • Windows API • PyAutoGUI",
+    "challenges": [
+      "Ensuring authorized Telegram Chat ID verification and robust cryptographic command authentication.",
+      "Managing stealthy, non-blocking background workers on Windows hosts."
+    ],
+    "improvements": [
+      "Add encrypted file upload/download transfer protocols.",
+      "Implement end-to-end command logging to secure remote audit logs."
     ]
   },
   {
-    id: "ghost-hand",
-    sheetNum: "06/10",
-    title: "GHOST-HAND",
-    category: ["python"],
-    categoryLabel: "Python Remote Automation",
-    tagline: "A modular Telegram-controlled Windows administration and automation bot with system monitoring, file transfer, and guarded remote actions.",
-    description: "A Python-based remote administration tool designed to manage Windows workstations securely through a Telegram bot. Features a modular handler architecture, long polling, administrator allow-listing, system monitoring, file transfers, and power controls.",
-    image: "/Images/Projects/ghost-hand.png",
-    repoUrl: "https://github.com/CodeWithTanim/GHOST-HAND",
-    liveUrl: "https://github.com/CodeWithTanim/GHOST-HAND/blob/main/RUN.md",
-    liveLabel: "Run Guide",
-    tech: "Python 3.12+ • Telegram Bot API • Windows API",
-    apiJsonUrl: "/API/ghost-hand.project.json",
-    challenges: [
-      "Implementing robust Windows API subprocess hooks while maintaining real-time responsiveness through Telegram long-polling.",
-      "Creating strict Telegram chat ID allowlisting and HMAC message validation to prevent unauthorized administrative execution.",
-      "Handling large binary file streaming and screenshot uploads over constrained network connections."
+    "id": "red-eye-lead-hunter",
+    "sheetNum": "06/26",
+    "title": "RED-EYE-LEAD-HUNTER",
+    "category": [
+      "web",
+      "security"
     ],
-    improvements: [
-      "Migrate communication protocol to mutual TLS webhooks with end-to-end payload signature verification.",
-      "Develop cross-platform support for Linux (systemd services) and macOS daemons.",
-      "Add an interactive web-based monitoring dashboard for multiple remote nodes."
+    "categoryLabel": "Chrome Extension",
+    "tagline": "High-performance Chrome extension for automated B2B lead scraping and contact harvesting from Google Maps.",
+    "description": "A high-performance, dark-themed Chrome Extension (Manifest V3) for automated lead extraction from Google Maps. Scrapes business names, phone numbers, websites, emails, and ratings into downloadable CSV and XLSX tables.",
+    "image": "/Images/Projects/red-eye-lead-hunter.png",
+    "repoUrl": "https://github.com/CodeWithTanim/RED-EYE-LEAD-HUNTER",
+    "liveUrl": null,
+    "tech": "JavaScript • Manifest V3 • Web Scraping • XLSX Engine",
+    "challenges": [
+      "Navigating Google Maps infinite scrolling DOM virtualization without trigger rate limits.",
+      "Parsing website homepages in background service workers to detect contact emails and social media handles."
+    ],
+    "improvements": [
+      "Add direct CRM synchronization (HubSpot / Google Sheets API).",
+      "Integrate phone number carrier validation and WhatsApp link generation."
     ]
   },
   {
-    id: "investflow",
-    sheetNum: "07/10",
-    title: "InvestFlow",
-    category: ["web"],
-    categoryLabel: "FinTech / Asset Management",
-    tagline: "Next-Gen HYIP Investment & Asset Management Platform",
-    description: "A financial investment and asset management web platform designed for investment programs, financial tracking, multi-tier referrals, automated interest distribution, two-factor authentication, and compliance workflows.",
-    image: "/Images/Projects/investflow.png",
-    repoUrl: "https://github.com/CodeWithTanim/InvestFlow",
-    liveUrl: null,
-    liveLabel: "Live Demo",
-    tech: "PHP 8.2 • MySQL / MariaDB • Vanilla ES6+ • 2FA TOTP",
-    apiJsonUrl: "/API/investflow.project.json",
-    challenges: [
-      "Designing mathematical precision logic for multi-tier referral calculations and automated compound interest distribution to avoid rounding errors.",
-      "Implementing two-factor authentication (TOTP RFC 6238) and strict session invalidation upon privilege escalation.",
-      "Defending financial transaction endpoints against CSRF, SQL injection, and double-spending attempts."
+    "id": "edutrack",
+    "sheetNum": "07/26",
+    "title": "EduTrack Homework Manager",
+    "category": [
+      "web"
     ],
-    improvements: [
-      "Integrate cryptocurrency payment gateways (Bitcoin, USDT TRC20/ERC20) with automated blockchain confirmation listeners.",
-      "Add AI-assisted fraud detection for abnormal deposit and withdrawal velocity patterns.",
-      "Build native mobile companion apps using React Native."
+    "categoryLabel": "EdTech",
+    "tagline": "Homework and assignment management system for students and educational institutions.",
+    "description": "A modern homework and assignment tracking web application designed to help students organize deadlines, syllabus milestones, and project submissions.",
+    "image": "/Images/Projects/edutrack.png",
+    "repoUrl": "https://github.com/CodeWithTanim/EduTrack",
+    "liveUrl": null,
+    "tech": "React • Node.js • Express • MongoDB",
+    "challenges": [
+      "Building intuitive calendar milestone views with real-time deadline countdown alerts.",
+      "Creating multi-class scheduling support with progress bars."
+    ],
+    "improvements": [
+      "Add mobile push notifications and Discord / Telegram webhook reminder bots."
     ]
   },
   {
-    id: "online-learning-management-system",
-    sheetNum: "08/10",
-    title: "Online Learning Management System (LMS)",
-    category: ["web"],
-    categoryLabel: "Vue 3 + Django REST",
-    tagline: "A full-stack learning platform with course discovery, interactive lessons, quizzes, PDF certificates, instructor tools, and admin moderation.",
-    description: "Developed during an internship with Codec Technologies, this LMS combines a public course catalog and student learning player with instructor course-building tools. Features quizzes, QR-stamped PDF certificates, instructor analytics, and course moderation.",
-    image: "/Images/Projects/lms-platform.png",
-    repoUrl: "https://github.com/CodeWithTanim/Online-Learning-Management-System",
-    liveUrl: null,
-    liveLabel: "Live Demo",
-    tech: "Vue 3 Composition API • Django 5.0 REST • PostgreSQL",
-    apiJsonUrl: "/API/online-learning-management-system.project.json",
-    challenges: [
-      "Managing asynchronous communication between a Vue 3 Composition API frontend and a Django REST Framework backend with token-based authentication.",
-      "Generating cryptographic QR-stamped PDF completion certificates on the fly while maintaining high server throughput.",
-      "Structuring nested course curricula, interactive lesson progression, and timed quiz evaluation logic."
+    "id": "nitro-rush",
+    "sheetNum": "08/26",
+    "title": "Nitro-Rush Game",
+    "category": [
+      "web"
     ],
-    improvements: [
-      "Introduce live interactive video classroom sessions via WebRTC and Zoom integration.",
-      "Add automated coding exercise sandboxes with Dockerized execution environments for programming courses.",
-      "Implement gamification mechanics (badges, leaderboards, and streak counters)."
+    "categoryLabel": "Game / JS",
+    "tagline": "High-speed arcade racing game built with custom HTML5 Canvas physics engine.",
+    "description": "A high-speed retro arcade racing game featuring custom pseudo-3D curve mathematics, collision detection, procedural obstacle generation, and sound synthesis.",
+    "image": "/Images/Projects/nitro-rush.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Nitro-Rush",
+    "liveUrl": null,
+    "tech": "HTML5 Canvas • JavaScript • Web Audio API",
+    "challenges": [
+      "Implementing 60 FPS smooth rendering on Canvas without external game engines.",
+      "Fine-tuning car acceleration curves, drift friction, and lane collision bounds."
+    ],
+    "improvements": [
+      "Add multiplayer leaderboard sync via Firebase / WebSockets.",
+      "Add mobile on-screen touch virtual joystick controls."
     ]
   },
   {
-    id: "online-quiz-app",
-    sheetNum: "09/10",
-    title: "Online Quiz App",
-    category: ["web"],
-    categoryLabel: "PHP & Examination System",
-    tagline: "A PHP-based online examination and quiz system with instant results, student progress tracking, and admin-managed quizzes.",
-    description: "Online examination system built with PHP, MySQL, and Bootstrap. Features separate student and administrator sections with timed question sets, instant grading, test history, and competitive rankings.",
-    image: "/Images/Projects/Online-Quiz-App.jpg",
-    repoUrl: "https://github.com/CodeWithTanim/Online-Quiz-App",
-    liveUrl: "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Project%20Report/Project_Final_Report_Online_Quiz_App.pdf",
-    liveLabel: "Project Report PDF",
-    tech: "PHP • MySQL • Bootstrap • Examination Engine",
-    apiJsonUrl: "/API/online-quiz-app.project.json",
-    challenges: [
-      "Enforcing tamper-resistant server-side timers and preventing student answer manipulation via browser inspect tools.",
-      "Calculating percentile rankings and instantaneous report cards for concurrent test-takers with minimal database query overhead.",
-      "Designing an intuitive administration question bank builder supporting multiple question categories and weightings."
+    "id": "formfarm",
+    "sheetNum": "09/26",
+    "title": "FormFarm (Formspree Clone)",
+    "category": [
+      "web"
     ],
-    improvements: [
-      "Add randomized question shuffling and negative marking algorithms for competitive exam simulations.",
-      "Introduce AI-powered question generation from uploaded PDF textbooks or notes.",
-      "Replatform the user interface with React for seamless single-page application transitions."
+    "categoryLabel": "Web SaaS",
+    "tagline": "SaaS backend platform for managing form submissions easily across static websites.",
+    "description": "A developer-friendly form backend service. Point any HTML form or AJAX request to a FormFarm endpoint to parse payloads, send email alerts, block spam, and review submission analytics.",
+    "image": "/Images/Projects/formfarm.png",
+    "repoUrl": "https://github.com/CodeWithTanim/FormFarm",
+    "liveUrl": "http://form.codewithtanim.works/",
+    "liveLabel": "Live Service",
+    "tech": "TypeScript • Express • MongoDB Atlas • JWT",
+    "challenges": [
+      "Building high-throughput spam filtering and honeypot trapping without slowing response times.",
+      "Managing dynamic JSON payloads in MongoDB Atlas."
+    ],
+    "improvements": [
+      "Add Webhooks and Telegram Bot alerts for instant real-time dispatch."
     ]
   },
   {
-    id: "password-cracking-and-hashing-algorithms",
-    sheetNum: "10/10",
-    title: "Password Cracking & Hashing Algorithms",
-    category: ["security", "python"],
-    categoryLabel: "Security & Hash Labs",
-    tagline: "A Python internship project exploring password hashing, salting, and password-cracking concepts with examples and tests.",
-    description: "Developed during an internship with Codec Technologies, this project explores password hashing with and without cryptographic salts, dictionary attacks, and brute-force cracking concepts accompanied by runnable scripts and tests.",
-    image: "/Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg",
-    repoUrl: "https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms",
-    liveUrl: null,
-    liveLabel: "Live Demo",
-    tech: "Python 3.8+ • Hashlib • Bcrypt • Argon2",
-    apiJsonUrl: "/API/password-cracking-and-hashing-algorithms.project.json",
-    challenges: [
-      "Demonstrating the comparative performance costs and memory hardness between MD5/SHA-256 vs. Bcrypt and Argon2.",
-      "Implementing efficient multi-threaded dictionary attacks and rule-based permutation generators in pure Python.",
-      "Structuring safe educational guidelines to ensure the codebase serves exclusively defensive research purposes."
+    "id": "investflow",
+    "sheetNum": "10/26",
+    "title": "InvestFlow Platform",
+    "category": [
+      "web"
     ],
-    improvements: [
-      "Add GPU acceleration benchmarking via OpenCL or CUDA for high-throughput hash cracking simulations.",
-      "Integrate password strength entropy estimation algorithms (zxcvbn) for live password audit reports.",
-      "Build a containerized Docker lab for university cybersecurity coursework demonstrations."
+    "categoryLabel": "FinTech / Web",
+    "tagline": "Investment tracking platform with real-time portfolio management and secure transactions.",
+    "description": "Full-featured financial investment and portfolio tracking platform with user authentication, interest rate calculators, deposit/withdrawal ledgers, and administrative verification.",
+    "image": "/Images/Projects/investflow.png",
+    "repoUrl": "https://github.com/CodeWithTanim/InvestFlow",
+    "liveUrl": "/payment",
+    "liveLabel": "Billing Portal",
+    "tech": "PHP • MySQL • Bootstrap • Chart.js",
+    "challenges": [
+      "Implementing secure ledger mathematics with double-entry accounting checks.",
+      "Preventing SQL injection and transaction concurrency deadlocks."
+    ],
+    "improvements": [
+      "Add cryptocurrency deposit gateways and automated yield calculation crons."
+    ]
+  },
+  {
+    "id": "ai-image-gen",
+    "sheetNum": "11/26",
+    "title": "Ai-Image-Generator",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "SaaS / AI",
+    "tagline": "Modern SaaS platform leveraging generative AI APIs to produce high-resolution imagery based on prompts.",
+    "description": "Web-based generative art studio allowing users to enter natural language descriptions, choose style filters (cyberpunk, photorealism, anime), and download AI-generated visuals.",
+    "image": "/Images/Projects/ai-image-gen.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Ai-Image-Generator",
+    "liveUrl": null,
+    "tech": "React • Next.js • HuggingFace / OpenAI API • Tailwind CSS",
+    "challenges": [
+      "Streaming image generation progress over asynchronous polling endpoints.",
+      "Handling rate-limiting and fallback model routing across different open-source AI models."
+    ],
+    "improvements": [
+      "Add image-to-image style transfer and upscaling filters."
+    ]
+  },
+  {
+    "id": "data-splitter",
+    "sheetNum": "12/26",
+    "title": "Data-Splitter",
+    "category": [
+      "desktop",
+      "python"
+    ],
+    "categoryLabel": "Desktop Utility",
+    "tagline": "Desktop tool for splitting large TXT, XLSX, XML, and CSV datasets into manageable parts.",
+    "description": "A powerful, user-friendly desktop application for splitting massive datasets into smaller chunks with customizable row limits, header preservation, and batch processing.",
+    "image": "/Images/Projects/data-splitter.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Data-Splitter",
+    "liveUrl": null,
+    "tech": "Python • PyQt5 • Pandas • OpenPyXL",
+    "challenges": [
+      "Chunking gigabyte-sized CSV/XLSX files without running into memory allocation limits.",
+      "Preserving spreadsheet formulas and metadata across divided sub-sheets."
+    ],
+    "improvements": [
+      "Add multi-threaded parallel chunk writing for extreme speed on NVMe storage."
+    ]
+  },
+  {
+    "id": "taskflow",
+    "sheetNum": "13/26",
+    "title": "TaskFlow Task Manager",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Productivity",
+    "tagline": "Modern task management dashboard for productivity and workflow organization.",
+    "description": "Interactive task organizer with Kanban drag-and-drop boards, priority matrix categorization, deadline tags, and browser local storage synchronization.",
+    "image": "/Images/Projects/TaskFlow.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/TaskFlow",
+    "liveUrl": null,
+    "tech": "React • Tailwind CSS • HTML5 Drag & Drop",
+    "challenges": [
+      "Smooth touch and pointer drag-and-drop reordering without stuttering on mobile.",
+      "Designing clean responsive layout across mobile and wide ultrawide monitors."
+    ],
+    "improvements": [
+      "Add cloud sync with Supabase and team collaboration sharing links."
+    ]
+  },
+  {
+    "id": "custom-ransomware-simulation",
+    "sheetNum": "14/26",
+    "title": "Custom Ransomware Simulation",
+    "category": [
+      "security",
+      "python"
+    ],
+    "categoryLabel": "Cybersecurity Sandbox",
+    "tagline": "A sandboxed Python educational simulation demonstrating ransomware-like file encryption and decryption.",
+    "description": "Educational cybersecurity demonstration showing reversible AES-256 file encryption and decryption concepts, key handling, and logging in a strictly isolated sandbox environment for defensive research.",
+    "image": "/Images/Projects/Custom-Ransomware-Simulation.jpeg",
+    "repoUrl": "https://github.com/CodeWithTanim/Custom-Ransomware-Simulation",
+    "liveUrl": null,
+    "tech": "Python 3.8+ • AES-256 • Cryptography • Sandbox",
+    "challenges": [
+      "Ensuring strict sandbox isolation and kill-switch safeguards so operations never escape target folder.",
+      "Implementing efficient AES-256 stream encryption."
+    ],
+    "improvements": [
+      "Add detection heuristic models based on Sysmon event traces."
+    ]
+  },
+  {
+    "id": "password-cracking-and-hashing-algorithms",
+    "sheetNum": "15/26",
+    "title": "Password Cracking & Hashing Algorithms",
+    "category": [
+      "security",
+      "python"
+    ],
+    "categoryLabel": "Security & Hash Labs",
+    "tagline": "A Python internship project exploring password hashing, salting, and password-cracking concepts with examples and tests.",
+    "description": "Developed during an internship with Codec Technologies, this project explores password hashing with and without cryptographic salts, dictionary attacks, and brute-force cracking concepts accompanied by runnable scripts and tests.",
+    "image": "/Images/Projects/Password-Cracking-and-Hashing-Algorithms.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/Password-Cracking-and-Hashing-Algorithms",
+    "liveUrl": null,
+    "tech": "Python 3.8+ • Hashlib • Bcrypt • Argon2",
+    "challenges": [
+      "Demonstrating performance and memory hardness between MD5/SHA-256 vs. Bcrypt and Argon2.",
+      "Implementing multi-threaded dictionary attacks in pure Python."
+    ],
+    "improvements": [
+      "Add GPU acceleration benchmarking via OpenCL or CUDA."
+    ]
+  },
+  {
+    "id": "cryptography-algorithms-implementation",
+    "sheetNum": "16/26",
+    "title": "Cryptography Algorithms Implementation",
+    "category": [
+      "security",
+      "python"
+    ],
+    "categoryLabel": "Cryptography / Security",
+    "tagline": "A Python internship project demonstrating AES, RSA, and hashing algorithms with examples and unit tests.",
+    "description": "Hands-on implementations of core cryptography algorithms created during internship with Codec Technologies. Demonstrates symmetric encryption (AES), asymmetric encryption (RSA), digital signatures, and hashing.",
+    "image": "/Images/Projects/Cryptography-Algorithms-Implementation.jpeg",
+    "repoUrl": "https://github.com/CodeWithTanim/Cryptography-Algorithms-Implementation",
+    "liveUrl": null,
+    "tech": "Python 3.8+ • AES • RSA • PyCryptodome",
+    "challenges": [
+      "Implementing asymmetric key pair generation and padding schemes (PKCS#1 OAEP).",
+      "Benchmarking algorithmic execution time against large datasets."
+    ],
+    "improvements": [
+      "Extend support for post-quantum cryptography algorithms."
+    ]
+  },
+  {
+    "id": "automated-resume-parser",
+    "sheetNum": "17/26",
+    "title": "Automated Resume Parser",
+    "category": [
+      "python"
+    ],
+    "categoryLabel": "Python / NLP",
+    "tagline": "NLP tool extracting skills, contact info, and education from PDF resumes into structured output.",
+    "description": "An automated resume parser using Python to extract structured data (candidate name, email, phone numbers, tech skills, educational background) from PDF and DOCX files.",
+    "image": "/Images/Projects/Automated-Resume-Parser.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/automated-resume-parser",
+    "liveUrl": null,
+    "tech": "Python • spaCy • PyPDF2 • Regular Expressions • NLP",
+    "challenges": [
+      "Parsing multi-column resume layouts without losing text order.",
+      "Training custom entity recognition for tech skill taxonomy extraction."
+    ],
+    "improvements": [
+      "Add automated match score against candidate job descriptions."
+    ]
+  },
+  {
+    "id": "real-time-stock-market-dashboard",
+    "sheetNum": "18/26",
+    "title": "Real-Time Stock Market Dashboard",
+    "category": [
+      "python"
+    ],
+    "categoryLabel": "Python / Streamlit",
+    "tagline": "Interactive dashboard using Python, Streamlit, and Plotly to visualize live stock prices and indicators.",
+    "description": "Built during an internship at Codec Technologies, this web dashboard pulls live ticker data via Yahoo Finance API, calculating moving averages, Bollinger bands, and candlestick charts.",
+    "image": "/Images/Projects/Real-Time-Stock-Market-Dashboard.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/real-time-stock-market-dashboard",
+    "liveUrl": null,
+    "tech": "Python • Streamlit • Plotly • Yahoo Finance API",
+    "challenges": [
+      "Handling financial time-series resamplings and live cache invalidation.",
+      "Rendering interactive responsive financial charts."
+    ],
+    "improvements": [
+      "Add sentiment analysis of live financial news feeds."
+    ]
+  },
+  {
+    "id": "online-quiz-app",
+    "sheetNum": "19/26",
+    "title": "Online Quiz Application",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Web App",
+    "tagline": "Quiz platform with Firebase authentication, real-time scoring, and dynamic questions.",
+    "description": "A full online quiz platform featuring timed quizzes, randomized questions, real-time score calculation, and user test histories.",
+    "image": "/Images/Projects/Online-Quiz-App.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/Online-Quiz-App",
+    "liveUrl": "https://github.com/CodeWithTanim/Online-Quiz-App/blob/main/Project%20Report/Project_Final_Report_Online_Quiz_App.pdf",
+    "liveLabel": "Project Report PDF",
+    "tech": "PHP • MySQL • Bootstrap • JavaScript",
+    "challenges": [
+      "Tamper-resistant client-side countdown timer safeguards.",
+      "Instant grading computation with concurrent test-takers."
+    ],
+    "improvements": [
+      "Add competitive multiplayer head-to-head quiz battles."
+    ]
+  },
+  {
+    "id": "tik-tak-toe",
+    "sheetNum": "20/26",
+    "title": "Tic-Tac-Toe Game",
+    "category": [
+      "python"
+    ],
+    "categoryLabel": "Python Game",
+    "tagline": "Terminal and GUI Tic-Tac-Toe game written in Python with AI opponent.",
+    "description": "Classic Tic-Tac-Toe game implemented with a clean graphical interface and an unbeatable AI opponent driven by the Minimax decision algorithm.",
+    "image": "/Images/Projects/Tik-Tak-Toe.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/Tik-Tak-Toe",
+    "liveUrl": null,
+    "tech": "Python • Tkinter • Minimax Algorithm",
+    "challenges": [
+      "Implementing optimal Minimax tree recursion without noticeable move evaluation lag.",
+      "Creating responsive grid graphics using Tkinter Canvas."
+    ],
+    "improvements": [
+      "Port to web using PyScript or WebAssembly."
+    ]
+  },
+  {
+    "id": "enc",
+    "sheetNum": "21/26",
+    "title": "TOXIC-ENC (ENC)",
+    "category": [
+      "security",
+      "python"
+    ],
+    "categoryLabel": "Security / Cryptography",
+    "tagline": "Python security tool to encrypt scripts with AES-256 encryption for source protection.",
+    "description": "A command-line security obfuscator and encryptor for Python developers. Protects sensitive codebases by packing logic into AES-encrypted payloads with dynamic loaders.",
+    "image": "/Images/Projects/enc.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/ENC",
+    "liveUrl": null,
+    "tech": "Python • AES-256 • AST Obfuscation • Base64",
+    "challenges": [
+      "Creating in-memory bytecode decryption without leaving unencrypted temporary files on disk.",
+      "Preserving compatibility across multiple Python versions."
+    ],
+    "improvements": [
+      "Add multi-stage polymorphic decryptor stubs."
+    ]
+  },
+  {
+    "id": "password-gen",
+    "sheetNum": "22/26",
+    "title": "Password Generator",
+    "category": [
+      "security"
+    ],
+    "categoryLabel": "Security Tool",
+    "tagline": "Secure generator tool for producing strong, random passwords for digital protection.",
+    "description": "Lightweight tool for generating cryptographically secure random passwords with configurable character sets (alphanumeric, symbols, custom rules).",
+    "image": "/Images/Projects/password-gen.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Password-Generator",
+    "liveUrl": null,
+    "tech": "Python • Secrets Module • Cryptographic Entropy",
+    "challenges": [
+      "Ensuring high statistical randomness by using OS entropy pools rather than pseudorandom generators."
+    ],
+    "improvements": [
+      "Add password strength meter with crack-time estimator."
+    ]
+  },
+  {
+    "id": "cosmetics-products-management-system",
+    "sheetNum": "23/26",
+    "title": "Cosmetics Product Management",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "PHP / MySQL",
+    "tagline": "PHP & MySQL inventory management system for cosmetics with admin dashboard and reporting tools.",
+    "description": "Web-based shopping and management system for cosmetics businesses. Customers can browse products, filter by category/brand, search, manage a cart, and place orders. Includes an admin dashboard.",
+    "image": "/Images/Projects/cpms.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System",
+    "liveUrl": "https://github.com/CodeWithTanim/Cosmetics-Product-Management-System/blob/main/CPMS_Project_Report.pdf",
+    "liveLabel": "Project Report PDF",
+    "tech": "PHP 8.2 • MySQL • Bootstrap 5 • Apache",
+    "challenges": [
+      "Handling complex inventory variants with atomic MySQL transactions.",
+      "Implementing secure session management in vanilla PHP."
+    ],
+    "improvements": [
+      "Add real-time stock alert notifications via automated email."
+    ]
+  },
+  {
+    "id": "unclickable-love",
+    "sheetNum": "24/26",
+    "title": "Unclickable Love",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Interactive Web",
+    "tagline": "Interactive fun web project with evasive buttons and playful animations.",
+    "description": "A creative web page with an evasive 'No' button that calculates cursor trajectory and relocates dynamically across the screen with smooth physics.",
+    "image": "/Images/Projects/unclickable-love.png",
+    "repoUrl": "https://github.com/CodeWithTanim/Unclickable-Love",
+    "liveUrl": null,
+    "tech": "HTML5 • CSS3 Keyframes • Vanilla JavaScript",
+    "challenges": [
+      "Calculating real-time mouse vector proximity and clamping button coordinates within viewport boundaries."
+    ],
+    "improvements": [
+      "Add mobile accelerometer tilt controls."
+    ]
+  },
+  {
+    "id": "termux-setup-pro",
+    "sheetNum": "25/26",
+    "title": "TERMUX-SETUP-PRO",
+    "category": [
+      "python",
+      "security"
+    ],
+    "categoryLabel": "CLI / Automation",
+    "tagline": "Automation script to configure a full-fledged Termux development environment with packages and developer tools.",
+    "description": "Automated bash toolchain configuring Android Termux with zsh, essential development compilers (Python, Node.js, C/C++, Git), and cybersecurity packages in one command.",
+    "image": "/Images/Projects/termux-setup-command.jpg",
+    "repoUrl": "https://github.com/CodeWithTanim/TERMUX-SETUP-PRO",
+    "liveUrl": null,
+    "tech": "Bash • Shell Scripting • Linux / Termux",
+    "challenges": [
+      "Handling Android architecture variations (aarch64, arm, x86_64) across package mirrors."
+    ],
+    "improvements": [
+      "Add automated backup of Termux home environments to cloud storage."
+    ]
+  },
+  {
+    "id": "coming-soon",
+    "sheetNum": "26/26",
+    "title": "COMING SOON",
+    "category": [
+      "web"
+    ],
+    "categoryLabel": "Upcoming",
+    "tagline": "Exciting new software projects currently in active development.",
+    "description": "Upcoming full-stack and AI engineering projects, micro-SaaS applications, and open-source contributions scheduled for release in 2026.",
+    "image": "/Images/Projects/coming-soon.png",
+    "repoUrl": "https://github.com/CodeWithTanim",
+    "liveUrl": "https://github.com/CodeWithTanim",
+    "liveLabel": "GitHub Profile",
+    "tech": "Next.js • AI Agents • Full-Stack",
+    "challenges": [
+      "Building multi-agent autonomous engineering pipelines with rigorous benchmarks."
+    ],
+    "improvements": [
+      "Public beta release announcements."
     ]
   }
 ];
