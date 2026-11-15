@@ -1512,23 +1512,7 @@ export default function AdminPage() {
             )}
           </div>
 
-          <div style={{ height: '18px', width: '1px', background: 'var(--border-faint)', margin: '0 0.15rem' }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem' }}>
-            <span
-              style={{
-                width: '7px',
-                height: '7px',
-                borderRadius: '50%',
-                background: '#10b981',
-                display: 'inline-block',
-                boxShadow: '0 0 6px #10b981',
-              }}
-            />
-            <span className="mono" style={{ color: 'var(--text-muted)', fontWeight: 600 }}>
-              MONGODB ONLINE
-            </span>
-          </div>
         </div>
 
         {/* Right: Refresh, Theme Toggle, View Site, Logout */}
