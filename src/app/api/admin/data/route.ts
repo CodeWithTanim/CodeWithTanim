@@ -55,6 +55,16 @@ export async function GET(req: NextRequest) {
       .distinct('ip');
     const uniqueIps = uniqueIpsList.length;
 
+    // 6. Check Telegram configuration
+    const telegramConfigDoc = await db.collection('settings').findOne({ key: 'telegram_config' });
+    const telegramStatus = {
+      configured: Boolean(
+        (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) ||
+        (telegramConfigDoc?.botToken && telegramConfigDoc?.chatId)
+      ),
+      chatId: telegramConfigDoc?.chatId || process.env.TELEGRAM_CHAT_ID || '',
+    };
+
     return NextResponse.json({
       success: true,
       stats: {
@@ -63,6 +73,7 @@ export async function GET(req: NextRequest) {
         totalVisits,
         uniqueIps,
       },
+      telegramStatus,
       submissions,
       visitors,
       logs,

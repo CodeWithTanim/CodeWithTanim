@@ -148,6 +148,15 @@ export default function AdminPage() {
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileMessage, setProfileMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+  // Telegram settings states
+  const [telegramToken, setTelegramToken] = useState('');
+  const [telegramChatId, setTelegramChatId] = useState('');
+  const [telegramConfigured, setTelegramConfigured] = useState(false);
+  const [showTelegramToken, setShowTelegramToken] = useState(false);
+  const [telegramLoading, setTelegramLoading] = useState(false);
+  const [telegramTestLoading, setTelegramTestLoading] = useState(false);
+  const [telegramMessage, setTelegramMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   // Sync theme with document element
   useEffect(() => {
     const currentTheme = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' | null;
@@ -200,6 +209,12 @@ export default function AdminPage() {
             uniqueIps: 0,
           }
         );
+        if (data.telegramStatus) {
+          setTelegramConfigured(Boolean(data.telegramStatus.configured));
+          if (data.telegramStatus.chatId && !telegramChatId) {
+            setTelegramChatId(data.telegramStatus.chatId);
+          }
+        }
       }
     } catch (err) {
       console.error('Error fetching admin data:', err);
@@ -433,6 +448,68 @@ export default function AdminPage() {
       setProfileMessage({ type: 'error', text: 'Network error. Please try again.' });
     } finally {
       setProfileLoading(false);
+    }
+  };
+
+  // Telegram Alert Settings Handlers
+  const handleSaveTelegram = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setTelegramMessage(null);
+    if (!telegramToken.trim() || !telegramChatId.trim()) {
+      setTelegramMessage({ type: 'error', text: 'Both Bot Token and Chat ID are required.' });
+      return;
+    }
+    setTelegramLoading(true);
+    try {
+      const res = await fetch('/api/admin/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'save_telegram_config',
+          payload: { botToken: telegramToken.trim(), chatId: telegramChatId.trim() },
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setTelegramConfigured(true);
+        setTelegramMessage({ type: 'success', text: 'Telegram bot settings saved! Now try the Send Test Alert button below.' });
+      } else {
+        setTelegramMessage({ type: 'error', text: data.error || 'Failed to save Telegram settings.' });
+      }
+    } catch {
+      setTelegramMessage({ type: 'error', text: 'Network error. Please try again.' });
+    } finally {
+      setTelegramLoading(false);
+    }
+  };
+
+  const handleTestTelegram = async () => {
+    setTelegramMessage(null);
+    if (!telegramToken.trim() || !telegramChatId.trim()) {
+      setTelegramMessage({ type: 'error', text: 'Please enter Bot Token and Chat ID first.' });
+      return;
+    }
+    setTelegramTestLoading(true);
+    try {
+      const res = await fetch('/api/admin/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'test_telegram_alert',
+          payload: { botToken: telegramToken.trim(), chatId: telegramChatId.trim() },
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setTelegramConfigured(true);
+        setTelegramMessage({ type: 'success', text: 'Test alert sent! Please check your Telegram app.' });
+      } else {
+        setTelegramMessage({ type: 'error', text: data.error || 'Failed to send test alert. Please verify your Bot Token and Chat ID.' });
+      }
+    } catch {
+      setTelegramMessage({ type: 'error', text: 'Network error sending test alert.' });
+    } finally {
+      setTelegramTestLoading(false);
     }
   };
 
@@ -2763,6 +2840,136 @@ export default function AdminPage() {
                         <span>Save Profile Changes</span>
                       </button>
                     </form>
+                  </div>
+
+                  {/* Card 3: Telegram Bot Alerts Setup */}
+                  <div className="admin-card" style={{ padding: '1.75rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        <Send size={18} color="#0088cc" />
+                        <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Telegram Bot Alerts</h2>
+                      </div>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: '0.7rem',
+                          fontWeight: 700,
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: telegramConfigured ? 'rgba(16, 185, 129, 0.12)' : 'var(--accent-tint)',
+                          color: telegramConfigured ? '#10b981' : 'var(--accent-signal)',
+                          border: `1px solid ${telegramConfigured ? '#10b981' : 'var(--accent-signal)'}`,
+                        }}
+                      >
+                        {telegramConfigured ? '● ACTIVE & READY' : '○ NOT CONFIGURED'}
+                      </span>
+                    </div>
+
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: 0, marginBottom: '1.25rem', lineHeight: 1.5 }}>
+                      Receive instant notifications on your Telegram app whenever someone submits a contact inquiry or applies for a course.
+                    </p>
+
+                    {telegramMessage && (
+                      <div
+                        style={{
+                          background: telegramMessage.type === 'success' ? 'rgba(16, 185, 129, 0.12)' : 'var(--accent-tint)',
+                          border: `1px solid ${telegramMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)'}`,
+                          color: telegramMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '6px',
+                          fontSize: '0.84rem',
+                          fontWeight: 600,
+                          marginBottom: '1.25rem',
+                        }}
+                      >
+                        {telegramMessage.text}
+                      </div>
+                    )}
+
+                    <form onSubmit={handleSaveTelegram} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Telegram Bot Token *
+                        </label>
+                        <div style={{ position: 'relative' }}>
+                          <input
+                            type={showTelegramToken ? 'text' : 'password'}
+                            value={telegramToken}
+                            onChange={(e) => setTelegramToken(e.target.value)}
+                            placeholder="e.g. 123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ"
+                            className="admin-input"
+                            style={{ paddingRight: '2.5rem' }}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowTelegramToken(!showTelegramToken)}
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}
+                          >
+                            {showTelegramToken ? <EyeOff size={15} /> : <Eye size={15} />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Telegram Chat ID *
+                        </label>
+                        <input
+                          type="text"
+                          value={telegramChatId}
+                          onChange={(e) => setTelegramChatId(e.target.value)}
+                          placeholder="e.g. 987654321"
+                          className="admin-input"
+                        />
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
+                        <button
+                          type="submit"
+                          disabled={telegramLoading}
+                          className="admin-btn-primary"
+                          style={{ flex: 1, minWidth: '150px' }}
+                        >
+                          {telegramLoading ? <RefreshCw className="animate-spin" size={15} /> : <Check size={15} />}
+                          <span>Save Settings</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          disabled={telegramTestLoading}
+                          onClick={handleTestTelegram}
+                          style={{
+                            flex: 1,
+                            minWidth: '150px',
+                            padding: '0.75rem 1rem',
+                            background: 'var(--bg-subtle)',
+                            color: 'var(--text-main)',
+                            border: '1.5px solid var(--border-faint)',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontWeight: 700,
+                            fontSize: '0.84rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.4rem',
+                          }}
+                        >
+                          {telegramTestLoading ? <RefreshCw className="animate-spin" size={15} /> : <Send size={15} color="#0088cc" />}
+                          <span>Send Test Alert</span>
+                        </button>
+                      </div>
+                    </form>
+
+                    {/* Quick 2-Step Setup Helper */}
+                    <div style={{ marginTop: '1.25rem', padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px', border: '1px solid var(--border-faint)', fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                      <div className="mono" style={{ fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.35rem' }}>
+                        💡 Quick 2-Step Setup:
+                      </div>
+                      <div>1. Search <b>@BotFather</b> on Telegram, send <code>/newbot</code>, and copy the <b>HTTP API Token</b>.</div>
+                      <div>2. Search <b>@userinfobot</b> on Telegram, press Start to copy your personal <b>Id</b> (Chat ID).</div>
+                      <div>3. Paste both above, click <b>Save</b> & test with <b>Send Test Alert</b>!</div>
+                    </div>
                   </div>
                 </div>
 

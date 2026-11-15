@@ -4,6 +4,7 @@ import { getDatabase } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import { logActivity } from '@/lib/activityLogger';
 import { extractClientIp, lookupGeoLocation } from '@/lib/geoIp';
+import { sendTestTelegramMessage } from '@/lib/telegram';
 
 export async function POST(req: NextRequest) {
   try {
@@ -148,6 +149,44 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, message: 'Admin profile updated successfully' });
       }
       return NextResponse.json({ success: false, error: 'No fields to update' }, { status: 400 });
+    }
+
+    if (action === 'save_telegram_config') {
+      const { botToken, chatId } = payload;
+      if (!botToken || !chatId) {
+        return NextResponse.json({ success: false, error: 'Both Bot Token and Chat ID are required' }, { status: 400 });
+      }
+      await db.collection('settings').updateOne(
+        { key: 'telegram_config' },
+        { $set: { key: 'telegram_config', botToken: botToken.trim(), chatId: chatId.trim(), updatedAt: new Date() } },
+        { upsert: true }
+      );
+      await logActivity(
+        'TELEGRAM_CONFIG_UPDATED',
+        `Telegram bot alerts configured by ${session.user.email}`,
+        ip,
+        `${location.city}, ${location.country}`
+      );
+      return NextResponse.json({ success: true, message: 'Telegram configuration saved successfully' });
+    }
+
+    if (action === 'test_telegram_alert') {
+      const { botToken, chatId } = payload;
+      if (!botToken || !chatId) {
+        return NextResponse.json({ success: false, error: 'Bot Token and Chat ID are required for testing' }, { status: 400 });
+      }
+      const testResult = await sendTestTelegramMessage(botToken.trim(), chatId.trim());
+      if (testResult.success) {
+        await logActivity(
+          'TELEGRAM_TEST_ALERT_SENT',
+          `Telegram test alert sent to chat ${chatId.trim()}`,
+          ip,
+          `${location.city}, ${location.country}`
+        );
+        return NextResponse.json({ success: true, message: 'Test alert sent! Check your Telegram app.' });
+      } else {
+        return NextResponse.json({ success: false, error: testResult.error || 'Failed to deliver message' }, { status: 400 });
+      }
     }
 
     return NextResponse.json(
