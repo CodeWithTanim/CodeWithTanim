@@ -31,7 +31,6 @@ import {
   Send,
   Key,
   UserCheck,
-  ShieldCheck,
   Filter,
   Bell,
   CheckCheck,
@@ -2656,33 +2655,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Card 3: Security & Notification Details */}
-                <div className="admin-card" style={{ padding: '1.5rem', marginTop: '1.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                    <ShieldCheck size={18} color="#10b981" />
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>System Security & Integration Status</h3>
-                  </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
-                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>TELEGRAM BOT ALERTS</div>
-                      <div style={{ fontWeight: 700, color: '#10b981', marginTop: '4px' }}>Active & Connected</div>
-                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Instant notification on form submissions</div>
-                    </div>
-
-                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>SECRET ADMIN ROUTE</div>
-                      <div className="mono" style={{ fontWeight: 700, color: 'var(--accent-signal)', marginTop: '4px' }}>Obfuscated Private Endpoint</div>
-                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Standard /admin paths blocked</div>
-                    </div>
-
-                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>DATABASE BACKEND</div>
-                      <div style={{ fontWeight: 700, color: '#10b981', marginTop: '4px' }}>MongoDB Atlas Cluster</div>
-                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Database: cwt-portfolio</div>
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
 
