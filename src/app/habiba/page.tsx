@@ -9,8 +9,7 @@ import {
   LayoutDashboard,
   Mail,
   MessageSquare,
-  BarChart3,
-  History,
+  Globe,
   Activity,
   Database,
   RefreshCw,
@@ -27,12 +26,10 @@ import {
   EyeOff,
   CheckCircle,
   AlertCircle,
-  Filter,
-  Shield,
+  Sun,
+  Moon,
+  Lock,
   Send,
-  User,
-  Globe,
-  Radio,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -86,6 +83,7 @@ export default function AdminPage() {
   const [session, setSession] = useState<UserSession | null>(null);
   const [sessionPending, setSessionPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Auth form states
   const [authEmail, setAuthEmail] = useState('');
@@ -93,10 +91,9 @@ export default function AdminPage() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
 
-  // YouTube Studio Navigation States
+  // Navigation States
   const [activeTab, setActiveTab] = useState<'dashboard' | 'submissions' | 'visitors' | 'logs' | 'database'>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
   // Data states
@@ -114,6 +111,21 @@ export default function AdminPage() {
   const [submissionFilter, setSubmissionFilter] = useState<'all' | 'unread' | 'read'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Sync theme with document element
+  useEffect(() => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' | null;
+    if (currentTheme) {
+      setTheme(currentTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('cwt_theme', next);
+  };
 
   // Safe Session Check
   const checkSession = useCallback(async () => {
@@ -356,37 +368,31 @@ export default function AdminPage() {
     );
   });
 
-  // Global styles for YouTube Studio aesthetic
-  const ytStyles = (
+  // Global styles matching main portfolio theme
+  const portfolioStyles = (
     <style dangerouslySetInnerHTML={{ __html: `
       * { box-sizing: border-box; }
-      .yt-scroll::-webkit-scrollbar {
+      .admin-scroll::-webkit-scrollbar {
         width: 8px;
         height: 8px;
       }
-      .yt-scroll::-webkit-scrollbar-track {
-        background: #0f0f0f;
+      .admin-scroll::-webkit-scrollbar-track {
+        background: var(--bg-primary);
       }
-      .yt-scroll::-webkit-scrollbar-thumb {
-        background: #272727;
+      .admin-scroll::-webkit-scrollbar-thumb {
+        background: var(--border-faint);
         border-radius: 4px;
       }
-      .yt-scroll::-webkit-scrollbar-thumb:hover {
-        background: #3f3f3f;
+      .admin-scroll::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
       }
-      .yt-hover-btn {
-        transition: background-color 0.15s ease, transform 0.1s ease;
-      }
-      .yt-hover-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-      }
-      .yt-nav-item {
+      .admin-nav-item {
         display: flex;
         align-items: center;
-        gap: 1.25rem;
+        gap: 1rem;
         height: 44px;
         padding: 0 1.25rem;
-        color: #aaaaaa;
+        color: var(--text-muted);
         text-decoration: none;
         border: none;
         background: transparent;
@@ -398,142 +404,249 @@ export default function AdminPage() {
         position: relative;
         text-align: left;
       }
-      .yt-nav-item:hover {
-        background-color: #1f1f1f;
-        color: #ffffff;
+      .admin-nav-item:hover {
+        background-color: var(--bg-subtle);
+        color: var(--text-main);
       }
-      .yt-nav-item.active {
-        background-color: #272727;
-        color: #ffffff;
-        font-weight: 600;
+      .admin-nav-item.active {
+        background-color: var(--bg-subtle);
+        color: var(--text-main);
+        font-weight: 700;
       }
-      .yt-nav-item.active::before {
+      .admin-nav-item.active::before {
         content: '';
         position: absolute;
         left: 0;
         top: 0;
         bottom: 0;
         width: 3px;
-        background-color: #ff0000;
+        background-color: var(--accent-signal);
       }
-      .yt-chip {
+      .admin-chip {
         padding: 0.4rem 0.85rem;
-        border-radius: 18px;
-        font-size: 0.85rem;
-        font-weight: 500;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.15s ease;
-        border: 1px solid transparent;
-        background: #272727;
-        color: #f1f1f1;
+        border: 1px solid var(--border-faint);
+        background: var(--bg-panel);
+        color: var(--text-muted);
       }
-      .yt-chip:hover {
-        background: #383838;
+      .admin-chip:hover {
+        background: var(--bg-subtle);
+        color: var(--text-main);
       }
-      .yt-chip.active {
-        background: #f1f1f1;
-        color: #0f0f0f;
-        font-weight: 600;
+      .admin-chip.active {
+        background: var(--text-main);
+        color: var(--bg-panel);
+        border-color: var(--text-main);
       }
-      .yt-card {
-        background: #1f1f1f;
-        border: 1px solid #272727;
-        border-radius: 12px;
+      .admin-card {
+        background: var(--bg-panel);
+        border: 1px solid var(--border-faint);
+        border-radius: 10px;
+        box-shadow: var(--shadow-sm);
         overflow: hidden;
       }
-      .yt-row:hover {
-        background-color: #272727 !important;
+      .admin-table-row:hover {
+        background-color: var(--bg-subtle) !important;
+      }
+      .admin-login-canvas {
+        background-color: var(--bg-primary);
+        background-image: radial-gradient(var(--border-faint) 1.2px, transparent 1.2px);
+        background-size: 24px 24px;
+        position: relative;
+      }
+      .admin-login-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, var(--accent-tint) 0%, transparent 68%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .admin-login-card {
+        position: relative;
+        z-index: 1;
+        max-width: 440px;
+        width: 100%;
+        background: var(--bg-panel);
+        border: 2px solid var(--border-strong);
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      [data-theme='dark'] .admin-login-card {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 77, 54, 0.08);
+      }
+      .admin-login-input {
+        width: 100%;
+        padding: 0.85rem 1rem 0.85rem 2.85rem;
+        border: 1.5px solid var(--border-faint);
+        border-radius: 8px;
+        background: var(--bg-subtle);
+        color: var(--text-main);
+        font-size: 0.92rem;
+        font-family: var(--font-body);
+        outline: none;
+        transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .admin-login-input:focus {
+        border-color: var(--accent-signal);
+        background: var(--bg-panel);
+        box-shadow: 0 0 0 3px var(--accent-tint);
+      }
+      .admin-login-btn {
+        width: 100%;
+        padding: 0.92rem;
+        background: var(--accent-signal);
+        color: #ffffff;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 0.92rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        cursor: pointer;
+        border: 2px solid var(--border-strong);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        transition: all 0.15s ease;
+      }
+      .admin-login-btn:hover:not(:disabled) {
+        background: var(--accent-signal-hover);
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px var(--border-strong);
+      }
+      .admin-login-btn:active:not(:disabled) {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0px var(--border-strong);
+      }
+      .admin-login-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover, 
+      input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px var(--bg-subtle) inset !important;
+        -webkit-text-fill-color: var(--text-main) !important;
+        transition: background-color 5000s ease-in-out 0s;
       }
     `}} />
   );
 
-  // 1. YouTube Studio Style Login Portal
+  // 1. Sleek Modern Login Portal Matching Website Theme
   if (!session?.user) {
     return (
       <div
+        className="admin-login-canvas"
         style={{
           position: 'fixed',
           inset: 0,
           zIndex: 9999,
-          background: '#0f0f0f',
-          color: '#f1f1f1',
+          color: 'var(--text-main)',
           display: 'flex',
           flexDirection: 'column',
           height: '100vh',
           width: '100vw',
           overflowY: 'auto',
-          fontFamily: 'Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          fontFamily: 'var(--font-body)',
         }}
       >
-        {ytStyles}
+        {portfolioStyles}
 
-        {/* Minimal YouTube Studio Top Header */}
+        {/* Ambient Radial Accent Glow */}
+        <div className="admin-login-glow" />
+
+        {/* Minimal Top Header */}
         <header
           style={{
-            height: '56px',
-            borderBottom: '1px solid #272727',
+            position: 'relative',
+            zIndex: 10,
+            height: '64px',
+            borderBottom: '1px solid var(--border-faint)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 1.5rem',
-            background: '#0f0f0f',
+            padding: '0 1.75rem',
+            background: 'var(--bg-panel)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '22px',
-                background: '#ff0000',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: 0,
-                  height: 0,
-                  borderTop: '5px solid transparent',
-                  borderBottom: '5px solid transparent',
-                  borderLeft: '9px solid white',
-                  marginLeft: '2px',
-                }}
-              />
-            </div>
-            <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', color: '#ffffff' }}>
-              Studio
-            </span>
             <span
               style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.15rem',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                color: 'var(--text-main)',
+              }}
+            >
+              CODE<span style={{ color: 'var(--accent-signal)' }}>WITH</span>TANIM
+            </span>
+            <span
+              className="mono"
+              style={{
                 fontSize: '0.65rem',
-                background: '#272727',
-                color: '#aaaaaa',
-                padding: '1px 6px',
-                borderRadius: '4px',
-                fontWeight: 600,
-                marginLeft: '4px',
+                background: 'var(--accent-tint)',
+                color: 'var(--accent-signal)',
+                border: '1px solid var(--accent-signal)',
+                padding: '2px 7px',
+                fontWeight: 700,
+                letterSpacing: '0.5px',
               }}
             >
               ADMIN
             </span>
           </div>
 
-          <a
-            href="/"
-            style={{
-              fontSize: '0.85rem',
-              color: '#3ea6ff',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-            }}
-          >
-            <span>Back to portfolio</span>
-            <ExternalLink size={14} />
-          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <button
+              onClick={toggleTheme}
+              style={{
+                background: 'var(--bg-primary)',
+                border: '1px solid var(--border-faint)',
+                color: 'var(--text-main)',
+                padding: '6px 14px',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.82rem',
+                fontWeight: 600,
+              }}
+              title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+            >
+              {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+              <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+            </button>
+
+            <a
+              href="/"
+              className="mono"
+              style={{
+                fontSize: '0.82rem',
+                color: 'var(--accent-signal)',
+                fontWeight: 700,
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+              }}
+            >
+              <span>Back to Site &rarr;</span>
+            </a>
+          </div>
         </header>
 
         {/* Login Center Content */}
@@ -543,257 +656,290 @@ export default function AdminPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '2rem 1rem',
+            padding: '2.5rem 1.25rem',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
-          <div
-            style={{
-              maxWidth: '410px',
-              width: '100%',
-              background: '#1f1f1f',
-              border: '1px solid #282828',
-              borderRadius: '16px',
-              padding: '2.5rem 2.25rem',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)',
-            }}
-          >
-            {/* Logo & Header */}
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div
+          <div className="admin-login-card">
+            {/* Top Terminal Header Bar */}
+            <div
+              style={{
+                padding: '0.8rem 1.25rem',
+                borderBottom: '1px solid var(--border-faint)',
+                background: 'var(--bg-subtle)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f', display: 'inline-block' }} />
+              </div>
+              <span
+                className="mono"
                 style={{
-                  width: '56px',
-                  height: '40px',
-                  background: '#ff0000',
-                  borderRadius: '10px',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                  boxShadow: '0 4px 16px rgba(255, 0, 0, 0.35)',
+                  fontSize: '0.7rem',
+                  color: 'var(--text-muted)',
+                  fontWeight: 700,
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
                 }}
               >
-                <div
-                  style={{
-                    width: 0,
-                    height: 0,
-                    borderTop: '7px solid transparent',
-                    borderBottom: '7px solid transparent',
-                    borderLeft: '13px solid white',
-                    marginLeft: '3px',
-                  }}
-                />
-              </div>
-              <h1 style={{ fontSize: '1.45rem', fontWeight: 600, color: '#ffffff', marginBottom: '0.35rem' }}>
-                Sign In to Studio
-              </h1>
-              <p style={{ fontSize: '0.85rem', color: '#aaaaaa', margin: 0 }}>
-                Manage inquiries, visitor analytics & portfolio logs
-              </p>
+                ADMIN GATEWAY
+              </span>
             </div>
 
-            {authError && (
-              <div
-                style={{
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  border: '1px solid rgba(239, 68, 68, 0.35)',
-                  color: '#ff8a8a',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '8px',
-                  fontSize: '0.85rem',
-                  marginBottom: '1.5rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                }}
-              >
-                <AlertCircle size={16} style={{ flexShrink: 0 }} />
-                <span>{authError}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
-              <div>
-                <label
+            {/* Main Form Body */}
+            <div style={{ padding: '2.25rem 2rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+                <div
                   style={{
-                    display: 'block',
-                    fontSize: '0.8rem',
-                    fontWeight: 500,
-                    color: '#aaaaaa',
-                    marginBottom: '0.45rem',
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '14px',
+                    background: 'var(--accent-tint)',
+                    border: '2px solid var(--accent-signal)',
+                    color: 'var(--accent-signal)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1rem',
                   }}
                 >
-                  Email
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <Mail
-                    size={16}
-                    style={{
-                      position: 'absolute',
-                      left: '14px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      color: '#717171',
-                      pointerEvents: 'none',
-                    }}
-                  />
-                  <input
-                    type="email"
-                    required
-                    value={authEmail}
-                    onChange={(e) => setAuthEmail(e.target.value)}
-                    placeholder="codewithtanim@gmail.com"
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem 1rem 0.75rem 2.6rem',
-                      borderRadius: '8px',
-                      border: '1px solid #383838',
-                      background: '#121212',
-                      color: '#ffffff',
-                      fontSize: '0.92rem',
-                      outline: 'none',
-                      transition: 'border-color 0.15s ease',
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = '#3ea6ff')}
-                    onBlur={(e) => (e.target.style.borderColor = '#383838')}
-                  />
+                  <Lock size={24} strokeWidth={2.2} />
                 </div>
-              </div>
-
-              <div>
-                <label
+                <h1
                   style={{
-                    display: 'block',
-                    fontSize: '0.8rem',
-                    fontWeight: 500,
-                    color: '#aaaaaa',
-                    marginBottom: '0.45rem',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.5rem',
+                    textTransform: 'uppercase',
+                    color: 'var(--text-main)',
+                    margin: 0,
+                    lineHeight: 1.2,
                   }}
                 >
-                  Password
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <Shield
-                    size={16}
+                  Admin Portal
+                </h1>
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: '0.8rem',
+                    color: 'var(--text-muted)',
+                    marginTop: '0.45rem',
+                    marginBottom: 0,
+                  }}
+                >
+                  Sign in to manage portfolio inquiries & telemetry
+                </p>
+              </div>
+
+              {authError && (
+                <div
+                  style={{
+                    background: 'var(--accent-tint)',
+                    border: '1.5px solid var(--accent-signal)',
+                    color: 'var(--accent-signal)',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '8px',
+                    fontSize: '0.84rem',
+                    marginBottom: '1.25rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.65rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  <AlertCircle size={17} style={{ flexShrink: 0 }} />
+                  <span>{authError}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div>
+                  <label
+                    className="mono"
                     style={{
-                      position: 'absolute',
-                      left: '14px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      color: '#717171',
-                      pointerEvents: 'none',
-                    }}
-                  />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    value={authPassword}
-                    onChange={(e) => setAuthPassword(e.target.value)}
-                    placeholder="••••••••••••"
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem 2.75rem 0.75rem 2.6rem',
-                      borderRadius: '8px',
-                      border: '1px solid #383838',
-                      background: '#121212',
-                      color: '#ffffff',
-                      fontSize: '0.92rem',
-                      outline: 'none',
-                      transition: 'border-color 0.15s ease',
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = '#3ea6ff')}
-                    onBlur={(e) => (e.target.style.borderColor = '#383838')}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      color: '#aaaaaa',
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '4px',
-                      cursor: 'pointer',
-                      border: 'none',
-                      background: 'transparent',
+                      display: 'block',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      color: 'var(--text-muted)',
+                      marginBottom: '0.45rem',
+                      letterSpacing: '0.5px',
                     }}
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
+                    Admin Email
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Mail
+                      size={16}
+                      style={{
+                        position: 'absolute',
+                        left: '14px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: 'var(--text-muted)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    <input
+                      type="email"
+                      required
+                      value={authEmail}
+                      onChange={(e) => setAuthEmail(e.target.value)}
+                      placeholder="codewithtanim@gmail.com"
+                      className="admin-login-input"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <button
-                type="submit"
-                disabled={authLoading}
+                <div>
+                  <label
+                    className="mono"
+                    style={{
+                      display: 'block',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      color: 'var(--text-muted)',
+                      marginBottom: '0.45rem',
+                      letterSpacing: '0.5px',
+                    }}
+                  >
+                    Password
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Lock
+                      size={16}
+                      style={{
+                        position: 'absolute',
+                        left: '14px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: 'var(--text-muted)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={authPassword}
+                      onChange={(e) => setAuthPassword(e.target.value)}
+                      placeholder="••••••••••••"
+                      className="admin-login-input"
+                      style={{ paddingRight: '2.85rem' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: 'var(--text-muted)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '4px',
+                        cursor: 'pointer',
+                        border: 'none',
+                        background: 'transparent',
+                        borderRadius: '4px',
+                      }}
+                      title={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={authLoading}
+                  className="admin-login-btn"
+                  style={{ marginTop: '0.5rem' }}
+                >
+                  {authLoading ? (
+                    <>
+                      <RefreshCw className="animate-spin" size={16} />
+                      <span>Authenticating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Sign In to Admin</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Card Footer Bar */}
+            <div
+              style={{
+                padding: '0.8rem 1.5rem',
+                borderTop: '1px solid var(--border-faint)',
+                background: 'var(--bg-subtle)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontSize: '0.75rem',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+                <span className="mono" style={{ color: 'var(--text-muted)', fontWeight: 600 }}>SYSTEM OPERATIONAL</span>
+              </div>
+              <a
+                href="/"
+                className="mono"
                 style={{
-                  marginTop: '0.5rem',
-                  width: '100%',
-                  padding: '0.85rem',
-                  borderRadius: '24px',
-                  background: '#ff0000',
-                  color: '#ffffff',
-                  fontWeight: 600,
-                  fontSize: '0.92rem',
+                  color: 'var(--accent-signal)',
+                  fontWeight: 700,
+                  textDecoration: 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem',
-                  opacity: authLoading ? 0.75 : 1,
-                  cursor: authLoading ? 'not-allowed' : 'pointer',
-                  border: 'none',
-                  boxShadow: '0 4px 16px rgba(255, 0, 0, 0.3)',
-                  transition: 'background-color 0.15s ease',
+                  gap: '0.3rem',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#cc0000')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ff0000')}
               >
-                {authLoading ? (
-                  <>
-                    <RefreshCw className="animate-spin" size={16} />
-                    <span>Signing in...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Sign In</span>
-                    <ArrowRight size={16} />
-                  </>
-                )}
-              </button>
-            </form>
+                <span>Return Home &rarr;</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  // 2. Full YouTube Studio Dashboard Layout
+  // 2. Full Admin Dashboard (Sidebar + Topbar Layout using Website Theme)
   return (
     <div
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: '#0f0f0f',
-        color: '#f1f1f1',
+        background: 'var(--bg-primary)',
+        color: 'var(--text-main)',
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
         width: '100vw',
         overflow: 'hidden',
-        fontFamily: 'Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily: 'var(--font-body)',
       }}
     >
-      {ytStyles}
+      {portfolioStyles}
 
-      {/* TOP HEADER (YouTube Studio Header) */}
+      {/* TOP HEADER (Website Themed Navbar) */}
       <header
         style={{
-          height: '56px',
-          background: '#0f0f0f',
-          borderBottom: '1px solid #272727',
+          height: '60px',
+          background: 'var(--bg-panel)',
+          borderBottom: '1px solid var(--border-faint)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -806,62 +952,47 @@ export default function AdminPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="yt-hover-btn"
             style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
+              width: '38px',
+              height: '38px',
+              borderRadius: '6px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff',
-              border: 'none',
-              background: 'transparent',
+              color: 'var(--text-main)',
+              border: '1px solid var(--border-faint)',
+              background: 'var(--bg-primary)',
               cursor: 'pointer',
             }}
             title="Toggle Sidebar"
           >
-            <Menu size={20} />
+            <Menu size={18} />
           </button>
 
           <div
             onClick={() => setActiveTab('dashboard')}
             style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
           >
-            <div
-              style={{
-                width: '32px',
-                height: '22px',
-                background: '#ff0000',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: 0,
-                  height: 0,
-                  borderTop: '5px solid transparent',
-                  borderBottom: '5px solid transparent',
-                  borderLeft: '9px solid white',
-                  marginLeft: '2px',
-                }}
-              />
-            </div>
-            <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.03em', color: '#ffffff' }}>
-              Studio
-            </span>
             <span
               style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.1rem',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                color: 'var(--text-main)',
+              }}
+            >
+              CODE<span style={{ color: 'var(--accent-signal)' }}>WITH</span>TANIM
+            </span>
+            <span
+              className="mono"
+              style={{
                 fontSize: '0.65rem',
-                background: '#272727',
-                color: '#aaaaaa',
-                padding: '1px 6px',
-                borderRadius: '4px',
-                fontWeight: 600,
-                marginLeft: '2px',
+                background: 'var(--accent-tint)',
+                color: 'var(--accent-signal)',
+                border: '1px solid var(--accent-signal)',
+                padding: '2px 6px',
+                fontWeight: 700,
               }}
             >
               ADMIN
@@ -874,28 +1005,28 @@ export default function AdminPage() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#121212',
-            border: '1px solid #303030',
-            borderRadius: '24px',
-            padding: '0 1rem',
+            background: 'var(--bg-primary)',
+            border: '1px solid var(--border-faint)',
+            borderRadius: '6px',
+            padding: '0 0.85rem',
             width: '100%',
-            maxWidth: '520px',
-            height: '40px',
+            maxWidth: '460px',
+            height: '38px',
             margin: '0 1rem',
           }}
         >
-          <Search size={16} style={{ color: '#aaaaaa', marginRight: '0.75rem', flexShrink: 0 }} />
+          <Search size={15} style={{ color: 'var(--text-muted)', marginRight: '0.75rem', flexShrink: 0 }} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search messages, visitors, activity across Studio..."
+            placeholder="Search inquiries, visitor IPs, logs..."
             style={{
               background: 'transparent',
               border: 'none',
               outline: 'none',
-              color: '#ffffff',
-              fontSize: '0.9rem',
+              color: 'var(--text-main)',
+              fontSize: '0.88rem',
               width: '100%',
             }}
           />
@@ -903,7 +1034,7 @@ export default function AdminPage() {
             <button
               onClick={() => setSearchQuery('')}
               style={{
-                color: '#aaaaaa',
+                color: 'var(--text-muted)',
                 fontSize: '0.85rem',
                 border: 'none',
                 background: 'transparent',
@@ -916,59 +1047,78 @@ export default function AdminPage() {
           )}
         </div>
 
-        {/* Right: Actions & Profile */}
+        {/* Right: Theme Toggle, Notifications, Profile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {/* Theme Toggle Button */}
           <button
-            onClick={fetchDashboardData}
-            disabled={dataLoading}
-            className="yt-hover-btn"
+            onClick={toggleTheme}
             style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
+              width: '38px',
+              height: '38px',
+              borderRadius: '6px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff',
-              border: 'none',
-              background: 'transparent',
+              color: 'var(--text-main)',
+              border: '1px solid var(--border-faint)',
+              background: 'var(--bg-primary)',
+              cursor: 'pointer',
+            }}
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+          >
+            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
+
+          {/* Refresh Data Button */}
+          <button
+            onClick={fetchDashboardData}
+            disabled={dataLoading}
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-main)',
+              border: '1px solid var(--border-faint)',
+              background: 'var(--bg-primary)',
               cursor: 'pointer',
             }}
             title="Refresh Data"
           >
-            <RefreshCw size={18} className={dataLoading ? 'animate-spin' : ''} />
+            <RefreshCw size={16} className={dataLoading ? 'animate-spin' : ''} />
           </button>
 
           {/* Notifications Bell */}
           <div style={{ position: 'relative' }}>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="yt-hover-btn"
               style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
+                width: '38px',
+                height: '38px',
+                borderRadius: '6px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#ffffff',
-                border: 'none',
-                background: 'transparent',
+                color: 'var(--text-main)',
+                border: '1px solid var(--border-faint)',
+                background: 'var(--bg-primary)',
                 cursor: 'pointer',
                 position: 'relative',
               }}
               title="Notifications"
             >
-              <Bell size={18} />
+              <Bell size={16} />
               {stats.unreadSubmissions > 0 && (
                 <span
                   style={{
                     position: 'absolute',
-                    top: '6px',
-                    right: '6px',
+                    top: '4px',
+                    right: '4px',
                     width: '16px',
                     height: '16px',
-                    background: '#ff0000',
+                    background: 'var(--accent-signal)',
                     color: '#ffffff',
                     borderRadius: '50%',
                     fontSize: '0.65rem',
@@ -989,23 +1139,24 @@ export default function AdminPage() {
                 style={{
                   position: 'absolute',
                   right: 0,
-                  top: '48px',
+                  top: '44px',
                   width: '320px',
-                  background: '#1f1f1f',
-                  border: '1px solid #282828',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                  background: 'var(--bg-panel)',
+                  border: '2px solid var(--border-strong)',
+                  boxShadow: 'var(--shadow-lg)',
                   padding: '1rem',
                   zIndex: 200,
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Notifications</span>
-                  <span style={{ fontSize: '0.75rem', color: '#aaaaaa' }}>{stats.unreadSubmissions} unread</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                  <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>Unread Inquiries</span>
+                  <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--accent-signal)' }}>
+                    {stats.unreadSubmissions} new
+                  </span>
                 </div>
-                <div style={{ maxHeight: '240px', overflowY: 'auto' }} className="yt-scroll">
+                <div style={{ maxHeight: '240px', overflowY: 'auto' }} className="admin-scroll">
                   {submissions.filter((s) => s.status === 'unread').length === 0 ? (
-                    <div style={{ fontSize: '0.85rem', color: '#717171', textAlign: 'center', padding: '1rem 0' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', padding: '1rem 0' }}>
                       No new unread messages
                     </div>
                   ) : (
@@ -1022,17 +1173,16 @@ export default function AdminPage() {
                           }}
                           style={{
                             padding: '0.6rem 0.5rem',
-                            borderBottom: '1px solid #282828',
+                            borderBottom: '1px solid var(--border-faint)',
                             cursor: 'pointer',
                             fontSize: '0.82rem',
                           }}
-                          className="yt-row"
                         >
-                          <div style={{ fontWeight: 600, color: '#f1f1f1' }}>{sub.name}</div>
-                          <div style={{ color: '#aaaaaa', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{sub.name}</div>
+                          <div style={{ color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {sub.message}
                           </div>
-                          <div style={{ fontSize: '0.7rem', color: '#717171', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.7rem', color: 'var(--text-faint)', marginTop: '2px' }}>
                             {timeAgo(sub.createdAt)}
                           </div>
                         </div>
@@ -1049,15 +1199,14 @@ export default function AdminPage() {
               width: '34px',
               height: '34px',
               borderRadius: '50%',
-              background: '#ff0000',
+              background: 'var(--accent-signal)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               color: '#ffffff',
-              marginLeft: '0.5rem',
-              cursor: 'pointer',
+              marginLeft: '0.35rem',
             }}
             title={session.user.email}
           >
@@ -1066,14 +1215,14 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* BODY (SIDEBAR + MAIN CONTENT) */}
+      {/* BODY (SIDEBAR + MAIN WORKSPACE) */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* LEFT SIDEBAR (YouTube Studio Navigation) */}
+        {/* LEFT SIDEBAR */}
         <aside
           style={{
-            width: sidebarCollapsed ? '72px' : '240px',
-            background: '#0f0f0f',
-            borderRight: '1px solid #272727',
+            width: sidebarCollapsed ? '64px' : '240px',
+            background: 'var(--bg-panel)',
+            borderRight: '1px solid var(--border-faint)',
             display: 'flex',
             flexDirection: 'column',
             flexShrink: 0,
@@ -1081,40 +1230,40 @@ export default function AdminPage() {
             overflowY: 'auto',
             overflowX: 'hidden',
           }}
-          className="yt-scroll"
+          className="admin-scroll"
         >
-          {/* Channel Info in Sidebar (Only when expanded) */}
+          {/* Profile Block (Expanded Mode) */}
           {!sidebarCollapsed && (
             <div
               style={{
                 padding: '1.25rem 1rem 1rem',
                 textAlign: 'center',
-                borderBottom: '1px solid #272727',
+                borderBottom: '1px solid var(--border-faint)',
                 marginBottom: '0.5rem',
               }}
             >
               <div
                 style={{
-                  width: '68px',
-                  height: '68px',
+                  width: '56px',
+                  height: '56px',
                   borderRadius: '50%',
-                  background: '#ff0000',
+                  background: 'var(--accent-signal)',
                   margin: '0 auto 0.65rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '1.6rem',
-                  fontWeight: 700,
+                  fontSize: '1.4rem',
+                  fontWeight: 800,
                   color: '#ffffff',
-                  boxShadow: '0 4px 14px rgba(255, 0, 0, 0.25)',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 T
               </div>
-              <div style={{ fontSize: '0.92rem', fontWeight: 600, color: '#ffffff' }}>
-                Your Portfolio
+              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                MD SAMIUR RAHMAN TANIM
               </div>
-              <div style={{ fontSize: '0.78rem', color: '#aaaaaa', marginTop: '2px', wordBreak: 'break-all' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px', wordBreak: 'break-all' }}>
                 {session.user.email}
               </div>
             </div>
@@ -1124,26 +1273,26 @@ export default function AdminPage() {
           <nav style={{ flex: 1, padding: '0.5rem 0' }}>
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`yt-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
+              className={`admin-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
               title="Dashboard"
             >
-              <LayoutDashboard size={20} style={{ color: activeTab === 'dashboard' ? '#ff0000' : '#aaaaaa', flexShrink: 0 }} />
+              <LayoutDashboard size={18} style={{ color: activeTab === 'dashboard' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && <span>Dashboard</span>}
             </button>
 
             <button
               onClick={() => setActiveTab('submissions')}
-              className={`yt-nav-item ${activeTab === 'submissions' ? 'active' : ''}`}
+              className={`admin-nav-item ${activeTab === 'submissions' ? 'active' : ''}`}
               title="Inquiries"
             >
-              <MessageSquare size={20} style={{ color: activeTab === 'submissions' ? '#ff0000' : '#aaaaaa', flexShrink: 0 }} />
+              <MessageSquare size={18} style={{ color: activeTab === 'submissions' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                   <span>Inquiries</span>
                   {stats.unreadSubmissions > 0 && (
                     <span
                       style={{
-                        background: '#ff0000',
+                        background: 'var(--accent-signal)',
                         color: '#fff',
                         fontSize: '0.7rem',
                         fontWeight: 700,
@@ -1160,42 +1309,42 @@ export default function AdminPage() {
 
             <button
               onClick={() => setActiveTab('visitors')}
-              className={`yt-nav-item ${activeTab === 'visitors' ? 'active' : ''}`}
-              title="Analytics"
+              className={`admin-nav-item ${activeTab === 'visitors' ? 'active' : ''}`}
+              title="Visitor Analytics"
             >
-              <BarChart3 size={20} style={{ color: activeTab === 'visitors' ? '#ff0000' : '#aaaaaa', flexShrink: 0 }} />
-              {!sidebarCollapsed && <span>Analytics</span>}
+              <Globe size={18} style={{ color: activeTab === 'visitors' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {!sidebarCollapsed && <span>Visitor Analytics</span>}
             </button>
 
             <button
               onClick={() => setActiveTab('logs')}
-              className={`yt-nav-item ${activeTab === 'logs' ? 'active' : ''}`}
+              className={`admin-nav-item ${activeTab === 'logs' ? 'active' : ''}`}
               title="Activity Logs"
             >
-              <History size={20} style={{ color: activeTab === 'logs' ? '#ff0000' : '#aaaaaa', flexShrink: 0 }} />
+              <Activity size={18} style={{ color: activeTab === 'logs' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && <span>Activity Logs</span>}
             </button>
 
             <button
               onClick={() => setActiveTab('database')}
-              className={`yt-nav-item ${activeTab === 'database' ? 'active' : ''}`}
+              className={`admin-nav-item ${activeTab === 'database' ? 'active' : ''}`}
               title="Database"
             >
-              <Database size={20} style={{ color: activeTab === 'database' ? '#ff0000' : '#aaaaaa', flexShrink: 0 }} />
+              <Database size={18} style={{ color: activeTab === 'database' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && <span>Database</span>}
             </button>
           </nav>
 
-          {/* Sidebar Footer Actions */}
-          <div style={{ borderTop: '1px solid #272727', padding: '0.5rem 0' }}>
+          {/* Bottom Actions */}
+          <div style={{ borderTop: '1px solid var(--border-faint)', padding: '0.5rem 0' }}>
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="yt-nav-item"
+              className="admin-nav-item"
               title="View Public Portfolio"
             >
-              <ExternalLink size={18} style={{ color: '#aaaaaa', flexShrink: 0 }} />
+              <ExternalLink size={17} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && <span>View Portfolio</span>}
             </a>
 
@@ -1204,40 +1353,45 @@ export default function AdminPage() {
                 await authClient.signOut();
                 window.location.reload();
               }}
-              className="yt-nav-item"
+              className="admin-nav-item"
               title="Sign Out"
             >
-              <LogOut size={18} style={{ color: '#aaaaaa', flexShrink: 0 }} />
+              <LogOut size={17} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
               {!sidebarCollapsed && <span>Sign Out</span>}
             </button>
           </div>
         </aside>
 
-        {/* MAIN WORKSPACE (Content Area) */}
+        {/* MAIN WORKSPACE */}
         <main
           style={{
             flex: 1,
-            background: '#0f0f0f',
+            background: 'var(--bg-primary)',
             overflowY: 'auto',
-            padding: '1.75rem 2.25rem',
+            padding: '1.75rem 2rem',
           }}
-          className="yt-scroll"
+          className="admin-scroll"
         >
-          {/* TAB 1: YOUTUBE STUDIO CHANNEL DASHBOARD */}
+          {/* TAB 1: DASHBOARD OVERVIEW */}
           {activeTab === 'dashboard' && (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
-                  Channel dashboard
-                </h1>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '0.82rem', color: '#aaaaaa' }}>
-                    Database: <span style={{ color: '#2ba640', fontWeight: 600 }}>Connected</span>
+                <div>
+                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                    Overview Dashboard
+                  </h1>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                    Real-time status of your portfolio interactions and telemetry
+                  </p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span className="mono" style={{ fontSize: '0.78rem', padding: '4px 10px', background: 'var(--bg-panel)', border: '1px solid var(--border-faint)' }}>
+                    Database: <strong style={{ color: '#10b981' }}>Connected</strong>
                   </span>
                 </div>
               </div>
 
-              {/* YouTube Studio 4 Analytics Summary Cards */}
+              {/* 4 Analytics Summary Cards */}
               <div
                 style={{
                   display: 'grid',
@@ -1246,76 +1400,76 @@ export default function AdminPage() {
                   marginBottom: '1.75rem',
                 }}
               >
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#aaaaaa', fontSize: '0.85rem' }}>
-                    <span>Inquiries</span>
-                    <Mail size={16} color="#ff0000" />
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: 600 }}>Total Inquiries</span>
+                    <Mail size={16} color="var(--accent-signal)" />
                   </div>
-                  <div style={{ fontSize: '1.85rem', fontWeight: 700, color: '#ffffff', margin: '0.5rem 0 0.2rem' }}>
+                  <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
                     {stats.totalSubmissions}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: stats.unreadSubmissions > 0 ? '#ff4d4d' : '#aaaaaa' }}>
+                  <div style={{ fontSize: '0.8rem', color: stats.unreadSubmissions > 0 ? 'var(--accent-signal)' : 'var(--text-muted)', fontWeight: 600 }}>
                     {stats.unreadSubmissions} unread messages
                   </div>
                 </div>
 
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#aaaaaa', fontSize: '0.85rem' }}>
-                    <span>Views (Site Visits)</span>
-                    <Globe size={16} color="#3ea6ff" />
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: 600 }}>Total Site Views</span>
+                    <Globe size={16} color="#06b6d4" />
                   </div>
-                  <div style={{ fontSize: '1.85rem', fontWeight: 700, color: '#ffffff', margin: '0.5rem 0 0.2rem' }}>
+                  <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
                     {stats.totalVisits}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#aaaaaa' }}>
-                    Total page hits recorded
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    Tracked page views
                   </div>
                 </div>
 
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#aaaaaa', fontSize: '0.85rem' }}>
-                    <span>Audience (Unique IPs)</span>
-                    <MapPin size={16} color="#2ba640" />
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: 600 }}>Unique Audience (IPs)</span>
+                    <MapPin size={16} color="#10b981" />
                   </div>
-                  <div style={{ fontSize: '1.85rem', fontWeight: 700, color: '#ffffff', margin: '0.5rem 0 0.2rem' }}>
+                  <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
                     {stats.uniqueIps}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#aaaaaa' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                     Distinct visitors
                   </div>
                 </div>
 
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#aaaaaa', fontSize: '0.85rem' }}>
-                    <span>Activity Logs</span>
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    <span style={{ fontWeight: 600 }}>Activity Logs</span>
                     <Activity size={16} color="#f59e0b" />
                   </div>
-                  <div style={{ fontSize: '1.85rem', fontWeight: 700, color: '#ffffff', margin: '0.5rem 0 0.2rem' }}>
+                  <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
                     {logs.length}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#aaaaaa' }}>
-                    System events logged
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    Recorded events
                   </div>
                 </div>
               </div>
 
-              {/* YouTube Studio Dashboard Widgets Grid */}
+              {/* Grid: Recent Inquiries + Realtime Visitors */}
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
                   gap: '1.5rem',
                 }}
               >
-                {/* Widget 1: Latest Inquiries (YouTube Studio Comments/Community Card) */}
-                <div className="yt-card" style={{ padding: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                {/* Recent Inquiries Card */}
+                <div className="admin-card" style={{ padding: '1.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
                     <div>
-                      <h2 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', margin: 0 }}>
+                      <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>
                         Recent Inquiries
                       </h2>
-                      <p style={{ fontSize: '0.8rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                        Messages sent through portfolio contact form
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                        Messages submitted via portfolio contact forms
                       </p>
                     </div>
                     <button
@@ -1323,23 +1477,22 @@ export default function AdminPage() {
                       style={{
                         background: 'transparent',
                         border: 'none',
-                        color: '#3ea6ff',
-                        fontSize: '0.85rem',
-                        fontWeight: 600,
+                        color: 'var(--accent-signal)',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
                         cursor: 'pointer',
-                        padding: '4px',
                       }}
                     >
-                      GO TO INQUIRIES &rarr;
+                      VIEW ALL &rarr;
                     </button>
                   </div>
 
                   {submissions.length === 0 ? (
-                    <div style={{ padding: '2rem 0', textAlign: 'center', color: '#717171', fontSize: '0.9rem' }}>
-                      No messages received yet.
+                    <div style={{ padding: '2rem 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                      No inquiries received yet.
                     </div>
                   ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                       {submissions.slice(0, 4).map((sub) => (
                         <div
                           key={sub._id}
@@ -1349,27 +1502,27 @@ export default function AdminPage() {
                           }}
                           style={{
                             padding: '0.85rem',
+                            border: '1px solid var(--border-faint)',
                             borderRadius: '8px',
-                            background: '#121212',
-                            border: '1px solid #282828',
+                            background: 'var(--bg-subtle)',
                             cursor: 'pointer',
                             display: 'flex',
                             gap: '0.85rem',
                             alignItems: 'flex-start',
                           }}
-                          className="yt-row"
+                          className="admin-table-row"
                         >
                           <div
                             style={{
-                              width: '36px',
-                              height: '36px',
+                              width: '34px',
+                              height: '34px',
                               borderRadius: '50%',
-                              background: sub.status === 'unread' ? '#ff0000' : '#272727',
+                              background: sub.status === 'unread' ? 'var(--accent-signal)' : 'var(--text-muted)',
                               color: '#fff',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '0.85rem',
+                              fontSize: '0.82rem',
                               fontWeight: 700,
                               flexShrink: 0,
                             }}
@@ -1378,14 +1531,14 @@ export default function AdminPage() {
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <span style={{ fontSize: '0.88rem', fontWeight: 600, color: '#ffffff' }}>
+                              <span style={{ fontSize: '0.88rem', fontWeight: 700 }}>
                                 {sub.name}
                               </span>
-                              <span style={{ fontSize: '0.75rem', color: '#717171' }}>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                                 {timeAgo(sub.createdAt)}
                               </span>
                             </div>
-                            <div style={{ fontSize: '0.8rem', color: '#aaaaaa', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
                               {sub.message}
                             </div>
                           </div>
@@ -1395,27 +1548,27 @@ export default function AdminPage() {
                   )}
                 </div>
 
-                {/* Widget 2: Realtime Visitor Analytics (YouTube Studio Realtime Card) */}
-                <div className="yt-card" style={{ padding: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                {/* Realtime Visitors Card */}
+                <div className="admin-card" style={{ padding: '1.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <h2 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', margin: 0 }}>
-                          Realtime Analytics
+                        <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>
+                          Live Visitor Activity
                         </h2>
                         <span
                           style={{
                             width: '8px',
                             height: '8px',
                             borderRadius: '50%',
-                            background: '#2ba640',
+                            background: '#10b981',
                             display: 'inline-block',
-                            boxShadow: '0 0 8px #2ba640',
+                            boxShadow: '0 0 6px #10b981',
                           }}
                         />
                       </div>
-                      <p style={{ fontSize: '0.8rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                        Live visitor traffic across portfolio routes
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                        Telemetry across portfolio routes
                       </p>
                     </div>
                     <button
@@ -1423,23 +1576,22 @@ export default function AdminPage() {
                       style={{
                         background: 'transparent',
                         border: 'none',
-                        color: '#3ea6ff',
-                        fontSize: '0.85rem',
-                        fontWeight: 600,
+                        color: 'var(--accent-signal)',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
                         cursor: 'pointer',
-                        padding: '4px',
                       }}
                     >
-                      SEE MORE &rarr;
+                      VIEW ALL &rarr;
                     </button>
                   </div>
 
                   {visitors.length === 0 ? (
-                    <div style={{ padding: '2rem 0', textAlign: 'center', color: '#717171', fontSize: '0.9rem' }}>
-                      No visitor records logged yet.
+                    <div style={{ padding: '2rem 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                      No visitor telemetry logged yet.
                     </div>
                   ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                       {visitors.slice(0, 5).map((v) => (
                         <div
                           key={v._id}
@@ -1447,21 +1599,21 @@ export default function AdminPage() {
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            padding: '0.65rem 0.75rem',
-                            background: '#121212',
+                            padding: '0.65rem 0.85rem',
+                            background: 'var(--bg-subtle)',
                             borderRadius: '8px',
-                            border: '1px solid #282828',
+                            border: '1px solid var(--border-faint)',
                           }}
                         >
                           <div>
-                            <div style={{ fontSize: '0.85rem', fontWeight: 500, color: '#ffffff' }}>
+                            <div style={{ fontSize: '0.84rem', fontWeight: 600 }}>
                               {v.path}
                             </div>
-                            <div style={{ fontSize: '0.75rem', color: '#aaaaaa' }}>
+                            <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
                               {v.city ? `${v.city}, ` : ''}{v.country || 'Unknown location'} • {v.ip}
                             </div>
                           </div>
-                          <span style={{ fontSize: '0.75rem', color: '#717171' }}>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                             {timeAgo(v.visitedAt)}
                           </span>
                         </div>
@@ -1473,54 +1625,52 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 2: INQUIRIES (YouTube Studio "Content / Comments" Style) */}
+          {/* TAB 2: INQUIRIES */}
           {activeTab === 'submissions' && (
             <div>
-              {/* Header & Filter Chips */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
                 <div>
-                  <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
+                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
                     Inquiries ({submissions.length})
                   </h1>
-                  <p style={{ fontSize: '0.82rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                    Messages submitted by portfolio visitors
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                    Messages sent from contact forms and course enrollments
                   </p>
                 </div>
 
-                {/* Filter Chips */}
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button
                     onClick={() => setSubmissionFilter('all')}
-                    className={`yt-chip ${submissionFilter === 'all' ? 'active' : ''}`}
+                    className={`admin-chip ${submissionFilter === 'all' ? 'active' : ''}`}
                   >
                     All ({submissions.length})
                   </button>
                   <button
                     onClick={() => setSubmissionFilter('unread')}
-                    className={`yt-chip ${submissionFilter === 'unread' ? 'active' : ''}`}
+                    className={`admin-chip ${submissionFilter === 'unread' ? 'active' : ''}`}
                   >
                     Unread ({stats.unreadSubmissions})
                   </button>
                   <button
                     onClick={() => setSubmissionFilter('read')}
-                    className={`yt-chip ${submissionFilter === 'read' ? 'active' : ''}`}
+                    className={`admin-chip ${submissionFilter === 'read' ? 'active' : ''}`}
                   >
                     Read ({submissions.length - stats.unreadSubmissions})
                   </button>
                 </div>
               </div>
 
-              {/* Inquiries Table / Feed */}
-              <div className="yt-card">
+              {/* Inquiries Table */}
+              <div className="admin-card">
                 {filteredSubmissions.length === 0 ? (
-                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: '#aaaaaa' }}>
-                    No inquiries found matching criteria.
+                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                    No inquiries found.
                   </div>
                 ) : (
-                  <div style={{ overflowX: 'auto' }} className="yt-scroll">
+                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                       <thead>
-                        <tr style={{ borderBottom: '1px solid #272727', color: '#aaaaaa', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                           <th style={{ padding: '0.85rem 1rem' }}>Sender</th>
                           <th style={{ padding: '0.85rem 1rem' }}>Message</th>
                           <th style={{ padding: '0.85rem 1rem' }}>Date</th>
@@ -1533,11 +1683,11 @@ export default function AdminPage() {
                           <tr
                             key={sub._id}
                             style={{
-                              borderBottom: '1px solid #272727',
-                              background: selectedSubmission?._id === sub._id ? '#272727' : 'transparent',
+                              borderBottom: '1px solid var(--border-faint)',
+                              background: selectedSubmission?._id === sub._id ? 'var(--bg-subtle)' : 'transparent',
                               cursor: 'pointer',
                             }}
-                            className="yt-row"
+                            className="admin-table-row"
                             onClick={() => setSelectedSubmission(sub)}
                           >
                             <td style={{ padding: '0.85rem 1rem' }}>
@@ -1547,8 +1697,9 @@ export default function AdminPage() {
                                     width: '32px',
                                     height: '32px',
                                     borderRadius: '50%',
-                                    background: sub.status === 'unread' ? '#ff0000' : '#383838',
-                                    color: '#ffffff',
+                                    background: sub.status === 'unread' ? 'var(--accent-signal)' : 'var(--bg-subtle)',
+                                    color: sub.status === 'unread' ? '#ffffff' : 'var(--text-main)',
+                                    border: '1px solid var(--border-faint)',
                                     fontSize: '0.8rem',
                                     fontWeight: 700,
                                     display: 'flex',
@@ -1560,29 +1711,29 @@ export default function AdminPage() {
                                   {sub.name.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
-                                  <div style={{ fontWeight: 600, color: '#ffffff' }}>{sub.name}</div>
-                                  <div style={{ fontSize: '0.78rem', color: '#aaaaaa' }}>{sub.email}</div>
+                                  <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{sub.name}</div>
+                                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{sub.email}</div>
                                 </div>
                               </div>
                             </td>
                             <td style={{ padding: '0.85rem 1rem', maxWidth: '340px' }}>
-                              <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#f1f1f1' }}>
+                              <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text-main)' }}>
                                 {sub.message}
                               </div>
-                              <div style={{ fontSize: '0.75rem', color: '#717171' }}>
+                              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                                 IP: {sub.ip}
                               </div>
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', whiteSpace: 'nowrap', color: '#aaaaaa', fontSize: '0.8rem' }}>
+                            <td style={{ padding: '0.85rem 1rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
                               {formatDate(sub.createdAt)}
                             </td>
                             <td style={{ padding: '0.85rem 1rem', whiteSpace: 'nowrap' }}>
                               {sub.status === 'unread' ? (
-                                <span style={{ background: 'rgba(255, 0, 0, 0.2)', color: '#ff4d4d', padding: '2px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 600 }}>
+                                <span style={{ background: 'var(--accent-tint)', color: 'var(--accent-signal)', border: '1px solid var(--accent-signal)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 700 }}>
                                   UNREAD
                                 </span>
                               ) : (
-                                <span style={{ background: '#272727', color: '#aaaaaa', padding: '2px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 500 }}>
+                                <span style={{ background: 'var(--bg-subtle)', color: 'var(--text-muted)', border: '1px solid var(--border-faint)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 600 }}>
                                   READ
                                 </span>
                               )}
@@ -1596,16 +1747,14 @@ export default function AdminPage() {
                                 style={{
                                   background: 'transparent',
                                   border: 'none',
-                                  color: '#aaaaaa',
+                                  color: 'var(--text-muted)',
                                   cursor: 'pointer',
                                   padding: '6px',
-                                  borderRadius: '4px',
                                   marginRight: '4px',
                                 }}
                                 title={sub.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
-                                className="yt-hover-btn"
                               >
-                                <Check size={16} color={sub.status === 'read' ? '#2ba640' : '#aaaaaa'} />
+                                <Check size={16} color={sub.status === 'read' ? '#10b981' : 'var(--text-muted)'} />
                               </button>
                               <button
                                 onClick={(e) => {
@@ -1615,13 +1764,11 @@ export default function AdminPage() {
                                 style={{
                                   background: 'transparent',
                                   border: 'none',
-                                  color: '#ff4d4d',
+                                  color: 'var(--accent-signal)',
                                   cursor: 'pointer',
                                   padding: '6px',
-                                  borderRadius: '4px',
                                 }}
-                                title="Delete permanently"
-                                className="yt-hover-btn"
+                                title="Delete"
                               >
                                 <Trash2 size={16} />
                               </button>
@@ -1634,32 +1781,32 @@ export default function AdminPage() {
                 )}
               </div>
 
-              {/* Selected Message Detail Drawer / Modal */}
+              {/* Message Detail Drawer */}
               {selectedSubmission && (
                 <div
                   style={{
                     position: 'fixed',
                     right: 0,
-                    top: '56px',
+                    top: '60px',
                     bottom: 0,
                     width: '440px',
                     maxWidth: '100vw',
-                    background: '#181818',
-                    borderLeft: '1px solid #282828',
-                    padding: '1.5rem',
-                    boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.6)',
+                    background: 'var(--bg-panel)',
+                    borderLeft: '2px solid var(--border-strong)',
+                    padding: '1.75rem',
+                    boxShadow: 'var(--shadow-lg)',
                     zIndex: 250,
                     overflowY: 'auto',
                     display: 'flex',
                     flexDirection: 'column',
                   }}
-                  className="yt-scroll"
+                  className="admin-scroll"
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #282828', paddingBottom: '0.85rem' }}>
-                    <span style={{ fontSize: '1rem', fontWeight: 600, color: '#ffffff' }}>Message Details</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
+                    <span style={{ fontSize: '1rem', fontWeight: 800 }}>Message Detail</span>
                     <button
                       onClick={() => setSelectedSubmission(null)}
-                      style={{ background: 'transparent', border: 'none', color: '#aaaaaa', fontSize: '1.1rem', cursor: 'pointer', padding: '4px' }}
+                      style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '4px' }}
                     >
                       ✕
                     </button>
@@ -1667,37 +1814,37 @@ export default function AdminPage() {
 
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#ff0000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--accent-signal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
                         {selectedSubmission.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div style={{ fontSize: '1rem', fontWeight: 600, color: '#ffffff' }}>{selectedSubmission.name}</div>
-                        <div style={{ fontSize: '0.82rem', color: '#3ea6ff' }}>{selectedSubmission.email}</div>
+                        <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedSubmission.name}</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-signal)' }}>{selectedSubmission.email}</div>
                       </div>
                     </div>
 
-                    <div style={{ background: '#121212', border: '1px solid #282828', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem' }}>
-                      <div style={{ fontSize: '0.75rem', color: '#aaaaaa', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>
-                        Message Body
+                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', marginBottom: '1.25rem' }}>
+                      <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>
+                        Message Content
                       </div>
-                      <div style={{ fontSize: '0.92rem', color: '#ffffff', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                      <div style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
                         {selectedSubmission.message}
                       </div>
                     </div>
 
-                    <div style={{ background: '#121212', border: '1px solid #282828', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ color: '#aaaaaa' }}>Received:</span>
-                        <span style={{ color: '#ffffff' }}>{formatDate(selectedSubmission.createdAt)}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>Received:</span>
+                        <span style={{ fontWeight: 600 }}>{formatDate(selectedSubmission.createdAt)}</span>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ color: '#aaaaaa' }}>Sender IP:</span>
-                        <span style={{ color: '#ffffff' }}>{selectedSubmission.ip}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>Sender IP:</span>
+                        <span style={{ fontFamily: 'var(--font-mono)' }}>{selectedSubmission.ip}</span>
                       </div>
                       {selectedSubmission.location && (
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <span style={{ color: '#aaaaaa' }}>Location:</span>
-                          <span style={{ color: '#ffffff' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>Location:</span>
+                          <span>
                             {selectedSubmission.location.city ? `${selectedSubmission.location.city}, ` : ''}
                             {selectedSubmission.location.country || 'Unknown'}
                           </span>
@@ -1706,17 +1853,16 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '1.5rem', borderTop: '1px solid #282828', paddingTop: '1rem', display: 'flex', gap: '0.75rem' }}>
+                  <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-faint)', paddingTop: '1rem', display: 'flex', gap: '0.75rem' }}>
                     <a
                       href={`mailto:${selectedSubmission.email}?subject=Re: Inquiry on CodeWithTanim`}
                       style={{
                         flex: 1,
                         padding: '0.75rem',
-                        background: '#3ea6ff',
-                        color: '#0f0f0f',
-                        fontWeight: 600,
+                        background: 'var(--text-main)',
+                        color: 'var(--bg-panel)',
+                        fontWeight: 700,
                         fontSize: '0.85rem',
-                        borderRadius: '20px',
                         textAlign: 'center',
                         textDecoration: 'none',
                         display: 'flex',
@@ -1732,12 +1878,11 @@ export default function AdminPage() {
                       onClick={() => handleDeleteSubmission(selectedSubmission._id)}
                       style={{
                         padding: '0.75rem 1rem',
-                        background: '#272727',
-                        color: '#ff4d4d',
-                        borderRadius: '20px',
-                        border: 'none',
+                        background: 'var(--accent-tint)',
+                        color: 'var(--accent-signal)',
+                        border: '1px solid var(--accent-signal)',
                         cursor: 'pointer',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         fontSize: '0.85rem',
                       }}
                     >
@@ -1749,36 +1894,36 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 3: VISITOR ANALYTICS (YouTube Studio "Analytics" Style) */}
+          {/* TAB 3: VISITOR ANALYTICS */}
           {activeTab === 'visitors' && (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div>
-                  <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
-                    Channel analytics (Visitors)
+                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                    Visitor Analytics ({visitors.length})
                   </h1>
-                  <p style={{ fontSize: '0.82rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                    Tracked portfolio visits, IP addresses, and routes
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                    Tracked portfolio hits, client IP addresses, and visited paths
                   </p>
                 </div>
                 <button
                   onClick={handleClearVisitors}
                   style={{
                     padding: '0.5rem 1rem',
-                    background: '#272727',
-                    color: '#aaaaaa',
-                    border: 'none',
-                    borderRadius: '18px',
+                    background: 'var(--bg-panel)',
+                    color: 'var(--text-main)',
+                    border: '1px solid var(--border-faint)',
+                    borderRadius: '6px',
                     fontSize: '0.82rem',
+                    fontWeight: 600,
                     cursor: 'pointer',
                   }}
-                  className="yt-hover-btn"
                 >
                   Clear History
                 </button>
               </div>
 
-              {/* YouTube Studio Metrics Overview */}
+              {/* Stats overview */}
               <div
                 style={{
                   display: 'grid',
@@ -1787,37 +1932,37 @@ export default function AdminPage() {
                   marginBottom: '1.5rem',
                 }}
               >
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ color: '#aaaaaa', fontSize: '0.82rem' }}>Total Page Views</div>
-                  <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#ffffff', marginTop: '0.35rem' }}>
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>Total Page Views</div>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 800, marginTop: '0.35rem' }}>
                     {stats.totalVisits}
                   </div>
                 </div>
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ color: '#aaaaaa', fontSize: '0.82rem' }}>Unique IP Viewers</div>
-                  <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#ffffff', marginTop: '0.35rem' }}>
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>Unique Audience (IPs)</div>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 800, marginTop: '0.35rem' }}>
                     {stats.uniqueIps}
                   </div>
                 </div>
-                <div className="yt-card" style={{ padding: '1.25rem' }}>
-                  <div style={{ color: '#aaaaaa', fontSize: '0.82rem' }}>Live Tracking Mode</div>
-                  <div style={{ fontSize: '1.15rem', fontWeight: 600, color: '#2ba640', marginTop: '0.5rem' }}>
-                    Active (Beacon)
+                <div className="admin-card" style={{ padding: '1.25rem' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>Tracking Beacon</div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#10b981', marginTop: '0.5rem' }}>
+                    Active (Global)
                   </div>
                 </div>
               </div>
 
-              {/* Visitor Logs Table */}
-              <div className="yt-card">
+              {/* Visitor Table */}
+              <div className="admin-card">
                 {filteredVisitors.length === 0 ? (
-                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: '#aaaaaa' }}>
+                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                     No visitor logs recorded.
                   </div>
                 ) : (
-                  <div style={{ overflowX: 'auto' }} className="yt-scroll">
+                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                       <thead>
-                        <tr style={{ borderBottom: '1px solid #272727', color: '#aaaaaa', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                           <th style={{ padding: '0.85rem 1rem' }}>IP Address</th>
                           <th style={{ padding: '0.85rem 1rem' }}>Location</th>
                           <th style={{ padding: '0.85rem 1rem' }}>Path</th>
@@ -1827,29 +1972,29 @@ export default function AdminPage() {
                       </thead>
                       <tbody>
                         {filteredVisitors.map((v) => (
-                          <tr key={v._id} style={{ borderBottom: '1px solid #272727' }} className="yt-row">
-                            <td style={{ padding: '0.85rem 1rem', fontFamily: 'monospace', color: '#3ea6ff' }}>
+                          <tr key={v._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
+                            <td style={{ padding: '0.85rem 1rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-signal)' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                 <span>{v.ip}</span>
                                 <button
                                   onClick={() => copyToClipboard(v.ip, v._id)}
-                                  style={{ background: 'transparent', border: 'none', color: '#717171', cursor: 'pointer', padding: '2px' }}
+                                  style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px' }}
                                   title="Copy IP"
                                 >
-                                  {copiedId === v._id ? <Check size={13} color="#2ba640" /> : <Copy size={13} />}
+                                  {copiedId === v._id ? <Check size={13} color="#10b981" /> : <Copy size={13} />}
                                 </button>
                               </div>
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#ffffff' }}>
+                            <td style={{ padding: '0.85rem 1rem', fontWeight: 500 }}>
                               {v.city ? `${v.city}, ` : ''}{v.country || 'Unknown'}
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#ffffff', fontWeight: 500 }}>
+                            <td style={{ padding: '0.85rem 1rem', fontWeight: 600 }}>
                               {v.path}
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#aaaaaa', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <td style={{ padding: '0.85rem 1rem', color: 'var(--text-muted)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               {v.referrer || 'Direct'}
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#aaaaaa', whiteSpace: 'nowrap' }}>
+                            <td style={{ padding: '0.85rem 1rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                               {formatDate(v.visitedAt)}
                             </td>
                           </tr>
@@ -1862,45 +2007,45 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 4: ACTIVITY LOGS (YouTube Studio "History" Style) */}
+          {/* TAB 4: ACTIVITY LOGS */}
           {activeTab === 'logs' && (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div>
-                  <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
-                    Studio Activity Logs ({logs.length})
+                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                    System Activity Logs ({logs.length})
                   </h1>
-                  <p style={{ fontSize: '0.82rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                    Audit trail of all administrative and portfolio actions
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                    Audit trail of all administrative actions and form events
                   </p>
                 </div>
                 <button
                   onClick={handleClearLogs}
                   style={{
                     padding: '0.5rem 1rem',
-                    background: '#272727',
-                    color: '#aaaaaa',
-                    border: 'none',
-                    borderRadius: '18px',
+                    background: 'var(--bg-panel)',
+                    color: 'var(--text-main)',
+                    border: '1px solid var(--border-faint)',
+                    borderRadius: '6px',
                     fontSize: '0.82rem',
+                    fontWeight: 600,
                     cursor: 'pointer',
                   }}
-                  className="yt-hover-btn"
                 >
                   Clear Logs
                 </button>
               </div>
 
-              <div className="yt-card">
+              <div className="admin-card">
                 {filteredLogs.length === 0 ? (
-                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: '#aaaaaa' }}>
+                  <div style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                     No activity logs recorded.
                   </div>
                 ) : (
-                  <div style={{ overflowX: 'auto' }} className="yt-scroll">
+                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                       <thead>
-                        <tr style={{ borderBottom: '1px solid #272727', color: '#aaaaaa', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                           <th style={{ padding: '0.85rem 1rem' }}>Action</th>
                           <th style={{ padding: '0.85rem 1rem' }}>Details</th>
                           <th style={{ padding: '0.85rem 1rem' }}>IP</th>
@@ -1909,28 +2054,30 @@ export default function AdminPage() {
                       </thead>
                       <tbody>
                         {filteredLogs.map((log) => (
-                          <tr key={log._id} style={{ borderBottom: '1px solid #272727' }} className="yt-row">
+                          <tr key={log._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
                             <td style={{ padding: '0.85rem 1rem', whiteSpace: 'nowrap' }}>
                               <span
+                                className="mono"
                                 style={{
-                                  background: '#272727',
-                                  color: '#3ea6ff',
+                                  background: 'var(--bg-subtle)',
+                                  color: 'var(--accent-signal)',
+                                  border: '1px solid var(--border-faint)',
                                   padding: '2px 8px',
-                                  borderRadius: '6px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: 600,
+                                  borderRadius: '4px',
+                                  fontSize: '0.74rem',
+                                  fontWeight: 700,
                                 }}
                               >
                                 {log.action}
                               </span>
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#ffffff' }}>
+                            <td style={{ padding: '0.85rem 1rem', fontWeight: 500 }}>
                               {log.details}
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#aaaaaa', fontFamily: 'monospace' }}>
+                            <td style={{ padding: '0.85rem 1rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                               {log.ip || '-'}
                             </td>
-                            <td style={{ padding: '0.85rem 1rem', color: '#aaaaaa', whiteSpace: 'nowrap' }}>
+                            <td style={{ padding: '0.85rem 1rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                               {formatDate(log.timestamp)}
                             </td>
                           </tr>
@@ -1943,15 +2090,15 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 5: DATABASE & SYSTEM STATUS */}
+          {/* TAB 5: DATABASE ARCHITECTURE */}
           {activeTab === 'database' && (
             <div>
               <div style={{ marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', margin: 0 }}>
-                  Database & System Architecture
+                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                  Database & System Infrastructure
                 </h1>
-                <p style={{ fontSize: '0.82rem', color: '#aaaaaa', margin: '2px 0 0' }}>
-                  Backend infrastructure and connected services
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                  Architecture overview of MongoDB Atlas, Better-Auth, and Telegram notifications
                 </p>
               </div>
 
@@ -1962,56 +2109,56 @@ export default function AdminPage() {
                   gap: '1.5rem',
                 }}
               >
-                <div className="yt-card" style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Database size={18} color="#2ba640" />
+                <div className="admin-card" style={{ padding: '1.75rem' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Database size={18} color="#10b981" />
                     <span>MongoDB Atlas Cluster</span>
                   </h3>
                   <div style={{ fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Cluster Status:</span>
-                      <span style={{ color: '#2ba640', fontWeight: 600 }}>Connected</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Connection Status:</span>
+                      <span style={{ color: '#10b981', fontWeight: 700 }}>Connected</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Database Name:</span>
-                      <span style={{ color: '#ffffff', fontWeight: 500 }}>cwt-portfolio</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Database Name:</span>
+                      <span style={{ fontWeight: 700 }}>cwt-portfolio</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Submissions Collection:</span>
-                      <span style={{ color: '#ffffff' }}>contact_submissions ({stats.totalSubmissions})</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Submissions Collection:</span>
+                      <span>contact_submissions ({stats.totalSubmissions})</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Visitor Tracking Collection:</span>
-                      <span style={{ color: '#ffffff' }}>visitor_logs ({stats.totalVisits})</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Visitor Logs Collection:</span>
+                      <span>visitor_logs ({stats.totalVisits})</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#aaaaaa' }}>Activity Logs Collection:</span>
-                      <span style={{ color: '#ffffff' }}>activity_logs ({logs.length})</span>
+                      <span style={{ color: 'var(--text-muted)' }}>Activity Logs Collection:</span>
+                      <span>activity_logs ({logs.length})</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="yt-card" style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Shield size={18} color="#3ea6ff" />
-                    <span>Authentication & Security</span>
+                <div className="admin-card" style={{ padding: '1.75rem' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Activity size={18} color="var(--accent-signal)" />
+                    <span>Auth & Telemetry Security</span>
                   </h3>
                   <div style={{ fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Auth Provider:</span>
-                      <span style={{ color: '#ffffff', fontWeight: 500 }}>Better-Auth (MongoDB Adapter)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Authentication Provider:</span>
+                      <span style={{ fontWeight: 600 }}>Better-Auth (MongoDB Adapter)</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Admin User:</span>
-                      <span style={{ color: '#ffffff' }}>{session.user.email}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Admin Identity:</span>
+                      <span>{session.user.email}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #282828', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: '#aaaaaa' }}>Telegram Bot Notifications:</span>
-                      <span style={{ color: '#2ba640' }}>Configured</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Telegram Notifications:</span>
+                      <span style={{ color: '#10b981', fontWeight: 600 }}>Configured</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#aaaaaa' }}>Obscured Admin Path:</span>
-                      <span style={{ color: '#ffffff', fontFamily: 'monospace' }}>/habiba</span>
+                      <span style={{ color: 'var(--text-muted)' }}>Security Architecture:</span>
+                      <span className="mono" style={{ color: '#10b981', fontWeight: 700 }}>Obfuscated Route Enabled</span>
                     </div>
                   </div>
                 </div>
