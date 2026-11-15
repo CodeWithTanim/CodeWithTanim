@@ -81,7 +81,7 @@ export default function Footer() {
               <li><a href="/#about">About</a></li>
               <li><a href="/#experience">Experience</a></li>
               <li><a href="/#projects">Projects (26)</a></li>
-              <li><a href="/#videos">Tutorial Videos</a></li>
+              <li><a href="/#courses">My Courses</a></li>
               <li><a href="/certificates">Certificates (28+)</a></li>
               <li><a href="/pythonCourse">Python Course</a></li>
               <li><a href="/cse-guideline">CSE Roadmap</a></li>

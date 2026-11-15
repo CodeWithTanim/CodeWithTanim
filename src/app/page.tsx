@@ -4,7 +4,7 @@ import Experience from '@/components/Experience';
 import Education from '@/components/Education';
 import TechStack from '@/components/TechStack';
 import ProjectsGrid from '@/components/ProjectsGrid';
-import TutorialVideos from '@/components/TutorialVideos';
+import Courses from '@/components/Courses';
 import CertBanner from '@/components/CertBanner';
 import ContactForm from '@/components/ContactForm';
 
@@ -17,7 +17,7 @@ export default function HomePage() {
       <Education />
       <TechStack />
       <ProjectsGrid />
-      <TutorialVideos />
+      <Courses />
       <CertBanner />
       <ContactForm />
     </>

@@ -972,6 +972,74 @@ main {
   border-top: 1px solid var(--border-strong);
 }
 
+/* Featured Course Hero Banner */
+.course-featured-banner {
+  background: var(--bg-panel);
+  border: 2px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+  padding: 30px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-featured-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-signal);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-signal);
+  padding: 4px 10px;
+  margin-bottom: 14px;
+}
+
+.course-featured-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  color: var(--text-main);
+}
+
+.course-featured-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 820px;
+  margin: 0 0 18px;
+}
+
+.course-highlights-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 22px;
+}
+
+.course-highlights-pills span {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-faint);
+  padding: 5px 12px;
+  border-radius: 4px;
+}
+
+.course-action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
 /* Certificate Banner Box (Home Page) */
 .cert-banner-box {
   border: 2px solid var(--border-strong);
