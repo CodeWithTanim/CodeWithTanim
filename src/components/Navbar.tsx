@@ -91,87 +91,69 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav>
           <ul className="nav-desktop">
-            {!isCertificatesPage ? (
-              <>
-                <li>
-                  <a
-                    href={getSectionHref('overview')}
-                    className={`nav-link ${activeSection === 'overview' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('overview')}
-                  >
-                    Overview
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('about')}
-                    className={`nav-link ${activeSection === 'about' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('about')}
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('experience')}
-                    className={`nav-link ${activeSection === 'experience' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('experience')}
-                  >
-                    Experience
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('skills')}
-                    className={`nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('skills')}
-                  >
-                    Stack
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('projects')}
-                    className={`nav-link ${activeSection === 'projects' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('projects')}
-                  >
-                    Projects
-                  </a>
-                </li>
-                <li>
-                  <Link href="/certificates" className="nav-link">
-                    Certificates
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('contact')}
-                    className={`btn-nav-cta ${activeSection === 'contact' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('contact')}
-                  >
-                    Contact
-                  </a>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link href="/" className="nav-link">
-                    Home Portfolio
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/certificates" className="nav-link active">
-                    All Credentials
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#contact" className="btn-nav-cta">
-                    Get in Touch
-                  </Link>
-                </li>
-              </>
-            )}
+            <li>
+              <a
+                href={getSectionHref('overview')}
+                className={`nav-link ${activeSection === 'overview' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('overview')}
+              >
+                Overview
+              </a>
+            </li>
+            <li>
+              <a
+                href={getSectionHref('about')}
+                className={`nav-link ${activeSection === 'about' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('about')}
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href={getSectionHref('experience')}
+                className={`nav-link ${activeSection === 'experience' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('experience')}
+              >
+                Experience
+              </a>
+            </li>
+            <li>
+              <a
+                href={getSectionHref('skills')}
+                className={`nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('skills')}
+              >
+                Stack
+              </a>
+            </li>
+            <li>
+              <a
+                href={getSectionHref('projects')}
+                className={`nav-link ${activeSection === 'projects' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('projects')}
+              >
+                Projects
+              </a>
+            </li>
+            <li>
+              <Link
+                href="/certificates"
+                className={`nav-link ${isCertificatesPage ? 'active' : ''}`}
+                onClick={() => setIsOpen(false)}
+              >
+                Certificates
+              </Link>
+            </li>
+            <li>
+              <a
+                href={getSectionHref('contact')}
+                className={`btn-nav-cta ${activeSection === 'contact' && isHome ? 'active' : ''}`}
+                onClick={() => handleNavClick('contact')}
+              >
+                Contact
+              </a>
+            </li>
           </ul>
         </nav>
 
@@ -198,71 +180,55 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
-        {!isCertificatesPage ? (
-          <>
-            <a
-              href={getSectionHref('overview')}
-              className={`mobile-nav-link ${activeSection === 'overview' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('overview')}
-            >
-              Overview
-            </a>
-            <a
-              href={getSectionHref('about')}
-              className={`mobile-nav-link ${activeSection === 'about' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('about')}
-            >
-              About Me
-            </a>
-            <a
-              href={getSectionHref('experience')}
-              className={`mobile-nav-link ${activeSection === 'experience' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('experience')}
-            >
-              Experience (3 Internships)
-            </a>
-            <a
-              href={getSectionHref('skills')}
-              className={`mobile-nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('skills')}
-            >
-              Tech Stack
-            </a>
-            <a
-              href={getSectionHref('projects')}
-              className={`mobile-nav-link ${activeSection === 'projects' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('projects')}
-            >
-              Projects (26)
-            </a>
-            <Link
-              href="/certificates"
-              className="mobile-nav-link"
-              onClick={() => setIsOpen(false)}
-            >
-              Certificates (28+)
-            </Link>
-            <a
-              href={getSectionHref('contact')}
-              className={`mobile-nav-link ${activeSection === 'contact' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('contact')}
-            >
-              Contact Me
-            </a>
-          </>
-        ) : (
-          <>
-            <Link href="/" className="mobile-nav-link" onClick={() => setIsOpen(false)}>
-              Main Portfolio
-            </Link>
-            <Link href="/certificates" className="mobile-nav-link" onClick={() => setIsOpen(false)}>
-              Certificates Archive
-            </Link>
-            <Link href="/#contact" className="mobile-nav-link" onClick={() => setIsOpen(false)}>
-              Contact Me
-            </Link>
-          </>
-        )}
+        <a
+          href={getSectionHref('overview')}
+          className={`mobile-nav-link ${activeSection === 'overview' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('overview')}
+        >
+          Overview
+        </a>
+        <a
+          href={getSectionHref('about')}
+          className={`mobile-nav-link ${activeSection === 'about' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('about')}
+        >
+          About Me
+        </a>
+        <a
+          href={getSectionHref('experience')}
+          className={`mobile-nav-link ${activeSection === 'experience' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('experience')}
+        >
+          Experience (3 Internships)
+        </a>
+        <a
+          href={getSectionHref('skills')}
+          className={`mobile-nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('skills')}
+        >
+          Tech Stack
+        </a>
+        <a
+          href={getSectionHref('projects')}
+          className={`mobile-nav-link ${activeSection === 'projects' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('projects')}
+        >
+          Projects (26)
+        </a>
+        <Link
+          href="/certificates"
+          className={`mobile-nav-link ${isCertificatesPage ? 'active' : ''}`}
+          onClick={() => setIsOpen(false)}
+        >
+          Certificates (28+)
+        </Link>
+        <a
+          href={getSectionHref('contact')}
+          className={`mobile-nav-link ${activeSection === 'contact' && isHome ? 'active' : ''}`}
+          onClick={() => handleNavClick('contact')}
+        >
+          Contact Me
+        </a>
       </div>
     </header>
   );
