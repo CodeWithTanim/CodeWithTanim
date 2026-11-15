@@ -1015,44 +1015,44 @@ export const EDUCATION: EducationItem[] = [
       "Academic Standing: 4th Year Pursuing candidate actively building open-source software, leading peer coding labs, and shipping production-ready web tools"
     ]
   },
-  // {
-  //   id: "edu-2",
-  //   degree: "Higher Secondary Certificate (HSC / Grade 12)",
-  //   field: "Science Division",
-  //   institution: "Bogura Cantonment Public School & College",
-  //   location: "Bogura, Bangladesh",
-  //   period: "2020 – 2022",
-  //   graduationYear: "2022",
-  //   status: "Completed",
-  //   board: "Rajshahi Education Board",
-  //   grade: "GPA 4.92 / 5.00",
-  //   gradeLabel: "Result",
-  //   description: "Completed higher secondary education in the Science stream with high distinction in Information & Communication Technology (ICT), Mathematics, and Physics.",
-  //   highlights: [
-  //     "Excellence in ICT, Higher Mathematics, and Physics under the Rajshahi Board",
-  //     "Cultivated deep interest in computing logic, algorithmic reasoning, and scripting foundations",
-  //     "Graduated from one of the premier cantonment colleges in northern Bangladesh"
-  //   ]
-  // },
-  // {
-  //   id: "edu-3",
-  //   degree: "Secondary School Certificate (SSC / Grade 10)",
-  //   field: "Science Division",
-  //   institution: "Bogura Zilla School",
-  //   location: "Bogura, Bangladesh",
-  //   period: "2018 – 2020",
-  //   graduationYear: "2020",
-  //   status: "Completed",
-  //   board: "Rajshahi Education Board",
-  //   grade: "GPA 5.00 / 5.00",
-  //   gradeLabel: "Result (Golden A+)",
-  //   description: "Graduated with highest academic honors (Golden A+) from the historic Bogura Zilla School, one of Bangladesh's most prestigious secondary institutions.",
-  //   highlights: [
-  //     "Perfect GPA 5.00 / 5.00 (Golden A+) across all science curriculum disciplines",
-  //     "Strong analytical foundation in mathematics, physics, and computational thinking",
-  //     "Represented school in regional science fairs and academic competitions"
-  //   ]
-  // }
+  {
+    id: "edu-2",
+    degree: "Higher Secondary Certificate (HSC / Grade 12)",
+    field: "Science Division",
+    institution: "Bogura Cantonment Public School & College",
+    location: "Bogura, Bangladesh",
+    period: "2020 – 2022",
+    graduationYear: "2022",
+    status: "Completed",
+    board: "Rajshahi Education Board",
+    grade: "GPA 4.92 / 5.00",
+    gradeLabel: "Result",
+    description: "Completed higher secondary education in the Science stream with high distinction in Information & Communication Technology (ICT), Mathematics, and Physics.",
+    highlights: [
+      "Excellence in ICT, Higher Mathematics, and Physics under the Rajshahi Board",
+      "Cultivated deep interest in computing logic, algorithmic reasoning, and scripting foundations",
+      "Graduated from one of the premier cantonment colleges in northern Bangladesh"
+    ]
+  },
+  {
+    id: "edu-3",
+    degree: "Secondary School Certificate (SSC / Grade 10)",
+    field: "Science Division",
+    institution: "Bogura Zilla School",
+    location: "Bogura, Bangladesh",
+    period: "2018 – 2020",
+    graduationYear: "2020",
+    status: "Completed",
+    board: "Rajshahi Education Board",
+    grade: "GPA 5.00 / 5.00",
+    gradeLabel: "Result (Golden A+)",
+    description: "Graduated with highest academic honors (Golden A+) from the historic Bogura Zilla School, one of Bangladesh's most prestigious secondary institutions.",
+    highlights: [
+      "Perfect GPA 5.00 / 5.00 (Golden A+) across all science curriculum disciplines",
+      "Strong analytical foundation in mathematics, physics, and computational thinking",
+      "Represented school in regional science fairs and academic competitions"
+    ]
+  }
 ];
 
 export const ABOUT_ME = {

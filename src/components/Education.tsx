@@ -22,7 +22,7 @@ export default function Education() {
               </p>
             </div>
             <div className="badge-counter mono">
-              UNDERGRADUATE DEGREE
+              {EDUCATION.length} QUALIFICATIONS
             </div>
           </div>
 
@@ -36,7 +36,13 @@ export default function Education() {
                     </div>
                     <div>
                       <div className="edu-level-eyebrow mono">
-                        <span>UNDERGRADUATE DEGREE · 4TH YEAR</span>
+                        <span>
+                          {edu.status === 'Pursuing'
+                            ? 'UNDERGRADUATE DEGREE · 4TH YEAR'
+                            : edu.id === 'edu-2'
+                            ? 'HIGHER SECONDARY (HSC · 12TH)'
+                            : 'SECONDARY SCHOOL (SSC · 10TH)'}
+                        </span>
                         {edu.board && <span className="edu-board-tag">· {edu.board}</span>}
                       </div>
                       <h3 className="edu-degree-title">{edu.degree}</h3>
