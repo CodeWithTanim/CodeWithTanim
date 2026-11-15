@@ -1,18 +1,15 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { Sparkles, ArrowRight, Youtube, ExternalLink, GraduationCap } from 'lucide-react';
+import { Youtube, ExternalLink } from 'lucide-react';
 
 export interface CourseItem {
   id: string;
   title: string;
   category: string;
   description: string;
-  embedUrl?: string;
-  href?: string;
+  embedUrl: string;
   duration?: string;
-  level?: string;
 }
 
 export const VIDEO_COURSES: CourseItem[] = [
@@ -101,35 +98,6 @@ export default function Courses() {
               <span>Visit @CodeWithTanim</span>
               <ExternalLink size={12} />
             </a>
-          </div>
-
-          {/* Featured Masterclass Hero Card */}
-          <div className="course-featured-banner">
-            <div className="course-featured-eyebrow mono">
-              <Sparkles size={14} />
-              <span>FLAGSHIP MASTERCLASS · ENROLLMENT OPEN</span>
-            </div>
-            <h3 className="course-featured-title">Python A–Z Comprehensive Course</h3>
-            <p className="course-featured-desc">
-              Zero-to-hero comprehensive Python masterclass covering computer science fundamentals, object-oriented programming, data structures, automation scripts, and real-world project development under direct 1-on-1 mentorship and verified completion certificate.
-            </p>
-            <div className="course-highlights-pills mono">
-              <span>✓ 10+ Real-World Projects</span>
-              <span>✓ Cybersecurity &amp; Scripting</span>
-              <span>✓ Line-by-Line Code Reviews</span>
-              <span>✓ Verified Course Certificate</span>
-              <span>✓ bKash · Nagad · Bank Wire</span>
-            </div>
-            <div className="course-action-group">
-              <Link href="/pythonCourse" className="btn-primary" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>
-                <GraduationCap size={18} />
-                <span>Enroll in Python A–Z</span>
-                <ArrowRight size={16} />
-              </Link>
-              <Link href="/pythonCourse" className="btn-outline" style={{ padding: '10px 18px', fontSize: '0.85rem' }}>
-                <span>View Full Curriculum &amp; Syllabus</span>
-              </Link>
-            </div>
           </div>
 
           {/* Video Courses Grid */}
