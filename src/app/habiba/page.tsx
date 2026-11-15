@@ -102,7 +102,20 @@ export default function AdminPage() {
 
   // Navigation States
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setSidebarOpen(true);
+    }
+  }, []);
+
+  const handleNavClick = (tab: TabType) => {
+    setActiveTab(tab);
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setSidebarOpen(false);
+    }
+  };
 
   // Data states
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -570,9 +583,140 @@ export default function AdminPage() {
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        transition: width 0.2s cubic-bezier(0.2, 0, 0, 1);
+        transition: width 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.25s cubic-bezier(0.2, 0, 0, 1);
         overflow-y: auto;
         overflow-x: hidden;
+      }
+      .admin-sidebar-backdrop {
+        display: none;
+      }
+      .admin-btn-label {
+        display: inline;
+      }
+      .admin-header-brand-text {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text-main);
+      }
+      .admin-detail-drawer {
+        position: fixed;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        width: 480px;
+        max-width: 100vw;
+        background: var(--bg-panel);
+        border-left: 2px solid var(--border-strong);
+        padding: 1.75rem;
+        box-shadow: var(--shadow-lg);
+        z-index: 250;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .admin-notification-popover {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        width: 380px;
+        max-width: 92vw;
+        background: var(--bg-panel);
+        border: 1.5px solid var(--border-strong);
+        border-radius: 10px;
+        box-shadow: var(--shadow-lg);
+        z-index: 300;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .admin-main-pane {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.75rem 2rem;
+        background: var(--bg-primary);
+      }
+      .admin-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+      }
+      .admin-split-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+      .admin-settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* Tablet and Mobile Optimization (< 1024px) */
+      @media (max-width: 1023px) {
+        .admin-sidebar {
+          position: fixed !important;
+          top: 60px !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          width: 270px !important;
+          z-index: 500 !important;
+          transform: translateX(${sidebarOpen ? '0' : '-100%'}) !important;
+          box-shadow: ${sidebarOpen ? '4px 0 30px rgba(0,0,0,0.5)' : 'none'} !important;
+        }
+        .admin-sidebar-backdrop {
+          display: ${sidebarOpen ? 'block' : 'none'} !important;
+          position: fixed !important;
+          inset: 60px 0 0 0 !important;
+          background: rgba(0, 0, 0, 0.6) !important;
+          backdrop-filter: blur(2px) !important;
+          z-index: 490 !important;
+        }
+        .admin-btn-label {
+          display: none !important;
+        }
+        .admin-main-pane {
+          padding: 1rem 0.75rem !important;
+        }
+        .admin-detail-drawer {
+          position: fixed !important;
+          inset: 60px 0 0 0 !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          border-left: none !important;
+          padding: 1.25rem 1rem !important;
+          z-index: 550 !important;
+        }
+        .admin-notification-popover {
+          position: fixed !important;
+          top: 65px !important;
+          left: 10px !important;
+          right: 10px !important;
+          width: auto !important;
+          max-width: calc(100vw - 20px) !important;
+          z-index: 600 !important;
+        }
+        .admin-split-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .admin-settings-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .admin-header-brand-text {
+          font-size: 1rem !important;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .admin-summary-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .admin-login-card {
+          margin: 0 0.5rem;
+          border-radius: 8px !important;
+        }
       }
       .admin-nav-item {
         display: flex;
@@ -1150,22 +1294,16 @@ export default function AdminPage() {
           </button>
 
           <div
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => handleNavClick('dashboard')}
             style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
           >
             <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.15rem',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                color: 'var(--text-main)',
-              }}
+              className="admin-header-brand-text"
             >
               CODE<span style={{ color: 'var(--accent-signal)' }}>WITH</span>TANIM
             </span>
             <span
-              className="mono"
+              className="mono admin-btn-label"
               style={{
                 fontSize: '0.65rem',
                 background: 'var(--accent-tint)',
@@ -1241,12 +1379,8 @@ export default function AdminPage() {
                 />
 
                 <div
+                  className="admin-notification-popover"
                   style={{
-                    position: 'absolute',
-                    top: 'calc(100% + 10px)',
-                    left: 0,
-                    width: '380px',
-                    maxWidth: '92vw',
                     background: 'var(--bg-panel)',
                     border: '1.5px solid var(--border-strong)',
                     borderRadius: '10px',
@@ -1516,7 +1650,7 @@ export default function AdminPage() {
         </div>
 
         {/* Right: Refresh, Theme Toggle, View Site, Logout */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <button
             onClick={fetchDashboardData}
             disabled={dataLoading}
@@ -1524,7 +1658,7 @@ export default function AdminPage() {
               background: 'var(--bg-primary)',
               border: '1px solid var(--border-faint)',
               color: 'var(--text-main)',
-              padding: '6px 12px',
+              padding: '6px 10px',
               borderRadius: '6px',
               cursor: 'pointer',
               display: 'flex',
@@ -1536,7 +1670,7 @@ export default function AdminPage() {
             title="Refresh Data"
           >
             <RefreshCw size={14} className={dataLoading ? 'animate-spin' : ''} />
-            <span>Refresh</span>
+            <span className="admin-btn-label">Refresh</span>
           </button>
 
           <button
@@ -1545,7 +1679,7 @@ export default function AdminPage() {
               background: 'var(--bg-primary)',
               border: '1px solid var(--border-faint)',
               color: 'var(--text-main)',
-              padding: '6px 12px',
+              padding: '6px 10px',
               borderRadius: '6px',
               cursor: 'pointer',
               display: 'flex',
@@ -1557,7 +1691,7 @@ export default function AdminPage() {
             title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
           >
             {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
-            <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
+            <span className="admin-btn-label">{theme === 'light' ? 'Dark' : 'Light'}</span>
           </button>
 
           <a
@@ -1568,7 +1702,7 @@ export default function AdminPage() {
               background: 'var(--bg-primary)',
               border: '1px solid var(--border-faint)',
               color: 'var(--text-main)',
-              padding: '6px 12px',
+              padding: '6px 10px',
               borderRadius: '6px',
               textDecoration: 'none',
               display: 'flex',
@@ -1577,9 +1711,10 @@ export default function AdminPage() {
               fontSize: '0.8rem',
               fontWeight: 600,
             }}
+            title="View Public Site"
           >
             <ExternalLink size={14} />
-            <span>View Site</span>
+            <span className="admin-btn-label">View Site</span>
           </a>
 
           <button
@@ -1591,7 +1726,7 @@ export default function AdminPage() {
               background: 'var(--accent-tint)',
               border: '1px solid var(--accent-signal)',
               color: 'var(--accent-signal)',
-              padding: '6px 12px',
+              padding: '6px 10px',
               borderRadius: '6px',
               cursor: 'pointer',
               display: 'flex',
@@ -1600,20 +1735,27 @@ export default function AdminPage() {
               fontSize: '0.8rem',
               fontWeight: 700,
             }}
+            title="Sign Out"
           >
             <LogOut size={14} />
-            <span>Sign Out</span>
+            <span className="admin-btn-label">Sign Out</span>
           </button>
         </div>
       </header>
 
       {/* BODY (LEFT SIDEBAR + RIGHT WORKSPACE) */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
+        {/* Backdrop for mobile when sidebar is open */}
+        <div
+          className="admin-sidebar-backdrop"
+          onClick={() => setSidebarOpen(false)}
+        />
+
         {/* LEFT SIDEBAR NAVIGATION */}
         <aside className="admin-sidebar admin-scroll">
           <nav style={{ flex: 1, padding: '0.75rem 0' }}>
             <button
-              onClick={() => setActiveTab('dashboard')}
+              onClick={() => handleNavClick('dashboard')}
               className={`admin-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
               title="Dashboard"
             >
@@ -1640,7 +1782,7 @@ export default function AdminPage() {
 
             {/* Option: Contact Inquiries */}
             <button
-              onClick={() => setActiveTab('contact_forms')}
+              onClick={() => handleNavClick('contact_forms')}
               className={`admin-nav-item ${activeTab === 'contact_forms' ? 'active' : ''}`}
               title="Contact Inquiries"
             >
@@ -1668,7 +1810,7 @@ export default function AdminPage() {
 
             {/* Option: Course Enrollments */}
             <button
-              onClick={() => setActiveTab('course_forms')}
+              onClick={() => handleNavClick('course_forms')}
               className={`admin-nav-item ${activeTab === 'course_forms' ? 'active' : ''}`}
               title="Course Enrollments"
             >
@@ -1713,7 +1855,7 @@ export default function AdminPage() {
 
             {/* Option: Analytics */}
             <button
-              onClick={() => setActiveTab('analytics')}
+              onClick={() => handleNavClick('analytics')}
               className={`admin-nav-item ${activeTab === 'analytics' ? 'active' : ''}`}
               title="Visitor Analytics"
             >
@@ -1723,7 +1865,7 @@ export default function AdminPage() {
 
             {/* Option: Activity Logs */}
             <button
-              onClick={() => setActiveTab('logs')}
+              onClick={() => handleNavClick('logs')}
               className={`admin-nav-item ${activeTab === 'logs' ? 'active' : ''}`}
               title="Activity Logs"
             >
@@ -1766,7 +1908,7 @@ export default function AdminPage() {
 
             {/* Option: Settings */}
             <button
-              onClick={() => setActiveTab('settings')}
+              onClick={() => handleNavClick('settings')}
               className={`admin-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
               title="Settings"
             >
@@ -1787,15 +1929,7 @@ export default function AdminPage() {
         </aside>
 
         {/* RIGHT WORKSPACE (CONTENT UPDATES BASED ON SELECTED SIDEBAR ITEM) */}
-        <main
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '1.75rem 2rem',
-            background: 'var(--bg-primary)',
-          }}
-          className="admin-scroll"
-        >
+        <main className="admin-main-pane admin-scroll">
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             {/* OPTION 1: DASHBOARD OVERVIEW */}
             {activeTab === 'dashboard' && (
@@ -1810,14 +1944,7 @@ export default function AdminPage() {
                 </div>
 
                 {/* 4 Summary Cards */}
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                    gap: '1rem',
-                    marginBottom: '1.75rem',
-                  }}
-                >
+                <div className="admin-summary-grid">
                   <div
                     className="admin-card"
                     style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid var(--accent-signal)', cursor: 'pointer' }}
@@ -1888,7 +2015,7 @@ export default function AdminPage() {
                 </div>
 
                 {/* Split Grid: Recent Contacts + Recent Course Enrollments */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '1.5rem' }}>
+                <div className="admin-split-grid">
                   {/* Recent Contacts */}
                   <div className="admin-card" style={{ padding: '1.5rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
@@ -2057,8 +2184,8 @@ export default function AdminPage() {
                       <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>No contact inquiries found</div>
                     </div>
                   ) : (
-                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem', minWidth: '650px' }}>
                         <thead>
                           <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                             <th style={{ padding: '0.85rem 1.25rem' }}>Sender</th>
@@ -2198,8 +2325,8 @@ export default function AdminPage() {
                       <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>No course enrollments found</div>
                     </div>
                   ) : (
-                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem', minWidth: '650px' }}>
                         <thead>
                           <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                             <th style={{ padding: '0.85rem 1.25rem' }}>Student Name</th>
@@ -2337,8 +2464,8 @@ export default function AdminPage() {
                       No visitor analytics recorded.
                     </div>
                   ) : (
-                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
+                    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem', minWidth: '650px' }}>
                         <thead>
                           <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                             <th style={{ padding: '0.85rem 1.25rem' }}>IP Address</th>
@@ -2413,8 +2540,8 @@ export default function AdminPage() {
                       No activity logs recorded.
                     </div>
                   ) : (
-                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
+                    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem', minWidth: '650px' }}>
                         <thead>
                           <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
                             <th style={{ padding: '0.85rem 1.25rem' }}>Action</th>
@@ -2462,7 +2589,7 @@ export default function AdminPage() {
                   </p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                <div className="admin-settings-grid">
                   {/* Card 1: Change Password */}
                   <div className="admin-card" style={{ padding: '1.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
@@ -2651,23 +2778,7 @@ export default function AdminPage() {
 
               return (
                 <div
-                  style={{
-                    position: 'fixed',
-                    right: 0,
-                    top: '60px',
-                    bottom: 0,
-                    width: '480px',
-                    maxWidth: '100vw',
-                    background: 'var(--bg-panel)',
-                    borderLeft: '2px solid var(--border-strong)',
-                    padding: '1.75rem',
-                    boxShadow: 'var(--shadow-lg)',
-                    zIndex: 250,
-                    overflowY: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                  className="admin-scroll"
+                  className="admin-detail-drawer admin-scroll"
                 >
                   {/* Top Bar with Type, Status & Close */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
