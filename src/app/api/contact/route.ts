@@ -67,10 +67,16 @@ export async function POST(req: NextRequest) {
 
     // 4. Save submission into MongoDB
     const { db } = await getDatabase();
+    const isCourseEnrollment =
+      message.includes('[COURSE ENROLLMENT') ||
+      message.includes('Python A–Z') ||
+      message.includes('Enrollment Application');
+
     const submissionDoc = {
       name,
       email,
       message,
+      formType: isCourseEnrollment ? 'course' : 'contact',
       ip,
       location: {
         country: location.country,

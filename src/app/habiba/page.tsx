@@ -9,13 +9,13 @@ import {
   LayoutDashboard,
   Mail,
   MessageSquare,
+  GraduationCap,
   Globe,
   Activity,
-  Database,
+  Settings,
   RefreshCw,
   LogOut,
   ExternalLink,
-  Bell,
   Trash2,
   Check,
   Copy,
@@ -24,12 +24,15 @@ import {
   ArrowRight,
   Eye,
   EyeOff,
-  CheckCircle,
   AlertCircle,
   Sun,
   Moon,
   Lock,
   Send,
+  Key,
+  UserCheck,
+  ShieldCheck,
+  Filter,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -47,6 +50,7 @@ interface Submission {
   name: string;
   email: string;
   message: string;
+  formType?: 'contact' | 'course';
   ip: string;
   location?: {
     country?: string;
@@ -79,9 +83,10 @@ interface ActivityLogItem {
   timestamp: string;
 }
 
+type TabType = 'dashboard' | 'contact_forms' | 'course_forms' | 'analytics' | 'logs' | 'settings';
+
 export default function AdminPage() {
   const [session, setSession] = useState<UserSession | null>(null);
-  const [sessionPending, setSessionPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
@@ -92,7 +97,8 @@ export default function AdminPage() {
   const [authLoading, setAuthLoading] = useState(false);
 
   // Navigation States
-  const [activeTab, setActiveTab] = useState<'submissions' | 'visitors' | 'logs' | 'database'>('submissions');
+  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Data states
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -109,6 +115,20 @@ export default function AdminPage() {
   const [submissionFilter, setSubmissionFilter] = useState<'all' | 'unread' | 'read'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Settings form states
+  const [currentPass, setCurrentPass] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [showCurrentPass, setShowCurrentPass] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [passLoading, setPassLoading] = useState(false);
+  const [passMessage, setPassMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const [newAdminEmail, setNewAdminEmail] = useState('');
+  const [newAdminName, setNewAdminName] = useState('');
+  const [profileLoading, setProfileLoading] = useState(false);
+  const [profileMessage, setProfileMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // Sync theme with document element
   useEffect(() => {
@@ -136,8 +156,6 @@ export default function AdminPage() {
       }
     } catch {
       setSession(null);
-    } finally {
-      setSessionPending(false);
     }
   }, []);
 
@@ -235,7 +253,7 @@ export default function AdminPage() {
   };
 
   const handleDeleteSubmission = async (id: string) => {
-    if (!window.confirm('Delete this message permanently?')) return;
+    if (!window.confirm('Delete this submission permanently?')) return;
     try {
       const res = await fetch('/api/admin/actions', {
         method: 'POST',
@@ -277,7 +295,7 @@ export default function AdminPage() {
   };
 
   const handleClearVisitors = async () => {
-    if (!window.confirm('Clear all visitor tracking records?')) return;
+    if (!window.confirm('Clear all visitor tracking logs?')) return;
     try {
       const res = await fetch('/api/admin/actions', {
         method: 'POST',
@@ -290,6 +308,76 @@ export default function AdminPage() {
       }
     } catch (err) {
       console.error('Error clearing visitors:', err);
+    }
+  };
+
+  // Change Password
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPassMessage(null);
+    if (newPass !== confirmPass) {
+      setPassMessage({ type: 'error', text: 'New passwords do not match.' });
+      return;
+    }
+    if (newPass.length < 8) {
+      setPassMessage({ type: 'error', text: 'New password must be at least 8 characters long.' });
+      return;
+    }
+    setPassLoading(true);
+    try {
+      const res = await fetch('/api/admin/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'change_password',
+          payload: { currentPassword: currentPass, newPassword: newPass },
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setPassMessage({ type: 'success', text: 'Password successfully changed! Use your new password on next login.' });
+        setCurrentPass('');
+        setNewPass('');
+        setConfirmPass('');
+      } else {
+        setPassMessage({ type: 'error', text: data.error || 'Failed to update password. Please check your current password.' });
+      }
+    } catch {
+      setPassMessage({ type: 'error', text: 'Network error. Please try again.' });
+    } finally {
+      setPassLoading(false);
+    }
+  };
+
+  // Update Profile
+  const handleProfileChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProfileMessage(null);
+    if (!newAdminEmail.trim() && !newAdminName.trim()) {
+      setProfileMessage({ type: 'error', text: 'Please enter a new email or name to update.' });
+      return;
+    }
+    setProfileLoading(true);
+    try {
+      const res = await fetch('/api/admin/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'update_profile',
+          payload: { newEmail: newAdminEmail.trim(), newName: newAdminName.trim() },
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setProfileMessage({ type: 'success', text: 'Admin profile updated successfully!' });
+        await checkSession();
+      } else {
+        setProfileMessage({ type: 'error', text: data.error || 'Failed to update profile.' });
+      }
+    } catch {
+      setProfileMessage({ type: 'error', text: 'Network error. Please try again.' });
+    } finally {
+      setProfileLoading(false);
     }
   };
 
@@ -329,10 +417,58 @@ export default function AdminPage() {
     }
   };
 
-  const filteredSubmissions = submissions.filter((sub) => {
-    if (submissionFilter !== 'all' && sub.status !== submissionFilter) {
-      return false;
+  // Form split logic (Contact vs Course)
+  const isCourseSubmission = (sub: Submission) => {
+    return (
+      sub.formType === 'course' ||
+      sub.message.includes('[COURSE ENROLLMENT') ||
+      sub.message.includes('Python A–Z') ||
+      sub.message.includes('Payment Method:') ||
+      sub.message.includes('Transaction ID:')
+    );
+  };
+
+  const parseCourseDetails = (msg: string) => {
+    const phoneMatch = msg.match(/Phone:\s*([^\n]+)/i);
+    const whatsappMatch = msg.match(/WhatsApp:\s*([^\n]+)/i);
+    const paymentMatch = msg.match(/Payment Method:\s*([^\n]+)/i);
+    const txMatch = msg.match(/Transaction ID:\s*([^\n]+)/i);
+    const addressMatch = msg.match(/Address:\s*([^\n]+)/i);
+    const goalMatch = msg.match(/Goal \/ Reason:\s*([^\n]+)/i);
+
+    return {
+      course: 'Python A–Z Masterclass',
+      phone: phoneMatch ? phoneMatch[1].trim() : (whatsappMatch ? whatsappMatch[1].trim() : 'N/A'),
+      whatsapp: whatsappMatch ? whatsappMatch[1].trim() : 'N/A',
+      payment: paymentMatch ? paymentMatch[1].trim() : 'Pending',
+      txId: txMatch ? txMatch[1].trim() : 'Pending',
+      address: addressMatch ? addressMatch[1].trim() : 'N/A',
+      goal: goalMatch ? goalMatch[1].trim() : 'Not specified',
+    };
+  };
+
+  const contactSubmissions = submissions.filter((s) => !isCourseSubmission(s));
+  const courseSubmissions = submissions.filter((s) => isCourseSubmission(s));
+
+  const unreadContacts = contactSubmissions.filter((s) => s.status === 'unread').length;
+  const unreadCourses = courseSubmissions.filter((s) => s.status === 'unread').length;
+
+  const filteredContacts = contactSubmissions.filter((sub) => {
+    if (submissionFilter !== 'all' && sub.status !== submissionFilter) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return (
+        sub.name.toLowerCase().includes(q) ||
+        sub.email.toLowerCase().includes(q) ||
+        sub.message.toLowerCase().includes(q) ||
+        sub.ip.includes(q)
+      );
     }
+    return true;
+  });
+
+  const filteredCourses = courseSubmissions.filter((sub) => {
+    if (submissionFilter !== 'all' && sub.status !== submissionFilter) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
@@ -384,10 +520,21 @@ export default function AdminPage() {
       .admin-scroll::-webkit-scrollbar-thumb:hover {
         background: var(--text-muted);
       }
+      .admin-sidebar {
+        width: ${sidebarOpen ? '240px' : '64px'};
+        background: var(--bg-panel);
+        border-right: 1px solid var(--border-faint);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        transition: width 0.2s cubic-bezier(0.2, 0, 0, 1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
       .admin-nav-item {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 0.85rem;
         height: 44px;
         padding: 0 1.25rem;
         color: var(--text-muted);
@@ -395,12 +542,13 @@ export default function AdminPage() {
         border: none;
         background: transparent;
         width: 100%;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.15s ease;
         position: relative;
         text-align: left;
+        white-space: nowrap;
       }
       .admin-nav-item:hover {
         background-color: var(--bg-subtle);
@@ -421,9 +569,9 @@ export default function AdminPage() {
         background-color: var(--accent-signal);
       }
       .admin-chip {
-        padding: 0.4rem 0.85rem;
+        padding: 0.38rem 0.8rem;
         border-radius: 6px;
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.15s ease;
@@ -443,52 +591,12 @@ export default function AdminPage() {
       .admin-card {
         background: var(--bg-panel);
         border: 1px solid var(--border-faint);
-        border-radius: 10px;
+        border-radius: 8px;
         box-shadow: var(--shadow-sm);
         overflow: hidden;
       }
       .admin-table-row:hover {
         background-color: var(--bg-subtle) !important;
-      }
-      .admin-tab-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.55rem;
-        padding: 0.9rem 1.25rem;
-        color: var(--text-muted);
-        font-size: 0.88rem;
-        font-weight: 600;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-        transition: all 0.15s ease;
-        white-space: nowrap;
-      }
-      .admin-tab-btn:hover {
-        color: var(--text-main);
-        background: var(--bg-subtle);
-      }
-      .admin-tab-btn.active {
-        color: var(--text-main);
-        border-bottom-color: var(--accent-signal);
-        font-weight: 700;
-      }
-      .admin-badge-unread {
-        background: var(--accent-signal);
-        color: #ffffff;
-        font-size: 0.68rem;
-        font-weight: 700;
-        padding: 1px 7px;
-        border-radius: 10px;
-      }
-      .admin-badge-count {
-        background: var(--bg-subtle);
-        color: var(--text-muted);
-        font-size: 0.68rem;
-        font-weight: 600;
-        padding: 1px 7px;
-        border-radius: 10px;
       }
       .admin-login-canvas {
         background-color: var(--bg-primary);
@@ -517,65 +625,57 @@ export default function AdminPage() {
         border-radius: 12px;
         box-shadow: var(--shadow-lg);
         overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      [data-theme='dark'] .admin-login-card {
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 77, 54, 0.08);
-      }
-      .admin-login-input {
+      .admin-input {
         width: 100%;
-        padding: 0.85rem 1rem 0.85rem 2.85rem;
+        padding: 0.75rem 1rem;
         border: 1.5px solid var(--border-faint);
-        border-radius: 8px;
-        background: var(--bg-subtle);
+        border-radius: 6px;
+        background: var(--bg-primary);
         color: var(--text-main);
-        font-size: 0.92rem;
+        font-size: 0.9rem;
         font-family: var(--font-body);
         outline: none;
-        transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+        transition: all 0.15s ease;
       }
-      .admin-login-input:focus {
+      .admin-input:focus {
         border-color: var(--accent-signal);
-        background: var(--bg-panel);
         box-shadow: 0 0 0 3px var(--accent-tint);
       }
-      .admin-login-btn {
-        width: 100%;
-        padding: 0.92rem;
+      .admin-btn-primary {
+        padding: 0.75rem 1.25rem;
         background: var(--accent-signal);
         color: #ffffff;
         font-family: var(--font-mono);
         font-weight: 700;
-        font-size: 0.92rem;
-        letter-spacing: 0.5px;
+        font-size: 0.86rem;
         text-transform: uppercase;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.6rem;
+        gap: 0.5rem;
         cursor: pointer;
-        border: 2px solid var(--border-strong);
-        border-radius: 8px;
-        box-shadow: var(--shadow-md);
+        border: 1.5px solid var(--border-strong);
+        border-radius: 6px;
+        box-shadow: var(--shadow-sm);
         transition: all 0.15s ease;
       }
-      .admin-login-btn:hover:not(:disabled) {
+      .admin-btn-primary:hover:not(:disabled) {
         background: var(--accent-signal-hover);
-        transform: translate(-2px, -2px);
-        box-shadow: 6px 6px 0px var(--border-strong);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
       }
-      .admin-login-btn:active:not(:disabled) {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0px var(--border-strong);
+      .admin-btn-primary:active:not(:disabled) {
+        transform: translateY(1px);
       }
-      .admin-login-btn:disabled {
+      .admin-btn-primary:disabled {
         opacity: 0.65;
         cursor: not-allowed;
       }
       input:-webkit-autofill,
       input:-webkit-autofill:hover, 
       input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0px 1000px var(--bg-subtle) inset !important;
+        -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset !important;
         -webkit-text-fill-color: var(--text-main) !important;
         transition: background-color 5000s ease-in-out 0s;
       }
@@ -602,7 +702,6 @@ export default function AdminPage() {
       >
         {portfolioStyles}
 
-        {/* Ambient Radial Accent Glow */}
         <div className="admin-login-glow" />
 
         {/* Minimal Top Header */}
@@ -610,12 +709,12 @@ export default function AdminPage() {
           style={{
             position: 'relative',
             zIndex: 10,
-            height: '64px',
+            height: '60px',
             borderBottom: '1px solid var(--border-faint)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 1.75rem',
+            padding: '0 1.5rem',
             background: 'var(--bg-panel)',
           }}
         >
@@ -647,25 +746,25 @@ export default function AdminPage() {
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <button
               onClick={toggleTheme}
               style={{
                 background: 'var(--bg-primary)',
                 border: '1px solid var(--border-faint)',
                 color: 'var(--text-main)',
-                padding: '6px 14px',
+                padding: '6px 12px',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                fontSize: '0.82rem',
+                fontSize: '0.8rem',
                 fontWeight: 600,
               }}
               title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
             >
-              {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+              {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
               <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
             </button>
 
@@ -703,7 +802,7 @@ export default function AdminPage() {
             {/* Top Terminal Header Bar */}
             <div
               style={{
-                padding: '0.8rem 1.25rem',
+                padding: '0.75rem 1.25rem',
                 borderBottom: '1px solid var(--border-faint)',
                 background: 'var(--bg-subtle)',
                 display: 'flex',
@@ -735,24 +834,24 @@ export default function AdminPage() {
               <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
                 <div
                   style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '14px',
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '12px',
                     background: 'var(--accent-tint)',
-                    border: '2px solid var(--accent-signal)',
+                    border: '1.5px solid var(--accent-signal)',
                     color: 'var(--accent-signal)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '1rem',
+                    marginBottom: '0.85rem',
                   }}
                 >
-                  <Lock size={24} strokeWidth={2.2} />
+                  <Lock size={22} strokeWidth={2.2} />
                 </div>
                 <h1
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: '1.5rem',
+                    fontSize: '1.45rem',
                     textTransform: 'uppercase',
                     color: 'var(--text-main)',
                     margin: 0,
@@ -770,7 +869,7 @@ export default function AdminPage() {
                     marginBottom: 0,
                   }}
                 >
-                  Sign in to manage portfolio inquiries & telemetry
+                  Sign in to manage inquiries & visitor telemetry
                 </p>
               </div>
 
@@ -781,7 +880,7 @@ export default function AdminPage() {
                     border: '1.5px solid var(--accent-signal)',
                     color: 'var(--accent-signal)',
                     padding: '0.75rem 1rem',
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     fontSize: '0.84rem',
                     marginBottom: '1.25rem',
                     display: 'flex',
@@ -795,13 +894,13 @@ export default function AdminPage() {
                 </div>
               )}
 
-              <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
                 <div>
                   <label
                     className="mono"
                     style={{
                       display: 'block',
-                      fontSize: '0.75rem',
+                      fontSize: '0.74rem',
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       color: 'var(--text-muted)',
@@ -829,7 +928,8 @@ export default function AdminPage() {
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
                       placeholder="codewithtanim@gmail.com"
-                      className="admin-login-input"
+                      className="admin-input"
+                      style={{ paddingLeft: '2.75rem' }}
                     />
                   </div>
                 </div>
@@ -839,7 +939,7 @@ export default function AdminPage() {
                     className="mono"
                     style={{
                       display: 'block',
-                      fontSize: '0.75rem',
+                      fontSize: '0.74rem',
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       color: 'var(--text-muted)',
@@ -867,8 +967,8 @@ export default function AdminPage() {
                       value={authPassword}
                       onChange={(e) => setAuthPassword(e.target.value)}
                       placeholder="••••••••••••"
-                      className="admin-login-input"
-                      style={{ paddingRight: '2.85rem' }}
+                      className="admin-input"
+                      style={{ paddingLeft: '2.75rem', paddingRight: '2.75rem' }}
                     />
                     <button
                       type="button"
@@ -886,7 +986,6 @@ export default function AdminPage() {
                         cursor: 'pointer',
                         border: 'none',
                         background: 'transparent',
-                        borderRadius: '4px',
                       }}
                       title={showPassword ? 'Hide password' : 'Show password'}
                     >
@@ -898,13 +997,13 @@ export default function AdminPage() {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="admin-login-btn"
-                  style={{ marginTop: '0.5rem' }}
+                  className="admin-btn-primary"
+                  style={{ marginTop: '0.5rem', width: '100%' }}
                 >
                   {authLoading ? (
                     <>
                       <RefreshCw className="animate-spin" size={16} />
-                      <span>Authenticating...</span>
+                      <span>Signing in...</span>
                     </>
                   ) : (
                     <>
@@ -919,7 +1018,7 @@ export default function AdminPage() {
             {/* Card Footer Bar */}
             <div
               style={{
-                padding: '0.8rem 1.5rem',
+                padding: '0.75rem 1.25rem',
                 borderTop: '1px solid var(--border-faint)',
                 background: 'var(--bg-subtle)',
                 display: 'flex',
@@ -930,7 +1029,7 @@ export default function AdminPage() {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                 <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-                <span className="mono" style={{ color: 'var(--text-muted)', fontWeight: 600 }}>SYSTEM OPERATIONAL</span>
+                <span className="mono" style={{ color: 'var(--text-muted)', fontWeight: 600 }}>SYSTEM READY</span>
               </div>
               <a
                 href="/"
@@ -953,7 +1052,7 @@ export default function AdminPage() {
     );
   }
 
-  // 2. Full Admin Dashboard (Clean Developer Portfolio Admin System)
+  // 2. Full Admin Dashboard (Left Sidebar Layout matching Website Theme)
   return (
     <div
       style={{
@@ -972,23 +1071,45 @@ export default function AdminPage() {
     >
       {portfolioStyles}
 
-      {/* TOPBAR */}
+      {/* TOP HEADER */}
       <header
         style={{
-          height: '64px',
+          height: '60px',
           background: 'var(--bg-panel)',
           borderBottom: '1px solid var(--border-faint)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 1.5rem',
+          padding: '0 1.25rem',
           flexShrink: 0,
           zIndex: 100,
         }}
       >
-        {/* Brand & System Status */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        {/* Left: Sidebar Toggle & Brand */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-main)',
+              border: '1px solid var(--border-faint)',
+              background: 'var(--bg-primary)',
+              cursor: 'pointer',
+            }}
+            title="Toggle Sidebar"
+          >
+            <Menu size={18} />
+          </button>
+
+          <div
+            onClick={() => setActiveTab('dashboard')}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
+          >
             <span
               style={{
                 fontFamily: 'var(--font-display)',
@@ -1016,13 +1137,13 @@ export default function AdminPage() {
             </span>
           </div>
 
-          <div style={{ height: '22px', width: '1px', background: 'var(--border-faint)' }} />
+          <div style={{ height: '18px', width: '1px', background: 'var(--border-faint)', margin: '0 0.25rem' }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.75rem' }}>
             <span
               style={{
-                width: '8px',
-                height: '8px',
+                width: '7px',
+                height: '7px',
                 borderRadius: '50%',
                 background: '#10b981',
                 display: 'inline-block',
@@ -1035,7 +1156,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Global Action Controls */}
+        {/* Right: Refresh, Theme Toggle, View Site, Logout */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button
             onClick={fetchDashboardData}
@@ -1111,7 +1232,7 @@ export default function AdminPage() {
               background: 'var(--accent-tint)',
               border: '1px solid var(--accent-signal)',
               color: 'var(--accent-signal)',
-              padding: '6px 14px',
+              padding: '6px 12px',
               borderRadius: '6px',
               cursor: 'pointer',
               display: 'flex',
@@ -1127,792 +1248,1187 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* HORIZONTAL TAB NAVIGATION */}
-      <nav
-        style={{
-          background: 'var(--bg-panel)',
-          borderBottom: '1px solid var(--border-faint)',
-          padding: '0 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.25rem',
-          overflowX: 'auto',
-          flexShrink: 0,
-        }}
-        className="admin-scroll"
-      >
-        <button
-          onClick={() => setActiveTab('submissions')}
-          className={`admin-tab-btn ${activeTab === 'submissions' ? 'active' : ''}`}
-        >
-          <MessageSquare size={16} />
-          <span>Inquiries & Messages</span>
-          {stats.unreadSubmissions > 0 ? (
-            <span className="admin-badge-unread">{stats.unreadSubmissions}</span>
-          ) : (
-            <span className="admin-badge-count">{stats.totalSubmissions}</span>
-          )}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('visitors')}
-          className={`admin-tab-btn ${activeTab === 'visitors' ? 'active' : ''}`}
-        >
-          <Globe size={16} />
-          <span>Visitor Telemetry</span>
-          <span className="admin-badge-count">{stats.totalVisits}</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('logs')}
-          className={`admin-tab-btn ${activeTab === 'logs' ? 'active' : ''}`}
-        >
-          <Activity size={16} />
-          <span>Activity Logs</span>
-          <span className="admin-badge-count">{logs.length}</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('database')}
-          className={`admin-tab-btn ${activeTab === 'database' ? 'active' : ''}`}
-        >
-          <Database size={16} />
-          <span>Database & Config</span>
-        </button>
-      </nav>
-
-      {/* MAIN CONTENT AREA */}
-      <main
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '1.75rem 2rem',
-          background: 'var(--bg-primary)',
-        }}
-        className="admin-scroll"
-      >
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          {/* 4 TOP SUMMARY KPI CARDS */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '1rem',
-              marginBottom: '1.75rem',
-            }}
-          >
-            <div
-              className="admin-card"
-              style={{
-                padding: '1.25rem 1.5rem',
-                borderLeft: '4px solid var(--accent-signal)',
-                cursor: 'pointer',
-              }}
-              onClick={() => setActiveTab('submissions')}
+      {/* BODY (LEFT SIDEBAR + RIGHT WORKSPACE) */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* LEFT SIDEBAR NAVIGATION */}
+        <aside className="admin-sidebar admin-scroll">
+          <nav style={{ flex: 1, padding: '0.75rem 0' }}>
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`admin-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
+              title="Dashboard"
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Inquiries Received</span>
-                <Mail size={16} color="var(--accent-signal)" />
-              </div>
-              <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
-                {stats.totalSubmissions}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: stats.unreadSubmissions > 0 ? 'var(--accent-signal)' : 'var(--text-muted)', fontWeight: 600 }}>
-                {stats.unreadSubmissions > 0 ? `${stats.unreadSubmissions} unread messages` : 'All caught up'}
-              </div>
-            </div>
+              <LayoutDashboard size={18} style={{ color: activeTab === 'dashboard' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && <span>Dashboard</span>}
+            </button>
 
-            <div
-              className="admin-card"
-              style={{
-                padding: '1.25rem 1.5rem',
-                borderLeft: '4px solid #06b6d4',
-                cursor: 'pointer',
-              }}
-              onClick={() => setActiveTab('visitors')}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Total Site Views</span>
-                <Globe size={16} color="#06b6d4" />
-              </div>
-              <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
-                {stats.totalVisits}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Tracked portfolio hits
-              </div>
-            </div>
-
-            <div
-              className="admin-card"
-              style={{
-                padding: '1.25rem 1.5rem',
-                borderLeft: '4px solid #10b981',
-                cursor: 'pointer',
-              }}
-              onClick={() => setActiveTab('visitors')}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Unique Visitors</span>
-                <MapPin size={16} color="#10b981" />
-              </div>
-              <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
-                {stats.uniqueIps}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Distinct IP addresses
-              </div>
-            </div>
-
-            <div
-              className="admin-card"
-              style={{
-                padding: '1.25rem 1.5rem',
-                borderLeft: '4px solid #f59e0b',
-                cursor: 'pointer',
-              }}
-              onClick={() => setActiveTab('database')}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
-                <span>Telegram Bot Alert</span>
-                <Send size={16} color="#f59e0b" />
-              </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10b981', margin: '0.7rem 0 0.2rem' }}>
-                Active & Connected
-              </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Instant telegram notifications
-              </div>
-            </div>
-          </div>
-
-          {/* TAB 1: INQUIRIES & MESSAGES */}
-          {activeTab === 'submissions' && (
-            <div>
-              {/* Header with Search and Filter */}
+            {/* FORMS SECTION */}
+            {sidebarOpen && (
               <div
+                className="mono"
                 style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: '1rem',
-                  marginBottom: '1.25rem',
+                  padding: '1rem 1.25rem 0.35rem',
+                  fontSize: '0.68rem',
+                  fontWeight: 700,
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.75px',
                 }}
               >
-                <div>
-                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
-                    Inquiries & Messages ({submissions.length})
+                Forms
+              </div>
+            )}
+
+            {/* Option: Contact Inquiries */}
+            <button
+              onClick={() => setActiveTab('contact_forms')}
+              className={`admin-nav-item ${activeTab === 'contact_forms' ? 'active' : ''}`}
+              title="Contact Inquiries"
+            >
+              <MessageSquare size={18} style={{ color: activeTab === 'contact_forms' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Contact Inquiries</span>
+                  {unreadContacts > 0 && (
+                    <span
+                      style={{
+                        background: 'var(--accent-signal)',
+                        color: '#fff',
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: '10px',
+                      }}
+                    >
+                      {unreadContacts}
+                    </span>
+                  )}
+                </div>
+              )}
+            </button>
+
+            {/* Option: Course Enrollments */}
+            <button
+              onClick={() => setActiveTab('course_forms')}
+              className={`admin-nav-item ${activeTab === 'course_forms' ? 'active' : ''}`}
+              title="Course Enrollments"
+            >
+              <GraduationCap size={18} style={{ color: activeTab === 'course_forms' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Course Enrollments</span>
+                  {unreadCourses > 0 && (
+                    <span
+                      style={{
+                        background: 'var(--accent-signal)',
+                        color: '#fff',
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: '10px',
+                      }}
+                    >
+                      {unreadCourses}
+                    </span>
+                  )}
+                </div>
+              )}
+            </button>
+
+            {/* MONITORING SECTION */}
+            {sidebarOpen && (
+              <div
+                className="mono"
+                style={{
+                  padding: '1rem 1.25rem 0.35rem',
+                  fontSize: '0.68rem',
+                  fontWeight: 700,
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.75px',
+                }}
+              >
+                Monitoring
+              </div>
+            )}
+
+            {/* Option: Analytics */}
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`admin-nav-item ${activeTab === 'analytics' ? 'active' : ''}`}
+              title="Visitor Analytics"
+            >
+              <Globe size={18} style={{ color: activeTab === 'analytics' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && <span>Analytics</span>}
+            </button>
+
+            {/* Option: Activity Logs */}
+            <button
+              onClick={() => setActiveTab('logs')}
+              className={`admin-nav-item ${activeTab === 'logs' ? 'active' : ''}`}
+              title="Activity Logs"
+            >
+              <Activity size={18} style={{ color: activeTab === 'logs' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Activity Logs</span>
+                  <span
+                    className="mono"
+                    style={{
+                      fontSize: '0.68rem',
+                      color: 'var(--text-muted)',
+                      background: 'var(--bg-subtle)',
+                      padding: '1px 6px',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {logs.length}
+                  </span>
+                </div>
+              )}
+            </button>
+
+            {/* SYSTEM SECTION */}
+            {sidebarOpen && (
+              <div
+                className="mono"
+                style={{
+                  padding: '1rem 1.25rem 0.35rem',
+                  fontSize: '0.68rem',
+                  fontWeight: 700,
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.75px',
+                }}
+              >
+                System
+              </div>
+            )}
+
+            {/* Option: Settings */}
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`admin-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
+              title="Settings"
+            >
+              <Settings size={18} style={{ color: activeTab === 'settings' ? 'var(--accent-signal)' : 'var(--text-muted)', flexShrink: 0 }} />
+              {sidebarOpen && <span>Settings</span>}
+            </button>
+          </nav>
+
+          {/* Bottom user label */}
+          {sidebarOpen && (
+            <div style={{ padding: '0.85rem 1.25rem', borderTop: '1px solid var(--border-faint)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <div className="mono" style={{ fontWeight: 600, color: 'var(--text-main)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {session.user.email}
+              </div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-faint)' }}>Superadmin</div>
+            </div>
+          )}
+        </aside>
+
+        {/* RIGHT WORKSPACE (CONTENT UPDATES BASED ON SELECTED SIDEBAR ITEM) */}
+        <main
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '1.75rem 2rem',
+            background: 'var(--bg-primary)',
+          }}
+          className="admin-scroll"
+        >
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            {/* OPTION 1: DASHBOARD OVERVIEW */}
+            {activeTab === 'dashboard' && (
+              <div>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                    Dashboard Overview
                   </h1>
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-                    Messages submitted through portfolio contact and course registration forms
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                    Welcome back. Real-time overview of portfolio inquiries, enrollments, and visitor analytics.
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                  {/* Search Input */}
+                {/* 4 Summary Cards */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gap: '1rem',
+                    marginBottom: '1.75rem',
+                  }}
+                >
                   <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      background: 'var(--bg-panel)',
-                      border: '1px solid var(--border-faint)',
-                      borderRadius: '6px',
-                      padding: '0 0.75rem',
-                      height: '36px',
-                      width: '260px',
-                    }}
+                    className="admin-card"
+                    style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid var(--accent-signal)', cursor: 'pointer' }}
+                    onClick={() => setActiveTab('contact_forms')}
                   >
-                    <Search size={14} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Filter by name, email, IP..."
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        color: 'var(--text-main)',
-                        fontSize: '0.82rem',
-                        width: '100%',
-                      }}
-                    />
-                    {searchQuery && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
+                      <span>Contact Messages</span>
+                      <MessageSquare size={16} color="var(--accent-signal)" />
+                    </div>
+                    <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
+                      {contactSubmissions.length}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: unreadContacts > 0 ? 'var(--accent-signal)' : 'var(--text-muted)', fontWeight: 600 }}>
+                      {unreadContacts > 0 ? `${unreadContacts} unread inquiries` : 'All caught up'}
+                    </div>
+                  </div>
+
+                  <div
+                    className="admin-card"
+                    style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #8b5cf6', cursor: 'pointer' }}
+                    onClick={() => setActiveTab('course_forms')}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
+                      <span>Course Enrollments</span>
+                      <GraduationCap size={16} color="#8b5cf6" />
+                    </div>
+                    <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
+                      {courseSubmissions.length}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: unreadCourses > 0 ? '#8b5cf6' : 'var(--text-muted)', fontWeight: 600 }}>
+                      {unreadCourses > 0 ? `${unreadCourses} pending applications` : 'All processed'}
+                    </div>
+                  </div>
+
+                  <div
+                    className="admin-card"
+                    style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #06b6d4', cursor: 'pointer' }}
+                    onClick={() => setActiveTab('analytics')}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
+                      <span>Visitor Analytics</span>
+                      <Globe size={16} color="#06b6d4" />
+                    </div>
+                    <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.4rem 0 0.2rem' }}>
+                      {stats.totalVisits}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                      {stats.uniqueIps} unique IP addresses
+                    </div>
+                  </div>
+
+                  <div
+                    className="admin-card"
+                    style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #10b981', cursor: 'pointer' }}
+                    onClick={() => setActiveTab('settings')}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
+                      <span>Telegram Alert Bot</span>
+                      <Send size={16} color="#10b981" />
+                    </div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#10b981', margin: '0.65rem 0 0.2rem' }}>
+                      Active
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                      Instant telegram notifications
+                    </div>
+                  </div>
+                </div>
+
+                {/* Split Grid: Recent Contacts + Recent Course Enrollments */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '1.5rem' }}>
+                  {/* Recent Contacts */}
+                  <div className="admin-card" style={{ padding: '1.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
+                      <div>
+                        <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Recent Contact Messages</h2>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>Latest general contact submissions</p>
+                      </div>
                       <button
-                        onClick={() => setSearchQuery('')}
-                        style={{ color: 'var(--text-muted)', fontSize: '0.8rem', border: 'none', background: 'transparent', cursor: 'pointer', padding: '2px' }}
+                        onClick={() => setActiveTab('contact_forms')}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
                       >
-                        ✕
+                        VIEW ALL &rarr;
                       </button>
+                    </div>
+
+                    {contactSubmissions.length === 0 ? (
+                      <div style={{ padding: '2rem 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        No contact messages yet.
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {contactSubmissions.slice(0, 4).map((sub) => (
+                          <div
+                            key={sub._id}
+                            onClick={() => {
+                              setSelectedSubmission(sub);
+                              setActiveTab('contact_forms');
+                            }}
+                            style={{
+                              padding: '0.85rem',
+                              border: '1px solid var(--border-faint)',
+                              borderRadius: '6px',
+                              background: 'var(--bg-subtle)',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              gap: '0.85rem',
+                              alignItems: 'center',
+                            }}
+                            className="admin-table-row"
+                          >
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: sub.status === 'unread' ? 'var(--accent-signal)' : 'var(--text-muted)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 700, flexShrink: 0 }}>
+                              {sub.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '0.86rem', fontWeight: 700 }}>{sub.name}</span>
+                                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{timeAgo(sub.createdAt)}</span>
+                              </div>
+                              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {sub.message}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
 
-                  {/* Filter Chips */}
-                  <div style={{ display: 'flex', gap: '0.35rem' }}>
-                    <button
-                      onClick={() => setSubmissionFilter('all')}
-                      className={`admin-chip ${submissionFilter === 'all' ? 'active' : ''}`}
-                    >
-                      All ({submissions.length})
-                    </button>
-                    <button
-                      onClick={() => setSubmissionFilter('unread')}
-                      className={`admin-chip ${submissionFilter === 'unread' ? 'active' : ''}`}
-                    >
-                      Unread ({stats.unreadSubmissions})
-                    </button>
-                    <button
-                      onClick={() => setSubmissionFilter('read')}
-                      className={`admin-chip ${submissionFilter === 'read' ? 'active' : ''}`}
-                    >
-                      Read ({submissions.length - stats.unreadSubmissions})
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Inquiries Table */}
-              <div className="admin-card">
-                {filteredSubmissions.length === 0 ? (
-                  <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    <MessageSquare size={36} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
-                    <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>No inquiries found</div>
-                    <div style={{ fontSize: '0.82rem', marginTop: '0.25rem' }}>
-                      {searchQuery ? 'Try adjusting your search query.' : 'Form submissions will automatically appear here and trigger Telegram notifications.'}
-                    </div>
-                  </div>
-                ) : (
-                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
-                      <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Sender</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Message Preview</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Origin & IP</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Date</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Status</th>
-                          <th style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredSubmissions.map((sub) => (
-                          <tr
-                            key={sub._id}
-                            style={{
-                              borderBottom: '1px solid var(--border-faint)',
-                              background: selectedSubmission?._id === sub._id ? 'var(--bg-subtle)' : 'transparent',
-                              cursor: 'pointer',
-                            }}
-                            className="admin-table-row"
-                            onClick={() => setSelectedSubmission(sub)}
-                          >
-                            <td style={{ padding: '0.85rem 1.25rem' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <div
-                                  style={{
-                                    width: '34px',
-                                    height: '34px',
-                                    borderRadius: '50%',
-                                    background: sub.status === 'unread' ? 'var(--accent-signal)' : 'var(--bg-subtle)',
-                                    color: sub.status === 'unread' ? '#ffffff' : 'var(--text-main)',
-                                    border: '1px solid var(--border-faint)',
-                                    fontSize: '0.82rem',
-                                    fontWeight: 700,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    flexShrink: 0,
-                                  }}
-                                >
-                                  {sub.name.charAt(0).toUpperCase()}
-                                </div>
-                                <div>
-                                  <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{sub.name}</div>
-                                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{sub.email}</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', maxWidth: '380px' }}>
-                              <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text-main)' }}>
-                                {sub.message}
-                              </div>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
-                              <div className="mono" style={{ fontSize: '0.8rem', color: 'var(--text-main)' }}>
-                                {sub.ip}
-                              </div>
-                              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                {sub.location?.city ? `${sub.location.city}, ` : ''}{sub.location?.country || 'Unknown'}
-                              </div>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-                              <div>{timeAgo(sub.createdAt)}</div>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--text-faint)' }}>{formatDate(sub.createdAt)}</div>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
-                              {sub.status === 'unread' ? (
-                                <span style={{ background: 'var(--accent-tint)', color: 'var(--accent-signal)', border: '1px solid var(--accent-signal)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 700 }}>
-                                  UNREAD
-                                </span>
-                              ) : (
-                                <span style={{ background: 'var(--bg-subtle)', color: 'var(--text-muted)', border: '1px solid var(--border-faint)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 600 }}>
-                                  READ
-                                </span>
-                              )}
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                              <a
-                                href={`mailto:${sub.email}?subject=Re: Portfolio Inquiry`}
-                                onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  background: 'transparent',
-                                  border: 'none',
-                                  color: 'var(--text-muted)',
-                                  padding: '6px',
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  marginRight: '4px',
-                                }}
-                                title="Reply via Email"
-                              >
-                                <Mail size={16} />
-                              </a>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleUpdateStatus(sub._id, sub.status === 'unread' ? 'read' : 'unread');
-                                }}
-                                style={{
-                                  background: 'transparent',
-                                  border: 'none',
-                                  color: sub.status === 'read' ? '#10b981' : 'var(--text-muted)',
-                                  cursor: 'pointer',
-                                  padding: '6px',
-                                  marginRight: '4px',
-                                }}
-                                title={sub.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
-                              >
-                                <Check size={16} />
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDeleteSubmission(sub._id);
-                                }}
-                                style={{
-                                  background: 'transparent',
-                                  border: 'none',
-                                  color: 'var(--accent-signal)',
-                                  cursor: 'pointer',
-                                  padding: '6px',
-                                }}
-                                title="Delete Inquiry"
-                              >
-                                <Trash2 size={16} />
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-
-              {/* Message Detail Drawer */}
-              {selectedSubmission && (
-                <div
-                  style={{
-                    position: 'fixed',
-                    right: 0,
-                    top: '64px',
-                    bottom: 0,
-                    width: '460px',
-                    maxWidth: '100vw',
-                    background: 'var(--bg-panel)',
-                    borderLeft: '2px solid var(--border-strong)',
-                    padding: '1.75rem',
-                    boxShadow: 'var(--shadow-lg)',
-                    zIndex: 250,
-                    overflowY: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                  className="admin-scroll"
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
-                    <span style={{ fontSize: '1rem', fontWeight: 800 }}>Inquiry Details</span>
-                    <button
-                      onClick={() => setSelectedSubmission(null)}
-                      style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '4px' }}
-                    >
-                      ✕
-                    </button>
-                  </div>
-
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
-                      <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'var(--accent-signal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>
-                        {selectedSubmission.name.charAt(0).toUpperCase()}
-                      </div>
+                  {/* Recent Course Applications */}
+                  <div className="admin-card" style={{ padding: '1.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
                       <div>
-                        <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedSubmission.name}</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-signal)' }}>{selectedSubmission.email}</div>
+                        <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Recent Course Applications</h2>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>Masterclass student registrations</p>
                       </div>
+                      <button
+                        onClick={() => setActiveTab('course_forms')}
+                        style={{ background: 'transparent', border: 'none', color: '#8b5cf6', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
+                      >
+                        VIEW ALL &rarr;
+                      </button>
                     </div>
 
-                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.25rem' }}>
-                      <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>
-                        Message Body
+                    {courseSubmissions.length === 0 ? (
+                      <div style={{ padding: '2rem 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        No course enrollments yet.
                       </div>
-                      <div style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
-                        {selectedSubmission.message}
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {courseSubmissions.slice(0, 4).map((sub) => {
+                          const details = parseCourseDetails(sub.message);
+                          return (
+                            <div
+                              key={sub._id}
+                              onClick={() => {
+                                setSelectedSubmission(sub);
+                                setActiveTab('course_forms');
+                              }}
+                              style={{
+                                padding: '0.85rem',
+                                border: '1px solid var(--border-faint)',
+                                borderRadius: '6px',
+                                background: 'var(--bg-subtle)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                gap: '0.85rem',
+                                alignItems: 'center',
+                              }}
+                              className="admin-table-row"
+                            >
+                              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: sub.status === 'unread' ? '#8b5cf6' : 'var(--text-muted)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 700, flexShrink: 0 }}>
+                                {sub.name.charAt(0).toUpperCase()}
+                              </div>
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <span style={{ fontSize: '0.86rem', fontWeight: 700 }}>{sub.name}</span>
+                                  <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{timeAgo(sub.createdAt)}</span>
+                                </div>
+                                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                  {details.payment} • TxID: {details.txId} • Phone: {details.phone}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
-                    </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
-                    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Received:</span>
-                        <span style={{ fontWeight: 600 }}>{formatDate(selectedSubmission.createdAt)}</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Sender IP:</span>
-                        <span className="mono">{selectedSubmission.ip}</span>
-                      </div>
-                      {selectedSubmission.location && (
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <span style={{ color: 'var(--text-muted)' }}>Location:</span>
-                          <span>
-                            {selectedSubmission.location.city ? `${selectedSubmission.location.city}, ` : ''}
-                            {selectedSubmission.location.country || 'Unknown'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+            {/* OPTION 2: CONTACT INQUIRIES */}
+            {activeTab === 'contact_forms' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                      Contact Inquiries ({contactSubmissions.length})
+                    </h1>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                      Messages received directly from your portfolio contact form
+                    </p>
                   </div>
 
-                  <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-faint)', paddingTop: '1rem', display: 'flex', gap: '0.75rem' }}>
-                    <a
-                      href={`mailto:${selectedSubmission.email}?subject=Re: Inquiry on CodeWithTanim`}
-                      style={{
-                        flex: 1,
-                        padding: '0.8rem',
-                        background: 'var(--text-main)',
-                        color: 'var(--bg-panel)',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        textAlign: 'center',
-                        textDecoration: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.4rem',
-                        borderRadius: '6px',
-                      }}
-                    >
-                      <Send size={15} />
-                      <span>Reply via Email</span>
-                    </a>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-panel)', border: '1px solid var(--border-faint)', borderRadius: '6px', padding: '0 0.75rem', height: '36px', width: '240px' }}>
+                      <Search size={14} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search contact messages..."
+                        style={{ background: 'transparent', border: 'none', outline: 'none', color: 'var(--text-main)', fontSize: '0.82rem', width: '100%' }}
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.35rem' }}>
+                      <button onClick={() => setSubmissionFilter('all')} className={`admin-chip ${submissionFilter === 'all' ? 'active' : ''}`}>
+                        All ({contactSubmissions.length})
+                      </button>
+                      <button onClick={() => setSubmissionFilter('unread')} className={`admin-chip ${submissionFilter === 'unread' ? 'active' : ''}`}>
+                        Unread ({unreadContacts})
+                      </button>
+                      <button onClick={() => setSubmissionFilter('read')} className={`admin-chip ${submissionFilter === 'read' ? 'active' : ''}`}>
+                        Read ({contactSubmissions.length - unreadContacts})
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="admin-card">
+                  {filteredContacts.length === 0 ? (
+                    <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                      <MessageSquare size={36} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
+                      <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>No contact inquiries found</div>
+                    </div>
+                  ) : (
+                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Sender</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Message</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>IP & Location</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Date</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Status</th>
+                            <th style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredContacts.map((sub) => (
+                            <tr
+                              key={sub._id}
+                              style={{ borderBottom: '1px solid var(--border-faint)', background: selectedSubmission?._id === sub._id ? 'var(--bg-subtle)' : 'transparent', cursor: 'pointer' }}
+                              className="admin-table-row"
+                              onClick={() => setSelectedSubmission(sub)}
+                            >
+                              <td style={{ padding: '0.85rem 1.25rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: sub.status === 'unread' ? 'var(--accent-signal)' : 'var(--bg-subtle)', color: sub.status === 'unread' ? '#ffffff' : 'var(--text-main)', border: '1px solid var(--border-faint)', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    {sub.name.charAt(0).toUpperCase()}
+                                  </div>
+                                  <div>
+                                    <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{sub.name}</div>
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{sub.email}</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', maxWidth: '380px' }}>
+                                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text-main)' }}>
+                                  {sub.message}
+                                </div>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                <div className="mono" style={{ fontSize: '0.8rem' }}>{sub.ip}</div>
+                                <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>{sub.location?.city ? `${sub.location.city}, ` : ''}{sub.location?.country || 'Unknown'}</div>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                                <div>{timeAgo(sub.createdAt)}</div>
+                                <div style={{ fontSize: '0.72rem', color: 'var(--text-faint)' }}>{formatDate(sub.createdAt)}</div>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                {sub.status === 'unread' ? (
+                                  <span style={{ background: 'var(--accent-tint)', color: 'var(--accent-signal)', border: '1px solid var(--accent-signal)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 700 }}>
+                                    UNREAD
+                                  </span>
+                                ) : (
+                                  <span style={{ background: 'var(--bg-subtle)', color: 'var(--text-muted)', border: '1px solid var(--border-faint)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 600 }}>
+                                    READ
+                                  </span>
+                                )}
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                                <a
+                                  href={`mailto:${sub.email}?subject=Re: Portfolio Inquiry`}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', padding: '6px', display: 'inline-flex', alignItems: 'center', marginRight: '4px' }}
+                                  title="Reply via Email"
+                                >
+                                  <Mail size={16} />
+                                </a>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleUpdateStatus(sub._id, sub.status === 'unread' ? 'read' : 'unread');
+                                  }}
+                                  style={{ background: 'transparent', border: 'none', color: sub.status === 'read' ? '#10b981' : 'var(--text-muted)', cursor: 'pointer', padding: '6px', marginRight: '4px' }}
+                                  title={sub.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
+                                >
+                                  <Check size={16} />
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteSubmission(sub._id);
+                                  }}
+                                  style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', cursor: 'pointer', padding: '6px' }}
+                                  title="Delete Message"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* OPTION 3: COURSE ENROLLMENTS */}
+            {activeTab === 'course_forms' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                      Course Enrollments ({courseSubmissions.length})
+                    </h1>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                      Applications for Python A–Z Comprehensive Masterclass and courses
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-panel)', border: '1px solid var(--border-faint)', borderRadius: '6px', padding: '0 0.75rem', height: '36px', width: '240px' }}>
+                      <Search size={14} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search enrollments..."
+                        style={{ background: 'transparent', border: 'none', outline: 'none', color: 'var(--text-main)', fontSize: '0.82rem', width: '100%' }}
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.35rem' }}>
+                      <button onClick={() => setSubmissionFilter('all')} className={`admin-chip ${submissionFilter === 'all' ? 'active' : ''}`}>
+                        All ({courseSubmissions.length})
+                      </button>
+                      <button onClick={() => setSubmissionFilter('unread')} className={`admin-chip ${submissionFilter === 'unread' ? 'active' : ''}`}>
+                        Unread ({unreadCourses})
+                      </button>
+                      <button onClick={() => setSubmissionFilter('read')} className={`admin-chip ${submissionFilter === 'read' ? 'active' : ''}`}>
+                        Read ({courseSubmissions.length - unreadCourses})
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="admin-card">
+                  {filteredCourses.length === 0 ? (
+                    <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                      <GraduationCap size={36} style={{ margin: '0 auto 0.75rem', opacity: 0.4 }} />
+                      <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>No course enrollments found</div>
+                    </div>
+                  ) : (
+                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Student Name</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Contact Info</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Payment & TxID</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Application Date</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Status</th>
+                            <th style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredCourses.map((sub) => {
+                            const details = parseCourseDetails(sub.message);
+                            return (
+                              <tr
+                                key={sub._id}
+                                style={{ borderBottom: '1px solid var(--border-faint)', background: selectedSubmission?._id === sub._id ? 'var(--bg-subtle)' : 'transparent', cursor: 'pointer' }}
+                                className="admin-table-row"
+                                onClick={() => setSelectedSubmission(sub)}
+                              >
+                                <td style={{ padding: '0.85rem 1.25rem' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: sub.status === 'unread' ? '#8b5cf6' : 'var(--bg-subtle)', color: sub.status === 'unread' ? '#ffffff' : 'var(--text-main)', border: '1px solid var(--border-faint)', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                      {sub.name.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div>
+                                      <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{sub.name}</div>
+                                      <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{sub.email}</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                  <div style={{ fontWeight: 600, fontSize: '0.85rem' }}>Phone: {details.phone}</div>
+                                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>IP: {sub.ip}</div>
+                                </td>
+                                <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                  <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{details.payment}</div>
+                                  <div className="mono" style={{ fontSize: '0.75rem', color: 'var(--accent-signal)' }}>
+                                    TxID: {details.txId}
+                                  </div>
+                                </td>
+                                <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                                  <div>{timeAgo(sub.createdAt)}</div>
+                                  <div style={{ fontSize: '0.72rem', color: 'var(--text-faint)' }}>{formatDate(sub.createdAt)}</div>
+                                </td>
+                                <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                  {sub.status === 'unread' ? (
+                                    <span style={{ background: 'rgba(139, 92, 246, 0.12)', color: '#8b5cf6', border: '1px solid #8b5cf6', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 700 }}>
+                                      UNREAD
+                                    </span>
+                                  ) : (
+                                    <span style={{ background: 'var(--bg-subtle)', color: 'var(--text-muted)', border: '1px solid var(--border-faint)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 600 }}>
+                                      READ
+                                    </span>
+                                  )}
+                                </td>
+                                <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                                  <a
+                                    href={`mailto:${sub.email}?subject=Regarding Python A–Z Masterclass Enrollment`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', padding: '6px', display: 'inline-flex', alignItems: 'center', marginRight: '4px' }}
+                                    title="Email Student"
+                                  >
+                                    <Mail size={16} />
+                                  </a>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleUpdateStatus(sub._id, sub.status === 'unread' ? 'read' : 'unread');
+                                    }}
+                                    style={{ background: 'transparent', border: 'none', color: sub.status === 'read' ? '#10b981' : 'var(--text-muted)', cursor: 'pointer', padding: '6px', marginRight: '4px' }}
+                                    title={sub.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
+                                  >
+                                    <Check size={16} />
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleDeleteSubmission(sub._id);
+                                    }}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', cursor: 'pointer', padding: '6px' }}
+                                    title="Delete Application"
+                                  >
+                                    <Trash2 size={16} />
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* OPTION 4: ANALYTICS (VISITORS) */}
+            {activeTab === 'analytics' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                      Visitor Analytics ({visitors.length})
+                    </h1>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                      Tracked client IP addresses, geographic locations, and page hit telemetry
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-panel)', border: '1px solid var(--border-faint)', borderRadius: '6px', padding: '0 0.75rem', height: '36px', width: '240px' }}>
+                      <Search size={14} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Filter by IP, location, path..."
+                        style={{ background: 'transparent', border: 'none', outline: 'none', color: 'var(--text-main)', fontSize: '0.82rem', width: '100%' }}
+                      />
+                    </div>
+
                     <button
-                      onClick={() => handleDeleteSubmission(selectedSubmission._id)}
-                      style={{
-                        padding: '0.8rem 1rem',
-                        background: 'var(--accent-tint)',
-                        color: 'var(--accent-signal)',
-                        border: '1px solid var(--accent-signal)',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                      }}
+                      onClick={handleClearVisitors}
+                      style={{ padding: '0.5rem 1rem', background: 'var(--bg-panel)', color: 'var(--text-main)', border: '1px solid var(--border-faint)', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer' }}
                     >
-                      Delete
+                      Clear History
                     </button>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
 
-          {/* TAB 2: VISITOR TELEMETRY */}
-          {activeTab === 'visitors' && (
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
-                <div>
+                <div className="admin-card">
+                  {filteredVisitors.length === 0 ? (
+                    <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                      No visitor analytics recorded.
+                    </div>
+                  ) : (
+                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>IP Address</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Location</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Visited Path</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Referrer</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Timestamp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredVisitors.map((v) => (
+                            <tr key={v._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
+                              <td style={{ padding: '0.85rem 1.25rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-signal)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                  <span>{v.ip}</span>
+                                  <button
+                                    onClick={() => copyToClipboard(v.ip, v._id)}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px' }}
+                                    title="Copy IP"
+                                  >
+                                    {copiedId === v._id ? <Check size={13} color="#10b981" /> : <Copy size={13} />}
+                                  </button>
+                                </div>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', fontWeight: 500 }}>
+                                {v.city ? `${v.city}, ` : ''}{v.country || 'Unknown'}
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', fontWeight: 600 }}>
+                                <span className="mono" style={{ background: 'var(--bg-subtle)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                                  {v.path}
+                                </span>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {v.referrer || 'Direct'}
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                                {formatDate(v.visitedAt)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* OPTION 5: ACTIVITY LOGS */}
+            {activeTab === 'logs' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+                      Activity Logs ({logs.length})
+                    </h1>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                      Audit log of administrative actions, updates, and configuration changes
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleClearLogs}
+                    style={{ padding: '0.5rem 1rem', background: 'var(--bg-panel)', color: 'var(--text-main)', border: '1px solid var(--border-faint)', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer' }}
+                  >
+                    Clear Logs
+                  </button>
+                </div>
+
+                <div className="admin-card">
+                  {filteredLogs.length === 0 ? (
+                    <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                      No activity logs recorded.
+                    </div>
+                  ) : (
+                    <div style={{ overflowX: 'auto' }} className="admin-scroll">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
+                        <thead>
+                          <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Action</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Details</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>IP</th>
+                            <th style={{ padding: '0.85rem 1.25rem' }}>Timestamp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredLogs.map((log) => (
+                            <tr key={log._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
+                              <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
+                                <span className="mono" style={{ background: 'var(--bg-subtle)', color: 'var(--accent-signal)', border: '1px solid var(--border-faint)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.74rem', fontWeight: 700 }}>
+                                  {log.action}
+                                </span>
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', fontWeight: 500 }}>
+                                {log.details}
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                                {log.ip || '-'}
+                              </td>
+                              <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                                {formatDate(log.timestamp)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* OPTION 6: SETTINGS (REPLACING DATABASE) */}
+            {activeTab === 'settings' && (
+              <div>
+                <div style={{ marginBottom: '1.5rem' }}>
                   <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
-                    Visitor Telemetry ({visitors.length})
+                    Admin Settings & Security
                   </h1>
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-                    Tracked portfolio hits, client IP addresses, and visited pages
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '3px 0 0' }}>
+                    Change admin password, update username/email, and manage account security
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      background: 'var(--bg-panel)',
-                      border: '1px solid var(--border-faint)',
-                      borderRadius: '6px',
-                      padding: '0 0.75rem',
-                      height: '36px',
-                      width: '240px',
-                    }}
-                  >
-                    <Search size={14} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Filter by IP, country, path..."
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        color: 'var(--text-main)',
-                        fontSize: '0.82rem',
-                        width: '100%',
-                      }}
-                    />
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                  {/* Card 1: Change Password */}
+                  <div className="admin-card" style={{ padding: '1.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
+                      <Key size={18} color="var(--accent-signal)" />
+                      <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Change Admin Password</h2>
+                    </div>
+
+                    {passMessage && (
+                      <div
+                        style={{
+                          background: passMessage.type === 'success' ? 'rgba(16, 185, 129, 0.12)' : 'var(--accent-tint)',
+                          border: `1px solid ${passMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)'}`,
+                          color: passMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '6px',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          marginBottom: '1.25rem',
+                        }}
+                      >
+                        {passMessage.text}
+                      </div>
+                    )}
+
+                    <form onSubmit={handlePasswordChange} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Current Password *
+                        </label>
+                        <div style={{ position: 'relative' }}>
+                          <input
+                            type={showCurrentPass ? 'text' : 'password'}
+                            required
+                            value={currentPass}
+                            onChange={(e) => setCurrentPass(e.target.value)}
+                            placeholder="Enter current password"
+                            className="admin-input"
+                            style={{ paddingRight: '2.5rem' }}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowCurrentPass(!showCurrentPass)}
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}
+                          >
+                            {showCurrentPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          New Password * (Min 8 characters)
+                        </label>
+                        <div style={{ position: 'relative' }}>
+                          <input
+                            type={showNewPass ? 'text' : 'password'}
+                            required
+                            value={newPass}
+                            onChange={(e) => setNewPass(e.target.value)}
+                            placeholder="Enter new strong password"
+                            className="admin-input"
+                            style={{ paddingRight: '2.5rem' }}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowNewPass(!showNewPass)}
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-muted)' }}
+                          >
+                            {showNewPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Confirm New Password *
+                        </label>
+                        <input
+                          type={showNewPass ? 'text' : 'password'}
+                          required
+                          value={confirmPass}
+                          onChange={(e) => setConfirmPass(e.target.value)}
+                          placeholder="Re-type new password"
+                          className="admin-input"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={passLoading}
+                        className="admin-btn-primary"
+                        style={{ marginTop: '0.5rem' }}
+                      >
+                        {passLoading ? <RefreshCw className="animate-spin" size={15} /> : <Lock size={15} />}
+                        <span>Update Password</span>
+                      </button>
+                    </form>
                   </div>
 
+                  {/* Card 2: Update Email / Username */}
+                  <div className="admin-card" style={{ padding: '1.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.75rem' }}>
+                      <UserCheck size={18} color="#06b6d4" />
+                      <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Update Admin Profile</h2>
+                    </div>
+
+                    {profileMessage && (
+                      <div
+                        style={{
+                          background: profileMessage.type === 'success' ? 'rgba(16, 185, 129, 0.12)' : 'var(--accent-tint)',
+                          border: `1px solid ${profileMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)'}`,
+                          color: profileMessage.type === 'success' ? '#10b981' : 'var(--accent-signal)',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '6px',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          marginBottom: '1.25rem',
+                        }}
+                      >
+                        {profileMessage.text}
+                      </div>
+                    )}
+
+                    <form onSubmit={handleProfileChange} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Current Admin Email
+                        </label>
+                        <input
+                          type="text"
+                          disabled
+                          value={session.user.email}
+                          className="admin-input"
+                          style={{ opacity: 0.7, background: 'var(--bg-subtle)' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          New Admin Email
+                        </label>
+                        <input
+                          type="email"
+                          value={newAdminEmail}
+                          onChange={(e) => setNewAdminEmail(e.target.value)}
+                          placeholder="e.g. newadmin@codewithtanim.me"
+                          className="admin-input"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="mono" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
+                          Admin Display Name
+                        </label>
+                        <input
+                          type="text"
+                          value={newAdminName}
+                          onChange={(e) => setNewAdminName(e.target.value)}
+                          placeholder="MD SAMIUR RAHMAN TANIM"
+                          className="admin-input"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={profileLoading}
+                        className="admin-btn-primary"
+                        style={{ marginTop: '0.5rem' }}
+                      >
+                        {profileLoading ? <RefreshCw className="animate-spin" size={15} /> : <UserCheck size={15} />}
+                        <span>Save Profile Changes</span>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                {/* Card 3: Security & Notification Details */}
+                <div className="admin-card" style={{ padding: '1.5rem', marginTop: '1.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                    <ShieldCheck size={18} color="#10b981" />
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>System Security & Integration Status</h3>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
+                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>TELEGRAM BOT ALERTS</div>
+                      <div style={{ fontWeight: 700, color: '#10b981', marginTop: '4px' }}>Active & Connected</div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Instant notification on form submissions</div>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>SECRET ADMIN ROUTE</div>
+                      <div className="mono" style={{ fontWeight: 700, color: 'var(--accent-signal)', marginTop: '4px' }}>Obfuscated Private Endpoint</div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Standard /admin paths blocked</div>
+                    </div>
+
+                    <div style={{ padding: '0.85rem', background: 'var(--bg-subtle)', borderRadius: '6px' }}>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>DATABASE BACKEND</div>
+                      <div style={{ fontWeight: 700, color: '#10b981', marginTop: '4px' }}>MongoDB Atlas Cluster</div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>Database: cwt-portfolio</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* DETAIL DRAWER FOR SELECTED SUBMISSION */}
+            {selectedSubmission && (
+              <div
+                style={{
+                  position: 'fixed',
+                  right: 0,
+                  top: '60px',
+                  bottom: 0,
+                  width: '460px',
+                  maxWidth: '100vw',
+                  background: 'var(--bg-panel)',
+                  borderLeft: '2px solid var(--border-strong)',
+                  padding: '1.75rem',
+                  boxShadow: 'var(--shadow-lg)',
+                  zIndex: 250,
+                  overflowY: 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+                className="admin-scroll"
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.85rem' }}>
+                  <span style={{ fontSize: '1rem', fontWeight: 800 }}>
+                    {isCourseSubmission(selectedSubmission) ? 'Course Application' : 'Inquiry Details'}
+                  </span>
                   <button
-                    onClick={handleClearVisitors}
+                    onClick={() => setSelectedSubmission(null)}
+                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '4px' }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
+                    <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: isCourseSubmission(selectedSubmission) ? '#8b5cf6' : 'var(--accent-signal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>
+                      {selectedSubmission.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedSubmission.name}</div>
+                      <div style={{ fontSize: '0.85rem', color: isCourseSubmission(selectedSubmission) ? '#8b5cf6' : 'var(--accent-signal)' }}>
+                        {selectedSubmission.email}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.25rem' }}>
+                    <div className="mono" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>
+                      Submission Content
+                    </div>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                      {selectedSubmission.message}
+                    </div>
+                  </div>
+
+                  <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-faint)', borderRadius: '8px', padding: '1rem', fontSize: '0.82rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Received:</span>
+                      <span style={{ fontWeight: 600 }}>{formatDate(selectedSubmission.createdAt)}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Client IP:</span>
+                      <span className="mono">{selectedSubmission.ip}</span>
+                    </div>
+                    {selectedSubmission.location && (
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Location:</span>
+                        <span>
+                          {selectedSubmission.location.city ? `${selectedSubmission.location.city}, ` : ''}
+                          {selectedSubmission.location.country || 'Unknown'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-faint)', paddingTop: '1rem', display: 'flex', gap: '0.75rem' }}>
+                  <a
+                    href={`mailto:${selectedSubmission.email}?subject=Re: Inquiry on CodeWithTanim`}
                     style={{
-                      padding: '0.5rem 1rem',
-                      background: 'var(--bg-panel)',
-                      color: 'var(--text-main)',
-                      border: '1px solid var(--border-faint)',
+                      flex: 1,
+                      padding: '0.8rem',
+                      background: 'var(--text-main)',
+                      color: 'var(--bg-panel)',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      textAlign: 'center',
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.4rem',
                       borderRadius: '6px',
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      cursor: 'pointer',
                     }}
                   >
-                    Clear History
+                    <Send size={15} />
+                    <span>Reply via Email</span>
+                  </a>
+                  <button
+                    onClick={() => handleDeleteSubmission(selectedSubmission._id)}
+                    style={{
+                      padding: '0.8rem 1rem',
+                      background: 'var(--accent-tint)',
+                      color: 'var(--accent-signal)',
+                      border: '1px solid var(--accent-signal)',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                    }}
+                  >
+                    Delete
                   </button>
                 </div>
               </div>
-
-              {/* Visitor Table */}
-              <div className="admin-card">
-                {filteredVisitors.length === 0 ? (
-                  <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    No visitor logs recorded.
-                  </div>
-                ) : (
-                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
-                      <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>IP Address</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Location</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Visited Path</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Referrer</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Timestamp</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredVisitors.map((v) => (
-                          <tr key={v._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
-                            <td style={{ padding: '0.85rem 1.25rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-signal)' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                                <span>{v.ip}</span>
-                                <button
-                                  onClick={() => copyToClipboard(v.ip, v._id)}
-                                  style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px' }}
-                                  title="Copy IP"
-                                >
-                                  {copiedId === v._id ? <Check size={13} color="#10b981" /> : <Copy size={13} />}
-                                </button>
-                              </div>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', fontWeight: 500 }}>
-                              {v.city ? `${v.city}, ` : ''}{v.country || 'Unknown'}
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', fontWeight: 600 }}>
-                              <span className="mono" style={{ background: 'var(--bg-subtle)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
-                                {v.path}
-                              </span>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                              {v.referrer || 'Direct'}
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-                              {formatDate(v.visitedAt)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: ACTIVITY LOGS */}
-          {activeTab === 'logs' && (
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
-                <div>
-                  <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
-                    Activity Logs ({logs.length})
-                  </h1>
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-                    Audit trail of all administrative actions and form events
-                  </p>
-                </div>
-                <button
-                  onClick={handleClearLogs}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    background: 'var(--bg-panel)',
-                    color: 'var(--text-main)',
-                    border: '1px solid var(--border-faint)',
-                    borderRadius: '6px',
-                    fontSize: '0.82rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Clear Logs
-                </button>
-              </div>
-
-              <div className="admin-card">
-                {filteredLogs.length === 0 ? (
-                  <div style={{ padding: '3.5rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    No activity logs recorded.
-                  </div>
-                ) : (
-                  <div style={{ overflowX: 'auto' }} className="admin-scroll">
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
-                      <thead>
-                        <tr style={{ borderBottom: '1px solid var(--border-faint)', color: 'var(--text-muted)', fontSize: '0.74rem', textTransform: 'uppercase', background: 'var(--bg-subtle)' }}>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Action</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Details</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>IP</th>
-                          <th style={{ padding: '0.85rem 1.25rem' }}>Timestamp</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredLogs.map((log) => (
-                          <tr key={log._id} style={{ borderBottom: '1px solid var(--border-faint)' }} className="admin-table-row">
-                            <td style={{ padding: '0.85rem 1.25rem', whiteSpace: 'nowrap' }}>
-                              <span
-                                className="mono"
-                                style={{
-                                  background: 'var(--bg-subtle)',
-                                  color: 'var(--accent-signal)',
-                                  border: '1px solid var(--border-faint)',
-                                  padding: '2px 8px',
-                                  borderRadius: '4px',
-                                  fontSize: '0.74rem',
-                                  fontWeight: 700,
-                                }}
-                              >
-                                {log.action}
-                              </span>
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', fontWeight: 500 }}>
-                              {log.details}
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                              {log.ip || '-'}
-                            </td>
-                            <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-                              {formatDate(log.timestamp)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 4: DATABASE & CONFIG */}
-          {activeTab === 'database' && (
-            <div>
-              <div style={{ marginBottom: '1.25rem' }}>
-                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
-                  Database & System Infrastructure
-                </h1>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-                  Architecture overview of MongoDB Atlas, Better-Auth, and Telegram bot notification pipeline
-                </p>
-              </div>
-
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                  gap: '1.5rem',
-                }}
-              >
-                <div className="admin-card" style={{ padding: '1.75rem' }}>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Database size={18} color="#10b981" />
-                    <span>MongoDB Atlas Cluster</span>
-                  </h3>
-                  <div style={{ fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Connection Status:</span>
-                      <span style={{ color: '#10b981', fontWeight: 700 }}>Connected</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Database Name:</span>
-                      <span style={{ fontWeight: 700 }}>cwt-portfolio</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Inquiries Collection:</span>
-                      <span>contact_submissions ({stats.totalSubmissions})</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Visitor Logs Collection:</span>
-                      <span>visitor_logs ({stats.totalVisits})</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Activity Logs Collection:</span>
-                      <span>activity_logs ({logs.length})</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="admin-card" style={{ padding: '1.75rem' }}>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Activity size={18} color="var(--accent-signal)" />
-                    <span>Auth & Telegram Pipeline</span>
-                  </h3>
-                  <div style={{ fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Authentication Provider:</span>
-                      <span style={{ fontWeight: 600 }}>Better-Auth (MongoDB Adapter)</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Admin Identity:</span>
-                      <span>{session.user.email}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-faint)', paddingBottom: '0.5rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Telegram Alert Pipeline:</span>
-                      <span style={{ color: '#10b981', fontWeight: 600 }}>Active (Bot Token & Chat ID)</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Access Architecture:</span>
-                      <span className="mono" style={{ color: '#10b981', fontWeight: 700 }}>Obfuscated Private Route</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </main>
+            )}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
