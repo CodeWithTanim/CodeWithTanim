@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
-const SECTIONS = ['overview', 'about', 'experience', 'education', 'skills', 'projects', 'videos', 'contact'];
+const SECTIONS = ['overview', 'about', 'experience', 'skills', 'projects', 'contact'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -122,15 +122,6 @@ export default function Navbar() {
                 </li>
                 <li>
                   <a
-                    href={getSectionHref('education')}
-                    className={`nav-link ${activeSection === 'education' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('education')}
-                  >
-                    Education
-                  </a>
-                </li>
-                <li>
-                  <a
                     href={getSectionHref('skills')}
                     className={`nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
                     onClick={() => handleNavClick('skills')}
@@ -145,15 +136,6 @@ export default function Navbar() {
                     onClick={() => handleNavClick('projects')}
                   >
                     Projects
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={getSectionHref('videos')}
-                    className={`nav-link ${activeSection === 'videos' && isHome ? 'active' : ''}`}
-                    onClick={() => handleNavClick('videos')}
-                  >
-                    Videos
                   </a>
                 </li>
                 <li>
@@ -240,13 +222,6 @@ export default function Navbar() {
               Experience (3 Internships)
             </a>
             <a
-              href={getSectionHref('education')}
-              className={`mobile-nav-link ${activeSection === 'education' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('education')}
-            >
-              Education
-            </a>
-            <a
               href={getSectionHref('skills')}
               className={`mobile-nav-link ${activeSection === 'skills' && isHome ? 'active' : ''}`}
               onClick={() => handleNavClick('skills')}
@@ -259,13 +234,6 @@ export default function Navbar() {
               onClick={() => handleNavClick('projects')}
             >
               Projects (26)
-            </a>
-            <a
-              href={getSectionHref('videos')}
-              className={`mobile-nav-link ${activeSection === 'videos' && isHome ? 'active' : ''}`}
-              onClick={() => handleNavClick('videos')}
-            >
-              Tutorial Videos (10)
             </a>
             <Link
               href="/certificates"
