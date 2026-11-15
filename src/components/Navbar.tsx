@@ -13,6 +13,10 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('overview');
   const pathname = usePathname();
 
+  if (pathname?.startsWith('/habiba')) {
+    return null;
+  }
+
   useEffect(() => {
     // Theme initialization (Light Mode default)
     const saved = localStorage.getItem('cwt_theme') as 'light' | 'dark' | null;

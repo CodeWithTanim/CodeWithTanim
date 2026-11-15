@@ -1,10 +1,16 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { PROFILE } from '@/data/portfolioData';
 import { Mail, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/habiba')) {
+    return null;
+  }
+
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
