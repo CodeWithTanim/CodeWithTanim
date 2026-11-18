@@ -38,6 +38,7 @@ import {
   Phone,
   MessageCircle,
 } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const dynamic = 'force-dynamic';
 
@@ -91,6 +92,7 @@ type TabType = 'dashboard' | 'contact_forms' | 'course_forms' | 'analytics' | 'l
 
 export default function AdminPage() {
   const [session, setSession] = useState<UserSession | null>(null);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
@@ -133,6 +135,24 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showNotifications, setShowNotifications] = useState(false);
+
+  // Custom Confirmation Modal state
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    description: string;
+    confirmText: string;
+    isDangerous?: boolean;
+    onConfirm: () => Promise<void> | void;
+  }>({
+    isOpen: false,
+    title: '',
+    description: '',
+    confirmText: 'Delete',
+    isDangerous: true,
+    onConfirm: () => {},
+  });
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
   // Settings form states
   const [currentPass, setCurrentPass] = useState('');
@@ -183,6 +203,8 @@ export default function AdminPage() {
       }
     } catch {
       setSession(null);
+    } finally {
+      setIsCheckingSession(false);
     }
   }, []);
 
@@ -322,63 +344,117 @@ export default function AdminPage() {
     setShowNotifications(false);
   };
 
-  const handleDeleteSubmission = async (id: string) => {
-    if (!window.confirm('Delete this submission permanently?')) return;
-    try {
-      const res = await fetch('/api/admin/actions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'delete_submission',
-          payload: { id },
-        }),
-      });
-      if (res.ok) {
-        setSubmissions((prev) => prev.filter((s) => s._id !== id));
-        if (selectedSubmission?._id === id) {
-          setSelectedSubmission(null);
+  const handleDeleteSubmission = (id: string, name?: string) => {
+    setConfirmModal({
+      isOpen: true,
+      title: 'Delete Submission?',
+      description: name 
+        ? `Are you sure you want to delete the submission from "${name}"? This action cannot be undone.` 
+        : 'Are you sure you want to permanently delete this submission? This action cannot be undone.',
+      confirmText: 'Yes, Delete',
+      isDangerous: true,
+      onConfirm: async () => {
+        setConfirmLoading(true);
+        const toastId = toast.loading('Deleting submission...');
+        try {
+          const res = await fetch('/api/admin/actions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'delete_submission',
+              payload: { id },
+            }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.success !== false) {
+            setSubmissions((prev) => prev.filter((s) => s._id !== id));
+            if (selectedSubmission?._id === id) {
+              setSelectedSubmission(null);
+            }
+            setStats((prev) => ({
+              ...prev,
+              totalSubmissions: Math.max(0, prev.totalSubmissions - 1),
+            }));
+            toast.success('Submission deleted successfully!', { id: toastId });
+            setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+          } else {
+            toast.error(data.error || 'Failed to delete submission', { id: toastId });
+          }
+        } catch (err) {
+          console.error('Error deleting submission:', err);
+          toast.error('Network error while deleting', { id: toastId });
+        } finally {
+          setConfirmLoading(false);
         }
-        setStats((prev) => ({
-          ...prev,
-          totalSubmissions: Math.max(0, prev.totalSubmissions - 1),
-        }));
-      }
-    } catch (err) {
-      console.error('Error deleting submission:', err);
-    }
+      },
+    });
   };
 
-  const handleClearLogs = async () => {
-    if (!window.confirm('Clear all activity logs?')) return;
-    try {
-      const res = await fetch('/api/admin/actions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'clear_logs', payload: {} }),
-      });
-      if (res.ok) {
-        setLogs([]);
-      }
-    } catch (err) {
-      console.error('Error clearing logs:', err);
-    }
+  const handleClearLogs = () => {
+    setConfirmModal({
+      isOpen: true,
+      title: 'Clear All Activity Logs?',
+      description: 'Are you sure you want to wipe all stored activity logs? This action cannot be undone.',
+      confirmText: 'Yes, Clear Logs',
+      isDangerous: true,
+      onConfirm: async () => {
+        setConfirmLoading(true);
+        const toastId = toast.loading('Clearing activity logs...');
+        try {
+          const res = await fetch('/api/admin/actions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'clear_logs', payload: {} }),
+          });
+          if (res.ok) {
+            setLogs([]);
+            toast.success('All activity logs have been cleared!', { id: toastId });
+            setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+          } else {
+            toast.error('Failed to clear logs', { id: toastId });
+          }
+        } catch (err) {
+          console.error('Error clearing logs:', err);
+          toast.error('Network error while clearing logs', { id: toastId });
+        } finally {
+          setConfirmLoading(false);
+        }
+      },
+    });
   };
 
-  const handleClearVisitors = async () => {
-    if (!window.confirm('Clear all visitor tracking logs?')) return;
-    try {
-      const res = await fetch('/api/admin/actions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'clear_visitors', payload: {} }),
-      });
-      if (res.ok) {
-        setVisitors([]);
-        setStats((prev) => ({ ...prev, totalVisits: 0, uniqueIps: 0 }));
-      }
-    } catch (err) {
-      console.error('Error clearing visitors:', err);
-    }
+  const handleClearVisitors = () => {
+    setConfirmModal({
+      isOpen: true,
+      title: 'Clear Visitor Logs?',
+      description: 'Are you sure you want to delete all visitor analytics and tracking records?',
+      confirmText: 'Yes, Clear Visitors',
+      isDangerous: true,
+      onConfirm: async () => {
+        setConfirmLoading(true);
+        const toastId = toast.loading('Clearing visitor records...');
+        try {
+          const res = await fetch('/api/admin/actions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'clear_visitors', payload: {} }),
+          });
+          if (res.ok) {
+            setVisitors([]);
+            setStats((prev) => ({ ...prev, totalVisits: 0, uniqueIps: 0 }));
+            toast.success('Visitor logs cleared successfully!', { id: toastId });
+            setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+          } else {
+            toast.error('Failed to clear visitor records', { id: toastId });
+          }
+        } catch (err) {
+          console.error('Error clearing visitors:', err);
+          toast.error('Network error while clearing visitors', { id: toastId });
+        } finally {
+          setConfirmLoading(false);
+        }
+      },
+    });
   };
 
   // Change Password
@@ -946,7 +1022,34 @@ export default function AdminPage() {
     `}} />
   );
 
-  // 1. Sleek Modern Login Portal Matching Website Theme
+  // 1. Initial Session Check Screen (prevents login form flash when user is already authenticated)
+  if (isCheckingSession) {
+    return (
+      <div
+        className="admin-login-canvas"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          color: 'var(--text-main)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          width: '100vw',
+          fontFamily: 'var(--font-mono)',
+        }}
+      >
+        {portfolioStyles}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+          <RefreshCw size={24} className="animate-spin" style={{ color: 'var(--accent-signal)' }} />
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Verifying credentials...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Sleek Modern Login Portal Matching Website Theme (Only shown if genuinely logged out)
   if (!session?.user) {
     return (
       <div
@@ -2338,7 +2441,7 @@ export default function AdminPage() {
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDeleteSubmission(sub._id);
+                                    handleDeleteSubmission(sub._id, sub.name);
                                   }}
                                   style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', cursor: 'pointer', padding: '6px' }}
                                   title="Delete Message"
@@ -2482,7 +2585,7 @@ export default function AdminPage() {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      handleDeleteSubmission(sub._id);
+                                      handleDeleteSubmission(sub._id, sub.name);
                                     }}
                                     style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', cursor: 'pointer', padding: '6px' }}
                                     title="Delete Application"
@@ -3218,7 +3321,7 @@ export default function AdminPage() {
 
                     {/* Delete */}
                     <button
-                      onClick={() => handleDeleteSubmission(selectedSubmission._id)}
+                      onClick={() => handleDeleteSubmission(selectedSubmission._id, selectedSubmission.name)}
                       style={{
                         width: '100%',
                         padding: '0.65rem',
@@ -3245,6 +3348,171 @@ export default function AdminPage() {
           </div>
         </main>
       </div>
+
+      {/* React Toast Container */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            background: 'var(--bg-panel)',
+            color: 'var(--text-main)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: '8px',
+            fontSize: '0.85rem',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.25)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#ffffff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#ffffff',
+            },
+          },
+        }}
+      />
+
+      {/* Confirmation Modal */}
+      {confirmModal.isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            background: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(4px)',
+            animation: 'fadeIn 0.15s ease-out',
+          }}
+          onClick={() => {
+            if (!confirmLoading) setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'var(--bg-panel)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              maxWidth: '420px',
+              width: '100%',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem',
+            }}
+          >
+            {/* Header Icon + Title */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '10px',
+                  background: confirmModal.isDangerous ? 'rgba(239, 68, 68, 0.12)' : 'var(--accent-tint)',
+                  color: confirmModal.isDangerous ? '#ef4444' : 'var(--accent-signal)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {confirmModal.isDangerous ? <Trash2 size={22} /> : <AlertCircle size={22} />}
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  {confirmModal.title}
+                </h3>
+              </div>
+            </div>
+
+            {/* Description */}
+            <p
+              style={{
+                margin: 0,
+                fontSize: '0.88rem',
+                color: 'var(--text-muted)',
+                lineHeight: 1.5,
+              }}
+            >
+              {confirmModal.description}
+            </p>
+
+            {/* Action Buttons */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: '0.75rem',
+                marginTop: '0.5rem',
+              }}
+            >
+              <button
+                type="button"
+                disabled={confirmLoading}
+                onClick={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
+                style={{
+                  padding: '0.55rem 1rem',
+                  borderRadius: '6px',
+                  border: '1px solid var(--border-subtle)',
+                  background: 'var(--bg-subtle)',
+                  color: 'var(--text-main)',
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  cursor: confirmLoading ? 'not-allowed' : 'pointer',
+                  opacity: confirmLoading ? 0.6 : 1,
+                  transition: 'all 0.2s',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={confirmLoading}
+                onClick={() => confirmModal.onConfirm()}
+                style={{
+                  padding: '0.55rem 1.15rem',
+                  borderRadius: '6px',
+                  border: 'none',
+                  background: confirmModal.isDangerous ? '#ef4444' : 'var(--accent-signal)',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  cursor: confirmLoading ? 'not-allowed' : 'pointer',
+                  opacity: confirmLoading ? 0.6 : 1,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {confirmLoading ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    {confirmModal.isDangerous && <Trash2 size={14} />}
+                    <span>{confirmModal.confirmText}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

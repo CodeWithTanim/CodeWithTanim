@@ -98,14 +98,18 @@ export async function POST(req: NextRequest) {
       `${location.city}, ${location.country}`
     );
 
-    // 6. Send Telegram Bot Notification (non-blocking)
-    await sendTelegramNotification({
-      name,
-      email,
-      message,
-      ip,
-      location: `${location.city}, ${location.country}`,
-    }).catch(() => {});
+    // 6. Send Telegram Bot Notification
+    try {
+      await sendTelegramNotification({
+        name,
+        email,
+        message,
+        ip,
+        location: `${location.city}, ${location.country}`,
+      });
+    } catch (telegramErr) {
+      console.error('Failed to dispatch telegram notification:', telegramErr);
+    }
 
     return NextResponse.json({
       success: true,

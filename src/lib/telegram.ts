@@ -86,7 +86,22 @@ export async function sendTelegramNotification(
       }),
     });
 
-    return res.ok;
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      console.error('Telegram API error:', data);
+      // Fallback: retry without HTML parse_mode in case raw input broke HTML parsing
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: `[New Inquiry]\nFrom: ${payload.name} (${payload.email})\nMessage:\n${payload.message}`,
+        }),
+      }).catch(() => {});
+      return false;
+    }
+
+    return true;
   } catch (error) {
     console.error('Failed to send Telegram notification:', error);
     return false;
