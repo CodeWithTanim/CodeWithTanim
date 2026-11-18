@@ -25,7 +25,14 @@ const db = client.db(dbName);
 export const auth = betterAuth({
   database: mongodbAdapter(db),
   secret: process.env.BETTER_AUTH_SECRET || 'fallback-secret-cwt-portfolio-2026',
-  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'),
+  trustedOrigins: [
+    'https://codewithtanim.is-a.dev',
+    'https://codewithtanim-official.vercel.app',
+    'http://localhost:3000',
+  ],
   emailAndPassword: {
     enabled: true,
   },
