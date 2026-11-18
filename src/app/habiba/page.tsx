@@ -107,15 +107,32 @@ export default function AdminPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      setSidebarOpen(true);
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      }
+      // Restore active tab from URL hash or localStorage on reload
+      const hash = window.location.hash.replace('#', '') as TabType;
+      const validTabs: TabType[] = ['dashboard', 'contact_forms', 'course_forms', 'analytics', 'logs', 'settings'];
+      if (validTabs.includes(hash)) {
+        setActiveTab(hash);
+      } else {
+        const savedTab = localStorage.getItem('cwt_admin_active_tab') as TabType;
+        if (validTabs.includes(savedTab)) {
+          setActiveTab(savedTab);
+        }
+      }
     }
   }, []);
 
   const handleNavClick = (tab: TabType) => {
     setActiveTab(tab);
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      setSidebarOpen(false);
+    if (typeof window !== 'undefined') {
+      window.location.hash = tab;
+      localStorage.setItem('cwt_admin_active_tab', tab);
+      if (window.innerWidth < 1024) {
+        setSidebarOpen(false);
+      }
     }
   };
 
@@ -343,7 +360,8 @@ export default function AdminPage() {
     }
     setSelectedSubmission(sub);
     const isCourse = isCourseSubmission(sub);
-    setActiveTab(isCourse ? 'course_forms' : 'contact_forms');
+    const targetTab = isCourse ? 'course_forms' : 'contact_forms';
+    handleNavClick(targetTab);
     setShowNotifications(false);
   };
 
@@ -1793,7 +1811,7 @@ export default function AdminPage() {
                   >
                     <button
                       onClick={() => {
-                        setActiveTab('contact_forms');
+                        handleNavClick('contact_forms');
                         setShowNotifications(false);
                       }}
                       style={{
@@ -1809,7 +1827,7 @@ export default function AdminPage() {
                     </button>
                     <button
                       onClick={() => {
-                        setActiveTab('course_forms');
+                        handleNavClick('course_forms');
                         setShowNotifications(false);
                       }}
                       style={{
@@ -2131,7 +2149,7 @@ export default function AdminPage() {
                   <div
                     className="admin-card"
                     style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid var(--accent-signal)', cursor: 'pointer' }}
-                    onClick={() => setActiveTab('contact_forms')}
+                    onClick={() => handleNavClick('contact_forms')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
                       <span>Contact Messages</span>
@@ -2148,7 +2166,7 @@ export default function AdminPage() {
                   <div
                     className="admin-card"
                     style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #8b5cf6', cursor: 'pointer' }}
-                    onClick={() => setActiveTab('course_forms')}
+                    onClick={() => handleNavClick('course_forms')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
                       <span>Course Enrollments</span>
@@ -2165,7 +2183,7 @@ export default function AdminPage() {
                   <div
                     className="admin-card"
                     style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #06b6d4', cursor: 'pointer' }}
-                    onClick={() => setActiveTab('analytics')}
+                    onClick={() => handleNavClick('analytics')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
                       <span>Visitor Analytics</span>
@@ -2182,7 +2200,7 @@ export default function AdminPage() {
                   <div
                     className="admin-card"
                     style={{ padding: '1.25rem 1.5rem', borderLeft: '4px solid #10b981', cursor: 'pointer' }}
-                    onClick={() => setActiveTab('settings')}
+                    onClick={() => handleNavClick('settings')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
                       <span>Telegram Alert Bot</span>
@@ -2207,7 +2225,7 @@ export default function AdminPage() {
                         <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>Latest general contact submissions</p>
                       </div>
                       <button
-                        onClick={() => setActiveTab('contact_forms')}
+                        onClick={() => handleNavClick('contact_forms')}
                         style={{ background: 'transparent', border: 'none', color: 'var(--accent-signal)', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
                       >
                         VIEW ALL &rarr;
@@ -2225,7 +2243,7 @@ export default function AdminPage() {
                             key={sub._id}
                             onClick={() => {
                               setSelectedSubmission(sub);
-                              setActiveTab('contact_forms');
+                              handleNavClick('contact_forms');
                             }}
                             style={{
                               padding: '0.85rem',
@@ -2265,7 +2283,7 @@ export default function AdminPage() {
                         <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>Masterclass student registrations</p>
                       </div>
                       <button
-                        onClick={() => setActiveTab('course_forms')}
+                        onClick={() => handleNavClick('course_forms')}
                         style={{ background: 'transparent', border: 'none', color: '#8b5cf6', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
                       >
                         VIEW ALL &rarr;
@@ -2285,7 +2303,7 @@ export default function AdminPage() {
                               key={sub._id}
                               onClick={() => {
                                 setSelectedSubmission(sub);
-                                setActiveTab('course_forms');
+                                handleNavClick('course_forms');
                               }}
                               style={{
                                 padding: '0.85rem',
