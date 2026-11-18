@@ -233,6 +233,9 @@ export default function AdminPage() {
         );
         if (data.telegramStatus) {
           setTelegramConfigured(Boolean(data.telegramStatus.configured));
+          if (data.telegramStatus.botToken && !telegramToken) {
+            setTelegramToken(data.telegramStatus.botToken);
+          }
           if (data.telegramStatus.chatId && !telegramChatId) {
             setTelegramChatId(data.telegramStatus.chatId);
           }

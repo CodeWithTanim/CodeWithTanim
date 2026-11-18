@@ -62,6 +62,7 @@ export async function GET(req: NextRequest) {
         (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) ||
         (telegramConfigDoc?.botToken && telegramConfigDoc?.chatId)
       ),
+      botToken: telegramConfigDoc?.botToken || process.env.TELEGRAM_BOT_TOKEN || '',
       chatId: telegramConfigDoc?.chatId || process.env.TELEGRAM_CHAT_ID || '',
     };
 
